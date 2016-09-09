@@ -80,20 +80,22 @@
                         <p>积分累积方法：请在预订/购买机票和办理乘机手续以及在合作伙伴处消费时提供会员卡卡号或出示会员卡</p>
                     </div>
                 </div>
-                <div  id="print">
+
+                <div>
                     <div class="vipprint">
                         <img src="/Resource/images/vipcard.png">
-                        <div class="vipinfo">
-                            <p>卡号</p>
-                            <p>姓名</p>
+                        <div class="vipinfo" style="width:160px;">
+                            <p>{{cardInfo.CardNo}}</p>
+                            <p>{{cardInfo.Name}}</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="text_center">
                     <p>请沿边缘剪下此卡，在预订/购买机票和办理乘机手续 以及在合作伙伴处消费时提供此会员卡。</p>
                     <br />
-                    <a class="btn" onclick="printcard()">打印会员卡</a>&nbsp;&nbsp;
-                    <a class="btn">发送会员卡信息至手机</a>
+                    <a class="btn" href="javascript:;" onclick="printCard()">打印会员卡</a>&nbsp;&nbsp;
+                    <a class="btn" href="javascript:;" ng-click="btnSendCardNoToMobile();">发送会员卡号至手机</a>
                 </div>
             </div>
         </div>
@@ -102,7 +104,34 @@
     </div>
 </div>
 
+<!--startprint0-->
+<div id="printcard" style="display: none;" align="center">
+    <div class="vipprint">
+        <img src="/Resource/images/vipcard.png" style="width:291px;height:183px;">
+        <div style="width:291px;height:183px;margin-left: 96px;margin-top: -66px;text-align: center;">
+            <p>{{cardInfo.CardNo}}</p>
+            <p>{{cardInfo.Name}}</p>
+        </div>
+    </div>
+</div>
+<!--endprint0-->
+
 <div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script language="javascript" type="text/javascript">
+    function printCard() {
+        bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+        //document.getElementById('printcard').style.display = 'block';
+        sprnstr = "<!--startprint0-->";//设置打印开始区域
+        eprnstr = "<!--endprint0-->";//设置打印结束区域
+        prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18); //从开始代码向后取html
+        prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+        window.document.body.innerHTML = prnhtml.replace("style=\"display: none;\"", "style=\"display: block;\"");
+        window.print();
+        //document.getElementById('printcard').style.display = 'none';
+        window.document.body.innerHTML = bdhtml;
+    }
+</script>
 
 </body>
 </html>

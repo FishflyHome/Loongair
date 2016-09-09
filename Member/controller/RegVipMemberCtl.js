@@ -2,9 +2,16 @@
  * Created by Jerry on 16/7/10.
  */
 
-laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$window', '$scope', '$interval', 'laUserService', 'laGlobalLocalService', function ($document, $interval, $window, $scope, $interval, laUserService, laGlobalLocalService) {
+laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '$window', '$scope', '$interval', 'laUserService', 'laGlobalLocalService', function ($document, $interval, $window, $scope, $interval, laUserService, laGlobalLocalService) {
 
-    $scope.title = "会员注册";
+    $scope.$on("MemberContentPage", function (event, data) {
+        var IsFrequentPassenger = data.IsFrequentPassenger;
+        if (IsFrequentPassenger) {
+            $window.location.href = "MyVipInfo.html";
+        }
+    });
+
+    $scope.title = "升级成为常旅客";
     $document[0].title = $scope.title;
     /**
      * 设置导航栏ClassName
@@ -45,20 +52,20 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
 
     GetImgVerifyCode();
 
-    $scope.getChinesePYXing = function () {
-        laUserService.getChinesePinYin($scope.userInfo.SecondNameCn, function (backData, status) {
-            if (backData.Code == laGlobalProperty.laServiceCode_Success) {
-                if (!laGlobalLocalService.CheckStringIsEmpty(backData.PinYin)) {
+    $scope.getChinesePYXing = function(){
+        laUserService.getChinesePinYin($scope.userInfo.SecondNameCn, function(backData, status){
+            if (backData.Code == laGlobalProperty.laServiceCode_Success){
+                if (!laGlobalLocalService.CheckStringIsEmpty(backData.PinYin)){
                     $scope.userInfo.SecondNameCnPinYin = backData.PinYin;
                 }
             }
         });
     };
 
-    $scope.getChinesePYMing = function () {
-        laUserService.getChinesePinYin($scope.userInfo.FirstNameCn, function (backData, status) {
-            if (backData.Code == laGlobalProperty.laServiceCode_Success) {
-                if (!laGlobalLocalService.CheckStringIsEmpty(backData.PinYin)) {
+    $scope.getChinesePYMing = function(){
+        laUserService.getChinesePinYin($scope.userInfo.FirstNameCn, function(backData, status){
+            if (backData.Code == laGlobalProperty.laServiceCode_Success){
+                if (!laGlobalLocalService.CheckStringIsEmpty(backData.PinYin)){
                     $scope.userInfo.FirstNameCnPinYin = backData.PinYin;
                 }
             }
@@ -68,14 +75,6 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
     $scope.btnChangeVerifyCode = function () {
         GetImgVerifyCode();
     };
-
-    $scope.IdentityChange = function () {
-        $scope.userInfo.Foid = $scope.userInfo.Foid.toUpperCase();
-        if ($scope.userInfo.FoidType == 1) {
-            $scope.userInfo.BirthDay = laGlobalLocalService.ParseBirthdayByIdCode($scope.userInfo.Foid);
-        }
-    };
-
     /**
      * 申请成为常旅客
      */
@@ -149,7 +148,7 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
 
         $scope.isRegisting = true;
         $scope.timeDown = 1;
-        laUserService.Register($scope.userInfo, function (backData, status) {
+        laUserService.RegisterFrequent($scope.userInfo, function (backData, status) {
             var rs = backData;
             $scope.timeDown = 1;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
@@ -159,7 +158,14 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
                         $interval.cancel(timer);
                         $scope.isRegisting = false;
                         bootbox.alert('注册成功', function () {
-                            $window.location.href = '/Member/MyVipInfo.html';
+                            //$window.location.href = '/Member/MyVipInfo.html';
+
+                            laUserService.UserLogOut(function (backData, status) {
+                                var rsout = backData;
+                                if (rsout.Code == laGlobalProperty.laServiceCode_Success) {
+                                    $window.location.href = '/Member/Login.html';
+                                }
+                            });
                         });
                     }
                 }, 1000);
@@ -182,10 +188,12 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             $scope.userInfo.Foid = $scope.userInfo.Foid.toUpperCase();
         }
 
+        /*
         if (laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.MobileValidCode)) {
             bootbox.alert("请输入短信验证码");
             return false;
         }
+        */
 
         if (laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.SecondNameCn)) {
             bootbox.alert("请输入中文姓");
@@ -204,6 +212,7 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             return false;
         }
 
+        /*
         if (laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.Foid)) {
             bootbox.alert("请输入证件号码");
             return false;
@@ -215,7 +224,6 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             }
         }
 
-        $scope.userInfo.BirthDay = $("#membirthday").val();
         if (laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.BirthDay)) {
             bootbox.alert("请输入出生日期");
             return false;
@@ -224,23 +232,18 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             bootbox.alert("请按照YYYY-MM-DD填写出生日期");
             return false;
         }
+        */
 
-        if (laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.Password)) {
-            bootbox.alert("请输入密码");
-            return false;
-        }
+        /*
         if (!laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.Password) && !laGlobalLocalService.CheckStringLengthRange($scope.userInfo.Password, 6)) {
             bootbox.alert("请输入至少6位长度的密码");
-            return false;
-        }
-        if (!laGlobalLocalService.CheckPassWord($scope.userInfo.Password)) {
-            bootbox.alert("请输入至少6-20位字母+数字组成的新密码");
             return false;
         }
         if ($scope.userInfo.Password != $scope.userInfo.ConPassword) {
             bootbox.alert("前后两次密码输入不一致,请核对后再输");
             return false;
         }
+        */
 
         if (!document.getElementById("IsBookMag").checked) {
             bootbox.alert("成为常旅客必须同意长龙会员服务条款");
@@ -369,14 +372,11 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.userInfo = rs;
 
-                $scope.userInfo.Password = "";
 
                 if ($scope.userInfo.Sex == undefined || $scope.userInfo.Sex == 0) {
                     $scope.userInfo.Sex = 1;
                 }
-                if ($scope.userInfo.FoidType == undefined || $scope.userInfo.FoidType == 0) {
-                    $scope.userInfo.FoidType = 1;
-                }
+                /*
                 if ($scope.userInfo.Nationaity == undefined || $scope.userInfo.Nationaity == 0) {
                     $scope.userInfo.Nationaity = 1;
                 }
@@ -401,13 +401,8 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
                 if ($scope.userInfo.ContactHope == undefined || $scope.userInfo.ContactHope == 0) {
                     $scope.userInfo.ContactHope = 2;
                 }
+                */
             }
         })
     }
 }]);
-
-
-
-
-
-

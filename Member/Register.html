@@ -53,6 +53,7 @@
 
     <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
     <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
     <script type="text/javascript" src="/B2C/js/application.js"></script>
 
@@ -60,13 +61,25 @@
 </head>
 <body ng-controller="laAir_MemberRegisterPageCtl">
 <div ng-include="'/Resource/commonHtml/header.html'"></div>
+<style>
+    .control-label {
+        float: left;
+        width: 120px;
+        padding-top: 8px;
+        text-align: right;
+    }
+    .ml {
+        margin-left:-100px;
+    }
+</style>
 <div class="wrapper">
     <div class="container">
         <div class="panel-sm panel panel-reg">
-            <h2>长龙航空会员注册</h2>
+            <h2>长龙航空常旅客注册</h2>
 
             <div>
-                <div class="tipspanel" style="top: 70px;">
+                <!--
+                <div class="tipspanel">
                     <h3>为什么选择长龙</h3>
                     <h4>领先</h4>
 
@@ -79,143 +92,398 @@
                     <p>追求高效率、低成本、专业化、国际化，努力将公司打造成员工首选、旅客首选、受人尊敬、行业领先的公众型航空公司。</p>
                     <span class="icon-plane"></span>
                 </div>
+                -->
                 <div class="register">
-                    <form name="frmReg">
+                    <form>
+                        <div class="groupname w500">
+                            <h3>个人基本信息</h3>
+                        </div>
+                        <div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class="red">*</em>称谓：</span></label>
+
+                                    <div class="controls">
+                                        <label class="radio inline"><input type="radio" name="Sex" value="1"
+                                                                           class="Sex" ng-model="userInfo.Sex">先生</label>&nbsp;&nbsp;
+                                        <label class="radio inline"><input type="radio" name="Sex" value="2"
+                                                                           class="Sex" ng-model="userInfo.Sex">女士</label>
+                                        <em class="spanSex"></em>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class=" red">*</em>中文姓：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" placeholder="生僻字可用拼音代替" id="firstName" name="firstName"
+                                               class="text noramal required" ng-model="userInfo.SecondNameCn"
+                                               ng-change="getChinesePYXing();">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class="red">*</em>姓(英文-拼音)：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" placeholder="中文姓的拼音" id="enfirstName" name="enfirstName"
+                                               class="text noramal required" ng-model="userInfo.SecondNameCnPinYin"
+                                               ng-change="UpperCaseInfoSecondName();">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class="red">*</em>证件类型：</span></label>
+
+                                    <div class="controls">
+                                        <select name="CertType" id="CertType" class="text"
+                                                ng-options="t.v as t.t for t in foIdTypeOptions" ng-model="userInfo.FoidType"
+                                                ng-change="SearchFoidByType(this.value);">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class="red">*</em>出生日期：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" id="membirthday" placeholder="YYYY-MM-DD" class="text"
+                                               onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});"
+                                               ng-model="userInfo.BirthDay">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span><em class="red">*</em>登录密码：</span></label>
+
+                                    <div class="controls">
+                                        <input type="password" class="text" placeholder="字母+数字（6-20位）" id="password"
+                                               name="password" ng-model="userInfo.Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span6">
+                                <div class="control-group ml">
+                                    <label class="control-label"></label>
+
+                                    <div class="controls">
+                                        <label class="texts">&nbsp;</label>
+                                    </div>
+                                </div>
+                                <div class="control-group ml">
+                                    <label class="control-label"><span><em class=" red">*</em>中文名：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" placeholder="生僻字可用拼音代替" id="lastName" name="lastName"
+                                               class="text noramal required" ng-model="userInfo.FirstNameCn"
+                                               ng-change="getChinesePYMing();">
+                                    </div>
+                                </div>
+                                <div class="control-group ml">
+                                    <label class="control-label"><span><em class="red">*</em>名(英文-拼音)：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" placeholder="中文名的拼音" id="enlastName" name="enlastName"
+                                               class="text noramal required" ng-model="userInfo.FirstNameCnPinYin"
+                                               ng-change="UpperCaseInfoFirstName();">
+                                    </div>
+                                </div>
+                                <div class="control-group ml">
+                                    <label class="control-label"><span><em class="red">*</em>证件号码：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" class="text" id="CertNum" name="CertNum" ng-model="userInfo.Foid" ng-change="IdentityChange();">
+                                    </div>
+                                </div>
+                                <div class="control-group ml">
+                                    <label class="control-label"><span><em class="red"></em>邀请人：</span></label>
+
+                                    <div class="controls">
+                                        <input type="text" class="text" placeholder="(选填)邀请人的卡号"
+                                               ng-model="userInfo.FPD_Inviter">
+                                    </div>
+                                </div>
+                                <div class="control-group ml">
+                                    <label class="control-label"><span><em class="red">*</em>登录密码确认：</span></label>
+
+                                    <div class="controls">
+                                        <input type="password" class="text" id="repassword" name="repassword"
+                                               ng-model="userInfo.ConPassword">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
                         <ul>
                             <li>
-                                <span><em class="red">*</em>手机号码：</span>
-                                <input type="text" class="text w113" id="Phone" name="Phone" placeholder="请输入手机号码"
-                                       ng-model="userInfo.Mobile" ng-maxlength="11" required ng-change="checkValidData();">
-                                <input type="button" class="btn" style="cursor: pointer;" value="发送验证码" id="btnGetSMS"
-                                       ng-click="btnSendMobileValidCodeClick();">
-                                <span class="error" ng-show="!validMobile">手机号码输入有误</span>
+                                <span><em class="red">*</em>称谓：</span>
+                                <label class="radio inline"><input type="radio" name="Sex" value="1"
+                                                                   class="Sex" ng-model="userInfo.Sex">先生</label>&nbsp;&nbsp;
+                                <label class="radio inline"><input type="radio" name="Sex" value="2"
+                                                                   class="Sex" ng-model="userInfo.Sex">女士</label>
+                                <em class="spanSex"></em>
                             </li>
                             <li>
-                                <span><em class="red">*</em>验证码：</span>
-                                <input type="text" class="text w113" id="imageVerifyCode" name="Phone" placeholder="请输入验证码"
-                                       ng-model="ImageVerifyCode">
-                                <a href="javascript:;" ng-click="btnChangeVerifyCode();" title="点击图片换一张"><img ng-src="data:image/gif;base64,{{ImgVerifyData}}" style="width:82px;height:32px;"></a>&nbsp;&nbsp;
-                                <a class="link" href="javascript:;" ng-click="btnChangeVerifyCode();">换一张</a>
+                                <span><em class=" red">*</em>中文姓：</span>
+                                <input type="text" placeholder="生僻字可用拼音代替" id="firstName" name="firstName"
+                                       class="text noramal required" ng-model="userInfo.SecondNameCn"
+                                       ng-change="getChinesePYXing();">
                             </li>
                             <li>
-                                <span style="margin-left: 20px;width:70%;border-width: 1px; border-color: #b1b1b1;border-style: dashed;"></span>
+                                <span><em class=" red">*</em>中文名：</span>
+                                <input type="text" placeholder="生僻字可用拼音代替" id="lastName" name="lastName"
+                                       class="text noramal required" ng-model="userInfo.FirstNameCn"
+                                       ng-change="getChinesePYMing();">
                             </li>
                             <li>
-                                <span><em class="red">*</em>短信验证码：</span>
-                                <input type="text" class="text" id="MsgVerifyCode" name="MsgVerifyCode" ng-maxlength="8"
-                                       placeholder="请输入收到的短信验证码" ng-model="userInfo.MobileValidCode" required ng-change="checkValidData();">
-                                <span class="error" ng-show="!validMobileVCode">请输入短信验证码</span>
+                                <span><em class="red">*</em>姓(英文-拼音)：</span>
+                                <input type="text" placeholder="中文姓的拼音（可自行修改）" id="enfirstName" name="enfirstName"
+                                       class="text noramal required" ng-model="userInfo.SecondNameCnPinYin"
+                                       ng-change="UpperCaseInfoSecondName();">
                             </li>
                             <li>
-                                <span><em class=" red">*</em>中文姓名：</span>
-                                <input type="text" placeholder="姓名" id="Name" name="Name" class="text noramal required"
-                                       ng-model="userInfo.Name" required ng-change="checkValidData();">
-                                <span class="error" ng-show="!validName">请输入中文姓名</span>
+                                <span><em class="red">*</em>名(英文-拼音)：</span>
+                                <input type="text" placeholder="中文名的拼音（可自行修改）" id="enlastName" name="enlastName"
+                                       class="text noramal required" ng-model="userInfo.FirstNameCnPinYin"
+                                       ng-change="UpperCaseInfoFirstName();">
                             </li>
                             <li>
                                 <span><em class="red">*</em>证件类型：</span>
-                                <select name="CertType" id="CertType" class="text">
-                                    <option value="身份证">身份证</option>
+                                <select name="CertType" id="CertType" class="text"
+                                        ng-options="t.v as t.t for t in foIdTypeOptions" ng-model="userInfo.FoidType"
+                                        ng-change="SearchFoidByType(this.value);">
                                 </select>
                             </li>
                             <li>
                                 <span><em class="red">*</em>证件号码：</span>
-                                <input type="text" class="text" id="CertNum" name="CertNum" placeholder="请输入身份证号码"
-                                       ng-model="userInfo.Foid" required ng-change="checkValidData();">
-                                <span class="error" ng-show="!validFoid">证件号码输入有误</span>
-
+                                <input type="text" class="text" id="CertNum" name="CertNum" ng-model="userInfo.Foid" ng-change="IdentityChange();">
                             </li>
                             <li>
-                                <span><em class="red">*</em>密　　码：</span>
-                                <input type="password" placeholder="密码长度至少为6位" class="text" id="Password"
-                                       name="Password" ng-model="userInfo.Password" required ng-minlength="6" ng-change="checkValidData();">
-                                <span class="error" ng-show="!validPwd">请输入密码</span>
+                                <span><em class="red">*</em>出生日期：</span>
+                                <input type="text" id="membirthday" placeholder="YYYY-MM-DD" class="text"
+                                       onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});"
+                                       ng-model="userInfo.BirthDay">
                             </li>
                             <li>
-                                <span><em class="red">*</em>确认密码：</span>
-                                <input type="password" placeholder="密码长度至少为6位" class="text" id="RePassword" name="RePassword"
-                                       ng-model="userInfo.ConPassword" required ng-minlength="6" ng-change="checkValidData();">
-                                <span class="error" ng-show="!validPwd">确认密码输入有误</span>
-                            </li>
-                            <!--
-                            <li>
-                                <span><em class="red"></em>邮　　箱：</span>
-                                <input type="text" class="text" id="Email" name="Email">
+                                <span><em class="red">*</em>登录密码</span>
+                                <input type="password" class="text" placeholder="字母+数字（6-20位）" id="password"
+                                       name="password" ng-model="userInfo.Password">
                             </li>
                             <li>
-                                <span><em class="red"></em>地　　址：</span>
-                                <input type="text" class="text" id="Address" name="Address">
+                                <span><em class="red">*</em>登录密码确认：</span>
+                                <input type="password" class="text" id="repassword" name="repassword"
+                                       ng-model="userInfo.ConPassword">
                             </li>
                             <li>
-                                <span>邮政编码：</span>
-                                <input type="text" class="text" id="ZipCode" name="ZipCode">
+                                <span><em class="red"></em>邀请人：</span>
+                                <input type="text" class="text" placeholder="(选填)邀请人的卡号"
+                                       ng-model="userInfo.FPD_Inviter">
+                            </li>
+
+                        </ul>
+                        -->
+
+                        <p>&nbsp;</p>
+                        <div class="divide showall showextra-info">点击填写更多详细资料<span class="arrow-down"></span></div>
+
+                        <div style="display:none" class="extra-info">
+                            <div class="groupname">
+                                <h3>详细资料填写</h3>
+                            </div>
+                            <ul>
+                                <li>
+                                    <span><em class="red"></em>国籍：</span>
+                                    <select class="text" ng-model="userInfo.Nationaity"
+                                            ng-options="t.v as t.t for t in nativeOptions">
+                                    </select>
+                                </li>
+                                <li>
+                                    <span>希望联系地址：</span>
+                                    <label class="checkbox inline"><input type="radio" name="hopecontactaddr"
+                                                                          ng-model="userInfo.ContactAddressHope"
+                                                                          value="1">&nbsp;家庭联系地址</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="checkbox inline"><input type="radio" name="hopecontactaddr"
+                                                                          ng-model="userInfo.ContactAddressHope"
+                                                                          value="2">&nbsp;单位联系地址</label>
+                                </li>
+                                <div class="divide showall"></div>
+                                <li>
+                                    <span>家庭联系地址：</span>
+                                    <select class="text" style="width:auto;" ng-model="userInfo.HomeAddressCountry"
+                                            ng-options="t.v as t.t for t in nativeOptions">
+                                    </select>
+
+                                    <select class="text" style="width:auto;" ng-if="userInfo.HomeAddressCountry==1"
+                                            ng-options="t.v as t.t for t in countrylist"
+                                            ng-model="userInfo.HomeAddressProvince">
+                                    </select>
+                                    <input ng-if="userInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
+                                           ng-model="userInfo.HomeAddressProvince">
+                                    <input type="text" class="text w113 " placeholder="城市"
+                                           ng-model="userInfo.HomeAddressCity">
+                                </li>
+                                <li>
+                                    <span>详细地址：</span>
+                                    <input type="text" class="text" ng-model="userInfo.HomeAddressDetail">
+                                </li>
+                                <li>
+                                    <span>邮编：</span>
+                                    <input type="text" class="text" ng-model="userInfo.HomePostCode">
+                                </li>
+                                <li>
+                                    <span>联系电话：</span>
+                                    <input type="text" class="text w143" placeholder="区号 + 电话号码"
+                                           ng-model="userInfo.HomeTel">
+                                </li>
+                                <div class="divide showall"></div>
+                                <li>
+                                    <span>单位联系地址：</span>
+                                    <select class="text" style="width:auto;" ng-model="userInfo.CompanyAddressCountry"
+                                            ng-options="t.v as t.t for t in nativeOptions">
+                                    </select>
+
+                                    <select class="text" style="width:auto;" ng-if="userInfo.CompanyAddressCountry==1"
+                                            ng-options="t.v as t.t for t in countrylist"
+                                            ng-model="userInfo.CompanyAddressProvince">
+                                    </select>
+                                    <input ng-if="userInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
+                                           ng-model="userInfo.CompanyAddressProvince">
+                                    <input type="text" class="text w113 " placeholder="城市"
+                                           ng-model="userInfo.CompanyAddressCity">
+                                </li>
+                                <li>
+                                    <span>单位名称：</span>
+                                    <input type="text" class="text" ng-model="userInfo.CompanyName">
+                                </li>
+                                <li>
+                                    <span>详细地址：</span>
+                                    <input type="text" class="text" ng-model="userInfo.CompanyAddressDetail">
+                                </li>
+                                <li>
+                                    <span>职业：</span>
+                                    <select class="text" ng-model="userInfo.Job"
+                                            ng-options="t.v as t.t for t in jobOptions">
+                                    </select>
+                                </li>
+                                <li>
+                                    <span>职位信息：</span>
+                                    <select class="text" ng-model="userInfo.Position"
+                                            ng-options="t.v as t.t for t in positionOptions">
+                                    </select>
+                                </li>
+                                <li>
+                                    <span>联系电话：</span>
+                                    <input type="text" class="text w143" placeholder="区号 + 电话号码"
+                                           ng-model="userInfo.CompanyTel">
+                                </li>
+                                <div class="divide showall"></div>
+                                <li>
+                                    <span>电子邮箱：</span>
+                                    <input type="text" class="text" ng-model="userInfo.EMail">
+                                </li>
+                                <li>
+                                    <span>微信：</span>
+                                    <input type="text" class="text" ng-model="userInfo.Wechat">
+                                </li>
+                                <li>
+                                    <span>传真：</span>
+                                    <input type="text" class="text" ng-model="userInfo.Fax">
+                                </li>
+                                <!--
+                                <li>
+                                    <span>个人爱好：</span>
+                                    <textarea class="text"></textarea>
+                                </li>
+                                -->
+                                <li>
+                                    <span>餐食：</span>
+                                    <label class="checkbox inline" ng-repeat="chk in MealTypelist"><input type="checkbox" name="food" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                                <li>
+                                    <span>座位：</span>
+                                    <label class="checkbox inline" ng-repeat="chk in SeatTypelist"><input type="checkbox" name="seat" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                                <li>
+                                    <span>购买渠道：</span>
+                                    <label class="checkbox inline" ng-repeat="chk in SaleTypelist" ng-if="chk.v<=5"><input type="checkbox" name="buy" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                                <li>
+                                    <span>&nbsp;</span>
+                                    <label class="checkbox inline" ng-repeat="chk in SaleTypelist" ng-if="chk.v>5"><input type="checkbox" name="buy" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                                <li>
+                                    <span>支付方式：</span>
+                                    <label class="checkbox inline" ng-repeat="chk in PayTypelist" ng-if="chk.v<=5"><input type="checkbox" name="pay" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                                <li>
+                                    <span></span>
+                                    <label class="checkbox inline" ng-repeat="chk in PayTypelist" ng-if="chk.v>5"><input type="checkbox" name="pay" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+
+                                <li>
+                                    <span>希望的联系方式：</span>
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="1">信件</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="2">E-mail</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="3">传真</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="4">俱乐部网页</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="5">短信</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="radio inline"><input type="checkbox" name="contacthope"
+                                                                       value="6">微信</label>
+                                </li>
+                                <li>
+                                    <span>希望的联系语言：</span>
+                                    <select class="text" ng-model="userInfo.LanguageHope"
+                                            ng-options="t.v as t.t for t in languageOptions">
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="divide closemoreinfoedit" style="text-align: center; display:none;">
+                            <a href="javascript:;" onclick="hideextrainfo();" style="font-size: 10px;">收起<span class="arrow-up"></span></a>
+                        </div>
+
+                        <br>
+                        <ul>
+                            <li>
+                                <span><em class="red">*</em>验证码：</span>
+                                <input type="text" class="text w113" id="imageVerifyCode" name="Phone"
+                                       placeholder="请输入验证码"
+                                       ng-model="ImageVerifyCode">
+                                <a href="javascript:;" ng-click="btnChangeVerifyCode();" title="点击图片换一张"><img
+                                        ng-src="data:image/gif;base64,{{ImgVerifyData}}"
+                                        style="width:82px;height:32px;"></a>&nbsp;&nbsp;
+                                <a class="link" href="javascript:;" ng-click="btnChangeVerifyCode();">换一张</a>
                             </li>
                             <li>
-                                <span>固定电话：</span>
-                                <input type="text" class="text" id="Tel" name="Tel">
+                                <span><em class="red">*</em>手机号码：</span>
+                                <input type="text" class="text w113" id="Phone" name="Phone" placeholder="请输入手机号码"
+                                       ng-model="userInfo.Mobile" ng-maxlength="11" required>
+                                <input type="button" class="btn" style="cursor: pointer;" value="发送验证码" id="btnGetSMS"
+                                       ng-click="btnSendMobileValidCodeClick();">
                             </li>
--->
-
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <!--
                             <li>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
-                                    class="checkbox inline"><input type="checkbox" class="mgl30" id="IsBookMag"
-                                                                   name="IsBookMag">订阅电子期刊</label>
+                                <span><em class="red">*</em>短信验证码：</span>
+                                <input type="text" class="text" id="MsgVerifyCode" name="MsgVerifyCode" ng-maxlength="8"
+                                       placeholder="请输入收到的短信验证码" ng-model="userInfo.MobileValidCode" required>
                             </li>
-                            -->
-                            <li class="service">
-                                <p>
-                                    进入本网站的访问者接受本协议书条款，注册成为长龙航空电子客票网站用户，并遵守本协议所述条款使用本网站所提供的服务。如果不接受本声明条款，请勿使用本网站。接受本声明条款，您将遵守本协议的规定。
-                                </p>
+                        </ul>
 
-                                <p>1、服务条款确认 </p>
-
-                                <p>用户确认本服务协议后，本服务协议即在用户和长龙航空有限公司之间产生法律效力。请用户务必在注册之前认真阅读全部服务协议内容，如有任何疑问，可向我们咨询。
-                                    无论用户事实上是否在注册之前认真阅读了本服务协议，只要用户点击"同意服务条款并注册"按钮并按照注册程序成功注册为用户，用户的行为即表示用户与长龙航空有限公司达成协议并接受所有的服务条款。</p>
-
-                                <p>2、用户注册： </p>
-
-                                <p>
-                                    用户仅能以个人名义完成在线注册。注册成功后，用户名和密码均由用户负责保管，用户名不可转让。用户应按照要求提供及时、详尽及准确的个人资料，如果用户提供的资料包含有不正确的信息，本网站保留停止用户使用本网站服务的权利。任何凭密码进行的操作视为用户本人的操作并由用户对该使用行为的后果承担责任。用户在未取得长龙航空授权许可的情况下，不得利用网站服务进行销售及其他营利活动，不得有损长龙航空形象，若经发现，长龙航空有权在未取得用户同意的情况下，直接停止用户账号的使用，并依法追究用户相应的责任。我们对用户注册信息将予以保密，不会用于其它目的或透露给第三者。用户的注册信息只用于用户购票时与用户联系之用途。除非得到用户的授权、政府或法律的强制，本站不会向外界披露用户隐私信息。由于用户将个人密码告知他人或与他人共享注册帐户，由此导致的任何个人资料泄露，本网站不负任何责任。</p>
-
-                                <p>3、用户义务： </p>
-
-                                <p>用户应遵守《中华人民共和国民用航空法》及中国有关法律、法规和本网站有关规定，禁止虚假订位，遵守网上预订规则。</p>
-
-                                <p>4、用户权利： </p>
-
-                                <p>用户可享受本网站提供的实时机位、航班时刻、机票价格、查询服务及购票服务。</p>
-
-                                <p>5、版权、商标权： </p>
-
-                                <p>本网站的图形、图像、文字及其程序等均属长龙航空电子商务网站，受商标法及相关知识产权保护。</p>
-
-                                <p>6、免责： </p>
-
-                                <p>对用户因使用本网站而产生的与第三方之间的纠纷，本网站不负任何责任。</p>
-
-                                <p>7、服务终止： </p>
-
-                                <p>本网站有权在预先通知或不予通知的情况下终止任何免费服务。</p>
-
-                                <p>
-                                    8、本网站因正常的系统维护、系统升级，或者因网络拥塞而导致网站不能访问，本网站不承担任何责任。任何由于计算机黑客攻击、计算机病毒侵入、硬件设施损坏、因政府管制而造成的暂时性关闭等影响网络正常经营的不可抗力而造成的用户资料泄露、丢失、被盗用或被篡改等，本网站不负任何责任。 </p>
-
-                                <p>9、本协议及因使用本网站而产生的与本网站之间纠纷，将依据中华人民共和国的有关法律解决。 </p>
+                        <ul>
+                            <li>
+                                <span>&nbsp;</span>
+                                <label class="checkbox inline">
+                                    <input type="checkbox" class="mgl30" id="IsBookMag" checked name="IsBookMag">我已阅读并同意长龙会员服务条款</label>
+                            </li>
+                            <li>
+                                <span>&nbsp;</span>
+                                <a class="tips blue" href="/Others/MoreInfo/ClubPrivacy.html" target="_blank">点击阅读长龙会员服务条款</a>
                             </li>
                             <li class="reg-sub">
-                                <span>&nbsp;</span>
-                                <input type="button" ng-show="!isRegisting" ng-click="btnRegisterClick();"
-                                       class="btn btn-large" style="cursor: pointer;" value="同意服务条款并注册">
-                                <label style="line-height:20px;" ng-show="isRegisting">
-                                    <img src="/Resource/images/loadingCircleEx.jpg">
-                                </label>
+                                <span>&nbsp;</span><input type="button" value="同意服务条款加入长龙常客俱乐部"
+                                                          ng-click="btnRegisterClick();" class="btn btn-large"
+                                                          style="font-size:14px; cursor: pointer;">
                             </li>
                         </ul>
                     </form>
@@ -225,6 +493,22 @@
         <div class="divide"></div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $(document).on('click', ".showall", function () {
+            $(".extra-info").show();
+            $(".closemoreinfoedit").show();
+            $(this).hide();
+        })
+    });
+
+    function hideextrainfo() {
+        $(".showextra-info").show();
+        $(".extra-info").hide();
+        $(".closemoreinfoedit").hide();
+    }
+</script>
 
 <div ng-include="'/Resource/commonHtml/footer.html'"></div>
 </body>

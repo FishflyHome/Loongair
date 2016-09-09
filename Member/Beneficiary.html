@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/BeneficiaryCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberBeneficiaryPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+
+        <div ng-include="'LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="vipmessage">
+                    <br/>
+
+                    <h2>温馨提示</h2>
+
+                    <div class="panel-gray">
+                        <p>1.会员兑换奖励机票或奖励升舱，除本人使用外，仅能给会员指定的已生效的兑奖受益人使用。会员兑换非航空奖励品，不受该限制。</p>
+                        <p>2.每名会员最多可设置8名兑奖受益人，公司或法人实体不可作为兑奖受益人。</p>
+                        <p>3.儿童或婴儿作为兑奖受益人，兑换标准及其他规则与成人相同。</p>
+                        <p>4.建立/变更兑奖受益人名单，将在提交申请后40天后生效（含当天）。删除的兑奖受益人，即刻生效。</p>
+                        <p>5.建立兑奖受益人名单及变更兑奖受益人操作不会扣减账户积分，删除兑奖受益人每次操作均扣减300积分。</p>
+                        <p>6.兑奖受益人兑换航空奖励品时，须提供会员卡号、密码，以及会员、代办人和兑奖受益人有效身份证件原件。</p>
+                        <p>7.会员可通过登录网站或者拨打服务热线0571-89999999进行兑奖受益人信息添加。</p>
+                        <p>8.其他兑奖规则、流程不变。</p>
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <h2>受益人</h2>
+                    <div>
+                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>会员卡号</th>
+                                <th>性别</th>
+                                <th>出生日期</th>
+                                <th>姓名</th>
+                                <th>证件号码</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="b in BenefitList track by $index">
+                                <td>{{b.MB_FPCardNo}}</td>
+                                <td><span ngb-if="b.MB_SexType==1">男</span><span ng-if="b.MB_SexType==2">女</span></td>
+                                <td>{{b.MB_Birthday | date:'yyyy-MM-dd'}}</td>
+                                <td>{{b.MB_SecondName + b.MB_FirstName}}</td>
+                                <td>
+                                    <span ng-repeat="fd in b.BeneficiaryInfolist">
+                                        <span ng-bind-html="SearchFoid(fd)"></span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="javascript:;" ng-click="btnEditBenefit(b);" style="color:#337ab7;font-size: 10px;">编辑</a>&nbsp;&nbsp;
+                                    <a href="javascript:;" ng-click="btnDeleteBenefit(b);" style="color:#337ab7;font-size: 10px;">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="vipmessage">
+                    <h2>受益人信息</h2>
+                    <div class="panel-body clearfix">
+                        <div class="control" style="width:100%;">
+                            <label style="width:120px;">会员卡号</label>&nbsp;<input type="text" ng-model="benefit.MB_FPCardNo"/><!-- ng-readonly="!isAdd" -->
+                            <span>(受益人为会员,填写此项,否则不用填写)</span>
+                        </div>
+
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>性别</label>&nbsp;
+                            <select ng-options="t.v as t.t for t in sexOptions" ng-model="benefit.MB_SexType" ng-disabled="!isAdd"></select>
+                        </div>
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>出生日期</label>&nbsp;<input type="text" ng-readonly="!isAdd" id="birthday" placeholder="YYYY-MM-DD" ng-model="benefit.MB_Birthday" onclick="javascript:showbenefitBirthday(this)"/>
+                        </div>
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>中文姓</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondName" ng-change="getChinesePYXing();"/>
+                        </div>
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>中文名</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstName" ng-change="getChinesePYMing();"/>
+                        </div>
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>英文姓\中文姓拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondNamePinYin" ng-change="UpperCaseInfoSecondName();"/>
+                        </div>
+                        <div class="control">
+                            <label style="width:120px;"><span style="color: red;">*</span>英文名\中文名拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstNamePinYin" ng-change="UpperCaseInfoFirstName();"/>
+                        </div>
+
+                        <div ng-repeat="f in FoidDiv" ng-show="f.s">
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>
+                                <select ng-options="t.v as t.t for t in foIdTypeOptions" ng-disabled="!isAdd && f.h" ng-model="f.v" ng-change="ChooseFoidType(f);"></select>
+                            </div>
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;
+                                <input type="text" id="foid{{f.v}}" ng-readonly="!isAdd" ng-model="f.no" ng-change="ParseBirthdayByFoid(f);"/>
+                                <a id="href{{f.v}}" href="javascript:;" ng-show="$index>0" ng-click="btnDelFoidDiv(f)"><span style="font-size: 10px;">&nbsp;&nbsp;隐藏</span></a>
+                            </div>
+                        </div>
+                        <!--
+                        <div ng-show="benefit.BeneficiaryInfolist[0].f1.s">
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                                身份证
+                            </div>
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                            </div>
+                        </div>
+                        <div ng-show="benefit.BeneficiaryInfolist.f2.s">
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                                护照
+                            </div>
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                            </div>
+                        </div>
+                        <div ng-show="benefit.BeneficiaryInfolist.f100.s">
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                                其他
+                            </div>
+                            <div class="control">
+                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                            </div>
+                        </div>
+                        -->
+
+                        <div class="control">
+                            <label style="width:120px;">&nbsp;</label>
+                            <a href="javascript:;" ng-show="showFoidDivCnt<FoidDiv.length" ng-click="btnShowMoreFoid();"><span style="color:#337ab7;font-size: 10px;">+&nbsp;新增证件类型</span></a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <div class="table-paper">
+                        <a class="btn pull-right" href="javascript:;" ng-show="isAdd" ng-click="btnAddBenefit();">添加</a>&nbsp;&nbsp;
+                        <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnCancelBenefit();" style="margin-left: 10px;margin-right: 10px;">取消</a>
+                        <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnSaveBenefit();">保存</a>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<script>
+    function showbenefitBirthday(obj) {
+        if (!obj.readOnly)
+            calendar.show({
+                id: obj, minDay: '1900-1-1', ok: function () {
+                }
+            });
+    }
+</script>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

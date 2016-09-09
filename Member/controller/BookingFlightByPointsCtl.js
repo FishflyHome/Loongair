@@ -1,8 +1,8 @@
 /**
- * Created by Jerry on 16/2/4.
+ * Created by Jerry on 16/7/14.
  */
 
-laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval', '$filter', '$window', '$scope', 'laUserService', 'laOrderService', 'laGlobalLocalService', function ($document, $interval, $filter, $window, $scope, laUserService, laOrderService, laGlobalLocalService) {
+laAir.controller('laAir_Member_BookingFlightByPointsPageCtl', ['$document', '$interval', '$filter', '$window', '$scope', 'laUserService', 'laOrderService', 'laGlobalLocalService', function ($document, $interval, $filter, $window, $scope, laUserService, laOrderService, laGlobalLocalService) {
 
     $scope.title = "填写信息,长龙航空,长龙航空官网,长龙航空官方网站,特价机票,长龙航空机票预定";
     $document[0].title = $scope.title;
@@ -10,7 +10,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
      * 设置导航栏ClassName
      * @type {boolean}
      */
-    $scope.isSchTripNav = true;
+    $scope.isMyInfoNav = true;
 
     /**
      * 乘客类型和证件类型枚举
@@ -47,7 +47,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
     $scope.CommitOrderStatusDesc = '';
 
     //常用乘机人列表
-    $scope.stationPassengerList;
+    $scope.stationPassengerList = new Array();
 
     $scope.acceptClause = true;
 
@@ -58,7 +58,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
     var timer;
 
     //获取页面传值
-    var bookOrderInfo = laGlobalLocalService.getCookie(laGlobalProperty.laServiceConst_TransData_BookOrder);
+    var bookOrderInfo = laGlobalLocalService.getCookie(laGlobalProperty.laServiceConst_TransData_BookOrderByPoints);
     if (bookOrderInfo != undefined) {
         $scope.bookOrderInfo = JSON.parse(bookOrderInfo);
         $scope.flightInfo = $scope.bookOrderInfo.g.f;
@@ -159,7 +159,8 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         var n = $scope.stationPassengerList.length;
         for (var i = 0; i < n; i++) {
             var stdPsg = $scope.stationPassengerList[i];
-            if (psg.PassengerName == stdPsg.FlierName && psg.Foid == stdPsg.Foid) {
+            //if (psg.PassengerName == stdPsg.FlierName && psg.Foid == stdPsg.Foid) {
+            if (psg.Tid == stdPsg.Tid) {
                 $("#stdPsg_" + i).removeClass("active");
                 $("#stdPsg_" + i).css({"color": "black", "background-color": "white"});
                 break;
@@ -179,7 +180,8 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         var n = $scope.stationPassengerList.length;
         for (var i = 0; i < n; i++) {
             var stdPsg = $scope.stationPassengerList[i];
-            if (psg.PassengerName == stdPsg.FlierName && psg.Foid == stdPsg.Foid) {
+            //if (psg.PassengerName == stdPsg.FlierName && psg.Foid == stdPsg.Foid) {
+            if (psg.Tid == stdPsg.Tid) {
                 $("#stdPsg_" + i).removeClass("active");
                 $("#stdPsg_" + i).css({"color": "black", "background-color": "white"});
                 break;
@@ -187,6 +189,29 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         }
     };
 
+    /**
+     * 证件类型变化时
+     * @param psg
+     * @constructor
+     */
+    $scope.ChangeFoidType = function (psg) {
+        if (psg.Tid != undefined && psg.Tid != null) {
+            psg.Foid = "";
+            var tid = psg.Tid;
+            for (var i = 0; i < $scope.stationPassengerList.length; i++) {
+                var stg = $scope.stationPassengerList[i];
+                if (tid == stg.Tid) {
+                    var idinfolist = stg.idlist;
+                    for (var n = 0; n < idinfolist.length; n++) {
+                        if (idinfolist[n].foidtype == psg.FoidType) {
+                            psg.Foid = idinfolist[n].foid;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    };
     /**
      * 航意险复选框勾选
      * @param idx
@@ -225,23 +250,23 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
      */
     $scope.btnAccidentDetMouseOver = function (idx) {
         var box = $("<div class='roles table-fli' style='padding: 5px; width:500px;'><br><span style='font-weight:bold'>保险产品介绍:</span><br>" +
-                "<span>保险名称:中银三星航空旅行保障计划</span><br>" +
-                "<span>承保公司:中银三星人寿保险有限公司</span><br>" +
-                "<span>产品介绍:30元/份/航段</span><br>" +
-                "<span>保险有效期:当次航班。自被保险人持有效身份证件到达机场通过安全检查时始，至被保险人抵达目的港走出所乘航班班机的舱门时止</span><br>" +
-                "<span>投保年龄:本产品暂不支持婴儿购买</span><br><br>" +
-                "<table style='width:100%;'><tr><td style='text-align: center;'>保险责任</td><td style='text-align: center;'>赔偿限额</td></tr>" +
-                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外身故/残疾</td><td style='background:#FFFFFF;text-align: center;'>150万元人民币</td></tr>" +
-                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外伤害住院医疗</td><td style='background:#FFFFFF;text-align: center;'>6万元人民币</td></tr>" +
-                "</table><br>" +
-                "<span>电话验真:致电航联全国客服电话400-810-2688或者中银三星人寿保险有限公司全国客服电话400-810-1888进行验真</span><br>" +
-                "<span>网自助验真:登录中银三星人寿保险有限公司网址：<a href='http://www.boc-samsunglife.cn' target='_blank'>http://www.boc-samsunglife.cn</a> </span><br>" +
-                "<span>特别申明:</span><br>" +
-                "<span>1.航意险只连同机票一起退还</span><br>" +
-                "<span>2.官网购买机票和保险，保险不支持改期</span><br>" +
-                "</div>");
+            "<span>保险名称:中银三星航空旅行保障计划</span><br>" +
+            "<span>承保公司:中银三星人寿保险有限公司</span><br>" +
+            "<span>产品介绍:30元/份/航段</span><br>" +
+            "<span>保险有效期:当次航班。自被保险人持有效身份证件到达机场通过安全检查时始，至被保险人抵达目的港走出所乘航班班机的舱门时止</span><br>" +
+            "<span>投保年龄:本产品暂不支持婴儿购买</span><br><br>" +
+            "<table style='width:100%;'><tr><td style='text-align: center;'>保险责任</td><td style='text-align: center;'>赔偿限额</td></tr>" +
+            "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外身故/残疾</td><td style='background:#FFFFFF;text-align: center;'>150万元人民币</td></tr>" +
+            "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外伤害住院医疗</td><td style='background:#FFFFFF;text-align: center;'>6万元人民币</td></tr>" +
+            "</table><br>" +
+            "<span>电话验真:致电航联全国客服电话400-810-2688或者中银三星人寿保险有限公司全国客服电话400-810-1888进行验真</span><br>" +
+            "<span>网自助验真:登录中银三星人寿保险有限公司网址：<a href='http://www.boc-samsunglife.cn' target='_blank'>http://www.boc-samsunglife.cn</a> </span><br>" +
+            "<span>特别申明:</span><br>" +
+            "<span>1.航意险只连同机票一起退还</span><br>" +
+            "<span>2.官网购买机票和保险，保险不支持改期</span><br>" +
+            "</div>");
 
-        $("#" + idx).css({"background-color":"#e17a00","color":"white"});
+        $("#" + idx).css({"background-color": "#e17a00", "color": "white"});
 
         $("body").append(box);
         box.css({top: $("#" + idx).offset().top, left: $("#" + idx).offset().left});
@@ -251,7 +276,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
      * @param idx
      */
     $scope.btnAccidentDetMouseOut = function (idx) {
-        $("#" + idx).css({"background-color":"white","color":"black"});
+        $("#" + idx).css({"background-color": "white", "color": "black"});
         $(".roles").remove();
     };
 
@@ -542,6 +567,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         ordInfo.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
         ordInfo.ChildRecerveCabinPriceType = 2;
         ordInfo.TotalAmount = 0;
+        ordInfo.TotalIntegral = 0;
         ordInfo.VerifyCode = $scope.verifyCode;
 
         var blAllBuyInsurance = new Array();
@@ -551,20 +577,24 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
             $scope.passengerList[i].Brithday = $("#psgBirth_" + i).val();
             if ($scope.passengerList[i].TravellerType == 1) {
                 hasAudit = true;
-                ordInfo.TotalAmount += $scope.cabinInfo.SalePrice + $scope.flightInfo.AirportTax
-                    + $scope.flightInfo.FuelTax + $scope.flightInfo.OtherTax;
+                //ordInfo.TotalAmount += $scope.cabinInfo.SalePrice + $scope.flightInfo.AirportTax + $scope.flightInfo.FuelTax + $scope.flightInfo.OtherTax;
+                ordInfo.TotalAmount += $scope.flightInfo.AirportTax + $scope.flightInfo.FuelTax + $scope.flightInfo.OtherTax;
+                ordInfo.TotalIntegral += $scope.cabinInfo.SalePrice;
                 if ($scope.isRoundtrip == 1) {
-                    ordInfo.TotalAmount += $scope.cabinInfoback.SalePrice + $scope.flightInfoback.AirportTax
-                        + $scope.flightInfoback.FuelTax + $scope.flightInfoback.OtherTax;
+                    //ordInfo.TotalAmount += $scope.cabinInfoback.SalePrice + $scope.flightInfoback.AirportTax + $scope.flightInfoback.FuelTax + $scope.flightInfoback.OtherTax;
+                    ordInfo.TotalAmount += $scope.flightInfoback.AirportTax + $scope.flightInfoback.FuelTax + $scope.flightInfoback.OtherTax;
+                    ordInfo.TotalIntegral += $scope.cabinInfoback.SalePrice;
                 }
             }
             if ($scope.passengerList[i].TravellerType == 2) {
                 hasChild = true;
-                ordInfo.TotalAmount += $scope.cabinInfo.ChildSalePrice + $scope.flightInfo.ChildAirportTax
-                    + $scope.flightInfo.ChildFuelTax + $scope.flightInfo.ChildOtherTax;
+                //ordInfo.TotalAmount += $scope.cabinInfo.ChildSalePrice + $scope.flightInfo.ChildAirportTax + $scope.flightInfo.ChildFuelTax + $scope.flightInfo.ChildOtherTax;
+                ordInfo.TotalAmount += $scope.flightInfo.ChildAirportTax + $scope.flightInfo.ChildFuelTax + $scope.flightInfo.ChildOtherTax;
+                ordInfo.TotalIntegral += $scope.cabinInfo.ChildSalePrice;
                 if ($scope.isRoundtrip == 1) {
-                    ordInfo.TotalAmount += $scope.cabinInfoback.ChildSalePrice + $scope.flightInfoback.ChildAirportTax
-                        + $scope.flightInfoback.ChildFuelTax + $scope.flightInfoback.ChildOtherTax;
+                    //ordInfo.TotalAmount += $scope.cabinInfoback.ChildSalePrice + $scope.flightInfoback.ChildAirportTax + $scope.flightInfoback.ChildFuelTax + $scope.flightInfoback.ChildOtherTax;
+                    ordInfo.TotalAmount += $scope.flightInfoback.ChildAirportTax + $scope.flightInfoback.ChildFuelTax + $scope.flightInfoback.ChildOtherTax;
+                    ordInfo.TotalIntegral += $scope.cabinInfoback.ChildSalePrice;
                 }
             }
 
@@ -606,7 +636,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         var fli = new laEntityReserveFlight();
         fli.ArriveAirport = $scope.flightInfo.AirportTo;
         fli.CabinName = $scope.cabinInfo.CabinName;
-        fli.ChildCabinName = $scope.cabinInfo.ChildCabinName;
+        fli.ChildCabinName = $scope.cabinInfo.CabinName;
         fli.DepartureAirport = $scope.flightInfo.AirportFrom;
 
         //必须转换成本地时间,否则JS会自动按照国际时间,会存在误差
@@ -643,7 +673,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
 
         ordInfo.TotalAmount += $scope.getExpressFee();
 
-        laOrderService.CreateOrder(ordInfo, function (backData, status) {
+        laUserService.CreateOrderByPoints(ordInfo, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.timeDown = 2;
@@ -655,7 +685,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
                         $scope.CommitOrderStatus = true;
                         var orderId = rs.Result.OrderId;
                         laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_OrderIdForCreate, orderId, 0);
-                        $window.location.href = 'PayOrder.html';
+                        $window.location.href = '/ETicket/PayOrder.html';
                     }
                 }, 1000);
             } else {
@@ -692,8 +722,8 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
             fli.RoundTrip = true;
         }
 
-        laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_QueryTicket, JSON.stringify(fli), 0);
-        $window.location.href = 'AirlineList.html';
+        laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_QueryTicketByPoints, JSON.stringify(fli), 0);
+        $window.location.href = 'FreeTickets.html';
     };
 
     $scope.btnChangeVerifyCode = function () {
@@ -715,10 +745,35 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
      * @constructor
      */
     function QueryStationPassengerList() {
-        laUserService.QueryStationPassengers(1, 1000, '', '', function (backData, status) {
-            $scope.stationPassengerList;
-            if (status) {
-                $scope.stationPassengerList = backData;
+        /*
+         laUserService.QueryStationPassengers(1, 1000, '', '', function (backData, status) {
+         if (status) {
+         $scope.stationPassengerList = backData;
+         $("#divpsglist").css({"display": "block"});
+         }
+         });
+         */
+
+        laUserService.QueryAuditBenefitList(1, 100, function (backData, status) {
+            if (backData.Code = laGlobalProperty.laServiceCode_Success) {
+                var rs = backData.Result.memberBeneficiarys;
+                for (var i = 0; i < rs.length; i++) {
+                    var item = rs[i];
+                    var stp = {
+                        "FlierName": item.MBName,
+                        "idlist": item.idlist,
+                        "Foid": item.idlist[0].foid,
+                        "FoidType": item.idlist[0].foidtype,
+                        "FoidTypeCH": item.idlist[0].foidtypeCH,
+                        "TravellerType": item.TravellerType,
+                        "TravellerTypeCH": item.TravellerTypeCH,
+                        "Mobile": "",//item.Mobile,
+                        "EMail": "",//item.EMail,
+                        "Brithday": item.Brithday,
+                        "Tid": item.Tid
+                    };
+                    $scope.stationPassengerList.push(stp);
+                }
                 $("#divpsglist").css({"display": "block"});
             }
         });
@@ -759,6 +814,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
                 $scope.passengerList[i].FoidType = psg.FoidType;
                 $scope.passengerList[i].Foid = psg.Foid;
                 $scope.passengerList[i].Brithday = psg.Brithday;
+                $scope.passengerList[i].Tid = psg.Tid;
 
                 added = true;
                 break;
@@ -771,7 +827,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
             newPsg.FoidType = psg.FoidType;
             newPsg.Foid = psg.Foid;
             newPsg.Brithday = psg.Brithday;
-            //$scope.passengerList.splice(-1, 0, newPsg);
+            newPsg.Tid = psg.Tid;
             $scope.passengerList[$scope.passengerList.length] = newPsg;
         }
     }
@@ -784,8 +840,8 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         var n = $scope.passengerList.length;
 
         for (var i = 0; i < n; i++) {
-            if ($scope.passengerList[i].PassengerName == psg.FlierName &&
-                $scope.passengerList[i].Foid == psg.Foid) {
+            //if ($scope.passengerList[i].PassengerName == psg.FlierName && $scope.passengerList[i].Foid == psg.Foid) {
+            if ($scope.passengerList[i].Tid == psg.Tid) {
 
                 if (n > 1) {
                     $scope.passengerList.splice(i, 1);
@@ -793,6 +849,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
                     $scope.passengerList[i].PassengerName = '';
                     $scope.passengerList[i].Foid = '';
                     $scope.passengerList[i].Brithday = '';
+                    $scope.passengerList[i].Tid = 0;
                 }
 
                 break;

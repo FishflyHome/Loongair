@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/MemberHandBookCtl.js"></script>
+
+    <style>
+        .txtind{text-indent: 30px;line-height: 30px;}
+    </style>
+</head>
+<body ng-controller="laAir_MemberMemberHandBookPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+
+        <div ng-include="'LeftMenu.html'"></div>
+
+        <!--
+        <div class="content">
+            <div class="panel-sm">
+                <br>
+                <div class="vipmessage">
+                    <h2>会员手册</h2>
+                    <ul class="art-list">
+                        <li>
+                            <a href="/Member/Distinguished.html" target="_blank">贵宾尊享</a>
+                        </li>
+                        <li>
+                            <a href="/Member/AccrueRoles.html" target="_blank">累积规则</a>
+                        </li>
+                        <li>
+                            <a href="/Member/ExchangeRoles.html" target="_blank">兑换规则</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="content">
+            <div class="panel-sm">
+                <div class="tabs">
+                    <ul class="tabs-page">
+                        <li class="active" style="cursor:pointer;" data-href="content1"><a>贵宾尊享<span></span></a></li>
+                        <li style="cursor:pointer;" data-href="content2"><a>累积规则<span></span></a></li>
+                        <li style="cursor:pointer;" data-href="content3"><a>兑换规则<span></span></a></li>
+                    </ul>
+                </div>
+                <div class="tab-content wrapper-page">
+                    <div class="tab-pane active" id="content1">
+                        <div class="mytext">
+                            <!--<p><span><strong>会员权益标准如下:</strong></span></p>-->
+
+                            <p class="txtind">
+                                在积分兑换的基础上，如果您在连续的12个月内飞行基础积分或者飞行次数达到下表中列明的标准，您将升级成为我们的贵宾会员，并享受我们为您提供的特别优惠及系列的高品质服务！
+                            </p>
+
+                            <p class="txtind">
+                                1、定级保级标准
+                            </p>
+
+                            <div class="mytext">
+                                <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>贵宾卡级别</th>
+                                        <th>定级标准（连续12个月内）</th>
+                                        <th>保级标准（连续24个月内）</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>贵宾卡标准</td>
+                                        <td>万积分/航段</td>
+                                        <td>万积分/航段</td>
+                                    </tr>
+                                    <tr>
+                                        <td>银卡会员</td>
+                                        <td>3万基础积分或20次</td>
+                                        <td>6万基础积分或40次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>金卡会员</td>
+                                        <td>5万基础积分或40次</td>
+                                        <td>10万基础积分或60次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>钻石卡</td>
+                                        <td>8万基础积分或80次</td>
+                                        <td>15万基础积分或100次</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="txtind">
+                                说明：
+                            </p>
+
+                            <p class="txtind">
+                                1、会员的定级或保级积分仅指会员购买浙江长龙航空航班可累积积分舱位的机票所获取的基础积分，不包括额外奖励积分、会员在合作伙伴处获取的积分和其他任何促销积分。
+                            </p>
+
+                            <p class="txtind">
+                                2、会员的定级或保级标准中的乘机次数仅限可累积积分的有效乘机次数。其中，乘坐头等舱升级次数按2次计算，公务舱次数按照1.5次计算，超级经济舱、全价经济舱和经济舱B舱位的升级次数均按1.25次计算，折扣经济舱以M/H/K/L/P字母显示的升级次数按1次计算，折扣经济舱以
+                                Q/G/V/U/Z字母显示的升级次数按照0.5次计算，其余的折扣舱位不累积升级次数。
+                            </p>
+
+                            <p class="txtind">
+                                3、贵宾会员的身份有效期为24个月（自发卡之日起计）；若在升级为贵宾会员后的连续的24个月内，会员的飞行基础积分或乘机次数未达到保级标准，则自动按上表进行相应降级，直至降为普通卡会员。
+                            </p>
+
+                            <p class="txtind">
+                                4、长龙俱乐部将于贵宾卡到期日当天执行贵宾卡升级，以确认您的贵宾会员身份。
+                            </p>
+
+                            <p>&nbsp;</p>
+
+                            <p>&nbsp;</p>
+
+                            <p class="txtind">
+                                贵宾会员的专享优惠和服务
+                            </p>
+
+                            <div class="mytext">
+                                <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>尊享礼遇</th>
+                                        <th>银卡</th>
+                                        <th>金卡</th>
+                                        <th>钻石卡</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="4">预订专享</td>
+                                        <td>7*24小时贵宾服务专线</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先座位选择</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先候补机位</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先保证付费机票定做</td>
+                                        <td>是（起飞前48小时内）</td>
+                                        <td>是（起飞前48小时内）</td>
+                                        <td>是（起飞前48小时内）</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">登机专享</td>
+                                        <td>专享值机柜台</td>
+                                        <td>长龙会员服务柜台</td>
+                                        <td>头等舱服务柜台</td>
+                                        <td>头等舱服务柜台</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先登机</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="4">行李专享</td>
+                                        <td>额外托运行李限额</td>
+                                        <td></td>
+                                        <td>10公斤/1件</td>
+                                        <td>20公斤/1件</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先处理托运行李</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>特别手提行李限额</td>
+                                        <td></td>
+                                        <td>5公斤</td>
+                                        <td>10公斤</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先提取行李</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">专享贵宾室</td>
+                                        <td>享用机场贵宾室</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>同行贵宾</td>
+                                        <td></td>
+                                        <td>1名</td>
+                                        <td>1名</td>
+                                    </tr>
+                                    <tr>
+                                        <td>兑换机场贵宾室使用券</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">贵宾专属<br>额外礼遇</td>
+                                        <td>额外的积分奖励</td>
+                                        <td></td>
+                                        <td>15%</td>
+                                        <td>30%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>额外获赠机场贵宾室使用券</td>
+                                        <td>1张</td>
+                                        <td>2张</td>
+                                        <td>5张</td>
+                                    </tr>
+                                    <tr>
+                                        <td>额外获赠机票升舱券</td>
+                                        <td>1张</td>
+                                        <td>2张</td>
+                                        <td>5张</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">不正常<br>航班时</td>
+                                        <td>专享待遇</td>
+                                        <td>享受公务舱地面服务待遇</td>
+                                        <td>享受头等舱地面服务待遇</td>
+                                        <td>享受头等舱地面服务待遇</td>
+                                    </tr>
+                                    <tr>
+                                        <td>同行贵宾</td>
+                                        <td></td>
+                                        <td>1名同享金卡待遇</td>
+                                        <td>1名同享金卡待遇</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">票务专享</td>
+                                        <td>机票免费变更及退票</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>奖励机票的免费变更</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="7">会籍假期</td>
+                                        <td>是</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>尊享专用邮箱</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优先尊享推广活动及计划</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>航空杂志</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>生日尊享问候</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>生日尊享礼物</td>
+                                        <td></td>
+                                        <td>是</td>
+                                        <td>是</td>
+                                    </tr>
+                                    <tr>
+                                        <td>贵宾提名</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>是</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="txtind">
+                                说明：
+                            </p>
+
+                            <p class="txtind">
+                                以上优惠只适用于搭乘长龙航空公司营销及营运的航班，并不适用于代码共享的合作航空公司
+                            </p>
+
+                            <p class="txtind">
+                                1、优先座位选择： 会员如与其配偶同行，其配偶也可享用此项礼遇。该待遇只适用于付费机票，并视订位时舱位实际情况而定。请注意，
+                                优先座位选择并不适用于团体机票及无成人陪同的年幼乘客（独自搭乘航班的12岁或以下儿童）。会员必须于航班起飞前至少一小时办理登机手续，否则预留座位将被重新分配。
+                            </p>
+
+                            <p class="txtind">
+                                2、优先候补座位：会员如与其配偶同行，其配偶也可享用此项礼遇。只适用于付费机票，不适用于免费赠送机票或奖励机票。
+                            </p>
+
+                            <p class="txtind">
+                                3、额外奖励积分：长龙钻石卡、金卡、会员每次乘坐长龙航空航班时，除正常累积积分外，在按照所乘舱位累积的基础上，钻石卡会员可获得额外30%的奖励积分，金卡会员可获得额外15%的奖励积分；该项积分将在会员飞行积分累积的同时计入其会员帐户，但不作为定级或保级积分。
+                            </p>
+
+                            <p class="txtind">4、退票优惠</p>
+
+                            <p class="txtind"> √ 购买长龙航空国内航班（含国内包机）可累积舱位客票，在航班截载前均可免费退票。</p>
+
+                            <p class="txtind"> √ 退票的指定地点：限原出票地退票。</p>
+
+                            <p class="txtind"> √ 此项规定不适用于以下情况：</p>
+
+                            <p class="txtind"> ① 积分累积为零的客票；</p>
+
+                            <p class="txtind"> ② 团队票、不定期客票或其它注明“不得退票”字样的特殊产品客票；</p>
+
+                            <p class="txtind"> ③ 不包括国际客票及含有国际航段的国内客票；</p>
+
+                            <p class="txtind"> ④ 承运人虽为以上指定航空公司，但客票号为外航（指不属上述各公司）出的客票。</p>
+
+                            <p class="txtind">
+                                5、优先值机与候机：作为贵宾会员，只要乘坐浙江长龙航空航班，无论购买的是何等级舱位的机票，均可优先办理乘机手续。钻石卡会员可享受额外20KG免费行李额，并可携带一名同行在头等舱值机柜台办理乘机手续，免费进入机场休息室候机；金卡会员可享受额外10KG免费行李额，银卡会员本人可在长龙会员服务柜台办理乘机手续，对于未设长龙会员服务柜台的机场，银卡会员可在头等舱柜台办理乘机手续。
+                            </p>
+
+                            <p class="txtind">
+                                6、不正常航班服务：遇航班不正常时，在餐食、住宿和休息室方面，钻石卡和金卡会员可携带一名同行享受头等舱待遇，银卡会员本人可享受公务舱待遇。
+                            </p>
+
+                            <p class="txtind">
+                                7、会籍假期：为了让贵宾会员能更灵活享用礼遇，当会员已累积了一定积分，但因个人原因需要暂时停止外游公干时，可于会籍有效期内申请长达一年的会籍假期。在此期间会员将暂时不能享用长龙航空的相关礼遇或累积积分。
+                            </p>
+
+                            <p class="txtind">
+                                8、
+                                贵宾会员享受机场值机、候机优惠服务时需出示本人有效钻石卡、金卡、银卡和当次长龙航空航班付费机票；持长龙航空代码共享航班机票不能享受该项服务。同行人员必须同样持有当次场控航空机票，舱位等级不限，且航班日期、航段、航班号与贵宾卡会员相同。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="content2">
+                        <div class="mytext">
+                            <p><span><strong>积分累积标准如下:</strong></span></p>
+
+                            <div class="mytext">
+                                <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>舱位等级</th>
+                                        <th>舱位代码</th>
+                                        <th>累计标准</th>
+                                        <th>升级次数</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>头等舱</td>
+                                        <td>F</td>
+                                        <td>200%×K</td>
+                                        <td>2次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>公务舱</td>
+                                        <td>C</td>
+                                        <td>150%×K</td>
+                                        <td>1.5次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>超级经济舱</td>
+                                        <td>R</td>
+                                        <td>125%×K</td>
+                                        <td>1.25次</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">经济舱</td>
+                                        <td>Y/B</td>
+                                        <td>125%×K</td>
+                                        <td>1.25次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>M/H/K/L/P</td>
+                                        <td>100%×K</td>
+                                        <td>1次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Q/G//V/U/Z</td>
+                                        <td>50%×K</td>
+                                        <td>0.5次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>其他舱位</td>
+                                        <td>J/S/W/T/E/D/I/T/O/X/N</td>
+                                        <td>不累计积分</td>
+                                        <td>不计算次数</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p><span><strong>说明：</strong></span></p>
+
+                            <p><span>1.  “长龙积分”累积是以“分”为单位，以国际航空运输协会（IATA）公布的实际里程（Ticket Point Mileage）为标准。航距在800公里以上的航段，K为您搭乘航班的飞行距离；航距在800公里以下的航段，K均按800公里计算。（1积分=1公里）</span>
+                            </p>
+
+                            <p><span>2.  舱位代码指机票座位等级（CLASS）栏中标明的代码。</span></p>
+
+                            <p><span>3.  以下几种情况不可以累积积分: </span></p>
+
+                            <p><span> √乘坐专机、包机航班</span></p>
+
+                            <p><span> √乘坐长龙航空及合作伙伴以外的航班</span></p>
+
+                            <p><span> √登记成为会员之前所搭乘的航班</span></p>
+
+                            <p><span> √各类免票</span></p>
+
+                            <p><span> √团队票</span></p>
+
+                            <p><span> √其他指定的不累积积分舱位的机票 </span></p>
+
+                            <p><span>4.  按成人头等舱、经济舱公布普通票价50％购票的普通儿童票，在F、Y舱订座时，累积标准按以上相应舱位标准的50%累积。 </span></p>
+
+                            <p><span>5.  同一次搭乘航班的飞行里程只可存入一个空中常客奖励计划。</span></p>
+
+                            <p><span>6.  长龙俱乐部有权随时对以上标准进行调整。</span></p>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="content3">
+                        <div class="mytext">
+                            <p><span><strong>一、积分兑换:</strong></span></p>
+
+                            <p><span>1、 首次起兑点：</span></p>
+
+                            <p><span>当您账户中的积分达到3000分后即可开始申请兑换。首次起兑点必须达到3000分。</span></p>
+
+                            <p><span>2、 积分兑换标准如下表：</span></p>
+
+                            <div class="mytext">
+                                <h3>国内航线奖励机票兑换标准</h3>
+                                <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2">航距（公里）</th>
+                                        <th colspan="2">经济舱</th>
+                                        <th colspan="2">头等舱</th>
+                                    </tr>
+                                    <tr>
+                                        <th>单程</th>
+                                        <th>往返</th>
+                                        <th>单程</th>
+                                        <th>往返</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1-800</td>
+                                        <td>8000</td>
+                                        <td>14000</td>
+                                        <td>14000</td>
+                                        <td>24000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>801-1200</td>
+                                        <td>11000</td>
+                                        <td>20000</td>
+                                        <td>18000</td>
+                                        <td>28000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1201-1600</td>
+                                        <td>13000</td>
+                                        <td>23000</td>
+                                        <td>21000</td>
+                                        <td>38000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1601-2000</td>
+                                        <td>15000</td>
+                                        <td>26000</td>
+                                        <td>23000</td>
+                                        <td>40000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2001-3000</td>
+                                        <td>18000</td>
+                                        <td>32000</td>
+                                        <td>30000</td>
+                                        <td>52000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3001+</td>
+                                        <td>28000</td>
+                                        <td>50000</td>
+                                        <td>45000</td>
+                                        <td>80000</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mytext">
+                                <h3>国内航线奖励升舱兑换标准</h3>
+                                <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>航距（公里）</th>
+                                        <th>经济舱（Y/B）</th>
+                                        <th>头等舱（M/H/K/L/P/Q）</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1-800</td>
+                                        <td>4500</td>
+                                        <td>7500</td>
+                                    </tr>
+                                    <tr>
+                                        <td>801-1200</td>
+                                        <td>5500</td>
+                                        <td>11000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1201-1600</td>
+                                        <td>7500</td>
+                                        <td>14000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1601-2000</td>
+                                        <td>8000</td>
+                                        <td>15000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2001-3000</td>
+                                        <td>11000</td>
+                                        <td>19000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3000+</td>
+                                        <td>18000</td>
+                                        <td>30000</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p><span><strong>说明：</strong></span></p>
+
+                            <p><span>1、 当会员帐户中的积分在有效期内达到3000积分后，即具备首次兑奖资格，会员用于兑换奖励的积分须为同一帐户累积的积分。</span></p>
+
+                            <p><span>2、 会员通过致电0571-89999999办理兑奖手续时须提供会员卡卡号、帐户密码、本人或代办人有效身份证原件、乘机人有效身份证原件。</span></p>
+
+                            <p><span>3、 兑换奖励机票或奖励升舱的航班必须是浙江长龙航空且挂有GJ航班号的实际承运的航班；不适用于专机、包机航班及代码共享航班。</span></p>
+
+                            <p>
+                                <span>4、 奖励机票和奖励升舱可兑换长龙航空公司航班，必须确定航段、航班、日期及舱位等级。如果来回程分别为不同的舱位等级，则所需积分为相应舱位等级来回程所需积分除以2后相加。</span>
+                            </p>
+
+                            <p><span>5、 奖励机票和奖励升舱目前仅支持普通旅客兑换，特殊旅客除外（特殊旅客包括伤病旅客、孕妇、无成人陪伴儿童等）。</span></p>
+
+                            <p><span>6、 儿童和婴儿的兑换标准与成人兑换标准相同，兑换婴儿及儿童奖励机票及奖励升舱需提供同航班同行成人票号，不提供无成人陪伴儿童服务和婴儿单独成行。</span></p>
+
+                            <p><span>7、 兑换国内航班奖励机票及升舱至少需要在航班起飞前90分钟办妥。</span></p>
+
+                            <p><span>8、 每个航班上可用于兑换奖励机票和奖励升舱的座位有限，且受航空公司禁止兑换奖励日期的限制。禁止兑换的日期段为：春节&lt;农历腊月十六至 正月十六&gt;、暑假期间&lt;7月10日至9月10日&gt;、十一黄金周&lt;9月28日--10月9日&gt;，具体以兑换时实际查询情况为准。</span>
+                            </p>
+
+                            <p><span>9、 兑换奖励机票涉及的一切机场建设费、燃油附加费及其他税费由会员自行承担。</span></p>
+
+                            <p><span>10、会员兑换成功的奖励机票自成功兑换之日起一年内有效。在有效期内，奖励机票可更改日期，国内机票可免费变更一次，再次变更将收取费用，机票变更费为100元人民币(或等值货币) /次/张。奖励机票出票后旅客姓名及航段将不可变更。</span>
+                            </p>
+
+                            <p><span>11、会员兑换的奖励机票或奖励升舱不能更改姓名及航段，不能签转到其他公司，不能自愿退票或者退回已扣除积分。</span></p>
+
+                            <p><span>12、兑换奖励升舱后的机票仍按升舱前的舱位累积积分；升舱后的机票，如旅客自愿变更航班或日期，在兑换奖励升舱舱位开放的情况下，可以直接变更。若变更后的航班经济舱最低折扣舱位高于会员升舱前客票舱位，则需补齐差价。若变更后的航班经济舱最低折扣舱位低于会员升舱前客票舱位，则差价不退。</span>
+                            </p>
+
+                            <p><span>13、由于航空公司原因造成已兑换奖励机票和奖励升舱的会员非自愿变更旅行计划，旅客可在一个月内（以销分兑换之日起）与客服热线0571-89999999联系，办理变更或退回积分手续，逾期积分不退。</span>
+                            </p>
+
+                            <p><span>14、如会员原因自行取消行程，退还机场建设费、燃油附加费及其他税费，客票作废，积分不予退还。 </span></p>
+
+                            <p><span>15、会员兑换奖励免票及升舱当存在多种优惠时，只享受最高优惠，不可重复享受。</span></p>
+
+                            <p><span>16、长龙俱乐部有权调整所有航空及非航空奖励的兑换标准或更换奖励品种类，恕不另行通知。</span></p>
+
+                            <p><span>17、其他运输规则详见浙江长龙航空国内、国际运输总条件，未尽事宜请参阅中国民航总局颁布的《中华人民共和国民用航空法》、《国内旅客、行李运输总条件》等各项规定，并由购票人对网上购票行为和内容负有全部责任。</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

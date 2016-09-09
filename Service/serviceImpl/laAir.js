@@ -54,7 +54,7 @@ laAir.run(function ($interval, $rootScope, $window, laUserService, laGlobalLocal
     if (curHrefLow.indexOf('/member/', 0) > 0) {//检查用户中心类权限
 
         var isNeedCheckMember = true;
-        var unCheckUserRight_Member = new Array("/ForgetPassword.", "/Login.", "/Register.", "/OnlineCheckin.", "/CheckinList.");
+        var unCheckUserRight_Member = new Array("/ForgetPassword.", "/Login.", "/Register.", "/OnlineCheckin.", "/CheckinList.", "/Club.");
         for (var i = 0; i < unCheckUserRight_Member.length; i++) {
             if (curHrefLow.indexOf(unCheckUserRight_Member[i].toLowerCase(), 0) >= 0) {
                 isNeedCheckMember = false;
@@ -102,10 +102,27 @@ laAir.run(function ($interval, $rootScope, $window, laUserService, laGlobalLocal
 
 });
 
+/**
+ * 会员中心左边菜单Ctl
+ */
+laAir.controller('laAir_Member_LeftMenuCtl', ['$rootScope', '$scope', '$window', 'laUserService', 'laGlobalLocalService', function ($rootScope, $scope, $window, laUserService, laGlobalLocalService) {
+
+    $scope.IsFrequentPassenger = false;
+    laUserService.CheckLogin(function (dataBack, isLogined) {
+        $scope.IsFrequentPassenger = dataBack.IsFrequentPassenger;
+        $scope.$emit("MemberContentPage", {"IsFrequentPassenger": $scope.IsFrequentPassenger});
+    });
+
+}]);
+
+/**
+ * 网站页头Ctl
+ */
 laAir.controller('laAir_CommonHtmlHeaderCtl', ['$rootScope', '$scope', '$window', 'laUserService', 'laGlobalLocalService', function ($rootScope, $scope, $window, laUserService, laGlobalLocalService) {
 
     $scope.userInfo_C;
     $scope.UserLogined = false;
+    $scope.IsFrequentPassenger = false;
     $scope.$on("loginCheckCom", function (e, data) {
         $scope.userInfo_C = data.d;
         $scope.UserLogined = data.l;
@@ -145,6 +162,9 @@ laAir.controller('laAir_CommonHtmlHeaderCtl', ['$rootScope', '$scope', '$window'
     };
 }]);
 
+/**
+ * 网站页尾Ctl
+ */
 laAir.controller('laAir_CommonHtmlFooterCtl', ['$rootScope', '$scope', '$window', 'laUserService', 'laGlobalLocalService', function ($rootScope, $scope, $window, laUserService, laGlobalLocalService) {
 
     $scope.AirplaneMenuList = laMapMenu_Airplane;

@@ -90,7 +90,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
     $scope.btnQueryTicketClick = function () {
         var sCity = $("#startCity").val();
         var eCity = $("#endCity").val();
-        var sCityCode = laUserService.SearchCityCodeByCityName(sCity);//$("#startCity").attr("segnum");
+        var sCityCode = laUserService.SearchCityCodeByCityName(sCity); //$("#startCity").attr("segnum");
         var eCityCode = laUserService.SearchCityCodeByCityName(eCity);//$("#endCity").attr("segnum");
         var sTime = $("#startTime").val();
         var eTime = $("#endTime").val();

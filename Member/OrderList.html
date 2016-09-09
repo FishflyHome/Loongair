@@ -110,6 +110,7 @@
                                     <th>行程</th>
                                     <th>时间</th>
                                     <th>航班号</th>
+                                    <th>订单类型</th>
                                     <th>订单状态</th>
                                     <th>支付状态</th>
                                     <th>总价</th>
@@ -122,6 +123,7 @@
                                     <td><p><div ng-repeat="flight in ordInfo.FlightList">{{flight.DepartureCityCH}}-{{flight.ArriveCityCH}}</div></p></td>
                                     <td><p><div ng-repeat="flight in ordInfo.FlightList">{{flight.DepartureTime|date:'yyyy-MM-dd HH:mm'}}-{{flight.ArriveTime|date:'HH:mm'}}</div></p></td>
                                     <td><p><div ng-repeat="flight in ordInfo.FlightList">{{flight.FlightNum}}</div></p></td>
+                                    <td><p>{{ordInfo.IntegralTypeCH}}</p></td>
                                     <td><p>{{ordInfo.OrderStatusCH}}</p></td>
                                     <td><p>{{ordInfo.PayStatusCH}}</p></td>
                                     <td>¥{{ordInfo.OrderAmountWithTax}}</td>
@@ -132,7 +134,7 @@
                                         <ul class="f-cb">
                                             <li ng-if="ordInfo.PayStatus==2">
                                                 <a href="/ETicket/RefundOrder.html?ordId={{ordInfo.OrderId}}" target="_blank"><i class="i-4"></i><span>申请退票</span></a>
-                                                <!--<a href="/ETicket/TransOrder.html?ordId={{ordInfo.OrderId}}" target="_blank"><i class="i-4"></i><span>申请改期</span></a>-->
+                                                <a href="/ETicket/TransOrder.html?ordId={{ordInfo.OrderId}}" ng-show="ordInfo.OrderType != 5" target="_blank"><i class="i-4"></i><span>申请改期</span></a>
                                             </li>
                                             <!--
                                             <li>

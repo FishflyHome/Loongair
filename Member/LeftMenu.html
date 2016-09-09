@@ -1,12 +1,22 @@
-<div class="personal-menu">
+<div class="personal-menu" ng-controller="laAir_Member_LeftMenuCtl">
     <div>
         <h2>会员中心</h2>
     </div>
     <ul>
-        <li ng-class="{true:'active',false:''}[isMem_MyInfo]"><a href="/Member/MyInfo.html">我的信息</a></li>
+        <li ng-if="!IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_MyInfo]"><a href="/Member/MyInfo.html">我的信息</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_MyInfo]"><a href="/Member/MyVipInfo.html">我的信息</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_MyMessage]"><a href="/Member/MyMessage.html">我的消息</a></li>
         <li ng-class="{true:'active',false:''}[isMem_ChangePwd]"><a href="/Member/ChangePwd.html">修改密码</a></li>
         <li ng-class="{true:'active',false:''}[isMem_StationPsg]"><a href="/Member/Passenger.html">常用乘客信息</a></li>
         <li ng-class="{true:'active',false:''}[isMem_OrderList]"><a href="/Member/OrderList.html">机票订单</a></li>
-        <li ng-class="{true:'active',false:''}[isMem_MyMileage]"><a href="/Member/MyMileage.html">我的里程</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_MemberCard]"><a href="/Member/MemberCard.html">会员卡打印</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_Points]"><a href="/Member/Points.html">积分信息</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_PointsRetro]"><a href="/Member/PointsRetro.html">积分补登</a></li>
+        <!--<li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_AccrueRoles]"><a href="/Member/AccrueRoles.html">累积规则</a></li>-->
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_FreeTickets]"><a href="/Member/FreeTickets.html">兑换免票</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_Mall]"><a href="/Member/Mall.html">积分商城</a></li>
+        <!--<li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_ExchangeRoles]"><a href="/Member/ExchangeRoles.html">兑换规则</a></li>-->
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_Beneficiary]"><a href="/Member/Beneficiary.html">受益人</a></li>
+        <li ng-if="IsFrequentPassenger" ng-class="{true:'active',false:''}[isMem_MemberBook]"><a href="/Member/MemberHandBook.html">会员手册</a></li>
     </ul>
 </div>

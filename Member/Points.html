@@ -57,6 +57,7 @@
     <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
     <script type="text/javascript" src="/B2C/js/application.js"></script>
     <script type="text/javascript" src="/Library/others/Base64.js"></script>
+    <script type="text/javascript" src="/Library/others/popup_layer.js"></script>
 
     <script src="controller/PointsCtl.js"></script>
 </head>
@@ -77,17 +78,19 @@
                     <h2>积分信息</h2>
 
                     <div class="text-info">
-                        <p class="mship"><label>您好：<span>张三</span>，</label><label>您的卡号是：ASD1233333</label></p>
+                        <p class="mship"><label>您好：<span>{{PointsList.Name}}</span>，</label><label>您的卡号是：{{PointsList.cardNo}}</label></p>
 
-                        <p class="mship"><label>会员等级：[等级] 会员，</label><label> 可用积分：<span>1200</span></label></p>
+                        <p class="mship"><label>会员等级：[{{PointsList.Level}}] 会员，</label><label> 可用积分：<span>{{PointsList.IntegralLeft}}</span></label></p>
 
-                        <p class="mship"><label>您的下一个等级是[下一等级] 会员，</label><label><a
-                                onClick="$('.modal').modal('show');">点此可查看[下一等级]会员权益>></a></label></p>
+                        <p ng-if="MemberLevelV!=4" class="mship"><label>您的下一个等级是[{{PointsList.NextLevel}}] 会员，</label><label><a
+                                onClick="$('.modal').modal('show');">点此可查看[{{PointsList.NextLevel}}]会员权益</a></label></p>
+                        <p ng-if="MemberLevelV>=4" class="mship"><label>您已是[{{PointsList.Level}}]会员，</label><label><a
+                                onClick="$('.modal').modal('show');">点此可查看[{{PointsList.Level}}]会员权益</a></label></p>
                     </div>
                     <div class="text-default">
-                        <p class="mship"><label>总累计积分：<span>1200</span>，</label>
-                            <label>升级积分：<span>200</span></label>
-                            <label>升级航段：<span>700</span></label>
+                        <p class="mship"><label>总累计积分：<span>{{PointsList.IntegralCount}}</span>，</label>
+                            <label>升级积分：<span>{{PointsList.LevelUpIntegral}}</span></label>
+                            <label>升级航段：<span>{{PointsList.FlightIntegral}}</span></label>
                         </p>
                     </div>
                 </div>
@@ -96,21 +99,19 @@
 
                     <div class="media-cilent">
                         <div class="row_filter">
-                            <label class="span7">消费日期：
+                            <label class="span7">起止日期：
                                 <input type="text" autocomplete="off" id="startTime" ng-model="startTime">
                                 &nbsp;至&nbsp;
                                 <input type="text" autocomplete="off" id="endTime" ng-model="endTime">
                                 &nbsp;&nbsp;
                             </label>
                             <label class="span3">积分状态
-                                <select style="width:auto">
-                                    <option>全部积分</option>
-                                    <option>已审积分</option>
-                                    <option>未审积分</option>
+                                <select style="width:auto" ng-model="approved"
+                                        ng-options="t.v as t.t for t in PointsAuditStatus">
                                 </select>
                             </label>
                             <label class="pull-right">
-                                <button class="btn btn-warning"><i class="icon-search"></i>查询</button>
+                                <button class="btn btn-warning" ng-click="btnQueryClick();"><i class="icon-search"></i>查询</button>
                             </label>
                         </div>
                     </div>
@@ -118,36 +119,50 @@
                         <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>累计日期</th>
-                                <th>积分数</th>
+                                <th>航班日期</th>
+                                <th>航班号</th>
+                                <th>舱位</th>
+                                <th>起始地</th>
+                                <th>到达地</th>
+                                <th>累计积分</th>
+                                <th>升级积分</th>
                                 <th>有效期</th>
-                                <th>累计来源</th>
                                 <th>状态</th>
-                                <th>积分属性</th>
-                                <th>航段属性</th>
+                                <th>详细信息</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>2011-11-11</td>
-                                <td>2000</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2011-11-11</td>
-                                <td>220</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr id="tr{{$index}}" ng-repeat="P in PointsList.Result track by $index">
+                                <td>{{P.FlightDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{P.FlightNo}}</td>
+                                <td>{{P.Cabin}}</td>
+                                <td>{{P.From}}</td>
+                                <td>{{P.To}}</td>
+                                <td>{{P.IntegralAccu}}</td>
+                                <td>{{P.IntegralForLevel}}</td>
+                                <td>{{P.EffectiveDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{getEnumTextPointEnabled(P.Reviewed)}}</td>
+                                <td><a href="javascript:;" ng-click="showDetail(P, $index)" style="color:dodgerblue;font-size: 12px;">详细显示</a></td>
                             </tr>
                             </tbody>
                         </table>
+                        <div class="submit-pay" style="text-align:right;">
+                            <span>共{{totalPage}}页,当前第{{pageIndex}}页</span>
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex>1]" href="javascript:;" ng-disabled="pageIndex>1" ng-click="btnPrePageClick();">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex<totalPage]" href="javascript:;" ng-disabled="pageIndex<totalPage" ng-click="btnNextPageClick();">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <!--
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li class="disabled"><a href="#">«</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li class="disabled"><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                        -->
                     </div>
                 </div>
             </div>
@@ -157,162 +172,250 @@
     </div>
 </div>
 
-<div class="modal">
-    <div class="modal-body" style="max-height:480px; overflow-y:scroll;">
+<div class="modal" style="width:700px;">
+    <div class="modal-body" style="max-height:630px; overflow-y:scroll;">
         <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
             <thead>
             <tr>
-                <th colspan="2">尊享礼遇</th>
-                <th>银卡</th>
-                <th>金卡</th>
+                <th></th>
+                <th ng-if="MemberLevelV==1 ">尊享礼遇</th>
+                <th ng-if="MemberLevelV==1 || MemberLevelV==2 ">银卡</th>
+                <th ng-if="MemberLevelV==2 || MemberLevelV==3 ">金卡</th>
+                <th ng-if="MemberLevelV==3 || MemberLevelV==4 ">钻石卡</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td rowspan="4">预订专享</td>
-                <td>7*24小时贵宾服务专线</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">7*24小时贵宾服务专线</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>优先座位选择</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先座位选择</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>优先候补机位</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先候补机位</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>优先保证付费机票定做</td>
-                <td>是（起飞前48小时内）</td>
-                <td>是（起飞前48小时内）</td>
+                <td ng-if="MemberLevelV==1 ">优先保证付费机票定做</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是（起飞前48小时内）</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是（起飞前48小时内）</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是（起飞前48小时内）</td>
             </tr>
             <tr>
                 <td rowspan="2">登机专享</td>
-                <td>专享值机柜台</td>
-                <td>长龙会员服务柜台</td>
-                <td>头等舱服务柜台</td>
+                <td ng-if="MemberLevelV==1 ">专享值机柜台</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">长龙会员服务柜台</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">头等舱服务柜台</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">头等舱服务柜台</td>
             </tr>
             <tr>
-                <td>优先登机</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先登机</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
                 <td rowspan="4">行李专享</td>
-                <td>额外托运行李限额</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">额外托运行李限额</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">10公斤/1件</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">20公斤/1件</td>
             </tr>
             <tr>
-                <td>优先处理托运行李</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先处理托运行李</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>特别手提行李限额</td>
-                <td></td>
-                <td>5公斤</td>
+                <td ng-if="MemberLevelV==1 ">特别手提行李限额</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">5公斤</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">10公斤</td>
             </tr>
             <tr>
-                <td>优先提取行李</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先提取行李</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
                 <td rowspan="3">专享贵宾室</td>
-                <td>享用机场贵宾室</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">享用机场贵宾室</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>同行贵宾</td>
-                <td></td>
-                <td>1名</td>
+                <td ng-if="MemberLevelV==1 ">同行贵宾</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">1名</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">1名</td>
             </tr>
             <tr>
-                <td>兑换机场贵宾室使用券</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">兑换机场贵宾室使用券</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
                 <td rowspan="3">贵宾专属<br>额外礼遇</td>
-                <td>额外的积分奖励</td>
-                <td></td>
-                <td>15%</td>
+                <td ng-if="MemberLevelV==1 ">额外的积分奖励</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">15%</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">30%</td>
             </tr>
             <tr>
-                <td>额外获赠机场贵宾室使用券</td>
-                <td>1张</td>
-                <td>2名</td>
+                <td ng-if="MemberLevelV==1 ">额外获赠机场贵宾室使用券</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">1张</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">2张</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">5张</td>
             </tr>
             <tr>
-                <td>额外获赠机票升舱券</td>
-                <td>1张</td>
-                <td>2张</td>
+                <td ng-if="MemberLevelV==1 ">额外获赠机票升舱券</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">1张</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">2张</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">5张</td>
             </tr>
             <tr>
                 <td rowspan="2">不正常<br>航班时</td>
-                <td>专享待遇</td>
-                <td>享受公务舱地面服务待遇</td>
-                <td>享受头等舱地面服务待遇</td>
+                <td ng-if="MemberLevelV==1 ">专享待遇</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">享受公务舱地面服务待遇</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">享受头等舱地面服务待遇</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">享受头等舱地面服务待遇</td>
             </tr>
             <tr>
-                <td>同行贵宾</td>
-                <td></td>
-                <td>1名同享金卡待遇</td>
+                <td ng-if="MemberLevelV==1 ">同行贵宾</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">1名同享金卡待遇</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">1名同享金卡待遇</td>
             </tr>
             <tr>
                 <td rowspan="2">票务专享</td>
-                <td>机票免费变更及退票</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">机票免费变更及退票</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>奖励机票的免费变更</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">奖励机票的免费变更</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
                 <td rowspan="7">会籍假期</td>
-                <td>是</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">是</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>享专用邮箱</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">尊享专用邮箱</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>优先尊享推广活动及计划</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">优先尊享推广活动及计划</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>航空杂志</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">航空杂志</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>生日尊享问候</td>
-                <td>是</td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">生日尊享问候</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 ">是</td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>生日尊享礼物</td>
-                <td></td>
-                <td>是</td>
+                <td ng-if="MemberLevelV==1 ">生日尊享礼物</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 ">是</td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             <tr>
-                <td>享专用邮箱</td>
-                <td></td>
-                <td></td>
+                <td ng-if="MemberLevelV==1 ">贵宾提名</td>
+                <td ng-if="MemberLevelV==1 || MemberLevelV==2 "></td>
+                <td ng-if="MemberLevelV==2 || MemberLevelV==3 "></td>
+                <td ng-if="MemberLevelV==3 || MemberLevelV==4 ">是</td>
             </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<style>
+    .modalDet{
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        z-index: 990;
+        width: 660px;
+        margin-left: -280px;
+        background-color: #ffffff;
+        border: 1px solid #eee;
+        -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    }
+</style>
+<div class="modalDet" style="border-radius: 5px; top:45%; left:52%; display:none;" id="divmsgcontent">
+    <div class="modal-body">
+        <div class="tabs">
+            <div class="vipmessage" style="width:615px; padding-left: 0;">
+                <h2>积分详细</h2>
+                <span style="float:right; margin-top: -23px;"><a id="divclosemsgcontent" href="javascript:;">关闭</a></span><br><br>
+            </div>
+            <div class="tab-content" style="margin-top: -30px;">
+                <div style=" overflow-y:scroll;">
+                    <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>航班日期</th>
+                            <th>航班号</th>
+                            <th>舱位</th>
+                            <th>起始地</th>
+                            <th>到达地</th>
+                            <th>累计积分</th>
+                            <th>升级积分</th>
+                            <th>有效期</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{curP.FlightDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{curP.FlightNo}}</td>
+                            <td>{{curP.Cabin}}</td>
+                            <td>{{curP.From}}</td>
+                            <td>{{curP.To}}</td>
+                            <td>{{curP.IntegralAccu}}</td>
+                            <td>{{curP.IntegralForLevel}}</td>
+                            <td>{{curP.EffectiveDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{getEnumTextPointEnabled(curP.Reviewed)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

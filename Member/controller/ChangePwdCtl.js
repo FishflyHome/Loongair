@@ -43,6 +43,10 @@ laAir.controller('laAir_MemberChangePwdPageCtl', ['$document', '$interval', '$wi
             $scope.newPwdValid = false;
             return;
         }
+        if (!laGlobalLocalService.CheckPassWord($scope.newPwd)){
+            $scope.newPwdValid = false;
+            return false;
+        }
         if ($scope.newPwd != $scope.newConPwd) {
             $scope.newConPwdValid = false;
             return;

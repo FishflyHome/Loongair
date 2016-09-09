@@ -14,7 +14,5 @@ laAir.controller('laAir_MemberETicketsPageCtl', ['$interval', '$document', '$win
 
     $scope.isMem_ETickets = true;
 
-    $scope.is_ETicket_Submenu = "block";
-
 }]);
 

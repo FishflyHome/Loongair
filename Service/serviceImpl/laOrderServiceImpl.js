@@ -183,7 +183,7 @@ laOrder.factory('laFlightService', ['$http', 'laGlobalHTTPService', 'laGlobalLoc
      * @param callBack
      * @constructor
      */
-    laFlightService.QueryFlightDynamic = function(dCityCode, aCityCode, dTime, fliNumber, qryFlag, callBack){
+    laFlightService.QueryFlightDynamic = function (dCityCode, aCityCode, dTime, fliNumber, qryFlag, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryFlightDynamic;
         requestParam.SessionId = '';
@@ -217,7 +217,7 @@ laOrder.factory('laFlightService', ['$http', 'laGlobalHTTPService', 'laGlobalLoc
      * @param callBack
      * @constructor
      */
-    laFlightService.QueryPriceCalendar = function(departureAirportCode, arriveAirportCode, callBack){
+    laFlightService.QueryPriceCalendar = function (departureAirportCode, arriveAirportCode, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryPriceCalendar;
         requestParam.SessionId = '';
@@ -248,10 +248,11 @@ laOrder.factory('laFlightService', ['$http', 'laGlobalHTTPService', 'laGlobalLoc
      * @param callBack
      * @constructor
      */
-    laFlightService.QueryFlightForTrans = function(departureTime, orderId, changePassengerList, callBack){
+    laFlightService.QueryFlightForTrans = function (departureTime, orderId, changePassengerList, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryFlightForTrans;
-        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+        ;
         var requestBody = {};
         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
         requestBody.DepartureTime = departureTime;
@@ -465,6 +466,8 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
         ordInfo.CreateTime = ordDet.CreateTime;
         ordInfo.OrderType = ordDet.OrderType;
         ordInfo.OrderTypeCH = ordDet.OrderTypeCH;
+        ordInfo.IntegralType = ordDet.IntegralType;
+        ordInfo.IntegralTypeCH = ordDet.IntegralTypeCH;
         ordInfo.PayTime = ordDet.PayTime;
         ordInfo.PayPlat = ordDet.PayPlat;
         ordInfo.OrderId = ordDet.Tid;
@@ -514,6 +517,7 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
                 fli.ArriveTime = tmpFli.ArriveTime;
                 fli.Cabin = tmpFli.Cabin;
                 fli.SaleTicketPrice = tmpFli.SaleTicketPrice;
+                fli.SaleIntegral = tmpFli.SaleIntegral;
                 fli.TicketPrice = tmpFli.TicketPrice;
                 fli.FuelTax = tmpFli.FuelTax;
                 fli.AirportTax = tmpFli.AirportTax;
@@ -536,6 +540,9 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
                 fli.CanTrans = tmpFli.CanTrans;
                 fli.RefundStatus = tmpFli.RefundStatus;
                 fli.RefundAmountStatus = tmpFli.RefundAmountStatus;
+                fli.RefundIntegralStatus = tmpFli.RefundIntegralStatus;
+                fli.RefundIntegral = tmpFli.RefundIntegral;
+                fli.WaitRefundIntegral = tmpFli.WaitRefundIntegral;
                 fli.TicketRefundAmount = tmpFli.TicketRefundAmount;
                 fli.InsuranceAmount = tmpFli.InsuranceAmount;
                 fli.WaitTicketRefundAmount = tmpFli.WaitTicketRefundAmount;
@@ -547,7 +554,11 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
                 fli.RefundAduitTime = tmpFli.RefundAduitTime;
                 fli.Insurances = tmpFli.Insurances;
 
-                ordInfo.OrderAmountWithTax += tmpFli.SaleTicketPrice + tmpFli.FuelTax + tmpFli.AirportTax + tmpFli.OtherTax;
+                var chFee = 0;
+                if (tmpFli.ChangeHandleFee != undefined && tmpFli.ChangeHandleFee != null) {
+                    chFee = tmpFli.ChangeHandleFee;
+                }
+                ordInfo.OrderAmountWithTax += tmpFli.SaleTicketPrice + tmpFli.FuelTax + tmpFli.AirportTax + tmpFli.OtherTax + chFee;
                 for (var x = 0; x < fli.Insurances.length; x++) {
                     var ins = fli.Insurances[x];
                     ordInfo.OrderAmountWithTax += ins.InsuranceAmount;
@@ -556,12 +567,18 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
                 ordInfo.OrderIntegral += tmpFli.SaleIntegral;
 
                 psg.AllTktAmount += tmpFli.SaleTicketPrice;
+                psg.AllTktIntegral += tmpFli.SaleIntegral;
                 psg.AllAirportAmount += tmpFli.AirportTax;
                 psg.AllFuelAmount += tmpFli.FuelTax;
                 psg.AllOtherAmount += tmpFli.OtherTax;
+                psg.AllChangeHandleFee += (tmpFli.ChangeHandleFee == undefined || tmpFli.ChangeHandleFee == null) ? 0 : tmpFli.ChangeHandleFee;
                 for (var s = 0; s < tmpFli.Insurances.length; s++) {
-                    fli.InsAmount += tmpFli.Insurances[s].InsuranceAmount;
-                    psg.AllInsurancesAmount += tmpFli.Insurances[s].InsuranceAmount;
+                    var inam = 0;
+                    if (tmpFli.Insurances[s].InsuranceAmount != undefined && tmpFli.Insurances[s].InsuranceAmount != null) {
+                        inam = tmpFli.Insurances[s].InsuranceAmount;
+                    }
+                    fli.InsAmount += inam;
+                    psg.AllInsurancesAmount += inam;
                 }
 
                 psg.Flights[n] = fli;

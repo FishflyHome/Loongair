@@ -129,7 +129,8 @@
                             </span>
                             </td>
                             <td style="text-align: left;">
-                                <div>机票：<span style="color:orange; margin-left: 15px;">￥{{psg.AllTktAmount}}</span></div>
+                                <div ng-if="orderInfo.IntegralType==1">机票：<span style="color:orange; margin-left: 15px;">￥{{psg.AllTktAmount}}</span></div>
+                                <div ng-if="orderInfo.IntegralType==2">所需积分：<span style="color:orange; margin-left: 15px;">{{psg.AllTktIntegral}}</span></div>
                                 <div ng-if="orderInfo.OrderType == 5">机票差价：<span style="color:orange; margin-left: 15px;">{{psg.AllTktAmount}}</span></div>
                                 <div ng-if="orderInfo.OrderType == 5">改期手续费：<span style="color:orange; margin-left: 15px;">{{psg.AllChangeHandleFee}}</span></div>
                                 <div>机建：<span style="color:orange; margin-left: 15px;">￥{{psg.AllAirportAmount}}</span></div>

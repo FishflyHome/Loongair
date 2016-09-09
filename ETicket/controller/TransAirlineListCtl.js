@@ -1,48 +1,35 @@
 /**
- * Created by Jerry on 16/7/4.
+ * Created by ssyufei on 16/8/1.
  */
 
-laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$document', '$window', '$scope', 'laUserService', 'laFlightService', 'laGlobalLocalService', function ($filter, $interval, $document, $window, $scope, laUserService, laFlightService, laGlobalLocalService) {
+laAir.controller('laAir_ETicket_TransAirlineListPageCtl', ['$document', '$interval', '$filter', '$scope', '$window', 'laFlightService', 'laUserService', 'laGlobalLocalService', function ($document, $interval, $filter, $scope, $window, laFlightService, laUserService, laGlobalLocalService) {
 
-    $scope.$on("MemberContentPage", function (event, data) {
-        var IsFrequentPassenger = data.IsFrequentPassenger;
-        if (!IsFrequentPassenger) {
-            $window.location.href = "MyInfo.html";
-        }
-    });
-
-    $scope.title = "兑换免票";
+    $scope.title = "机票改期";
     $document[0].title = $scope.title;
     /**
      * 设置导航栏ClassName
      * @type {boolean}
      */
-    $scope.isMyInfoNav = true;
+    $scope.isSchTripNav = true;
 
-    $scope.isMem_FreeTickets = true;
-
-    //是否是往返程
-    $scope.qu_mode = 0;
     //最终选定的航班信息
     $scope.bookOrderInfo;
-    $scope.bookOrderInfo_g;
-    $scope.bookOrderInfo_b;
+
+    $scope.Param;
 
     //航班查询结果
     $scope.flightResult;
     //航班低价列表
     $scope.lowPriceList;
-    //是否是查询返程
-    $scope.isQueryBTrip = false;
+
+    $scope.hasAdultPsg = false;
+    $scope.hasChildPsg = false;
+    $scope.hasAllFliInfo;
+    $scope.hasAllAdultCabin;
+    $scope.hasAllChildCabin;
 
     $scope.validloginDataCheck = true;
     $scope.loginSuccess = true;
-
-    $scope.city1name = "";
-    $scope.city2name = "";
-
-    $("#startCity").attr("segnum", "");
-    $("#endCity").attr("segnum", "");
 
     var timer;
 
@@ -52,108 +39,48 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
     $(".loading").hide();
     $(".table-fli").hide();
 
-    laUserService.FillCityAirportInfo(new Array("startCity", "endCity"), function () {
-        var sv = $("#startCity").val();
-        if (sv == undefined || sv == '') {
-            var defCity = {"s": {"c": "HGH", "n": "杭州"}, "e": {"c": "PEK", "n": "北京"}};
-            $("#startCity").attr("segnum", defCity.s.c);
-            $("#startCity").val(defCity.s.n);
-            $("#endCity").attr("segnum", defCity.e.c);
-            $("#endCity").val(defCity.e.n);
+    //预定查询信息
+    $scope.queryFliInfo;
+
+    var curHref = $window.location.href.split('?');
+    if (curHref.length >= 2) {
+        var params = curHref[1].split('&');
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i].split('=');
+            if (param.length >= 2) {
+                if (param[0].toLowerCase() == 'param') {
+                    try {
+                        $scope.Param = JSON.parse(new Base64().decode(params[i].substr(6)));
+                    } catch (e) {
+
+                    }
+
+                    break;
+                }
+            }
         }
+    }
 
-        var st = $("#startTime").val();
-        if (st == undefined || st == '') {
-            var td = new Date();
-            td = new Date(td.setDate(td.getDate() + 1));
-            var tdmm = (parseInt(td.getMonth() + 1)).toString();
-            tdmm = (tdmm.length < 2) ? '0' + tdmm : tdmm;
-            var tdday = td.getDate().toString();
-            tdday = (tdday.length < 2) ? '0' + tdday : tdday;
-            $("#startTime").val(td.getFullYear() + '-' + tdmm + '-' + tdday);
-            $("#startTime").attr("date", td.getFullYear() + '-' + tdmm + '-' + tdday);
-        } else {
-            $("#startTime").attr("date", st);
+    if ($scope.Param != undefined && $scope.Param != null) {
+        $scope.queryFliInfo = $scope.Param;
+
+        for (var i = 0; i < $scope.queryFliInfo.ChangePassenger.length; i++) {
+            if ($scope.queryFliInfo.ChangePassenger[i].TravellerType == 1) {
+                $scope.hasAdultPsg = true;
+            }
+            if ($scope.queryFliInfo.ChangePassenger[i].TravellerType == 2) {
+                $scope.hasChildPsg = true;
+            }
         }
-    });
-
-    //去程预定查询信息
-    $scope.queryFliInfo = new laEntityFlight();
-    //返程预定查询信息
-    $scope.queryFliInfoBack = new laEntityFlight();
-
-    var cookieQueryFli = laGlobalLocalService.getCookie(laGlobalProperty.laServiceConst_TransData_QueryTicketByPoints);
-    if (cookieQueryFli != undefined) {
-        $scope.queryFliInfo = JSON.parse(cookieQueryFli);
-
-        $("#startCity").attr("segnum", $scope.queryFliInfo.AirportFrom);
-        $("#endCity").attr("segnum", $scope.queryFliInfo.AirportTo);
-        $scope.city1name = $scope.queryFliInfo.AirportFromCH;
-        $scope.city2name = $scope.queryFliInfo.AirportToCH;
-
-        var isRoundTrip = $scope.queryFliInfo.RoundTrip;
-        if (isRoundTrip) {
-            $("#endTime").removeAttr("readonly");
-        }
-
-        $scope.qu_mode = (isRoundTrip == true) ? 1 : 0;
-
         QueryTicket($scope.queryFliInfo);
     }
 
-    chooseRoundTrip($scope.qu_mode);
-
-    /**
-     * 单程往返选择点击事件
-     * @param v
-     */
-    $scope.btnChooseRoundTripClick = function (v) {
-        chooseRoundTrip(v);
-
-    };
     /**
      * 搜索机票按钮点击事件
      */
     $scope.btnQueryTicketClick = function () {
-        var sCity = $("#startCity").val();
-        var eCity = $("#endCity").val();
-        var sCityCode = $("#startCity").attr("segnum");
-        var eCityCode = $("#endCity").attr("segnum");
         var sTime = $("#startTime").val();
-        var eTime = $("#endTime").val();
-
-        $scope.queryFliInfo.AirportFromCH = sCity;
-        $scope.queryFliInfo.AirportToCH = eCity;
-        $scope.queryFliInfo.AirportFrom = sCityCode;
-        $scope.queryFliInfo.AirportTo = eCityCode;
         $scope.queryFliInfo.DepartureTime = sTime;
-        $scope.queryFliInfo.RoundTripTime = eTime;
-
-        //出发城市为空
-        if (laGlobalLocalService.CheckStringIsEmpty($scope.queryFliInfo.AirportFromCH)) {
-            bootbox.alert('请选择出发城市');
-            return;
-        }
-        //到达城市为空
-        if (laGlobalLocalService.CheckStringIsEmpty($scope.queryFliInfo.AirportToCH)) {
-            bootbox.alert('请选择到达城市');
-            return;
-        }
-
-        //出发城市无效
-        if (Vcity.allCityNamelist.indexOf('|' + $scope.queryFliInfo.AirportFromCH + '|') < 0) {
-            bootbox.alert('无效的出发城市');
-            return;
-        }
-        //到达城市无效
-        if (Vcity.allCityNamelist.indexOf('|' + $scope.queryFliInfo.AirportToCH + '|') < 0) {
-            bootbox.alert('无效的到达城市');
-            return;
-        }
-        if ($scope.queryFliInfo.AirportFrom == $scope.queryFliInfo.AirportTo) {
-            bootbox.alert('出发和到达城市不能相同');
-            return;
-        }
 
         //出发时间为空
         if (laGlobalLocalService.CheckStringIsEmpty($scope.queryFliInfo.DepartureTime)) {
@@ -164,27 +91,8 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
             bootbox.alert('请输入YYYY-MM-DD格式的日期');
             return;
         }
-        //返程时间为空
-        if ($scope.qu_mode == 1) {
-            if (laGlobalLocalService.CheckStringIsEmpty($scope.queryFliInfo.RoundTripTime)) {
-                bootbox.alert('请选择返程时间');
-                return;
-            }
-            if (!laGlobalLocalService.CheckDateFormat($scope.queryFliInfo.RoundTripTime)) {
-                bootbox.alert('请输入YYYY-MM-DD格式的日期');
-                return;
-            }
-            if ($scope.queryFliInfo.RoundTripTime < $scope.queryFliInfo.DepartureTime) {
-                bootbox.alert('返程时间不能在去程时间之前');
-                return;
-            }
-        }
-
-        $scope.city1name = sCity;
-        $scope.city2name = eCity;
 
         $(".table-fli").hide();
-        $scope.isQueryBTrip = false;
         QueryTicket($scope.queryFliInfo);
     };
 
@@ -193,56 +101,12 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
         tmp = $filter('date')(tmp, 'yyyy-MM-dd');
         $('#startTime').val(tmp);
 
-        var sCity = $("#startCity").val();
-        var eCity = $("#endCity").val();
-        var sCityCode = $("#startCity").attr("segnum");
-        var eCityCode = $("#endCity").attr("segnum");
         var sTime = $("#startTime").val();
-        var eTime = $("#endTime").val();
 
-        $scope.queryFliInfo.AirportFromCH = sCity;
-        $scope.queryFliInfo.AirportToCH = eCity;
-        $scope.queryFliInfo.AirportFrom = sCityCode;
-        $scope.queryFliInfo.AirportTo = eCityCode;
         $scope.queryFliInfo.DepartureTime = sTime;
-        $scope.queryFliInfo.RoundTripTime = eTime;
 
         $(".table-fli").hide();
-        $scope.isQueryBTrip = false;
         QueryTicket($scope.queryFliInfo);
-    };
-
-    /**
-     * 根据出发/到达城市文本查找城市代码
-     * @param inputId
-     * @param v
-     */
-    $scope.searchCityCodeByVal = function (inputId) {
-        var cityName = $("#" + inputId).val();
-        if (cityName != null && cityName.length >= 2) {
-            var n = Vcity.allCity.length;
-            for (var i = 0; i < n; i++) {
-                var item = Vcity.allCity[i].split("|");
-                if (item[0] == cityName) {
-                    $("#" + inputId).attr("segnum", item[3]);
-                    break;
-                }
-            }
-        }
-    };
-
-    /**
-     * 航班列表展开/隐藏
-     * @param idx
-     */
-    $scope.btnShowMoreClick = function (idx) {
-        if ($("#prices" + idx).height() != 80) {
-            $("#prices" + idx).animate({height: "80px"});
-            $("#showmore" + idx).html("<b>+</b>展开");
-        } else {
-            $("#prices" + idx).css({height: "auto"});
-            $("#showmore" + idx).html("<b>-</b>收起")
-        }
     };
 
     /**
@@ -295,7 +159,7 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
             "<tr><td style='background:#FFFFFF;text-align: right;'>说明</td><td style='background:#FFFFFF;text-align: left;' colspan='2'>签转条件:" + carbin.SignedTransferDisplay + "</td></tr>" +
             "</table></div>");
 
-        $("#" + Fidx).css({"background-color":"#e17a00","color":"white"});
+        $("#" + Fidx).css({"background-color": "#e17a00", "color": "white"});
 
         $("body").append(box);
         box.css({top: $("#" + Fidx).offset().top, left: $("#" + Fidx).offset().left});
@@ -305,7 +169,7 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
      * @param idx
      */
     $scope.btnTgqMouseOut = function (Fidx) {
-        $("#" + Fidx).css({"background-color":"white","color":"black"});
+        $("#" + Fidx).css({"background-color": "white", "color": "black"});
         $(".roles").remove();
     };
 
@@ -320,41 +184,113 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
         var chRule = ch.split('-');//carbin.ChangeRule.split('-');
         if (reRule.length >= 3) {
             if (laGlobalLocalService.IsNum(reRule[0])) {
-                if (reRule[0] < minAmt){
+                if (reRule[0] < minAmt) {
                     minAmt = reRule[0];
                 }
             }
             if (laGlobalLocalService.IsNum(reRule[2])) {
-                if (reRule[2] < minAmt){
+                if (reRule[2] < minAmt) {
                     minAmt = reRule[2];
                 }
             }
-        } else{
+        } else {
             blRe = false;
         }
         if (chRule.length >= 3) {
             if (laGlobalLocalService.IsNum(chRule[0])) {
-                if (chRule[0] < minAmt){
+                if (chRule[0] < minAmt) {
                     minAmt = chRule[0];
                 }
             }
             if (laGlobalLocalService.IsNum(chRule[2])) {
-                if (chRule[2] < minAmt){
+                if (chRule[2] < minAmt) {
                     minAmt = chRule[2];
                 }
             }
-        } else{
+        } else {
             blCh = false;
         }
 
         if (blCh || blRe) {
             result = "退改¥" + minAmt + "元起";
         }
-        if (minAmt >= defMaxAmt){
+        if (minAmt >= defMaxAmt) {
             result = "";
         }
 
         return result;
+    };
+
+    $scope.chooseCabin = function (psgType, fliInfo, cabinInfo) {
+        $scope.hasAllFliInfo = fliInfo;
+        if (psgType == "0") {
+            $scope.hasAllAdultCabin = cabinInfo;
+        }
+        if (psgType == "1") {
+            $scope.hasAllChildCabin = cabinInfo;
+        }
+    };
+
+    $scope.btnBookingOrderAllClick = function () {
+        if ($scope.hasAllAdultCabin == undefined || $scope.hasAllAdultCabin == null) {
+            bootbox.alert("请选择成人舱位");
+            return;
+        }
+        if ($scope.hasAllChildCabin == undefined || $scope.hasAllChildCabin == null) {
+            bootbox.alert("请选择儿童舱位");
+            return;
+        }
+        var fliInfo = $scope.hasAllFliInfo;
+        var tmpFli = {
+            "OrderId": $scope.queryFliInfo.OrderId,
+            "ChangePassenger": $scope.queryFliInfo.ChangePassenger,
+            "AirportFrom": fliInfo.AirportFrom,
+            "AirportFromCH": fliInfo.AirportFromCH,
+            "AirportTax": fliInfo.AirportTax,
+            "AirportTo": fliInfo.AirportTo,
+            "AirportToCH": fliInfo.AirportToCH,
+            "ArriveTime": fliInfo.ArriveTime,
+            "ChildAirportTax": fliInfo.ChildAirportTax,
+            "ChildFuelTax": fliInfo.ChildFuelTax,
+            "ChildOtherTax": fliInfo.ChildOtherTax,
+            "DepartureTime": fliInfo.DepartureTime,
+            "Distance": fliInfo.Distance,
+            "FlightNum": fliInfo.FlightNum,
+            "FuelTax": fliInfo.FuelTax,
+            "JiXing": fliInfo.JiXing,
+            "JingTing": fliInfo.JingTing,
+            "OtherTax": fliInfo.OtherTax,
+            "AirportTaxDiff": fliInfo.AirportTaxDiff,
+            "FuelTaxDiff": fliInfo.FuelTaxDiff,
+            "ChildAirportTaxDiff": fliInfo.ChildAirportTaxDiff,
+            "ChildFuelTaxDiff": fliInfo.ChildFuelTaxDiff,
+            "hasAdultPsg": $scope.hasAdultPsg,
+            "hasChildPsg": $scope.hasChildPsg
+        };
+
+        var tmpCabAdult = $scope.hasAllAdultCabin;
+        tmpCabAdult.SignedTransferDisplay = null;
+        var tmpCabChild = $scope.hasAllChildCabin;
+        tmpCabChild.SignedTransferDisplay = null;
+
+        var otherInfo = {
+            "sCity": $scope.queryFliInfo.DepartureCityCH,
+            "eCity": $scope.queryFliInfo.ArriveCityCH,
+            "sCityCode": $scope.queryFliInfo.DepartureAirport,
+            "eCityCode": $scope.queryFliInfo.ArriveAirport,
+            "week": laGlobalLocalService.getWeekName(new Date(fliInfo.DepartureTime.replace(/-/g, "/")))
+        };
+        $scope.bookOrderInfo_g = {"f": tmpFli, "c": tmpCabAdult, "c1": tmpCabChild, "o": otherInfo};
+
+        $scope.bookOrderInfo = {"g": $scope.bookOrderInfo_g};
+        laUserService.GetCurrentUserInfo(function (backData, status) {
+            var rs = backData;
+            if (rs.Code == laGlobalProperty.laServiceCode_Success && rs.SessionOut == false) {
+                $window.location.href = "/ETicket/TransBookingOrder.html?param=" + new Base64().encode(JSON.stringify($scope.bookOrderInfo));
+            } else {
+                $('.modal').modal('show');
+            }
+        });
     };
 
     /**
@@ -364,6 +300,8 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
      */
     $scope.btnBookingOrderClick = function (fliInfo, cabinInfo) {
         var tmpFli = {
+            "OrderId": $scope.queryFliInfo.OrderId,
+            "ChangePassenger": $scope.queryFliInfo.ChangePassenger,
             "AirportFrom": fliInfo.AirportFrom,
             "AirportFromCH": fliInfo.AirportFromCH,
             "AirportTax": fliInfo.AirportTax,
@@ -379,86 +317,37 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
             "FuelTax": fliInfo.FuelTax,
             "JiXing": fliInfo.JiXing,
             "JingTing": fliInfo.JingTing,
-            "OtherTax": fliInfo.OtherTax
+            "OtherTax": fliInfo.OtherTax,
+            "AirportTaxDiff": fliInfo.AirportTaxDiff,
+            "FuelTaxDiff": fliInfo.FuelTaxDiff,
+            "ChildAirportTaxDiff": fliInfo.ChildAirportTaxDiff,
+            "ChildFuelTaxDiff": fliInfo.ChildFuelTaxDiff,
+            "hasAdultPsg": $scope.hasAdultPsg,
+            "hasChildPsg": $scope.hasChildPsg
         };
-        //tmpFli.CabinInfoList = null;
+
         var tmpCab = cabinInfo;
         tmpCab.SignedTransferDisplay = null;
-        var otherInfo;
-        if ($scope.qu_mode == 0) {
-            otherInfo = {
-                "sCity": $("#startCity").val(),
-                "eCity": $("#endCity").val(),
-                "sCityCode": $("#startCity").attr("segnum"),
-                "eCityCode": $("#endCity").attr("segnum"),
-                "week": laGlobalLocalService.getWeekName(fliInfo.DepartureTime)
-            };
-            $scope.bookOrderInfo_g = {"f": tmpFli, "c": tmpCab, "o": otherInfo};
-            $scope.bookOrderInfo_b = {};
-        } else if ($scope.qu_mode == 1) {
-            otherInfo = {
-                "sCity": $("#endCity").val(),
-                "eCity": $("#startCity").val(),
-                "sCityCode": $("#endCity").attr("segnum"),
-                "eCityCode": $("#startCity").attr("segnum"),
-                "week": laGlobalLocalService.getWeekName(fliInfo.DepartureTime)
-            };
-            $scope.bookOrderInfo_b = {"f": tmpFli, "c": tmpCab, "o": otherInfo};
-        }
-        $scope.bookOrderInfo = {"g": $scope.bookOrderInfo_g, "b": $scope.bookOrderInfo_b, "roundtrip": $scope.qu_mode};
+        var otherInfo = {
+            "sCity": $scope.queryFliInfo.DepartureCityCH,
+            "eCity": $scope.queryFliInfo.ArriveCityCH,
+            "sCityCode": $scope.queryFliInfo.DepartureAirport,
+            "eCityCode": $scope.queryFliInfo.ArriveAirport,
+            "week": laGlobalLocalService.getWeekName(new Date(fliInfo.DepartureTime.replace(/-/g, "/")))
+        };
+        $scope.bookOrderInfo_g = {"f": tmpFli, "c": tmpCab, "o": otherInfo};
+
+        $scope.bookOrderInfo = {"g": $scope.bookOrderInfo_g};
         laUserService.GetCurrentUserInfo(function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success && rs.SessionOut == false) {
-                laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_BookOrderByPoints, JSON.stringify($scope.bookOrderInfo), 0);
-                $window.location.href = 'BookingFlightByPoints.html';
+                $window.location.href = "/ETicket/TransBookingOrder.html?param=" + new Base64().encode(JSON.stringify($scope.bookOrderInfo));
             } else {
                 $('.modal').modal('show');
             }
         });
     };
 
-    /**
-     * 航班选定按钮点击
-     * @param fliInfo
-     * @param cabinInfo
-     */
-    $scope.btnChooseFlightClick = function (fliInfo, cabinInfo) {
-        var tmpFli = {
-            "AirportFrom": fliInfo.AirportFrom,
-            "AirportFromCH": fliInfo.AirportFromCH,
-            "AirportTax": fliInfo.AirportTax,
-            "AirportTo": fliInfo.AirportTo,
-            "AirportToCH": fliInfo.AirportToCH,
-            "ArriveTime": fliInfo.ArriveTime,
-            "ChildAirportTax": fliInfo.ChildAirportTax,
-            "ChildFuelTax": fliInfo.ChildFuelTax,
-            "ChildOtherTax": fliInfo.ChildOtherTax,
-            "DepartureTime": fliInfo.DepartureTime,
-            "Distance": fliInfo.Distance,
-            "FlightNum": fliInfo.FlightNum,
-            "FuelTax": fliInfo.FuelTax,
-            "JiXing": fliInfo.JiXing,
-            "JingTing": fliInfo.JingTing,
-            "OtherTax": fliInfo.OtherTax
-        };
-        //tmpFli.CabinInfoList = null;
-        var tmpCab = cabinInfo;
-        tmpCab.SignedTransferDisplay = null;
-        var otherInfo = {
-            "sCity": $("#startCity").val(),
-            "eCity": $("#endCity").val(),
-            "sCityCode": $("#startCity").attr("segnum"),
-            "eCityCode": $("#endCity").attr("segnum"),
-            "week": laGlobalLocalService.getWeekName(fliInfo.DepartureTime)
-        };
-        $scope.bookOrderInfo_g = {"f": tmpFli, "c": tmpCab, "o": otherInfo};
-        $(".table-fli").show();
-
-        //查询返程
-        fillFlightBackQueryInfo();
-        $scope.isQueryBTrip = true;
-        QueryTicket($scope.queryFliInfoBack);
-    };
     /**
      * 会员登录预定点击
      */
@@ -472,8 +361,7 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.loginSuccess = true;
-                laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_BookOrderByPoints, JSON.stringify($scope.bookOrderInfo), 0);
-                $window.location.href = 'BookingFlightByPoints.html';
+                $window.location.href = "/ETicket/TransBookingOrder.html?param=" + new Base64().encode(JSON.stringify($scope.bookOrderInfo));
             } else {
                 $scope.loginSuccess = false;
             }
@@ -510,36 +398,11 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
      * @param liId
      */
     $scope.btnLowPriceClick = function (idx) {
-        if ($scope.isQueryBTrip) { //如果是查询返程
-            fillFlightBackQueryInfo();
-            $scope.queryFliInfoBack.DepartureTime = $filter('date')($scope.lowPriceList[idx].d, 'yyyy-MM-dd');
-            QueryTicket($scope.queryFliInfoBack);
-        } else {
-            $(".table-fli").hide();
-            $scope.queryFliInfo.DepartureTime = $filter('date')($scope.lowPriceList[idx].d, 'yyyy-MM-dd');
-            $("#startTime").attr("date", $scope.queryFliInfo.DepartureTime);
-            QueryTicket($scope.queryFliInfo);
-        }
+        $(".table-fli").hide();
+        $scope.queryFliInfo.DepartureTime = $filter('date')($scope.lowPriceList[idx].d, 'yyyy-MM-dd');
+        $("#startTime").attr("date", $scope.queryFliInfo.DepartureTime);
+        QueryTicket($scope.queryFliInfo);
     };
-
-    /**
-     * 设置返程查询信息
-     */
-    function fillFlightBackQueryInfo() {
-        var sCity = $("#startCity").val();
-        var eCity = $("#endCity").val();
-        var sCityCode = $("#startCity").attr("segnum");
-        var eCityCode = $("#endCity").attr("segnum");
-        var sTime = $("#startTime").val();
-        var eTime = $("#endTime").val();
-
-        $scope.queryFliInfoBack.AirportFromCH = eCity;
-        $scope.queryFliInfoBack.AirportToCH = sCity;
-        $scope.queryFliInfoBack.AirportFrom = eCityCode;
-        $scope.queryFliInfoBack.AirportTo = sCityCode;
-        $scope.queryFliInfoBack.DepartureTime = eTime;
-        $scope.queryFliInfoBack.RoundTripTime = sTime;
-    }
 
     /**
      * 根据当前查询日期\最低价生成价格日期列表
@@ -647,13 +510,13 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
 
                 //var prices = [{p:600,d:"2016-3-13"},{p:400,d:"2016-3-14"},{p:580,d:"2016-3-15"},{p:700,d:"2016-3-16"},{p:700,d:"2016-3-17"},{p:700,d:"2016-3-18"},{p:700,d:"2016-3-19"},{p:700,d:"2016-3-20"},{p:700,d:"2016-3-21"}];
                 $(".a_calendar").attr("date", idate);
-                $(".a_calendar").click(function (e){
+                $(".a_calendar").click(function (e) {
                     calendar.show({
                         id: this,
                         minDay: today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
                         para: prices,
                         //mode: "double",
-                        ok: function (){
+                        ok: function () {
 
                         }
                     });
@@ -706,8 +569,189 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
 
         $scope.flightResult = null;
 
-        laUserService.QueryFlightUsePoint("", $scope.queryFliInfo.AirportFrom, $scope.queryFliInfo.AirportTo, $scope.queryFliInfo.DepartureTime, "", function (backData, status) {
+        laFlightService.QueryFlightForTrans(queryFliInfo.DepartureTime, queryFliInfo.OrderId, queryFliInfo.ChangePassenger, function (backData, status) {
             var rs = backData;
+            /**
+             {
+    "Result": {
+        "FlightInfos": [
+            {
+                "FlightNum": "GJ8887",
+                "AirportFrom": "HGH",
+                "AirportFromCH": "杭州萧山国际机场",
+                "AirportTo": "PEK",
+                "AirportToCH": "北京首都机场",
+                "Distance": 0,
+                "DepartureTime": "2016-08-03 19:05",
+                "ArriveTime": "2016-08-03 21:25",
+                "AirportTax": 50,
+                "FuelTax": 0,
+                "OtherTax": 0,
+                "ChildAirportTax": 0,
+                "ChildFuelTax": 0,
+                "ChildOtherTax": 0,
+                "JiXing": "320",
+                "JingTing": false,
+                "CabinInfos": [
+                    {
+                        "CabinName": "V",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 930,
+                        "SalePrice": 930,
+                        "PriceBase": "V",
+                        "RefundRule": "605-2-930",
+                        "ChangeRule": "419-2-605",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.5,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "G",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1020,
+                        "SalePrice": 1020,
+                        "PriceBase": "G",
+                        "RefundRule": "357-2-459",
+                        "ChangeRule": "255-2-357",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.55,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "Q",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1120,
+                        "SalePrice": 1120,
+                        "PriceBase": "Q",
+                        "RefundRule": "392-2-504",
+                        "ChangeRule": "280-2-392",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.6,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "P",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1210,
+                        "SalePrice": 1210,
+                        "PriceBase": "P",
+                        "RefundRule": "424-2-545",
+                        "ChangeRule": "303-2-424",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.65,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "L",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1300,
+                        "SalePrice": 1300,
+                        "PriceBase": "L",
+                        "RefundRule": "260-2-390",
+                        "ChangeRule": "130-2-260",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.7,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "K",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1400,
+                        "SalePrice": 1400,
+                        "PriceBase": "K",
+                        "RefundRule": "280-2-420",
+                        "ChangeRule": "140-2-280",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.75,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "H",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1490,
+                        "SalePrice": 1490,
+                        "PriceBase": "",
+                        "RefundRule": "298-2-447",
+                        "ChangeRule": "149-2-298",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.8,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "M",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1580,
+                        "SalePrice": 1580,
+                        "PriceBase": "M",
+                        "RefundRule": "316-2-474",
+                        "ChangeRule": "158-2-316",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.85,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "B",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1670,
+                        "SalePrice": 1670,
+                        "PriceBase": "B",
+                        "RefundRule": "334-2-501",
+                        "ChangeRule": "167-2-334",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 0.9,
+                        "EI": "",
+                        "RMK": null
+                    },
+                    {
+                        "CabinName": "S",
+                        "CabinType": 4,
+                        "LeftCount": 11,
+                        "Price": 1860,
+                        "SalePrice": 1860,
+                        "PriceBase": "YQJ",
+                        "RefundRule": "186-2-372",
+                        "ChangeRule": "93-2-186",
+                        "SignedTransfer": 2,
+                        "SignedTransferDisplay": "不得签转",
+                        "Discount": 1,
+                        "EI": "不得自愿签转",
+                        "RMK": null
+                    }
+                ],
+                "ChildCabinInfos": []
+            }
+        ]
+    },
+    "Code": "0000",
+    "Message": "查询成功"
+}
+             */
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
 
                 $scope.timeDown = 1;
@@ -720,18 +764,15 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
                         $(".airline").show();
                         $(".dates").show();
 
-                        //$scope.flightResult = rs;
                         $scope.flightResult = new laEntityFlightList();
                         $scope.flightResult.Code = rs.Code;
                         $scope.flightResult.Message = rs.Message;
-                        $scope.flightResult.LowPriceFlights = rs.LowPriceFlights;
-                        var n = rs.FlightList.length;
-                        var cabinNum = 0;
+                        //$scope.flightResult.LowPriceFlights = rs.LowPriceFlights;
+                        var n = rs.Result.FlightInfos.length;
                         for (var i = 0; i < n; i++) {
-                            if (rs.FlightList[i].CabinInfoList.length > 0) {
-                                $scope.flightResult.FlightList[cabinNum] = rs.FlightList[i];
-                                cabinNum++;
-                            }
+                            //if (rs.Result.FlightInfos[i].CabinInfos.length > 0) {
+                            $scope.flightResult.FlightList[i] = rs.Result.FlightInfos[i];
+                            //}
                         }
 
                         if ($scope.flightResult.FlightList.length <= 0) {
@@ -755,25 +796,7 @@ laAir.controller('laAir_MemberFreeTicketsPageCtl', ['$filter', '$interval', '$do
                 }, 1000);
             }
 
-            //GetFlightDaylist(queryFliInfo.AirportFrom, queryFliInfo.AirportTo, new Date(queryFliInfo.DepartureTime.replace(/-/g, "/")));
+            GetFlightDaylist(queryFliInfo.DepartureAirport, queryFliInfo.ArriveAirport, new Date(queryFliInfo.DepartureTime.replace(/-/g, "/")));
         });
     }
-
-    /**
-     * 单程往返选择
-     * @param v
-     */
-    function chooseRoundTrip(v) {
-        $scope.qu_mode = v;
-        if (v == 0) {
-            $("#lblsrode").addClass("active");
-            $("#lbldrode").removeClass("active");
-            $("#endTime").val("").attr("readonly", true);
-        } else if (v == 1) {
-            $("#lbldrode").addClass("active");
-            $("#lblsrode").removeClass("active");
-            $("#endTime").removeAttr("readonly");
-        }
-    }
-
 }]);

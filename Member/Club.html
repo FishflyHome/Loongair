@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/slider.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/city.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/ClubCtl.js"></script>
+</head>
+<body ng-controller="laAir_Member_ClubPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="banner" style="height:308px;">
+        <div class="slidesfull" style="height:308px;">
+            <div class="indexbanner" style="height:308px;">
+                <ul>
+                    <li ng-repeat="img in IndexImageList | orderBy:'showindex' | filter:{v:true}">
+                        <a href="#" style="background: url({{img.imgUrl}}) no-repeat center; height: 308px;"></a>
+                    </li>
+                </ul>
+                <ol id="bannerCtrl" class="navListBox" style="top:260px;">
+                    <li ng-repeat="img in IndexImageList | filter:{v:true}" ng-class="{true:'active',false:''}[$index==0]"><a>{{$index + 1}}</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="login-box" ng-show="!isLogined">
+        <div class="loginhome-box" style="margin-top: -70px;">
+            <!--<p>非会员订票查询，点击<a href="/ETicket/QueryOrderDetail.html">查询订单</a></p>-->
+
+            <div class="box-con" style="padding-top: -20px;height:220px;">
+                <h2>会员登录</h2>
+
+                <div class="login">
+                    <div>
+                        <span class="icon-user"></span>
+                        <input type="text" id="loginId" name="loginId" class="logininput"
+                               placeholder="手机号" required ng-model="loginId" ng-keyup="LoginByPressEnterKey($event, loginId, password);"/>
+                    </div>
+                    <div>
+                        <span class="icon-password"></span>
+                        <input type="password" id="password" name="password" class="logininput"
+                               placeholder="请输入您的密码" required ng-model="password"
+                               ng-keyup="LoginByPressEnterKey($event, loginId, password);"/>
+                    </div>
+                    <div>
+                        <label class="checkbox inline">
+                            <input type="checkbox" class="mgl30" id="autoLogin" name="autoLogin" ng-checked="isAutoLogin" ng-model="isAutoLogin">两周内自动登录
+                        </label>
+                        <a class="pull-right fpwd" href="ForgetPassword.html">忘记密码</a>
+                        <a class="pull-right fpwd" href="Register.html">注册&nbsp;&nbsp;</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-large btn-block" href="javascript:void(0);"
+                           ng-click="btnLoginClick(loginId, password);">登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="container">
+        <div class="divide"></div>
+        <div class="row">
+            <div class="span12">
+                <h2 class="imghead">长龙计划</h2>
+
+                <div class="media mmclub">
+                    <a class="pull-left"><img src="/Resource/images/loongairBK.jpg"></a>
+
+                    <div class="media-body">
+                        <h2>长龙计划</h2>
+
+                        <p>
+                            长龙航空自成立以来，发展迅速。截止2016年3月29日，机队规模达到19架（其中A320客机16架，B737货机3架），旅客运输量超过300万人次，安全飞行6万小时，累计开通了杭州至北京、广州、深圳、成都、西安、昆明等60余个国内城市的客运航线，以及北京、青岛、深圳、昆明、达卡等10多个国内及国际城市的货运航线，2016年上半年将开通国际及地区客运航线。</p>
+
+                        <p>
+                            长龙航空致力于成为创造美好旅程体验的一流航空服务品牌，立足浙江、面向全国、飞向世界。公司采用差异化竞争策略，追求高效能运营和高品质服务。在航线布局上，长龙航空将紧紧围绕浙江民航强省建设和杭州市打造国际化大都市的需要，通过构建、完善以杭州、温州等省内机场为中心的国内外航线网络，积极打造华东、华南、西南、华北四大市场片区，构建以杭州为中心的“全国4小时交通圈、全球12小时交通圈”航线网络。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+        <div class="row">
+            <div class="span6">
+                <h2 class="imghead">特约商户</h2>
+                <ul class="xconbox customerbox" name="rmmd" style="display: block;">
+                    <li>
+                        <a href="#"><img src="/Resource/images/airline.png" width="336" height="300" class="img"></a>
+
+                        <div class="hd"><a href="#"> 商户名称</a></div>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/Resource/images/airline.png" width="336" height="300" class="img"></a>
+
+                        <div class="hd"><a href="#"> 商户名称</a></div>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/Resource/images/airline.png" width="336" height="300" class="img"></a>
+
+                        <div class="hd"><a href="#"> 商户名称</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="span6">
+                <div class="news">
+                    <h2 class="imghead">活动专区<a class="more pull-right" href="/Others/News/NewsList.html"
+                                               target="_blank">更多活动&gt;</a></h2>
+
+                    <ul class="posts tit-list" style="margin-top: 5px;">
+                        <li><a>浙江长龙航空连续实现第四个安全年</a></li>
+                        <li class="odd"><a>浙江长龙航空连续实现第四个安全年</a></li>
+                        <li><a>浙江长龙航空连续实现第四个安全年</a></li>
+                        <li class="odd"><a>浙江长龙航空连续实现第四个安全年</a></li>
+                        <li><a>浙江长龙航空连续实现第四个安全年</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+<script>
+    $(function (){
+        var bannerSlider = new Slider($('.indexbanner'), {
+            time: 5000,
+            delay: 400,
+            event: 'click',
+            auto: true,
+            mode: 'fade',
+            controller: $('#bannerCtrl'),
+            activeControllerCls: 'active'
+        });
+    })
+</script>
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

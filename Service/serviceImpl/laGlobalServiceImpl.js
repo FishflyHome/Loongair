@@ -53,7 +53,15 @@ var laGlobalProperty = (function () {
         /**
          *
          */
+        laServiceConst_TransData_QueryTicketByPoints: 'TransData_QueryTicketByPoints',
+        /**
+         *
+         */
         laServiceConst_TransData_BookOrder: 'TransData_BookOrder',
+        /*
+
+         */
+        laServiceConst_TransData_BookOrderByPoints: 'TransData_BookOrderByPoints',
         /**
          *
          */
@@ -89,7 +97,7 @@ var laGlobalProperty = (function () {
         /*
          接口地址
          */
-        laServiceUrl_Interface: 'http://120.26.229.120/Flight/InterfaceService', //'http://120.26.229.120/Flight/InterfaceService',
+        laServiceUrl_Interface: 'http://120.26.229.120:84/Flight/InterfaceService', //'http://120.26.229.120/Flight/InterfaceService',
         //laServiceUrl_Interface: '/Flight/InterfaceService',
         /*
          查找航班
@@ -228,7 +236,7 @@ var laGlobalProperty = (function () {
          */
         laServiceUrl_ActionType_ImageVerifyCodeForRegister: 34,
         /*
-        查询机票日历
+         查询机票日历
          */
         laServiceUrl_ActionType_QueryPriceCalendar: 37,
         /*
@@ -248,11 +256,11 @@ var laGlobalProperty = (function () {
          */
         laServiceUrl_ActionType_OnlineCheckinCancel: 41,
         /*
-        获取快递渠道
+         获取快递渠道
          */
-        laServiceUrl_ActionType_QueryExpress:42,
+        laServiceUrl_ActionType_QueryExpress: 42,
         /*
-         发送注册验证码
+         发送机票订单验证码
          */
         laServiceUrl_ActionType_BookingTicketValidCode: 43,
         /*
@@ -260,13 +268,82 @@ var laGlobalProperty = (function () {
          */
         laServiceUrl_ActionType_RegisterFrequentUser: 44,
         /*
-         机票改期
+        机票改期
          */
         laServiceUrl_ActionType_TransFlight: 45,
         /**
          * 查询改期航班
          */
-        laServiceUrl_ActionType_QueryFlightForTrans: 46
+        laServiceUrl_ActionType_QueryFlightForTrans: 46,
+        /*
+         查询常旅客积分列表
+         */
+        laServiceUrl_ActionType_QueryFrequentMemberPointsList: 2002,
+        /*
+         查询积分兑换记录
+         */
+        laServiceUrl_ActionType_QueryExchangePointsList: 2004,
+        /*
+         获取兑换对应航班所需积分
+         */
+        //laServiceUrl_ActionType_QueryPointsForExchangeFlight: 2005,
+        /*
+         积分查找航班
+         */
+        laServiceUrl_ActionType_QueryFlightUsePoints: 2006,
+        /*
+         查询会员卡信息
+         */
+        laServiceUrl_ActionType_QueryMemberCardInfo: 2007,
+        /*
+         积分补登
+         */
+        laServiceUrl_ActionType_PointsRetro: 2008,
+        /*
+         用积分创建订单
+         */
+        laServiceUrl_ActionType_CreateOrderByPoints: 2009,
+        /*
+        获取受益人信息列表
+         */
+        laServiceUrl_ActionType_QueryBenefitList: 2010,
+        /*
+        获取汉字的拼音
+         */
+        laServiceUrl_ActionType_GetChinesePinYin: 2011,
+        /*
+         发送会员卡信息至手机
+         */
+        laServiceUrl_ActionType_SendCardNoToMobile: 2012,
+        /*
+         查询我的消息列表
+         */
+        laServiceUrl_ActionType_QueryMyMessagelist: 2013,
+        /*
+         删除我的消息
+         */
+        laServiceUrl_ActionType_DelMyMessage: 2014,
+        /*
+        添加受益人
+         */
+        laServiceUrl_ActionType_AddBenefit: 2015,
+        /*
+        删除受益人
+         */
+        laServiceUrl_ActionType_DelBenefit: 2016,
+        /**
+         * 添加受益人证件信息
+         */
+        laServiceUrl_ActionType_AddBenefitIdInfo: 2017,
+        /**
+         * 获取省份列表
+         */
+        laServiceUrl_ActionType_QueryProvinceList: 2018,
+        /**
+         * 查询已审核过的受益人列表
+         */
+        laServiceUrl_ActionType_QueryAuditBenefitList: 2019
+
     };
 })();
 
@@ -423,7 +500,7 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
         var pass = true;
 
         //if (!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)) {
-        var regIdCard=/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+        var regIdCard = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
         if (!code || !regIdCard.test(code)) {
             tip = "身份证号格式错误";
             pass = false;
@@ -480,7 +557,7 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
      */
     laGlobalLocalService.CheckStringIsEmpty = function (v) {
         var result = false;
-        if (v == undefined || v == '') {
+        if (v == undefined || v == '' || v == null) {
             result = true;
         }
         return result;
@@ -513,6 +590,20 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
         //var patrn = /^(13[0-9]|15[0|3|6|7|8|9]|18[8|9]|17[0-9])\d{8}$/;
         var patrn = /^(1[0-9])\d{9}$/;//暂定:只要满足1开头11位即可
         if (!patrn.exec(c)) {
+            return false;
+        }
+        return true;
+    };
+
+    /**
+     * 校验密码6-20位数字和字符
+     * @param v
+     * @returns {boolean}
+     * @constructor
+     */
+    laGlobalLocalService.CheckPassWord = function (v) {
+        var patrn = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;  //6-20位数字和字符
+        if (!patrn.exec(v)) {
             return false;
         }
         return true;
@@ -580,7 +671,7 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
      * @returns {boolean}
      * @constructor
      */
-    laGlobalLocalService.CheckPassportFormat = function(v){
+    laGlobalLocalService.CheckPassportFormat = function (v) {
         var temp = v;
         //对护照的验证
         var passport = /^1[45][0-9]{7}|G[0-9]{8}|E[0-9]{8}|R[0-9]{6,9}|P[0-9]{7}|S[0-9]{7,8}|D[0-9]+$/;
@@ -621,6 +712,21 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
             len++;
         }
         return str;
+    };
+
+    /**
+     * 根据枚举值取说明文本
+     * @param v
+     * @param ilist
+     */
+    laGlobalLocalService.getEnumTextByKeyT = function (v, ilist) {
+        var len = ilist.length;
+        for (var i = 0; i < len; i++) {
+            if (v == ilist[i].v) {
+                return ilist[i].t;
+            }
+        }
+        return "";
     };
 
     return laGlobalLocalService;

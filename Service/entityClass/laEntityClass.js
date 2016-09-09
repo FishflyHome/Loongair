@@ -4,6 +4,11 @@
  */
 
 var laEntityEnumCabinTypename = new Array("", "头等舱", "商务舱", "超级经济舱", "经济舱");
+/**
+ * 舱位类型枚举
+ * @type {Array}
+ */
+var laEntityEnumCabinTypeOptions = [{v: 1, t: "头等舱"}, {v: 2, t: "商务舱"}, {v: 3, t: "超级经济舱"}, {v: 4, t: "经济舱"}];
 var laEntityEnumOrderStatus = {1: "新订单", 2: "取消订单", 3: "订单完成"};
 var laEntityEnumPayStatus = {1: "未支付", 2: "已支付", 3: "未退款", 4: "已退款"};
 /**
@@ -16,50 +21,122 @@ var laEntityEnumfoIdTypeForCheckinOptions = [{v: 100, t: '票号'}, {v: 1, t: '�
 var laEntityEnumrefundTypeOptions = [{v: 2, t: '自愿退票'}, {v: 3, t: '非自愿退票'}, {v: 6, t: '补退'}];
 
 /**
+ * 国籍
+ * @type {*[]}
+ */
+var laEntityEnumnationaityOptions = [{v: 1, t: '中国'}, {v: 2, t: '美国'}, {v: 3, t: '法国'}, {v: 4, t: '德国'},
+    {v: 5, t: '加拿大'}, {v: 6, t: '欧盟'}, {v: 7, t: '英国'}, {v: 8, t: '澳大利亚'}, {v: 9, t: '日本'}, {v: 10, t: '韩国'}];
+
+/**
+ * 职业信息
+ * @type {*[]}
+ */
+var laEntityEnumjob = [{v: 1, t: '公务员'}, {v: 2, t: '企业管理人员'}, {v: 3, t: '企业职员'}, {v: 4, t: '学生'},
+    {v: 5, t: '自由职业者'}, {v: 6, t: '其他'}];
+/**
+ * 职位信息
+ * @type {*[]}
+ */
+var laEntityEnumjobPosition = [{v: 1, t: '董事长'}, {v: 2, t: '总经理'}, {v: 3, t: '经理'}, {v: 4, t: '主管'},
+    {v: 5, t: '职员'}, {v: 6, t: '自由职业者'}, {v: 7, t: '其他'}];
+
+/**
+ * 会员希望的联系方式
+ * @type {*[]}
+ */
+var laEntityEnumcontactHope = [{v: 1, t: '信件'}, {v: 2, t: 'EMail'}, {v: 3, t: '传真'}, {v: 4, t: '俱乐部网页'},
+    {v: 5, t: '短信'}, {v: 6, t: '微信'}];
+
+/**
+ * 会员希望联系的地址
+ * @type {*[]}
+ */
+var laEntityEnumcontactAddressHope = [{v: 1, t: '家庭'}, {v: 2, t: '单位'}];
+
+/**
+ * 希望的联系语言
+ * @type {*[]}
+ */
+var laEntityEnumlanguageHope = [{v: 1, t: '中文'}, {v: 2, t: '英文'}];
+
+/**
+ * 会员积分审核状态
+ * @type {*[]}
+ */
+var laEntityEnummemberPointsAuditStatus = [{v: 0, t: '全部'}, {v: 1, t: '已审核'}, {v: 2, t: '未审核'}];
+
+/**
+ * 会员积分类别
+ * @type {*[]}
+ */
+var laEntityEnummemberPointType = [{v: 1, t: '活动赠送积分'}, {v: 2, t: '飞行兑换积分'}, {v: 3, t: '合作商家兑换积分'}, {v: 4, t: '购买积分'}];
+
+/**
+ * 会员级别
+ * @type {*[]}
+ */
+var laEntityEnummemberLevel = [{n: "普通卡"}, {n: "银卡"}, {n: "金卡"}, {n: "钻石卡"}];
+
+/**
+ * 餐食枚举
+ * @type {*[]}
+ */
+var laEntityEnummealType = [{v: 1, t: '牛肉类'}, {v: 2, t: '鸡肉类'}, {v: 3, t: '鱼肉类'}, {v: 4, t: '米饭'}, {v: 5, t: '面条'}, {v: 6, t: '素食'}, {v: 7, t: '特色小吃'}, {v: 8, t: '清真餐'}];
+
+/**
+ * 座位枚举
+ * @type {*[]}
+ */
+var laEntityEnumseatType = [{v: 1, t: '特价机票'}, {v: 2, t: '5-8折机票'}, {v: 3, t: '九折至全价'}, {v: 4, t: '公务舱至头等舱机票'}];
+
+/**
+ * 销售渠道枚举
+ * @type {*[]}
+ */
+var laEntityEnumsaleChannelType = [{v: 1, t: '官网'}, {v: 2, t: '去哪儿'}, {v: 3, t: '携程'}, {v: 4, t: '淘宝去啊旗舰店'}, {v: 5, t: '517'},
+    {v: 6, t: '同程'}, {v: 7, t: '微信'}, {v: 8, t: 'APP'}, {v: 9, t: '海南酷秀'}, {v: 10, t: '青岛华俊'}];
+
+/**
+ * 支付渠道枚举
+ * @type {*[]}
+ */
+var laEntityEnumpayPlatType = [{v: 1, t: '财付通'}, {v: 2, t: '汇付'}, {v: 3, t: '支付宝'}, {v: 4, t: '微信'}, {v: 5, t: '快钱'},
+    {v: 6, t: '银联'}, {v: 7, t: '易宝支付'}, {v: 8, t: '微信APP'}, {v: 9, t: '淘宝去啊'}, {v: 10000, t: '其他'}];
+
+/**
  * 网站地图等公用菜单定义
 
- var laMapMenu_Transport = [{i: 0, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "passengerinfo", s: true},
- {i: 1, t: "运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true},
- {i: 2, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true}];
+var laMapMenu_Transport = [{i: 0, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "passengerinfo", s: true},
+    {i: 1, t: "运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true},
+    {i: 2, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true}];
 
- var laMapMenu_PassengerSvr = [{i: 0, t: "旅客购票及旅行须知", f: 1, s: true},
- {i: 1, t: "安全运输须知", f: 2, s: false},
- {i: 2, t: "网上值机", f: 3, s: false},
- {i: 3, t: "行李须知", f: 4, s: true},
- {i: 4, t: "售票及机场信息", f: 5, s: true},
- {i: 5, t: "电子客票行程单邮寄说明", f: 6, s: true},
- {i: 6, t: "值机柜台", f: 7, s: true},
- {i: 7, t: "航线", f: 8, s: true},
- {i: 8, t: "医生诊断说明书", f: 9, s: true}];
- */
-var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?index=4", c: "package", s: true},
+var laMapMenu_PassengerSvr = [{i: 0, t: "旅客购票及旅行须知", f: 1, s: true},
+    {i: 1, t: "安全运输须知", f: 2, s: false},
+    {i: 2, t: "网上值机", f: 3, s: false},
+    {i: 3, t: "行李须知", f: 4, s: true},
+    {i: 4, t: "售票及机场信息", f: 5, s: true},
+    {i: 5, t: "电子客票行程单邮寄说明", f: 6, s: true},
+    {i: 6, t: "值机柜台", f: 7, s: true},
+    {i: 7, t: "航线", f: 8, s: true},
+    {i: 8, t: "医生诊断说明书", f: 9, s: true}];
+*/
+var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?index=4", c: "4", s: true},
     {i: 1, t: "特殊旅客运输须知", u: "/Infomation/Travelnotes/SpecialPassenger.html", c: "SpecialPassenger", s: true},
-    {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "saleticketandairport", s: true},
-    {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "checkinstation", s: true},
-    {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "eticketpost", s: true},
+    {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "5", s: true},
+    {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "7", s: true},
+    {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "6", s: true},
     {i: 5, t: "运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true}];
 
 var laMapMenu_PassengerSvr = [{i: 0, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true},
-    {i: 1, t: "旅客须知", u: "/Infomation/Travelnotes/Passenger.html", c: "Passenger", s: true},
-    {i: 2, t: "航线", u: "/Infomation/index.html?index=8", c: "airline", s: true},
-    {i: 3, t: "医生诊断说明书", u: "/Infomation/index.html?index=9", c: "doctor", s: true}];
+    {i: 1, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "Passenger", s: true},
+    {i: 2, t: "航线", u: "/Infomation/index.html?index=8", c: "8", s: true},
+    {i: 3, t: "医生诊断说明书", u: "/Infomation/index.html?index=9", c: "9", s: true}];
 
 var laMapMenu_Airplane = [{i: 0, t: "超级经济舱", u: "/Others/News/News.html?ID=29", s: true},///Others/AirPlane/SuperEconomyClass.html
     {i: 1, t: "经济舱", u: "/Others/AirPlane/EconomyClass.html", s: true},
     {i: 2, t: "机上娱乐", u: "/Others/AirPlane/Entertainment.html", s: true},
     {i: 3, t: "餐食", u: "/Others/AirPlane/Meals.html", s: true}];
 
-/**
- <li ng-class="{true:'active',false:''}[ShowIndex==1]"><a href="javascript:;" ng-click="btnShowContent(1);">旅客购票及旅行须知</a></li>
- <!--<li ng-class="{true:'active',false:''}[ShowIndex==2]"><a href="javascript:;" ng-click="btnShowContent(2);">安全运输须知</a></li>-->
- <!--<li ng-class="{true:'active',false:''}[ShowIndex==3]"><a href="javascript:;" ng-click="btnShowContent(3);">网上值机</a></li>-->
- <li ng-class="{true:'active',false:''}[ShowIndex==4]"><a href="javascript:;" ng-click="btnShowContent(4);">行李</a></li>
- <li ng-class="{true:'active',false:''}[ShowIndex==5]"><a href="javascript:;" ng-click="btnShowContent(5);">售票及机场信息</a></li>
- <li ng-class="{true:'active',false:''}[ShowIndex==6]"><a href="javascript:;" ng-click="btnShowContent(6);">电子客票行程单邮寄说明</a></li>
- <li ng-class="{true:'active',false:''}[ShowIndex==7]"><a href="javascript:;" ng-click="btnShowContent(7);">值机柜台</a></li>
- <li ng-class="{true:'active',false:''}[ShowIndex==8]"><a href="javascript:;" ng-click="btnShowContent(8);">航线</a></li>
- <li ng-class="{true:'active',false:''}[ShowIndex==9]"><a href="javascript:;" ng-click="btnShowContent(9);">医生诊断说明书</a></li>
- */
 
 function laEntityBase() {
     this.Code = '';
@@ -82,12 +159,59 @@ function laEntityUser() {
     this.ConPassword;
     this.Mobile;
     this.MobileValidCode;
+    this.VerifyCode;
     this.Address;
     this.EMail;
     this.Zip;
-    this.Tel;
     this.UserName;
     this.SessionOut;
+
+    //常旅客部分新加
+    this.IsFrequentPassenger;//是否是常旅客
+    this.SecondNameCn;//中文姓
+    this.FirstNameCn;//中文名
+    this.SecondNameCnPinYin;//中文姓拼音
+    this.FirstNameCnPinYin;//中文名拼音
+    this.IDInfoList;//证件列表
+    this.Tel;//联系电话
+    this.BirthDay;//出生日期
+    this.Nationaity;//国籍
+    this.NationaityCH;//国籍名称
+    this.ContactAddressHope;//希望联系地址:1:家庭;2:单位;
+    this.ContactAddressHopeCH;//希望联系地址名称
+    this.HomeAddressCountry;//家庭地址:国家
+    this.HomeAddressCountryCH;//家庭地址:国家名称
+    this.HomeAddressProvince;//家庭地址:省/洲
+    this.HomeAddressCity;//家庭地址:城市
+    this.HomeAddressDetail;//家庭详细地址
+    this.HomePostCode;//家庭地址邮编
+    this.HomeTel;//家庭联系电话
+    this.CompanyAddressCountry;//单位地址:国家
+    this.CompanyAddressCountryCH;//单位地址:国家名称
+    this.CompanyAddressProvince;//单位地址:省/洲
+    this.CompanyAddressCity;//单位地址:城市
+    this.CompanyAddressDetail;//单位详细地址
+    this.CompanyName;//单位名称
+    this.Job;//职业
+    this.JobCH;//职业
+    this.Position;//职位
+    this.PositionCH;//职位名称
+    this.CompanyTel;//单位联系电话
+    this.Wechat;//微信
+    this.Fax;
+    this.PPMeals;
+    this.PPSeats;
+    this.PPChannel;
+    this.PPPaymentMethod;
+    this.ContactHope;//希望联系方式
+    this.ContactHopeCH;//希望联系方式名称
+    this.LanguageHope;//希望联系的语言 中文=1,English=2
+    this.LanguageHopeCH;//希望联系的语言名称
+    this.FPD_Inviter;//邀请人
+    this.Level;//会员等级
+    this.Integral;//可用积分
+
+    this.MobileValidCode;//操作时获取的手机验证码
 }
 laEntityUser.prototype = new laEntityBase();
 
@@ -178,6 +302,7 @@ function laEntityOrderCreate() {
     this.Flights = new Array();//航段信息
     this.Passengers = new Array();//乘客信息
     this.TotalAmount = 0;//订单总价
+    this.TotalIntegral = 0;//总积分
     this.Itinerary;//行程单
     this.VerifyCode;
 }
@@ -314,8 +439,10 @@ function laEntityOrderInfoDetail() {
     this.PayStatus;//未支付/已支付
     this.PayStatusCH;
     this.CreateTime;
-    this.OrderType;//普通订单
+    this.OrderType;// 1:普通订单;5:改期订单;
     this.OrderTypeCH;
+    this.IntegralType;//1:普通机票;2:积分兑换
+    this.IntegralTypeCH;//
     this.PayTime;
     this.PayPlat;//支付宝
     this.OrderAmountWithTax = 0;//总金额含税
@@ -370,6 +497,7 @@ function laEntityOrderInfoDetPassengers() {
     //乘客的航段信息
     this.Flights = new Array();
     this.AllTktAmount = 0;
+    this.AllTktIntegral = 0;
     this.AllAirportAmount = 0;
     this.AllFuelAmount = 0;
     this.AllOtherAmount = 0;
@@ -396,6 +524,7 @@ function laEntityOrderInfoDetPsgFlights() {
     this.ArriveTime;
     this.Cabin;
     this.SaleTicketPrice = 0;
+    this.SaleIntegral = 0;
     this.TicketPrice = 0;
     this.FuelTax = 0;
     this.AirportTax = 0;
@@ -427,6 +556,9 @@ function laEntityOrderInfoDetPsgFlights() {
     this.RefundFirstNote;
     this.RefundSecondNote;
     this.RefundAduitTime;
+    this.RefundIntegralStatus;
+    this.RefundIntegral;
+    this.WaitRefundIntegral;
     //保险信息
     this.Insurances;
     //保险总金额

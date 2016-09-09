@@ -9,14 +9,27 @@
                 <button type="submit" class="searchbtn">提交</button>-->
 
                 <div ng-if="UserLogined" style="float:left;">
-                    <img src="/Resource/images/welcomebg.png" style="width:150px; margin-top: -2px;">
-                    <span style="margin-left: -150px; color:white;width:150px;">
-                        <a href="/Member/OrderList.html" style="color:white;">&nbsp;{{userInfo_C.Name}}&nbsp;欢迎来长龙&nbsp;</a>
-                    </span>
-                    <span>
+                    <div class="mymessage" ng-if="userInfo_C.IsFrequentPassenger">
+                        <div class="pull-left"><img src="/Resource/images/hi.png" width="32"></div>
+                        <p>欢迎{{userInfo_C.Level}}会员{{userInfo_C.Name}}</p>
+                        <p>您账户可用积分 <a class="red">{{userInfo_C.Integral}}</a></p>
+                    </div>
+                    <span ng-if="userInfo_C.IsFrequentPassenger">
                         <a href="javascript:;" ng-click="btnUserLogoutClick();"><img src="/Resource/images/refresh.png"
-                                                                                      style="width:18px;height:18px;">&nbsp;退出</a>
+                                                                                     style="width:18px;height:18px;">&nbsp;退出</a>
                     </span>
+
+                    <div ng-if="!userInfo_C.IsFrequentPassenger">
+                        <img src="/Resource/images/welcomebg.png" style="width:150px; margin-top: -2px;">
+                        <span style="margin-left: -150px; color:white;width:150px;">
+                            <a href="/Member/OrderList.html" style="color:white;">
+                                &nbsp;{{userInfo_C.Name}}&nbsp;欢迎来长龙&nbsp;</a>
+                        </span>
+                        <span>
+                            <a href="javascript:;" ng-click="btnUserLogoutClick();"><img src="/Resource/images/refresh.png"
+                                                                                         style="width:18px;height:18px;">&nbsp;退出</a>
+                        </span>
+                    </div>
                 </div>
 
                 <div ng-if="!UserLogined" style="float:left;">
@@ -46,6 +59,7 @@
                 <li ng-class="{true:'active',false:''}[isMallNav]"><a href="/Mall/Mall.html">商城</a></li>
                 <!-- <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="/Infomation/index.html">旅客服务</a></li> -->
                 <li ng-class="{true:'active',false:''}[isTravelNav]"><a href="/Travel/Transport/PassengerInfo.html">出行帮助</a>
+                <li ng-class="{true:'active',false:''}[isClubNav]"><a href="/Member/Club.html">会员俱乐部</a>
                     <!--
                     <div class="secondary_menu hide">
                         <div class="s_menu airplane">
@@ -70,7 +84,9 @@
                 -->
             </ul>
             <ul class="nav pull-right">
-                <li ng-if="UserLogined" ng-class="{true:'active',false:''}[isMyInfoNav]"><a href="/Member/MyInfo.html">我的信息</a>
+                <li ng-if="UserLogined" ng-class="{true:'active',false:''}[isMyInfoNav]">
+                    <a ng-if="!userInfo_C.IsFrequentPassenger" href="/Member/MyInfo.html">我的信息</a>
+                    <a ng-if="userInfo_C.IsFrequentPassenger" href="/Member/MyVipInfo.html">我的信息</a>
                 </li>
                 <!-- <li ng-if="!UserLogined" ng-class="{true:'active',false:''}[isMyOrderNav]"><a href="javascript:;" ng-click="btnMyOrderClick();">我的订单</a></li> -->
             </ul>

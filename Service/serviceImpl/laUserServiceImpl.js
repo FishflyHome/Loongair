@@ -91,23 +91,25 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     };
 
     /**
-     * 查询当前登录用户信息
+     * 查询当前用户/常旅客信息
      * @param callBack
      * @constructor
      */
     laUserService.GetCurrentUserInfo = function (callBack) {
-        var requestParam = {};
-        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_GetCurrentUserInfo;
-        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+        /**
+         * 老的查询用户信息接口
+         var requestParam = {};
+         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_GetCurrentUserInfo;
+         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
 
-        var requestBody = {};
-        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+         var requestBody = {};
+         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
 
-        requestParam.Args = JSON.stringify(requestBody);
+         requestParam.Args = JSON.stringify(requestBody);
 
-        var postData = JSON.stringify(requestParam);
+         var postData = JSON.stringify(requestParam);
 
-        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+         laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
                 var uInfo = data;
                 var userInfo = new laEntityUser();
                 userInfo.Code = uInfo.Code;
@@ -126,6 +128,90 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                     userInfo.Foid = uInfo.Foid;
                     userInfo.UserName = uInfo.UserName;
                     userInfo.SessionOut = uInfo.SessionOut;
+                }
+
+                callBack(userInfo, status);
+            }
+         )
+         */
+
+        /**
+         * 新的查询常旅客信息的接口,兼容老接口
+         * Modified on 2016-7-5 by Jerry
+         */
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_GetCurrentUserInfo;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                var uInfo = data;
+                var userInfo = new laEntityUser();
+                userInfo.Code = data.Code;
+                userInfo.Message = data.Message;
+
+                if (status == true) {
+                    userInfo.Address = uInfo.Address;
+                    userInfo.Mobile = uInfo.Mobile;
+                    userInfo.Name = uInfo.Name;
+                    userInfo.Brithday = uInfo.Birthday;
+                    userInfo.Sex = uInfo.Sex;
+                    userInfo.SexCH = uInfo.SexCH;
+                    userInfo.FoidType = uInfo.FoidType;
+                    userInfo.FoidTypeCH = uInfo.FoidTypeCH;
+                    userInfo.Foid = uInfo.Foid;
+                    userInfo.UserName = uInfo.UserName;
+                    userInfo.SessionOut = uInfo.SessionOut;
+
+                    userInfo.IsFrequentPassenger = uInfo.IsFrequentPassenger;
+                    userInfo.SecondNameCn = uInfo.SecondNameCn;//中文姓
+                    userInfo.FirstNameCn = uInfo.FirstNameCn;//中文名
+                    userInfo.SecondNameCnPinYin = uInfo.SecondNameCnPinYin;//中文姓拼音
+                    userInfo.FirstNameCnPinYin = uInfo.FirstNameCnPinYin;//中文名拼音
+                    userInfo.IDInfoList = uInfo.IDInfoList;//证件列表 //[{"Foid":"37","FoidType":1},{"Foid":"G98","FoidType":2}];
+                    userInfo.Tel = uInfo.Tel;//联系电话
+                    userInfo.BirthDay = uInfo.Birthday;//new Date(uInfo.BirthDay.replace(/-/g, "/"));//出生日期
+                    userInfo.Nationaity = uInfo.Nationaity;//国籍
+                    userInfo.NationaityCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.Nationaity, laEntityEnumnationaityOptions);//uInfo.NationaityCH;//国籍名称
+                    userInfo.ContactAddressHope = uInfo.ContactAddressHope;//希望联系地址:1:家庭;2:单位;
+                    userInfo.ContactAddressHopeCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.ContactAddressHope, laEntityEnumcontactAddressHope);//uInfo.ContactAddressHopeCH;//希望联系地址名称
+                    userInfo.HomeAddressCountry = uInfo.HomeAddressCountry;//家庭地址:国家
+                    userInfo.HomeAddressCountryCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.HomeAddressCountry, laEntityEnumnationaityOptions);
+                    userInfo.HomeAddressProvince = uInfo.HomeAddressProvince;//家庭地址:省/洲
+                    userInfo.HomeAddressCity = uInfo.HomeAddressCity;//家庭地址:城市
+                    userInfo.HomeAddressDetail = uInfo.HomeAddressDetail;//家庭详细地址
+                    userInfo.HomePostCode = uInfo.HomePostCode;//家庭地址邮编
+                    userInfo.HomeTel = uInfo.HomeTel;//家庭联系电话
+                    userInfo.CompanyAddressCountry = uInfo.CompanyAddressCountry;//单位地址:国家
+                    userInfo.CompanyAddressCountryCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.CompanyAddressCountry, laEntityEnumnationaityOptions);
+                    userInfo.CompanyAddressProvince = uInfo.CompanyAddressProvince;//单位地址:省/洲
+                    userInfo.CompanyAddressCity = uInfo.CompanyAddressCity;//单位地址:城市
+                    userInfo.CompanyAddressDetail = uInfo.CompanyAddressDetail;
+                    userInfo.CompanyName = uInfo.CompanyName;//单位名称
+                    userInfo.Job = uInfo.Job;//职业
+                    userInfo.JobCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.Job, laEntityEnumjob);
+                    userInfo.Position = uInfo.Position;//职位
+                    userInfo.PositionCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.Position, laEntityEnumjobPosition);//uInfo.PositionCH;//职位名称
+                    userInfo.CompanyTel = uInfo.CompanyTel;//单位联系电话
+                    userInfo.Wechat = uInfo.Wechat;//微信
+                    userInfo.EMail = uInfo.EMail;//电邮
+                    userInfo.Integral = uInfo.Integral;
+                    userInfo.Level = uInfo.Level;
+                    userInfo.Fax = uInfo.Fax;
+                    userInfo.PPMeals = uInfo.PPMeals;
+                    userInfo.PPSeats = uInfo.PPSeats;
+                    userInfo.PPChannel = uInfo.PPChannel;
+                    userInfo.PPPaymentMethod = uInfo.PPPaymentMethod;
+                    userInfo.ContactHope = uInfo.ContactHope;//希望联系方式
+                    userInfo.ContactHopeCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.ContactHope, laEntityEnumcontactHope);//uInfo.ContactHopeCH;//希望联系方式名称
+                    userInfo.LanguageHope = uInfo.LanguageHope;//希望联系的语言 中文=1,English=2
+                    userInfo.LanguageHopeCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.LanguageHope, laEntityEnumlanguageHope);//uInfo.LanguageHopeCH;//希望联系的语言名称
                 }
 
                 callBack(userInfo, status);
@@ -152,6 +238,65 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.Address = u.Address;
         requestBody.Email = u.Email;
         requestBody.UserInfoAmendVerifyCode = u.ValidCode;
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 修改常旅客信息
+     * @param u
+     * @param callBack
+     * @constructor
+     */
+    laUserService.ModifyFrequentUserInfo = function (u, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_ModifyUserInfo;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestBody.Foid = u.Foid;
+        requestBody.FoidType = u.FoidType;
+        requestBody.BirthDay = u.BirthDay;
+
+        requestBody.Address = u.Address;
+        requestBody.Email = u.EMail;
+        requestBody.Tel = u.Tel;
+
+        requestBody.FPD_Nationaity = u.Nationaity;
+        requestBody.FPD_ContactAddressHope = u.ContactAddressHope;
+        requestBody.FPD_HomeAddressCountry = u.HomeAddressCountry;
+        requestBody.FPD_HomeAddressProvince = u.HomeAddressProvince;
+        requestBody.FPD_HomeAddressCity = u.HomeAddressCity;
+        requestBody.FPD_HomeAddressDetail = u.HomeAddressDetail;
+        requestBody.FPD_HomePostCode = u.HomePostCode;
+        requestBody.FPD_HomeTel = u.HomeTel;
+        requestBody.FPD_CompanyAddressCountry = u.CompanyAddressCountry;
+        requestBody.FPD_CompanyAddressProvince = u.CompanyAddressProvince;
+        requestBody.FPD_CompanyAddressCity = u.CompanyAddressCity;
+        requestBody.FPD_CompanyAddressDetail = u.CompanyAddressDetail;
+        requestBody.FPD_CompanyName = u.CompanyName;
+        requestBody.FPD_Job = u.Job;
+        requestBody.FPD_Position = u.Position;
+        requestBody.FPD_CompanyTel = u.CompanyTel;
+        requestBody.FPD_Fax = u.Fax;
+        requestBody.FPD_PPMeals = u.PPMeals;
+        requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPChannel = u.PPChannel;
+        requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
+        requestBody.FPD_Wechat = u.Wechat;
+        requestBody.FPD_ContactHope = u.ContactHope;
+        requestBody.FPD_LanguageHope = u.LanguageHope;
+        requestBody.IDInfoList = u.IDInfoList;
+
+        requestBody.UserInfoAmendVerifyCode = u.MobileValidCode;
         requestParam.Args = JSON.stringify(requestBody);
 
         var postData = JSON.stringify(requestParam);
@@ -254,6 +399,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      * @param callBack
      * @constructor
      */
+    /*
     laUserService.Register = function (userName, foId, pwd, mobile, mobileVerifyCode, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_RegisterUser;
@@ -265,6 +411,142 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.Password = pwd;
         requestBody.Mobile = mobile;
         requestBody.MobileVerifyCode = mobileVerifyCode;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+    */
+
+    /**
+     * 注册会员
+     * @param u
+     * @param callBack
+     * @constructor
+     */
+    laUserService.Register = function (u, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_RegisterUser;
+        requestParam.SessionID = laGlobalLocalService.getCookie('SessionID');
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestBody.Foid = u.Foid;
+        requestBody.Mobile = u.Mobile;
+        requestBody.MobileVerifyCode = u.MobileValidCode;
+        requestBody.Name = u.Name;
+        requestBody.Password = u.Password;
+        requestBody.VerifyCode = u.VerifyCode;
+
+        requestBody.FoidType = u.FoidType;
+        requestBody.Address = u.Address;
+        requestBody.Email = u.EMail;
+        requestBody.BirthDay = u.BirthDay;
+        requestBody.SexType = u.Sex;
+
+        requestBody.FPD_SecondNameCn = u.SecondNameCn;
+        requestBody.FPD_FirstNameCn = u.FirstNameCn;
+        requestBody.FPD_SecondNameCnPinYin = u.SecondNameCnPinYin;
+        requestBody.FPD_FirstNameCnPinYin = u.FirstNameCnPinYin;
+
+        requestBody.FPD_Nationaity = u.Nationaity;
+        requestBody.FPD_ContactAddressHope = u.ContactAddressHope;
+        requestBody.FPD_HomeAddressCountry = u.HomeAddressCountry;
+        requestBody.FPD_HomeAddressProvince = u.HomeAddressProvince;
+        requestBody.FPD_HomeAddressCity = u.HomeAddressCity;
+        requestBody.FPD_HomeAddressDetail = u.HomeAddressDetail;
+        requestBody.FPD_HomePostCode = u.HomePostCode;
+        requestBody.FPD_HomeTel = u.HomeTel;
+        requestBody.FPD_CompanyAddressCountry = u.CompanyAddressCountry;
+        requestBody.FPD_CompanyAddressProvince = u.CompanyAddressProvince;
+        requestBody.FPD_CompanyAddressCity = u.CompanyAddressCity;
+        requestBody.FPD_CompanyAddressDetail = u.CompanyAddressDetail;
+        requestBody.FPD_CompanyName = u.CompanyName;
+        requestBody.FPD_Job = u.Job;
+        requestBody.FPD_Position = u.Position;
+        requestBody.FPD_CompanyTel = u.CompanyTel;
+        requestBody.FPD_Fax = u.Fax;
+        requestBody.FPD_PPMeals = u.PPMeals;
+        requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPChannel = u.PPChannel;
+        requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
+        requestBody.FPD_Wechat = u.Wechat;
+        requestBody.FPD_ContactHope = u.ContactHope;
+        requestBody.FPD_LanguageHope = u.LanguageHope;
+        requestBody.FPD_Inviter = u.FPD_Inviter;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 升级为常旅客
+     * @param u
+     * @param callBack
+     * @constructor
+     */
+    laUserService.RegisterFrequent = function (u, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_RegisterFrequentUser;
+        requestParam.SessionID = laGlobalLocalService.getCookie('SessionID');
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestBody.Foid = u.Foid;
+        requestBody.Mobile = u.Mobile;
+        requestBody.Name = u.Name;
+        requestBody.Password = u.Password;
+        requestBody.VerifyCode = u.VerifyCode;
+
+        requestBody.FoidType = u.FoidType;
+        requestBody.Address = u.Address;
+        requestBody.Email = u.EMail;
+        requestBody.BirthDay = u.BirthDay;
+        requestBody.SexType = u.Sex;
+
+        requestBody.FPD_SecondNameCn = u.SecondNameCn;
+        requestBody.FPD_FirstNameCn = u.FirstNameCn;
+        requestBody.FPD_SecondNameCnPinYin = u.SecondNameCnPinYin;
+        requestBody.FPD_FirstNameCnPinYin = u.FirstNameCnPinYin;
+
+        requestBody.FPD_Nationaity = u.Nationaity;
+        requestBody.FPD_ContactAddressHope = u.ContactAddressHope;
+        requestBody.FPD_HomeAddressCountry = u.HomeAddressCountry;
+        requestBody.FPD_HomeAddressProvince = u.HomeAddressProvince;
+        requestBody.FPD_HomeAddressCity = u.HomeAddressCity;
+        requestBody.FPD_HomeAddressDetail = u.HomeAddressDetail;
+        requestBody.FPD_HomePostCode = u.HomePostCode;
+        requestBody.FPD_HomeTel = u.HomeTel;
+        requestBody.FPD_CompanyAddressCountry = u.CompanyAddressCountry;
+        requestBody.FPD_CompanyAddressProvince = u.CompanyAddressProvince;
+        requestBody.FPD_CompanyAddressCity = u.CompanyAddressCity;
+        requestBody.FPD_CompanyAddressDetail = u.CompanyAddressDetail;
+        requestBody.FPD_CompanyName = u.CompanyName;
+        requestBody.FPD_Job = u.Job;
+        requestBody.FPD_Position = u.Position;
+        requestBody.FPD_CompanyTel = u.CompanyTel;
+        requestBody.FPD_Fax = u.Fax;
+        requestBody.FPD_PPMeals = u.PPMeals;
+        requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPChannel = u.PPChannel;
+        requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
+        requestBody.FPD_Wechat = u.Wechat;
+        requestBody.FPD_ContactHope = u.ContactHope;
+        requestBody.FPD_LanguageHope = u.LanguageHope;
+        requestBody.FPD_Inviter = u.FPD_Inviter;
 
         requestParam.Args = JSON.stringify(requestBody);
 
@@ -318,7 +600,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     laUserService.ImageVerifyCodeForRegisterSendMobileValid = function (callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_ImageVerifyCodeForRegister;
-        requestParam.SessionId = '';
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
 
         var requestBody = {};
         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
@@ -500,7 +782,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     };
 
     /**
-     * 删除常旅客
+     * 删除常用旅客信息
      * @param tids id 列表
      * @param callBack
      * @constructor
@@ -565,6 +847,141 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         var requestBody = {};
         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
         requestBody.AirportCode = airportCode;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 添加受益人信息
+     * @param benefit
+     * @param callBack
+     * @constructor
+     */
+    laUserService.AddBenefit = function (benefit, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_AddBenefit;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.MB_Name = benefit.MB_Name;
+        requestBody.MB_FPCardNo = benefit.MB_FPCardNo;
+        requestBody.MB_SexType = benefit.MB_SexType;
+        requestBody.MB_Birthday = benefit.MB_Birthday;
+        requestBody.MB_SecondName = benefit.MB_SecondName;
+        requestBody.MB_FirstName = benefit.MB_FirstName;
+        requestBody.MB_SecondNamePinYin = benefit.MB_SecondNamePinYin;
+        requestBody.MB_FirstNamePinYin = benefit.MB_FirstNamePinYin;
+        requestBody.BeneficiaryInfolist = benefit.BeneficiaryInfolist;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 删除受益人
+     * @param tid
+     * @param callBack
+     * @constructor
+     */
+    laUserService.DelBenefit = function (tid, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_DelBenefit;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.tid = tid;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 添加受益人证件信息
+     * @param tid
+     * @param idlist
+     * @param callBack
+     * @constructor
+     */
+    laUserService.AddBenefitIdInfo = function (tid, idlist, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_AddBenefitIdInfo;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.mbtid = tid;
+        requestBody.idlist = idlist;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 查询受益人列表
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryBenefitList = function (callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryBenefitList;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 查询已审核过的受益人列表
+     * @param pageIndex
+     * @param pageSize
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryAuditBenefitList = function (pageIndex, pageSize, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryAuditBenefitList;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.OnePageCount = pageSize;
+        requestBody.NewPageIndex = pageIndex;
 
         requestParam.Args = JSON.stringify(requestBody);
 
@@ -644,6 +1061,469 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     };
 
     /**
+     * 查询我的消息列表
+     * @param pageNum
+     * @param pageSize
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryMyMessagelist = function (pageNum, pageSize, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryMyMessagelist;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.PageNum = pageNum;
+        requestBody.PageSize = pageSize;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 删除我的消息
+     * @param idlist
+     * @param callBack
+     * @constructor
+     */
+    laUserService.DelMyMessagelist = function (idlist, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_DelMyMessage;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.tidlist = idlist;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 查询常旅客积分列表
+     * @param pageNum
+     * @param pageSize
+     * @param startDate
+     * @param endDate
+     * @param approved 0:全部;1:已审核;2:未审核;
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryPointsList = function (pageNum, pageSize, startDate, endDate, approved, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryFrequentMemberPointsList;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.PageNum = pageNum;
+        requestBody.PageSize = pageSize;
+        requestBody.StartDate = startDate;
+        requestBody.EndDate = endDate;
+        requestBody.ApprovedOrNot = approved;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 查询常旅客积分兑换积分记录
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryExchangePointsList = function (callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryExchangePointsList;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 获取兑换对应航班所需积分
+     * @param flightDate 航班日期
+     * @param airportFrom 起始地
+     * @param airportTo 到达地
+     * @param cabin 舱位
+     * @param callBack
+     * @constructor
+     */
+    /*
+    laUserService.QueryPointsForExchangeFlight = function (flightDate, airportFrom, airportTo, cabin, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryPointsForExchangeFlight;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.flightDate = flightDate;
+        requestBody.airportFrom = airportFrom;
+        requestBody.airportTo = airportTo;
+        requestBody.cabin = cabin;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+    */
+
+    /**
+     * 积分查找航班
+     * @param FlightNum 航班号
+     * @param AirportFrom 起始地
+     * @param AirportTo 到达地
+     * @param DepartureTime 起飞时间
+     * @param Cabin 舱位
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryFlightUsePoint = function (FlightNum, AirportFrom, AirportTo, DepartureTime, Cabin, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryFlightUsePoints;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.FlightNum = FlightNum;
+        requestBody.AirportFrom = AirportFrom;
+        requestBody.AirportTo = AirportTo;
+        requestBody.DepartureTime = DepartureTime;
+        requestBody.Cabin = Cabin;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                var fli = data;
+                var flightList = new laEntityFlightList();
+                flightList.Code = fli.Code;
+                flightList.Message = fli.Message;
+
+                if (status == true && flightList.Code == laGlobalProperty.laServiceCode_Success) {
+                    var flightInfo = fli.Result;
+                    var nFlis = flightInfo.FlightInfos.length;
+                    for (var n = 0; n < nFlis; n++) {
+                        var flightData = new laEntityFlight();
+                        flightData.FlightNum = flightInfo.FlightInfos[n].FlightNum;
+                        flightData.AirportFrom = flightInfo.FlightInfos[n].AirportFrom;
+                        flightData.AirportFromCH = flightInfo.FlightInfos[n].AirportFromCH;
+                        flightData.AirportTo = flightInfo.FlightInfos[n].AirportTo;
+                        flightData.AirportToCH = flightInfo.FlightInfos[n].AirportToCH;
+                        flightData.Distance = flightInfo.FlightInfos[n].Distance;
+                        flightData.DepartureTime = new Date(flightInfo.FlightInfos[n].DepartureTime.replace(/-/g, "/"));
+                        flightData.ArriveTime = new Date(flightInfo.FlightInfos[n].ArriveTime.replace(/-/g, "/"));
+                        flightData.AirportTax = flightInfo.FlightInfos[n].AirportTax;
+                        flightData.FuelTax = flightInfo.FlightInfos[n].FuelTax;
+                        flightData.OtherTax = flightInfo.FlightInfos[n].OtherTax;
+                        flightData.ChildAirportTax = flightInfo.FlightInfos[n].ChildAirportTax;
+                        flightData.ChildFuelTax = flightInfo.FlightInfos[n].ChildFuelTax;
+                        flightData.ChildOtherTax = flightInfo.FlightInfos[n].ChildOtherTax;
+                        flightData.JiXing = flightInfo.FlightInfos[n].JiXing;
+                        flightData.JingTing = flightInfo.FlightInfos[n].JingTing;
+
+                        var nCarBinLength = flightInfo.FlightInfos[n].CabinInfos.length;
+                        for (var i = 0; i < nCarBinLength; i++) {
+                            var cabinData = flightInfo.FlightInfos[n].CabinInfos[i];
+                            /*
+                            var nnn = {
+                                "Result": {
+                                    "FlightInfos": [{
+                                        "FlightNum": "GJ8887",
+                                        "AirportFrom": "HGH",
+                                        "AirportFromCH": "杭州萧山国际机场",
+                                        "AirportTo": "PEK",
+                                        "AirportToCH": "北京首都机场",
+                                        "Distance": 0,
+                                        "DepartureTime": "2016-07-15 19:05",
+                                        "ArriveTime": "2016-07-15 21:25",
+                                        "AirportTax": 50,
+                                        "FuelTax": 0,
+                                        "OtherTax": 0,
+                                        "ChildAirportTax": 0,
+                                        "ChildFuelTax": 0,
+                                        "ChildOtherTax": 0,
+                                        "JiXing": "320",
+                                        "JingTing": false,
+                                        "CabinInfos": [{
+                                            "CabinName": "Y",
+                                            "CabinType": 0,
+                                            "LeftCount": 11,
+                                            "AdultIntegral": 50000,
+                                            "ChildIntegral": 25000,
+                                            "AdultSaleIntegral": 50000,
+                                            "ChildSaleIntegral": 25000,
+                                            "RefundRule": "0-2-0",
+                                            "ChangeRule": "不得改期-2-不得改期",
+                                            "SignedTransfer": 2,
+                                            "SignedTransferDisplay": "Disable",
+                                            "Discount": 0,
+                                            "AccidentInsurancePrice": 0,
+                                            "AccidentSumInsured": 0,
+                                            "AccidentInsuranceTktPriceDiscount": 0,
+                                            "AccidentInsuranceCanBuyCount": 0,
+                                            "DelayInsurancePrice": 0,
+                                            "DelaySumInsured": 0,
+                                            "DelayInsuranceTktPriceDiscount": 0,
+                                            "DelayInsuranceCanBuyCount": 0
+                                        }]
+                                    }]
+                                }, "Code": "0000", "Message": "查询成功"
+                            };
+                            */
+                            var cabinInfo = new laEntityCabinInfo();
+                            cabinInfo.CabinName = cabinData.CabinName;
+                            cabinInfo.CabinType = cabinData.CabinType;
+                            cabinInfo.CabinTypeName = laEntityEnumCabinTypename[cabinData.CabinType];
+                            cabinInfo.LeftCount = cabinData.LeftCount;
+                            cabinInfo.Discount = cabinData.Discount;
+                            cabinInfo.Price = cabinData.AdultIntegral;//Price;
+                            cabinInfo.ChildPrice = cabinData.ChildIntegral;//ChildPrice;
+                            cabinInfo.SalePrice = cabinData.AdultSaleIntegral;//SalePrice;
+                            cabinInfo.ChildSalePrice = cabinData.ChildSaleIntegral;//ChildSalePrice;
+                            //cabinInfo.PriceBase = cabinData.PriceBase;
+                            //cabinInfo.ChildPriceBase = cabinData.ChildPriceBase;
+                            cabinInfo.RefundRule = cabinData.RefundRule;
+                            cabinInfo.ChangeRule = cabinData.ChangeRule;
+                            cabinInfo.SignedTransfer = cabinData.SignedTransfer;
+                            cabinInfo.SignedTransferDisplay = cabinData.SignedTransferDisplay;
+                            cabinInfo.AccidentInsurancePrice = cabinData.AccidentInsurancePrice;
+                            cabinInfo.AccidentSumInsured = cabinData.AccidentSumInsured;
+                            cabinInfo.AccidentInsuranceTktPriceDiscount = cabinData.AccidentInsuranceTktPriceDiscount;
+                            cabinInfo.AccidentInsuranceCanBuyCount = cabinData.AccidentInsuranceCanBuyCount;
+                            cabinInfo.DelayInsurancePrice = cabinData.DelayInsurancePrice;
+                            cabinInfo.DelaySumInsured = cabinData.DelaySumInsured;
+                            cabinInfo.DelayInsuranceTktPriceDiscount = cabinData.DelayInsuranceTktPriceDiscount;
+                            cabinInfo.DelayInsuranceCanBuyCount = cabinData.DelayInsuranceCanBuyCount;
+
+                            flightData.CabinInfoList[i] = cabinInfo;
+                        }
+
+                        flightList.FlightList[n] = flightData;
+                    }
+
+                    if (flightInfo.LowPriceFlights != undefined) {
+                        var nLowPrice = flightInfo.LowPriceFlights.length;
+                        for (var l = 0; l < nLowPrice; l++) {
+                            var lowPrice = new laEntityLowPriceFlights();
+                            var cd = new Date(flightInfo.LowPriceFlights[l].FlightDate.replace(/-/g, "/"));
+                            lowPrice.FlightDate = cd.getFullYear() + "-" + (cd.getMonth() + 1) + "-" + cd.getDate();
+                            lowPrice.LowPrice = flightInfo.LowPriceFlights[l].LowPrice;
+
+                            flightList.LowPriceFlights[l] = lowPrice;
+                        }
+                    }
+                }
+                callBack(flightList, status);
+            }
+        )
+    };
+
+    /**
+     * 用积分预定订单
+     * @param ordInfo 订单信息
+     * @param callBack
+     * @constructor
+     */
+    laUserService.CreateOrderByPoints = function (ordInfo, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_CreateOrderByPoints;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = ordInfo.SaleChannel;
+        requestBody.ChildRecerveCabinPriceType = ordInfo.ChildRecerveCabinPriceType;
+        requestBody.Contacts = ordInfo.Contacts;
+        requestBody.Flights = ordInfo.Flights;
+        requestBody.Passengers = ordInfo.Passengers;
+        requestBody.VerifyCode = ordInfo.VerifyCode;
+
+        requestBody.TotalAmount = ordInfo.TotalAmount;
+        requestBody.TotalIntegral = ordInfo.TotalIntegral;
+        requestBody.Address = ordInfo.Itinerary;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                //{"Result":{"Amount":790,"OrderId":1930272531004402},"Code":"0000","Message":"预定成功"}
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 获取会员卡信息
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryMemberCardInfo = function (callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryMemberCardInfo;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 发送会员卡信息至手机
+     * @param cardNo
+     * @param name
+     * @param callBack
+     * @constructor
+     */
+    laUserService.SendCardNoToMobile = function (cardNo, name, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_SendCardNoToMobile;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.CardNo = cardNo;
+        requestBody.Name = name;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 积分补登
+     * @param TicketNo 机票票号
+     * @param FlightNo 航班号
+     * @param Cabin 舱位
+     * @param FlightDate 航班日期
+     * @param From 起始地
+     * @param To 到达地
+     * @param SeatNo 座位号
+     * @param callBack
+     * @constructor
+     */
+    laUserService.PointsRetro = function (TicketNo, FlightNo, Cabin, FlightDate, From, To, SeatNo, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_PointsRetro;
+        requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.TicketNo = TicketNo;
+        requestBody.FlightNo = FlightNo;
+        requestBody.Cabin = Cabin;
+        requestBody.FlightDate = FlightDate;
+        requestBody.From = From;
+        requestBody.To = To;
+        requestBody.SeatNo = SeatNo;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 获取汉字的拼音
+     * @param ChineseChar 汉字
+     * @param callBack
+     */
+    laUserService.getChinesePinYin = function (ChineseChar, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_GetChinesePinYin;
+        requestParam.SessionId = "";
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.Chinese = ChineseChar;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
+     * 获取省份列表
+     * @param country
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryProvinceList = function (country, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryProvinceList;
+        requestParam.SessionId = "";
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.Country = country;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
+    };
+
+    /**
      * 查询新闻列表
      * @param callBack
      * @constructor
@@ -656,42 +1536,42 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 {"n": 39, "showindex": 962, "v":true, "t": "关于郑州调整出港航班值机关闭时间的通知", "d": "2016-7-19", "c": ""},
                 {"n": 38, "showindex": 963, "v":true, "t": "长龙航空新开深圳=遵义=西宁独飞航线", "d": "2016-7-19", "c": ""},
                 {"n": 37, "showindex": 964, "v":true, "t": "浙江长龙航空有限公司货运包舱销售招标公告", "d": "2016-7-11", "c": ""},
-                {"n": 36, "showindex": 965, "v":true, "t": "长龙航空再添新飞机助力暑运  机队规模达到20架", "d": "2016-7-8", "c": ""},
-                {"n": 35, "showindex": 966, "v":true, "t": "长龙航空开通杭州至越南航线 开启国际客运征程", "d": "2016-6-29", "c": ""},
-                {"n": 34, "showindex": 967, "v":true, "t": "关于禁止旅客携带或托运锂电池动力平衡车乘机的通告", "d": "2016-6-13", "c": ""},
-                {"n": 33, "showindex": 968, "v":true, "t": "长龙航空顺利接收首台CFM56-5B备用发动机", "d": "2016-6-12", "c": ""},
-                {"n": 32, "showindex": 969, "v":true, "t": "长龙航空又一架A320客机抵杭  机队规模达到19架", "d": "2016-6-7", "c": ""},
-                {"n": 31, "showindex": 970, "v":true, "t": "旅途中的六一  与长龙航空一起高空寄语童年", "d": "2016-6-3", "c": ""},
-                {"n": 30, "showindex": 971, "v":true, "t": "长龙航空6月1日新开昆明=银川、杭州=桂林=昆明航线", "d": "2016-6-3", "c": ""},
-                {"n": 29, "showindex": 972, "v":true, "t": "长龙航空优化超级经济舱服务  龙井茶为饮品标配", "d": "2016-6-3", "c": ""},
-                {"n": 28, "showindex": 973, "v":true, "t": "浙江长龙航空人力资源管理系统项目招标公告", "d": "2016-5-24", "c": ""},
-                {"n": 27, "showindex": 974, "v":true, "t": "关于防范短信诈骗的提醒", "d": "2016-5-10", "c": ""},
-                {"n": 26, "showindex": 975, "v":true, "t": "关于昆明机场调整出港航班值机关闭时间的通知", "d": "2016-5-4", "c": ""},
-                {"n": 25, "showindex": 976, "v":true, "t": "长龙航空万米高空开展世界读书日活动 伴着书香去旅行", "d": "2016-4-25", "c": ""},
-                {"n": 24, "showindex": 977, "v":true, "t": "长龙航空荣获浙江省2016年春运工作先进单位称号", "d": "2016-4-14", "c": ""},
-                {"n": 23, "showindex": 978, "v":true, "t": "长龙航空再添一架全新A320客机 机队规模达到18架", "d": "2016-4-14", "c": ""},
-                {"n": 22, "showindex": 979, "v":false, "t": "招商邀请书", "d": "2016-4-11", "c": ""},
-                {"n": 21, "showindex": 980, "v":false, "t": "浙江长龙航空关于杭州出港国际航班招标业务公告", "d": "2016-4-11", "c": ""},
-                {"n": 20, "showindex": 981, "v":true, "t": "长龙航空3月29日开通杭州=安顺=西双版纳独飞航线", "d": "2016-3-30", "c": ""},
-                {"n": 19, "showindex": 982, "v":true, "t": "长龙航空3月27日开通杭州=淮安=西安独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 18, "showindex": 983, "v":true, "t": "长龙航空3月27日开通杭州=沈阳航线", "d": "2016-3-29", "c": ""},
-                {"n": 17, "showindex": 984, "v":true, "t": "长龙航空3月27日开通杭州=盐城=太原独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 16, "showindex": 985, "v":true, "t": "长龙航空3月27日开通深圳=洛阳=哈尔滨独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 15, "showindex": 986, "v":true, "t": "长龙航空3月28日开通杭州=银川=乌鲁木齐航线", "d": "2016-3-29", "c": ""},
-                {"n": 14, "showindex": 987, "v":true, "t": "长龙航空又迎来一架全新A320客机  机队规模达到17架", "d": "2016-3-29", "c": ""},
-                {"n": 13, "showindex": 988, "v":true, "t": "长龙航空3月27日开通杭州=邯郸=成都独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 12, "showindex": 989, "v":true, "t": "夏秋换季 长龙航空将于3月27日起新开7条航线", "d": "2016-3-29", "c": ""},
-                {"n": 11, "showindex": 990, "v":true, "t": "风雪无情人有情,长龙助力回家路", "d": "2016-3-29", "c": ""},
-                {"n": 10, "showindex": 991, "v":true, "t": "女子丢失驾驶证万分着急,长龙航空辗转物归原主", "d": "2016-3-29", "c": ""},
-                {"n": 9, "showindex": 992, "v":true, "t": "新闻通稿：女人节空姐放假,长龙航班上清一色男空乘服务", "d": "2016-3-29", "c": ""},
-                {"n": 8, "showindex": 993, "v":true, "t": "长龙航空获萧山经济技术开发区两项年度十强企业称号", "d": "2016-3-29", "c": ""},
-                {"n": 7, "showindex": 994, "v":true, "t": "为确保航班安全,长龙航空开展人鼠大战", "d": "2016-3-29", "c": ""},
-                {"n": 6, "showindex": 995, "v":true, "t": "长龙航空获民航华东“安康杯”竞赛优胜单位称号", "d": "2016-3-29", "c": ""},
-                {"n": 5, "showindex": 996, "v":true, "t": "2016长龙航空夏秋航季新增航班", "d": "2016-3-24", "c": ""},
-                {"n": 4, "showindex": 997, "v":true, "t": "长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名", "d": "2016-2-22", "c": ""},
-                {"n": 3, "showindex": 998, "v":true, "t": "长龙航空2月10日新开杭州=桂林=西双版纳航线", "d": "2016-2-14", "c": ""},
-                {"n": 2, "showindex": 999, "v":true, "t": "长龙航空评选出“2015年度优秀地面服务代理人", "d": "2016-2-6", "c": ""},
-                {"n": 1, "showindex": 10000, "v":true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
+                {"n": 36, "showindex": 965, "v": true, "t": "长龙航空再添新飞机助力暑运  机队规模达到20架", "d": "2016-7-8", "c": ""},
+                {"n": 35, "showindex": 966, "v": true, "t": "长龙航空开通杭州至越南航线 开启国际客运征程", "d": "2016-6-29", "c": ""},
+                {"n": 34, "showindex": 967, "v": true, "t": "关于禁止旅客携带或托运锂电池动力平衡车乘机的通告", "d": "2016-6-13", "c": ""},
+                {"n": 33, "showindex": 968, "v": true, "t": "长龙航空顺利接收首台CFM56-5B备用发动机", "d": "2016-6-12", "c": ""},
+                {"n": 32, "showindex": 969, "v": true, "t": "长龙航空又一架A320客机抵杭  机队规模达到19架", "d": "2016-6-7", "c": ""},
+                {"n": 31, "showindex": 970, "v": true, "t": "旅途中的六一  与长龙航空一起高空寄语童年", "d": "2016-6-3", "c": ""},
+                {"n": 30, "showindex": 971, "v": true, "t": "长龙航空6月1日新开昆明=银川、杭州=桂林=昆明航线", "d": "2016-6-3", "c": ""},
+                {"n": 29, "showindex": 972, "v": true, "t": "长龙航空优化超级经济舱服务  龙井茶为饮品标配", "d": "2016-6-3", "c": ""},
+                {"n": 28, "showindex": 973, "v": true, "t": "浙江长龙航空人力资源管理系统项目招标公告", "d": "2016-5-24", "c": ""},
+                {"n": 27, "showindex": 974, "v": true, "t": "关于防范短信诈骗的提醒", "d": "2016-5-10", "c": ""},
+                {"n": 26, "showindex": 975, "v": true, "t": "关于昆明机场调整出港航班值机关闭时间的通知", "d": "2016-5-4", "c": ""},
+                {"n": 25, "showindex": 976, "v": true, "t": "长龙航空万米高空开展世界读书日活动 伴着书香去旅行", "d": "2016-4-25", "c": ""},
+                {"n": 24, "showindex": 977, "v": true, "t": "长龙航空荣获浙江省2016年春运工作先进单位称号", "d": "2016-4-14", "c": ""},
+                {"n": 23, "showindex": 978, "v": true, "t": "长龙航空再添一架全新A320客机 机队规模达到18架", "d": "2016-4-14", "c": ""},
+                {"n": 22, "showindex": 979, "v": false, "t": "招商邀请书", "d": "2016-4-11", "c": ""},
+                {"n": 21, "showindex": 980, "v": false, "t": "浙江长龙航空关于杭州出港国际航班招标业务公告", "d": "2016-4-11", "c": ""},
+                {"n": 20, "showindex": 981, "v": true, "t": "长龙航空3月29日开通杭州=安顺=西双版纳独飞航线", "d": "2016-3-30", "c": ""},
+                {"n": 19, "showindex": 982, "v": true, "t": "长龙航空3月27日开通杭州=淮安=西安独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 18, "showindex": 983, "v": true, "t": "长龙航空3月27日开通杭州=沈阳航线", "d": "2016-3-29", "c": ""},
+                {"n": 17, "showindex": 984, "v": true, "t": "长龙航空3月27日开通杭州=盐城=太原独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 16, "showindex": 985, "v": true, "t": "长龙航空3月27日开通深圳=洛阳=哈尔滨独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 15, "showindex": 986, "v": true, "t": "长龙航空3月28日开通杭州=银川=乌鲁木齐航线", "d": "2016-3-29", "c": ""},
+                {"n": 14, "showindex": 987, "v": true, "t": "长龙航空又迎来一架全新A320客机  机队规模达到17架", "d": "2016-3-29", "c": ""},
+                {"n": 13, "showindex": 988, "v": true, "t": "长龙航空3月27日开通杭州=邯郸=成都独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 12, "showindex": 989, "v": true, "t": "夏秋换季 长龙航空将于3月27日起新开7条航线", "d": "2016-3-29", "c": ""},
+                {"n": 11, "showindex": 990, "v": true, "t": "风雪无情人有情,长龙助力回家路", "d": "2016-3-29", "c": ""},
+                {"n": 10, "showindex": 991, "v": true, "t": "女子丢失驾驶证万分着急,长龙航空辗转物归原主", "d": "2016-3-29", "c": ""},
+                {"n": 9, "showindex": 992, "v": true, "t": "新闻通稿：女人节空姐放假,长龙航班上清一色男空乘服务", "d": "2016-3-29", "c": ""},
+                {"n": 8, "showindex": 993, "v": true, "t": "长龙航空获萧山经济技术开发区两项年度十强企业称号", "d": "2016-3-29", "c": ""},
+                {"n": 7, "showindex": 994, "v": true, "t": "为确保航班安全,长龙航空开展人鼠大战", "d": "2016-3-29", "c": ""},
+                {"n": 6, "showindex": 995, "v": true, "t": "长龙航空获民航华东“安康杯”竞赛优胜单位称号", "d": "2016-3-29", "c": ""},
+                {"n": 5, "showindex": 996, "v": true, "t": "2016长龙航空夏秋航季新增航班", "d": "2016-3-24", "c": ""},
+                {"n": 4, "showindex": 997, "v": true, "t": "长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名", "d": "2016-2-22", "c": ""},
+                {"n": 3, "showindex": 998, "v": true, "t": "长龙航空2月10日新开杭州=桂林=西双版纳航线", "d": "2016-2-14", "c": ""},
+                {"n": 2, "showindex": 999, "v": true, "t": "长龙航空评选出“2015年度优秀地面服务代理人", "d": "2016-2-6", "c": ""},
+                {"n": 1, "showindex": 10000, "v": true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
         };
 
         callBack(newsList.list, true);
@@ -748,7 +1628,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      * @param callBack
      * @constructor
      */
-    laUserService.QueryPassengerTravel = function(foidType, foid, passangerName, callBack){
+    laUserService.QueryPassengerTravel = function (foidType, foid, passangerName, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryPassengerTravel;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
@@ -779,7 +1659,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      * @param callBack
      * @constructor
      */
-    laUserService.QueryPlaneSeats = function(flightNumber, fromCity, toCity, flightTime, cabinType, callBack){
+    laUserService.QueryPlaneSeats = function (flightNumber, fromCity, toCity, flightTime, cabinType, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryPlaneSeats;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
@@ -808,7 +1688,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      * @param callBack
      * @constructor
      */
-    laUserService.OnlineCheckin = function(checkInInfo, callBack){
+    laUserService.OnlineCheckin = function (checkInInfo, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_OnlineCheckin;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
@@ -822,8 +1702,8 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.ToCity = checkInInfo.ToCity;
         requestBody.TKTNumber = checkInInfo.TKTNumber;
         requestBody.TourIndex = checkInInfo.TourIndex;
-        requestBody.PassangerName =  checkInInfo.PassangerName;
-        requestBody.CabinType =  checkInInfo.CabinType;
+        requestBody.PassangerName = checkInInfo.PassangerName;
+        requestBody.CabinType = checkInInfo.CabinType;
 
         requestParam.Args = JSON.stringify(requestBody);
 
@@ -841,7 +1721,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      * @param callBack
      * @constructor
      */
-    laUserService.OnlineCheckinCancel = function(checkInInfo, callBack){
+    laUserService.OnlineCheckinCancel = function (checkInInfo, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_OnlineCheckinCancel;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();

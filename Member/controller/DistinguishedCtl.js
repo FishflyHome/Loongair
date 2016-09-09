@@ -1,8 +1,8 @@
 /**
- * Created by Jerry on 16/7/4.
+ * Created by jerry on 16/8/16.
  */
 
-laAir.controller('laAir_MemberAccrueRolesPageCtl', ['$interval', '$document', '$window', '$scope', 'laUserService', 'laGlobalLocalService', function ($interval, $document, $window, $scope, laUserService, laGlobalLocalService) {
+laAir.controller('laAir_MemberDistinguishedPageCtl', ['$interval', '$document', '$window', '$scope', 'laUserService', 'laGlobalLocalService', function ($interval, $document, $window, $scope, laUserService, laGlobalLocalService) {
 
     $scope.$on("MemberContentPage", function (event, data) {
         var IsFrequentPassenger = data.IsFrequentPassenger;
@@ -11,7 +11,7 @@ laAir.controller('laAir_MemberAccrueRolesPageCtl', ['$interval', '$document', '$
         }
     });
 
-    $scope.title = "累积规则";
+    $scope.title = "贵宾尊享";
     $document[0].title = $scope.title;
     /**
      * 设置导航栏ClassName
@@ -19,6 +19,6 @@ laAir.controller('laAir_MemberAccrueRolesPageCtl', ['$interval', '$document', '$
      */
     $scope.isMyInfoNav = true;
 
-    $scope.isMem_AccrueRoles = true;
+    $scope.isMem_Distinguished = true;
 
 }]);

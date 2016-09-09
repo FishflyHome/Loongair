@@ -54,6 +54,7 @@
     <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
     <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/city.js"></script>
     <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
     <script type="text/javascript" src="/B2C/js/application.js"></script>
     <script type="text/javascript" src="/Library/others/Base64.js"></script>
@@ -74,7 +75,7 @@
                 <br/>
 
                 <div class="vipmessage">
-                    <h2>积分补登 &nbsp; &nbsp;<a class="tips red" onClick="$('.modal').modal('show');">*我在哪里可以找到要填写的信息</a>
+                    <h2>积分补登 &nbsp; &nbsp;<a class="tips red" href="javascript:;" onClick="$('.modal').modal('show');">*我在哪里可以找到要填写的信息</a>
                     </h2>
                     <br/><br/>
 
@@ -82,46 +83,52 @@
                         <ul>
                             <li>
                                 <span>机票票号:</span>
-                                <input type="text" class="text">
+                                <input type="text" class="text" ng-model="PointsRetroInfo.TicketNo" placeholder="例：891-xxxxxxxxxx">
                             </li>
                             <li>
                                 <span>航班号:</span>
                                 <select class="text" style="width:auto;">
                                     <option>浙江长龙航空（GJ）</option>
                                 </select>
-                                <input type="text" class="text w70">
+                                <input type="text" class="text w70" ng-model="PointsRetroInfo.FlightNo">
                             </li>
                             <li>
                                 <span>舱位:</span>
-                                <select class="text">
-                                    <option>经济舱</option>
-                                    <option>超级经济舱</option>
+                                <!--
+                                <select class="text" ng-options="t.v as t.t for t in cabinOptions" ng-model="PointsRetroInfo.Cabin">
                                 </select>
+                                -->
+                                <input type="text" class="text" id="cabin" placeholder="请输入航班舱位" ng-model="PointsRetroInfo.Cabin">
                             </li>
                             <li>
                                 <span>航班日期:</span>
-                                <input type="text" class="text" id="startTime">
+                                <input type="text" class="text" id="startTime" required
+                                       placeholder="yyyy-mm-dd" ng-model="PointsRetroInfo.FlightDate">
 
-                                <p class="red"><span>&nbsp;</span>仅限补录5天以前，6个月以内的机票</p>
+                                <!-- <p class="red"><span>&nbsp;</span>仅限补录5天以前，6个月以内的机票</p> -->
                             </li>
                             <li>
                                 <span>起始地:</span>
-                                <input type="text" class="text">
+                                <input type="text" class="text" id="startCity" ng-keyup="searchCityCodeByVal('startCity');"
+                                       style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;">
                             </li>
                             <li>
                                 <span>目的地:</span>
-                                <input type="text" class="text">
+                                <input type="text" class="text" id="endCity" ng-keyup="searchCityCodeByVal('endCity');"
+                                       style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;">
                             </li>
+                            <!--
                             <li>
                                 <span>座位号:</span>
-                                <input type="text" class="text">
+                                <input type="text" class="text" ng-model="PointsRetroInfo.SeatNo">
                             </li>
+                            -->
                         </ul>
                     </div>
                 </div>
                 <div class="vipmessage">
                     <div class="vp-submit">
-                        <a class="btn pull-right">保存</a>
+                        <a class="btn pull-right" href="javascript:;" ng-click="btnPointsRetroClick();">提交</a>
                     </div>
                 </div>
             </div>
@@ -138,6 +145,32 @@
 </div>
 
 <div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script type="text/javascript">
+    $(function () {
+
+        var today = new Date();
+        $("#startTime").focus(function (e) {
+            var tmpd = $("#startTime").val();
+            if (tmpd != undefined){
+                $("#startTime").attr("date", tmpd);
+            }
+            calendar.show({
+                id: this,
+                minDay: '2016-1-1',
+                maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#startTime").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

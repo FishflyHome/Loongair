@@ -74,7 +74,9 @@
                 <br>
 
                 <div class="vipmessage">
-                    <h2>个人基本信息<!-- <a class="btn btn-small pull-right" href="javascript:;" id="infoeditbutton" ng-click="btnModiBaseInfo();">修改信息</a> -->
+                    <h2>
+                        个人基本信息<span style="font-size:12px;margin-left: 20px;">个人基本资料信息除补全证件外无法自助修改，如您有修改要求，请与我们联系。</span>
+                        <a class="btn btn-small pull-right" href="javascript:;" id="infoeditbutton" ng-click="btnModiBaseInfo();">补充信息</a>
                     </h2>
 
                     <div class="clip clearfix" id="info-show">
@@ -83,7 +85,8 @@
                                 <label class="control-label">称谓:</label>
 
                                 <div class="controls">
-                                    <label class="texts">{{UserInfo.SexCH}}</label>
+                                    <label class="texts" ng-if="UserInfo.Sex==1">先生</label>
+                                    <label class="texts" ng-if="UserInfo.Sex==2">女士</label>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -100,11 +103,11 @@
                                     <label class="texts">{{UserInfo.FirstNameCn}}</label>
                                 </div>
                             </div>
-                            <div class="control-group">
+                            <div class="control-group" ng-repeat="ft in foIdTypeOptions">
                                 <label class="control-label">证件类型:</label>
 
                                 <div class="controls">
-                                    <label class="texts">{{UserInfo.FoidTypeCH}}</label>
+                                    <label class="texts">{{ft.t}}</label>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -137,68 +140,107 @@
                                     <label class="texts">{{UserInfo.FirstNameCnPinYin}}</label>
                                 </div>
                             </div>
-                            <div class="control-group">
+                            <div class="control-group" ng-repeat="ft in foIdTypeOptions">
                                 <label class="control-label">证件号码:</label>
 
                                 <div class="controls">
-                                    <label class="texts">{{UserInfo.Foid}}</label>
+                                    <label class="texts" id="{{'lblCertNum' + ft.v}}"></label>
                                 </div>
                             </div>
+                            <!--
                             <div class="control-group">
                                 <label class="control-label">手机号:</label>
 
                                 <div class="controls">
-                                    <label class="texts"></label>
+                                    <label class="texts">{{UserInfo.Mobile}}</label>
                                 </div>
                             </div>
+                            -->
                         </div>
                     </div>
                     <div class="extra-info register" style="display:none ;" id="info-edit">
                         <br/><br/>
-                        <!--
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">称谓:</label>
+
+                                <div class="controls">
+                                    <label class="texts" ng-if="UserInfo.Sex==1">先生</label>
+                                    <label class="texts" ng-if="UserInfo.Sex==2">女士</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">中文姓:</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.SecondNameCn}}</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">中文名:</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.FirstNameCn}}</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">出生日期:</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.BirthDay}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label"></label>
+
+                                <div class="controls">
+                                    <label class="texts">&nbsp;</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">姓(英文-拼音):</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.SecondNameCnPinYin}}</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">名(英文-拼音):</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.FirstNameCnPinYin}}</label>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="control-group" style="margin-left: -35px;">
+                                <label class="control-label">手机号:</label>
+
+                                <div class="controls">
+                                    <label class="texts">{{UserInfo.Mobile}}</label>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                        <br><br><br><br><br><br><br><br><br><br><br><br>
                         <ul>
-                            <li>
-                                <span>称谓：</span>
-                                <label class="radio inline"><input type="radio" name="Sex" value="1"
-                                                                   class="Sex" ng-model="UserInfo.Sex">先生</label>&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="Sex" value="2"
-                                                                   class="Sex" ng-model="UserInfo.Sex">女士</label>
-                                <em class="spanSex"></em>
+                            <li id="li_detinfo_foid">
+                                <div ng-repeat="ft in foIdTypeOptions">
+                                    <span>证件类型:{{ft.t}}</span>
+                                    <!--<span>证件号码：</span>-->
+                                    <label id="{{'divcertnum' + ft.v}}">
+                                        <input type="text" class="text" id="{{'CertNum' + ft.v}}"><br><br>
+                                    </label>
+                                    <label id="{{'divcertlbl' + ft.v}}">
+                                        <label class="texts" id="{{'CertNumlbl' + ft.v}}"></label><br><br>
+                                    </label>
+                                </div>
                             </li>
-                            <li>
-                                <span><em class=" red">*</em>中文姓：</span>
-                                <input type="text" placeholder="生僻字可用拼音代替" id="firstName" name="firstName"
-                                       class="text noramal required" ng-model="UserInfo.SecondNameCn">
-                            </li>
-                            <li>
-                                <span><em class=" red">*</em>中文名：</span>
-                                <input type="text" placeholder="生僻字可用拼音代替" id="lastName" name="lastName"
-                                       class="text noramal required" ng-model="UserInfo.FirstNameCn">
-                            </li>
-                            <li>
-                                <span>姓（英文-拼音）：</span>
-                                <input type="text" placeholder="中文姓的拼音（可自行修改）" id="enfirstName" name="enfirstName"
-                                       class="text noramal required" ng-model="UserInfo.SecondNameCnPinYin">
-                            </li>
-                            <li>
-                                <span>名（英文-拼音）：</span>
-                                <input type="text" placeholder="中文名的拼音（可自行修改）" id="enlastName" name="enlastName"
-                                       class="text noramal required" ng-model="UserInfo.FirstNameCnPinYin">
-                            </li>
-                            <li>
-                                <span>出生日期：</span>
-                                <input type="text" placeholder="YYYY-MM-DD" class="text" onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});" ng-model="UserInfo.BirthDay">
-                            </li>
-                            <li>
-                                <span>手机号码：</span>
-                                <input type="text" class="text" id="Phone" name="Phone">
-                            </li>
-                            <li>
-                                <span>&nbsp;</span>（手机号可修改，但修改完成前短信验证码会发送到注册时填写的手机上。）
-                            </li>
-                            <li>
+                            <br><br>
+                            <li ng-show="!isFoidFull">
                                 <span><em class=" red">*</em>短信验证码：</span>
-                                <input type="text" class="text w113 " placeholder="短信验证码" ng-model="ValidCodeBase">
+                                <input type="text" class="text noramal " placeholder="短信验证码" ng-model="ValidCodeBase">
                                 <input type="button" class="btn btn-small" style="cursor:pointer;" value="发送验证码" id="btnGetSMSBase" ng-click="btnSendMobileValidCodeClick('btnGetSMSBase');">
                             </li>
                             <li>
@@ -207,7 +249,6 @@
                                 <a class="btn" href="javascript:;" ng-click="btnCancelSaveInfoBase();">取消修改</a>
                             </li>
                         </ul>
-                        -->
                     </div>
                 </div>
                 <div class="vipmessage">
@@ -276,6 +317,13 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">详细地址:</label>
+
+                            <div class="controls">
+                                <label class="texts">{{UserInfo.CompanyAddressDetail}}</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">职业:</label>
 
                             <div class="controls">
@@ -312,10 +360,10 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">联系电话:</label>
+                            <label class="control-label">手机号码:</label>
 
                             <div class="controls">
-                                <label class="texts">{{UserInfo.Tel}}</label>
+                                <label class="texts">{{UserInfo.Mobile}}</label>
                             </div>
                         </div>
                         <!--
@@ -386,19 +434,14 @@
                                 <label class="checkbox inline"><input type="radio" name="hopecontactaddr" ng-model="UserInfo.ContactAddressHope" value="2">&nbsp;单位联系地址</label>
                             </li>
                             <div class="divide showall"></div>
-                            <li class="control-group" id="li_detinfo_foid">
-                                <div ng-repeat="ft in foIdTypeOptions">
-                                    <span>证件类型:{{ft.t}}</span>
-                                    <span>证件号码：</span>
-                                    <input type="text" class="text" id="{{'CertNum' + ft.v}}"><br><br>
-                                </div>
-                            </li>
-                            <div class="divide showall"></div>
                             <li>
                                 <span>家庭联系地址：</span>
                                 <select class="text" style="width:auto;" ng-model="UserInfo.HomeAddressCountry" ng-options="t.v as t.t for t in nativeOptions">
                                 </select>
-                                <input type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.HomeAddressProvince">
+
+                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.HomeAddressProvince">
+                                </select>
+                                <input ng-if="UserInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.HomeAddressProvince">
                                 <input type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.HomeAddressCity">
                             </li>
                             <li>
@@ -418,12 +461,19 @@
                                 <span>单位联系地址：</span>
                                 <select class="text" style="width:auto;" ng-model="UserInfo.CompanyAddressCountry" ng-options="t.v as t.t for t in nativeOptions">
                                 </select>
-                                <input type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.CompanyAddressProvince">
+
+                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.CompanyAddressProvince">
+                                </select>
+                                <input ng-if="UserInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.CompanyAddressProvince">
                                 <input type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.CompanyAddressCity">
                             </li>
                             <li>
                                 <span>单位名称：</span>
                                 <input type="text" class="text" ng-model="UserInfo.CompanyName">
+                            </li>
+                            <li>
+                                <span>详细地址：</span>
+                                <input type="text" class="text" ng-model="userInfo.CompanyAddressDetail">
                             </li>
                             <li>
                                 <span>职业：</span>
@@ -448,55 +498,55 @@
                                 <span>微信：</span>
                                 <input type="text" class="text" ng-model="UserInfo.Wechat">
                             </li>
+                            <li>
+                                <span>传真：</span>
+                                <input type="text" class="text" ng-model="UserInfo.Fax">
+                            </li>
+                            <li>
+                                <span>手机号码：</span>
+                                <span>
+                                    {{UserInfo.Mobile}}
+                                </span>
+                            </li>
                             <!--
                             <li>
                                 <span>个人爱好：</span>
                                 <textarea class="text"></textarea>
                             </li>
+                            -->
                             <li>
                                 <span>餐食：</span>
-                                <label class="checkbox inline"><input type="checkbox" name="food">牛肉类</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">鸡肉类</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">鱼肉类</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">米饭</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">面条</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">素食</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">特色小吃</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="food">清真餐</label>
+                                <label class="checkbox inline" ng-repeat="chk in MealTypelist"><input type="checkbox" name="food" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             </li>
                             <li>
                                 <span>座位：</span>
-                                <label class="checkbox inline"><input type="checkbox" name="seat">特价机票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="seat">5-8折机票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="seat">9折至全价</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="seat">公务舱至头等舱</label>
+                                <label class="checkbox inline" ng-repeat="chk in SeatTypelist"><input type="checkbox" name="seat" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             </li>
                             <li>
                                 <span>购买渠道：</span>
-                                <label class="checkbox inline"><input type="checkbox" name="buy">网上订票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="buy">航空电话订票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="buy">现场订票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="buy">代理订票电话订票</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox" name="buy">其他</label>
+                                <label class="checkbox inline" ng-repeat="chk in SaleTypelist" ng-if="chk.v<=5"><input type="checkbox" name="buy" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </li>
+                            <li>
+                                <span>&nbsp;</span>
+                                <label class="checkbox inline" ng-repeat="chk in SaleTypelist" ng-if="chk.v>5"><input type="checkbox" name="buy" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             </li>
                             <li>
                                 <span>支付方式：</span>
-                                <label class="checkbox inline"><input type="checkbox">现金</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox">信用卡</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox">支付宝</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox">微信</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox">苹果支付</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox inline"><input type="checkbox">借记卡</label>
+                                <label class="checkbox inline" ng-repeat="chk in PayTypelist" ng-if="chk.v<=5"><input type="checkbox" name="pay" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             </li>
-                            -->
+                            <li>
+                                <span></span>
+                                <label class="checkbox inline" ng-repeat="chk in PayTypelist" ng-if="chk.v>5"><input type="checkbox" name="pay" value="{{chk.v}}">{{chk.t}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </li>
+
                             <li>
                                 <span>希望的联系方式：</span>
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="1">Card</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="2">E-mail</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="3">传真</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="4">俱乐部网页</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="5">短信</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="radio inline"><input type="radio" name="contacthope" ng-model="UserInfo.ContactHope" value="6">微信</label>
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="1">信件</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="2">E-mail</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="3">传真</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="4">俱乐部网页</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="5">短信</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="radio inline"><input type="checkbox" name="contacthope" value="6">微信</label>
                             </li>
                             <li>
                                 <span>希望的联系语言：</span>

@@ -147,6 +147,7 @@ laAir.controller('laAir_ETicket_PayOrderPageCtl', ['$sce', '$document', '$filter
      "FuelTax": 0,
      "AirportTax": 50,
      "OtherTax": 0,
+     "ChangeHandleFee": 0,
      "ETKT": "000-0000000000",
      "JiXing": "",
      "JingTing": "",

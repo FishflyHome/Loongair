@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/BookingFlightByPointsCtl.js"></script>
+
+    <style>
+        .table-fli table {
+            border-right: 1px solid #f5d2ba;
+            border-bottom: 1px solid #f5d2ba;
+            height: 60px;
+        }
+
+        .table-fli table td {
+            border-left: 1px solid #f5d2ba;
+            border-top: 1px solid #f5d2ba;
+            background: #FFFFF0;
+            text-align: center;
+            vertical-align: middle
+        }
+    </style>
+</head>
+<body ng-controller="laAir_Member_BookingFlightByPointsPageCtl">
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel panel-client">
+            <div class="row">
+                <div class="span9">
+                    <div class="panel-sm">
+                        <div class="table-fli" id="divfliinfo" style="display:none;" ng-show="flightInfo">
+                            <h2 class="title-plane">{{otherInfo.sCity}} - {{otherInfo.eCity}}</h2>
+                            <table style="width:100%;font-size:14px;">
+                                <tr>
+                                    <td>{{flightInfo.DepartureTime | date:'yyyy-MM-dd'}}<br>{{otherInfo.week}}</td>
+                                    <td>航班号:{{flightInfo.FlightNum}}<br>机型:{{flightInfo.JiXing}}</td>
+                                    <td>起飞:{{flightInfo.DepartureTime | date:'HH:mm'}}<br>到达:{{flightInfo.ArriveTime |
+                                        date:'HH:mm'}}
+                                    </td>
+                                    <td>{{cabinInfo.CabinTypeName}}({{cabinInfo.CabinName}})</td>
+                                    <td>所需积分:<span style="color:orange">{{cabinInfo.SalePrice}}</span><br>机建/燃油:￥{{flightInfo.AirportTax+flightInfo.FuelTax+flightInfo.OtherTax}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-fli" id="divfliinfoback" style="display:none;" ng-show="isRoundtrip==1">
+                            <h2 class="title-plane">{{otherInfoback.sCity}} - {{otherInfoback.eCity}}</h2>
+                            <table style="width:100%;font-size:14px;">
+                                <tr>
+                                    <td>{{flightInfoback.DepartureTime | date:'yyyy-MM-dd'}}<br>{{otherInfoback.week}}
+                                    </td>
+                                    <td>航班号:{{flightInfoback.FlightNum}}<br>机型:{{flightInfoback.JiXing}}</td>
+                                    <td>起飞:{{flightInfoback.DepartureTime | date:'HH:mm'}}<br>到达:{{flightInfoback.ArriveTime
+                                        |
+                                        date:'HH:mm'}}
+                                    </td>
+                                    <td>{{cabinInfoback.CabinTypeName}}({{cabinInfoback.CabinName}})</td>
+                                    <td>票价:<span style="color:orange">￥{{cabinInfoback.SalePrice}}</span><br>机建/燃油:￥{{flightInfoback.AirportTax+flightInfoback.FuelTax+flightInfoback.OtherTax}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-sm">
+                        <div class="panel-body">
+                            <!--<h2>添加常用联系人</h2>-->
+                            <!--<div><a class="btn btn-small" href="/Member/Beneficiary.html" target="_blank">添加受益人</a></div>-->
+
+                            <div class="common" id="divpsglist" style="display: none;">
+                                <a style="border-width:1px;border-radius:10px; border-color: #F99569;color:black;" id="stdPsg_{{$index}}" ng-repeat="stdPsg in stationPassengerList" href="javascript:;"
+                                   ng-click="btnStdPassengerClick('stdPsg_'+$index, stdPsg);">{{stdPsg.FlierName}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-sm">
+                        <div ng-repeat="psg in passengerList track by $index">
+                            <div class="panel-head">
+                                <h2>第&nbsp;<strong>{{$index + 1}}</strong>&nbsp;位乘机人&nbsp;&nbsp;&nbsp;
+                                    <span ng-if="$index == 0 && passengerList.length==1"><a class="btn btn-small" style="font-size:8px;color:white;"
+                                                                                            href="javascript:;"
+                                                                                            ng-click="btnClearPassengerClick($index);">重填</a></span>
+                                    <span ng-if="$index >= 0 && passengerList.length>1"><a class="btn btn-small" style="font-size:8px;color:white;"
+                                                                                           href="javascript:;"
+                                                                                           ng-click="btnRemovePassengerClick($index);">取消这名乘客</a></span>
+                                </h2>
+                            </div>
+                            <div class="panel-body clearfix">
+                                <div class="control">
+                                    <label><span style="color: red;">*</span>购票类型</label>
+                                    <select id="psgType_{{$index}}" ng-model="psg.TravellerType"
+                                            ng-options="t.v as t.t for t in psgTypeOptions">
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <label><span style="color: red;">*</span>乘客姓名</label>
+                                    <input type="text" id="psgName_{{$index}}" readonly ng-model="psg.PassengerName" ng-blur="CheckPsgName($index);">
+                                    <a class="info">&nbsp;
+																<span class="info-tips"><strong>乘机人姓名填写规范</strong>
+																<span>1.乘客姓名必须与登机时所用证件上的名字一致；持护照登机的外宾，须按护照上的顺序填写，姓与名用“/”区分，例如“John/Jim”。</span>
+																<span>2.您填写的姓名中包含生僻字或者繁体字，请从生僻字开始之后的中文都用拼音代替，如：王喆敏，请填写“王zhemin”</span>
+																<span>3.姓名过长时请使用缩写，英文用“/”分割姓和名，如：Sheikh Khalifa bin Zayed Alyle Nahyan 简写为 Sheikh/K b Z A Nahyan；“买买提不拉多娜萨日娜阿诺凡“简写为“买买提不拉多娜萨日娜阿”。</span></span>
+                                    </a>
+                                    <div class="control" style="width:25%;"></div>
+                                    <div class="control" id="msgName_{{$index}}" style="width:75%; display:none;">
+                                        <span class="error">请输入乘客姓名</span>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <label><span style="color: red;">*</span>证件类型</label>
+                                    <select id="foIdType_{{$index}}" ng-model="psg.FoidType"
+                                            ng-options="t.v as t.t for t in foIdTypeOptions" ng-change="ChangeFoidType(psg);">
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <label><span style="color: red;">*</span>证件号码</label>
+                                    <input type="text" id="foIdNo_{{$index}}" readonly ng-model="psg.Foid" ng-change="IdentityChange($index);" ng-blur="CheckPsgFoid($index);"/>
+                                    <div class="control" style="width:25%;"></div>
+                                    <div class="control" id="msgFoid_{{$index}}" style="width:75%; display:none;">
+                                        <span class="error">请输入正确的证件号码</span>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <label><span style="color: red;">*</span>出生日期</label>
+                                    <input type="text" id="psgBirth_{{$index}}" readonly placeholder="YYYY-MM-DD" ng-model="psg.Brithday"><!-- onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});" ng-blur="CheckPsgBirtyday($index);" -->
+                                    <div class="control" style="width:25%;"></div>
+                                    <div class="control" id="msgBirthday_{{$index}}" style="width:75%; display:none;">
+                                        <span class="error">请输入正确的出生日期</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 保险 -->
+                            <div class="panel-head" ng-show="cabinInfo.AccidentInsuranceCanBuyCount > 0">
+                                <h2>保险</h2>
+                            </div>
+                            <div class="panel-body clearfix">
+                                <div ng-show="cabinInfo.AccidentInsuranceCanBuyCount > 0">
+                                    <label class="checkbox inline span12"><input type="checkbox" id="psgAccChk_{{$index}}" checked ng-click="btnAccCheck($index);">航空意外保险<span
+                                            class="tips">(购买航意险可折扣机票￥{{cabinInfo.AccidentInsuranceTktPriceDiscount}},全程￥{{cabinInfo.AccidentInsurancePrice}}每份,保额￥{{cabinInfo.AccidentSumInsured}})</span></label>
+
+                                    <div class="checkform">
+                                        <div class="control" style="width:100%">
+                                            <label style="text-indent: 32pt;">{{psg.PassengerName}}</label>
+                                            购买&nbsp;
+                                            <!--
+                                            <input type="number" style="width:30px;" id="psgAcc_{{$index}}" min="0" max="{{cabinInfo.AccidentInsuranceCanBuyCount}}" ng-model="psg.InsuranceInfo.AccidentInsuranceCount">&nbsp;
+                                            -->
+                                            <select id="psgAcc_{{$index}}" style="width:80px;" ng-model="psg.InsuranceInfo.AccidentInsuranceCount"
+                                                    ng-options="t.v as t.t for t in AccInsurMaxCnt" ng-change="chkInsuranceCntChange($index);">
+                                            </select>&nbsp;&nbsp;
+                                            <a class="accidentIns_det" id="accidentdet{{$index}}" href="javascript:;" style="padding: 2px;border: solid;border-width:1px;border-radius:10px; border-color: #f39800;" ng-mouseover="btnAccidentDetMouseOver('accidentdet'+$index);"
+                                               ng-mouseout="btnAccidentDetMouseOut('accidentdet'+$index);">&nbsp;&nbsp;详情&nbsp;&nbsp;</a>
+                                            <br><br>
+                                            <span style="margin-left: 20px;">点击<a href="/Others/MoreInfo/Insurance.html" target="_blank"><span style="color:blue;">这里</span></a>阅读产品详情及保险条款</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-show="cabinInfo.DelayInsuranceCanBuyCount > 0">
+                                    <label class="checkbox inline span12"><input type="checkbox" id="psgDelayChk_{{$index}}" checked ng-click="btnDelayCheck($index);">航班延误险<span
+                                            class="tips">(购买航延险可折扣机票￥{{cabinInfo.DelayInsuranceTktPriceDiscount}},全程￥{{cabinInfo.DelayInsurancePrice}}每份,保额￥{{cabinInfo.DelaySumInsured}})</span></label>
+
+                                    <div class="checkform">
+                                        <div class="control" style="width:100%">
+                                            <label style="text-indent: 32pt;">{{psg.PassengerName}}</label>
+                                            购买&nbsp;
+                                            <!--
+                                            <input type="number" style="width:30px;" id="psgDelay_{{$index}}" min="0" max="{{cabinInfo.DelayInsuranceCanBuyCount}}" ng-model="psg.InsuranceInfo.DelayInsuranceCount">&nbsp;
+                                            -->
+                                            <select id="psgDelay_{{$index}}" style="width:80px;" ng-model="psg.InsuranceInfo.DelayInsuranceCount"
+                                                    ng-options="t.v as t.t for t in DelayInsurMaxCnt">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 保险 end -->
+                        </div>
+                        <!--
+                        <div class="panel-foot">
+                            <a class="btn btn-small" href="javascript:;" ng-click="btnAddPassengerClick();"> +
+                                添加一位乘机人</a>
+                        </div>
+                        -->
+                    </div>
+                    <div class="panel-sm">
+                        <div class="panel-head">
+                            <h2>添加联系人信息</h2>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <div class="control">
+                                <label><span style="color: red;">*</span>联系人</label>&nbsp;<input type="text" ng-model="cName" ng-blur="CheckConName();"/>
+                                <div class="control" style="width:25%;"></div>
+                                <div class="control" id="conName" style="width:75%; display:none;">
+                                    <span class="error">请输入联系人姓名</span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <label><span style="color: red;">*</span>手机号码</label>&nbsp;<input type="text" ng-model="cMobile" ng-blur="CheckConMobile();"/>
+                                <div class="control" style="width:25%;"></div>
+                                <div class="control" id="conMobile" style="width:75%; display:none;">
+                                    <span class="error">请输入11位格式正确的手机号码</span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <label><span style="color: red;">&nbsp;</span>联系电话</label>&nbsp;<input type="text" ng-model="cTel"/>
+                            </div>
+                            <div class="control">
+                                <label><span style="color: red;">&nbsp;</span>电子邮箱</label>&nbsp;<input type="text" ng-model="cEmail"/>
+                            </div>
+                            <div class="control">
+                                <label><span style="color: red;">&nbsp;</span>联系地址</label>&nbsp;<input type="text" ng-model="cAddr"/>
+                            </div>
+                            <div class="control">
+                                <label><span style="color: red;">&nbsp;</span>邮政编码</label>&nbsp;<input type="text" ng-model="cZip"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="panel-sm" style="display: none;">
+                        <div class="panel-head">
+                            <h2>交通意外险</h2>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <label class="radio inline span5"><span style="margin-left: -18px;">购买交通意外险功能即将上线</span></label>
+                        </div>
+                    </div>
+                    -->
+                    <div class="panel-sm">
+                        <div class="panel-head">
+                            <h2>行程单获取</h2>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <div>
+                                <label class="radio inline span5" style="width:100%;"><input type="radio" value="0" ng-model="ItineraryType" ng-change="radItineraryChange('0');" name="radLine" ng-checked="true">自取行程单</label>
+                                <br>
+                                <span style="text-indent: 18px;">1.机场自取(杭州萧山国际机场13号门11号柜台浙江长龙航空售票柜台,营业时间:06:00-20:00);<br><br>
+                                </span>
+                                <span style="text-indent: 18px;">2.快递到付(请于航班起飞后七天内致电客服0571-8999 9999通知邮寄,使用顺丰或EMS快递,邮费由快递公司派件时向收件旅客收取);
+                                </span>
+                            </div>
+                            <br><br>
+
+                            <div ng-show="ExpressListOpt.length > 0">
+                                <label class="radio inline span5"><input type="radio" value="1" ng-model="ItineraryType" ng-change="radItineraryChange('1');" name="radLine">邮寄行程单</label>
+                                <div id="divitineexp" style="display:none;">
+                                    <br><br>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>联系人</label>&nbsp;<input type="text" ng-model="Itinerary.Name" ng-blur="CheckItName();"/>
+                                        <div class="control" id="itName" style="margin-left: 85px; display:none;">
+                                            <span class="error">请输入联系人姓名</span>
+                                        </div>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>手机号码</label>&nbsp;<input type="text" ng-model="Itinerary.Mobile" ng-blur="CheckItMobile();"/>
+                                        <div class="control" id="itMobile" style="margin-left: 85px; display:none;">
+                                            <span class="error">请输入11位正确的手机号码</span>
+                                        </div>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">&nbsp;</span>联系电话</label>&nbsp;<input type="text" ng-model="Itinerary.Phone"/>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>省份</label>&nbsp;<input type="text" ng-model="Itinerary.Province" ng-blur="CheckItProvince();"/>
+                                        <div class="control" id="itProvince" style="margin-left: 85px; display:none;">
+                                            <span class="error">请输入所在省份</span>
+                                        </div>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>城市</label>&nbsp;<input type="text" ng-model="Itinerary.City" ng-blur="CheckItCity();"/>
+                                        <div class="control" id="itCity" style="margin-left: 85px; display:none;">
+                                            <span class="error">请输入所在城市</span>
+                                        </div>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">&nbsp;</span>城区</label>&nbsp;<input type="text" ng-model="Itinerary.District"/>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>详细地址</label>&nbsp;<input type="text" ng-model="Itinerary.DetialAddress" ng-blur="CheckItDetailAddress();"/>
+                                        <div class="control" id="itDetailAddress" style="margin-left: 85px; display:none;">
+                                            <span class="error">请输入详细地址</span>
+                                        </div>
+                                    </div>
+                                    <div class="control">
+                                        <label><span style="color: red;">*</span>快递方式</label>&nbsp;<select ng-model="Itinerary.ExpressType" ng-options="t.v as t.t for t in ExpressListOpt"></select>
+                                        <div class="control" id="itExpressType" style="margin-left: 85px; display:none;">
+                                            <span class="error">请选择快递方式</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit">
+                        <label class="checkbox inline"><input type="checkbox" name="dd" ng-model="acceptClause" checked><a href="/Travel/Transport/Rule.html" target="_blank">我已阅读并接受此票价的购票、旅行安全运输的相关条款</a></label>
+                        <br><br>
+                        <label class="pull-right" style="margin-left: 10px;margin-top: 10px;" ng-show="!CommitOrder">
+                            <input type="text" class="text" style="width:80px;" placeholder="验证码" ng-model="verifyCode">&nbsp;&nbsp;
+                            <a href="javascript:;" ng-click="btnChangeVerifyCode();" title="点击图片换一张">
+                                <img ng-src="data:image/gif;base64,{{ImgVerifyCode}}" style="width:82px;height:32px;"></a>&nbsp;&nbsp;
+                            <a class="link" href="javascript:;" ng-click="btnChangeVerifyCode();">换一张</a>
+                        </label>
+                        <label class="pull-right" style="line-height:60px;" ng-show="CommitOrder">
+                            <img src="/Resource/images/loadingCircle.jpg" style="width:60px;height:60px;">
+                            <span>正在提交订单...</span>
+                        </label>
+                        <a class="btn btn-large pull-right" href="javascript:;" ng-show="!CommitOrder"
+                           ng-click="btnCommitOrderClick();">提交订单</a>
+                    </div>
+                    <!--
+                    <br><br>
+                    <div class="pull-right">
+                        <br>
+                        <label class="pull-right" style="line-height:30px;" ng-show="!CommitOrderStatus"><span>&nbsp;&nbsp;</span><span class="error" style="overflow: hidden;" title="{{CommitOrderStatusDesc}}">{{CommitOrderStatusDesc}}</span></label>
+                    </div>
+                    -->
+                </div>
+                <div class="span3">
+                    <div class="panel-sm">
+                        <div class="m-cart" id="J_Cart">
+                            <div class="route">
+                                <div class="route-hd f-cb">
+                                    <!--<i class="i-plane-g"></i>
+
+                                    <h2 class="title-plane">长龙航空{{flightInfo.FlightNum}}</h2>-->
+                                    <!--<a class="btn-abs" href="javascript:;" ng-click="btnBackForReQuery();">返回重选</a>-->
+                                </div>
+                                <!--
+                                <div class="route-bd">
+                                    <p class="f-cb"><em class="date">{{flightInfo.DepartureTime | date:'yyyy-MM-dd'}}</em><span>{{otherInfo.week}}</span></p>
+
+                                    <p class="f-cb"><em class="time">{{flightInfo.DepartureTime | date:'HH:mm'}}</em><span>{{flightInfo.AirportFromCH}}</span></p>
+
+                                    <p class="f-cb"><em class="time">{{flightInfo.ArriveTime | date:'HH:mm'}}</em><span>{{flightInfo.AirportToCH}}</span></p>
+                                </div>
+                                -->
+                            </div>
+                            <div id="divamountall" class="total" ng-show="passengerList.length>0" style="background-color: #E8D2C7; margin-bottom: 5px; margin-top: -5px; display: none;">
+                                <div class="amount f-cb">
+                                    <span class="fl">合计</span> <b style="color:#E83828">&yen; {{((passengerList |
+                                    filter:{TravellerType:1}).length * (flightInfo.AirportTax +
+                                    flightInfo.FuelTax + flightInfo.OtherTax +
+                                    flightInfoback.AirportTax +
+                                    flightInfoback.FuelTax + flightInfoback.OtherTax)) + ((passengerList |
+                                    filter:{TravellerType:2}).length * (flightInfo.ChildAirportTax +
+                                    flightInfo.ChildFuelTax + flightInfo.ChildOtherTax +
+                                    flightInfoback.ChildAirportTax +
+                                    flightInfoback.ChildFuelTax + flightInfoback.ChildOtherTax))
+                                    + getAccidentInsuranceCnt(passengerList) * cabinInfo.AccidentInsurancePrice
+                                    + getDelayInsuranceCnt(passengerList) * cabinInfo.DelayInsurancePrice
+                                    - (passengerList | filter:FilterAccidentInsurancePsg).length * (cabinInfo.AccidentInsuranceTktPriceDiscount)
+                                    - (passengerList | filter:FilterDelayInsurancePsg).length * (cabinInfo.DelayInsuranceTktPriceDiscount)
+                                    + getExpressFee() }}</b>
+                                </div>
+                            </div>
+                            <div id="divamountdetail" class="details" ng-show="passengerList.length>0" style="display:none;">
+                                <div class="detail">
+                                    <dl class="f-cb f-rmb">
+                                        <dt>{{(passengerList | filter:{TravellerType:1}).length}} 成人</dt>
+                                        <dd style="color:#E83828">&yen; {{(passengerList |
+                                            filter:{TravellerType:1}).length *
+                                            (0 + 0)
+                                            - ((passengerList | filter:FilterAccidentInsurancePsg) | filter:{TravellerType:1}).length * (cabinInfo.AccidentInsuranceTktPriceDiscount)
+                                            - ((passengerList | filter:FilterDelayInsurancePsg) | filter:{TravellerType:1}).length * (cabinInfo.DelayInsuranceTktPriceDiscount)}}
+                                        </dd>
+                                    </dl>
+                                    <dl class="f-cb f-rmb">
+                                        <dt>机建/燃油（共）</dt>
+                                        <dd style="color:#E83828">&yen; {{(passengerList |
+                                            filter:{TravellerType:1}).length *
+                                            (flightInfo.AirportTax + flightInfo.FuelTax + flightInfo.OtherTax +
+                                            flightInfoback.AirportTax + flightInfoback.FuelTax +
+                                            flightInfoback.OtherTax)}}
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="detail">
+                                    <dl class="f-cb f-rmb">
+                                        <dt>{{(passengerList | filter:{TravellerType:2}).length}} 儿童</dt>
+                                        <dd style="color:#E83828">&yen; {{(passengerList |
+                                            filter:{TravellerType:2}).length *
+                                            (0 + 0)
+                                            - ((passengerList | filter:FilterAccidentInsurancePsg) | filter:{TravellerType:2}).length * (cabinInfo.AccidentInsuranceTktPriceDiscount)
+                                            - ((passengerList | filter:FilterDelayInsurancePsg) | filter:{TravellerType:2}).length * (cabinInfo.DelayInsuranceTktPriceDiscount)}}
+                                        </dd>
+                                    </dl>
+                                    <dl class="f-cb f-rmb">
+                                        <dt>机建/燃油（共）</dt>
+                                        <dd style="color:#E83828">&yen; {{(passengerList |
+                                            filter:{TravellerType:2}).length *
+                                            (flightInfo.ChildAirportTax + flightInfo.ChildFuelTax +
+                                            flightInfo.ChildOtherTax +
+                                            flightInfoback.ChildAirportTax + flightInfoback.ChildFuelTax +
+                                            flightInfoback.ChildOtherTax)}}
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="detail">
+                                    <dl class="f-cb f-rmb">
+                                        <dt>{{getAccidentInsuranceCnt(passengerList)}} 份航空意外险</dt>
+                                        <dd style="color:#E83828">&yen; {{getAccidentInsuranceCnt(passengerList) * cabinInfo.AccidentInsurancePrice}}
+                                        </dd>
+                                    </dl>
+                                    <dl class="f-cb f-rmb">
+                                        <dt>{{getDelayInsuranceCnt(passengerList)}} 份航空延误险</dt>
+                                        <dd style="color:#E83828">&yen; {{getDelayInsuranceCnt(passengerList) * cabinInfo.DelayInsurancePrice}}
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div style="width:100%;">
+                                    <input type="button"
+                                           style="background:url(/Resource/images/btnbg.png) no-repeat; width:100%; height: 45px;border:none; font-size: 14px; color:white;cursor:pointer;"
+                                           value="返回重选" ng-click="btnBackForReQuery();">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<div class="modal">
+    <div class="vipmessage">
+        <h2>常用旅客信息</h2>
+
+        <div class="clip">
+            <div class="control-group">
+                <label class="control-label"><span style="color: red;">*</span>乘客类型:</label>
+
+                <div class="controls">
+                    <select id="cmbPtype" ng-model="Passenger.TravellerType" ng-options="t.v as t.t for t in psgTypeOptions">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span style="color: red;">*</span>姓名:</label>
+
+                <div class="controls">
+                    <input type="text" ng-model="Passenger.FlierName" ng-change="CheckFlierName();" placeholder="请输入姓名">
+                    <input type="hidden"  ng-model="Passenger.Tid">
+                    <span class="error" ng-show="!psgNameValid">请输入姓名</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span style="color: red;">*</span>证件类型:</label>
+
+                <div class="controls">
+                    <select id="cmbFtype" ng-model="Passenger.FoidType" ng-options="t.v as t.t for t in foIdTypeOptions">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span style="color: red;">*</span>证件号码:</label>
+
+                <div class="controls">
+                    <input type="text" ng-model="Passenger.Foid" ng-change="CheckFoid();" placeholder="请输入证件号码">
+                    <span class="error" ng-show="!psgFoidValid">请输入正确的证件号码</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span style="color: red;">*</span>出生日期:</label>
+
+                <div class="controls">
+                    <input type="text" id="psgBirthday" placeholder="请输入出生日期(YYYY-MM-DD)" ng-change="CheckBirthday();" ng-model="Passenger.Brithday" onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});">
+                    <span class="error" ng-show="!psgBirthdayValid">请输入出生日期</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">手机号码:</label>
+
+                <div class="controls">
+                    <input type="text" ng-model="Passenger.Mobile" placeholder="请输入11位手机号码">
+                    <span class="error" ng-show="!psgMobileValid">请输入11位手机号码</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">电子邮箱:</label>
+
+                <div class="controls">
+                    <input type="text" ng-model="Passenger.EMail" placeholder="请输入电子邮箱">
+                    <span class="error" ng-show="!psgEMailValid">请输入格式正确的电子邮箱</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vipmessage">
+        <div class="vp-submit">
+            <a class="btn pull-right" href="javascript:;" onclick="javascript:$('.modal').modal('hide');">关闭</a>
+            <span class="pull-right">&nbsp;&nbsp;</span>
+            <a class="btn pull-right" href="javascript:;" ng-click="btnAddMyPassengerClick();">添加</a>
+        </div>
+    </div>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+    $(document).on("mouseover mouseout","a.info",function(event){
+        if(event.type == "mouseover"){
+            $(this).find(".info-tips").show();
+        }else if(event.type == "mouseout"){
+            $(this).find(".info-tips").hide();
+        }
+    });
+</script>
+
+</body>
+</html>

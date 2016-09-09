@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/TransOrder.js"></script>
+</head>
+<body ng-controller="laAir_ETicket_TransOrderPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container" ng-if="Flight_Psglist.length>0">
+        <div class="panel-sm panel">
+            <div class="ff_form">
+                <h2>申请改期</h2>
+
+                <div ng-repeat="fPsg in Flight_Psglist">
+                    <h3>航程信息:&nbsp;&nbsp;<input type="radio" ng-click="setFlightId(fPsg.Flight.FlightNum)" >&nbsp;{{fPsg.Flight.DepartureCityCH + "-" + fPsg.Flight.ArriveCityCH}}</h3>
+                    <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>乘机人</th>
+                            <th>行程</th>
+                            <th>航班号</th>
+                            <th>舱位</th>
+                            <th>时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: left;">
+                                <div ng-if="(fPsg.Psglist | filter:{TravellerType:1}).length>0">
+                                    <!--<span><input type="radio" ng-click="selAllTypePsg(fPsg.Flight.FlightId, 1, (fPsg.Psglist | filter:{TravellerType:1}));">成人</span><br>-->
+                                    <span ng-repeat="p in fPsg.Psglist | filter:{TravellerType:1}">
+                                        <input type="checkbox" ng-model="p.Selected" ng-true-value="true" ng-false-value="false">&nbsp;{{p.PassengerName}}({{p.TravellerTypeDisplay}})<!--ng-click="setFlightId(fPsg.Flight.FlightId)" -->
+                                    </span>
+                                </div>
+                                <div ng-if="(fPsg.Psglist | filter:{TravellerType:2}).length>0">
+                                    <!--<span><input type="radio" ng-click="selAllTypePsg(fPsg.Flight.FlightId, 2, (fPsg.Psglist | filter:{TravellerType:2}));">儿童</span><br>-->
+                                    <span ng-repeat="p in fPsg.Psglist | filter:{TravellerType:2}">
+                                        <input type="checkbox" ng-model="p.Selected" ng-true-value="true" ng-false-value="false">&nbsp;{{p.PassengerName}}({{p.TravellerTypeDisplay}})<!-- ng-click="setFlightId(fPsg.Flight.FlightId)"-->
+                                    </span>
+                                </div>
+                            </td>
+                            <td>{{fPsg.Flight.DepartureAirportCH}}<br>-<br>{{fPsg.Flight.ArriveAirportCH}}</td>
+                            <td>{{fPsg.Flight.FlightNum}}</td>
+                            <td>{{fPsg.Flight.CabinType}}({{fPsg.Flight.Cabin}})</td>
+                            <td>出发:{{fPsg.Flight.DepartureTime | date:'yyyy-MM-dd HH:mm'}}<br>
+                                到达:{{fPsg.Flight.ArriveTime | date:'yyyy-MM-dd HH:mm'}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+                <div class="text_center" ng-if="Flight_Psglist.length>0">
+                    <a class="btn btn-large btn-gray" href="javascript:window.history.go(-1);">&nbsp;返&nbsp;&nbsp;&nbsp;&nbsp;回&nbsp;</a>
+                    <a class="btn btn-large" href="javascript:;" ng-click="btnTransClick();">申请改期</a>
+                    <br>
+                    <div style="margin-top: 20px; color:orange;font-weight: bold; font-size: 14px;">
+                        *改期申请一旦提交无法撤回
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+    <div class="container" ng-if="Flight_Psglist.length<=0">
+        <div class="panel panel-gray">
+            <h3>没有可以改期的乘机人航段信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+    <div class="container" ng-if="!orderInfo">
+        <div class="panel panel-gray">
+            <h3>未查到对应的订单信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

@@ -1,31 +1,32 @@
 /**
- * Created by Jerry on 16/2/4.
+ * Created by Jerry on 16/7/15.
  */
 
-laAir.controller('laAir_MemberLoginPageCtl', ['$document', '$window', '$scope', 'laUserService', 'laGlobalLocalService', function ($document, $window, $scope, laUserService, laGlobalLocalService) {
+laAir.controller('laAir_Member_ClubPageCtl', ['$document', '$window', '$scope', 'laUserService', 'laGlobalLocalService', function ($document, $window, $scope, laUserService, laGlobalLocalService) {
 
-    $scope.title = "会员登录";
+    $scope.title = "会员俱乐部";
     $document[0].title = $scope.title;
     /**
      * 设置导航栏ClassName
      * @type {boolean}
      */
-    $scope.isHomeNav = true;
+    $scope.isClubNav = true;
 
     $scope.loginId;
     $scope.password;
     $scope.isAutoLogin = false;
+
+    $scope.isLogined = false;
+
+    laUserService.CheckLogin(function (dataBack, isLogined) {
+        $scope.isLogined = isLogined;
+    });
 
     //大图列表
     $scope.IndexImageList;
     laUserService.QueryIndexImageList(function (dataBack, status) {
         $scope.IndexImageList = dataBack;
     });
-
-    var isAutoLogin = laGlobalLocalService.getCookie(laGlobalProperty.laServiceConst_TransData_isAutoLogin);
-    if (isAutoLogin == "true" || isAutoLogin == true) {
-        $scope.isAutoLogin = true;
-    }
 
     $scope.LoginByPressEnterKey = function (e, l, p) {
         var keyCode = $window.event ? e.keyCode : e.which;
@@ -51,17 +52,14 @@ laAir.controller('laAir_MemberLoginPageCtl', ['$document', '$window', '$scope', 
                         laGlobalLocalService.writeCookie(laGlobalProperty.laServiceConst_TransData_AutoLoginPwd, p, 14);
                     }
 
-                    var backUrl = laGlobalLocalService.getCookie(laGlobalProperty.laServiceConst_TransData_BackUrl);
-                    if (backUrl != undefined) {
-                        if (backUrl.toLowerCase().indexOf('/member/login.html', 0) >= 0) {
-                            $window.location.href = '/B2C/home.html';
-                        } else {
-                            $window.location.href = backUrl;
+                    $scope.isLogined = true;
+                    laUserService.CheckLogin(function (dataBack, isLogined) {
+                        if (isLogined) {
+                            $scope.$broadcast("loginCheckCom", {"d": dataBack, "l": true});
                         }
-                    } else {
-                        $window.location.href = '/B2C/home.html';
-                    }
+                    });
                 } else {
+                    $scope.isLogined = false;
                     bootbox.alert(rs.Message);
                 }
             });
