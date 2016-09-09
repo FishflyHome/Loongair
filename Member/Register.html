@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/RegisterCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberRegisterPageCtl">
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel panel-reg">
+            <h2>长龙航空会员注册</h2>
+
+            <div>
+                <div class="tipspanel" style="top: 70px;">
+                    <h3>为什么选择长龙</h3>
+                    <h4>领先</h4>
+
+                    <p>它的成立，标志着浙江这个经济强省彻底结束了没有本土民用航空的历史，迎来航空发展的新时代。</p>
+                    <h4>战略</h4>
+
+                    <p>积极构建航线网络、推动企业战略转型，打造“以杭州为中心的全国4小时交通圈、全球12小时交通圈”。</p>
+                    <h4>定位</h4>
+
+                    <p>追求高效率、低成本、专业化、国际化，努力将公司打造成员工首选、旅客首选、受人尊敬、行业领先的公众型航空公司。</p>
+                    <span class="icon-plane"></span>
+                </div>
+                <div class="register">
+                    <form name="frmReg">
+                        <ul>
+                            <li>
+                                <span><em class="red">*</em>手机号码：</span>
+                                <input type="text" class="text w113" id="Phone" name="Phone" placeholder="请输入手机号码"
+                                       ng-model="userInfo.Mobile" ng-maxlength="11" required ng-change="checkValidData();">
+                                <input type="button" class="btn" style="cursor: pointer;" value="发送验证码" id="btnGetSMS"
+                                       ng-click="btnSendMobileValidCodeClick();">
+                                <span class="error" ng-show="!validMobile">手机号码输入有误</span>
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>验证码：</span>
+                                <input type="text" class="text w113" id="imageVerifyCode" name="Phone" placeholder="请输入验证码"
+                                       ng-model="ImageVerifyCode">
+                                <a href="javascript:;" ng-click="btnChangeVerifyCode();" title="点击图片换一张"><img ng-src="data:image/gif;base64,{{ImgVerifyData}}" style="width:82px;height:32px;"></a>&nbsp;&nbsp;
+                                <a class="link" href="javascript:;" ng-click="btnChangeVerifyCode();">换一张</a>
+                            </li>
+                            <li>
+                                <span style="margin-left: 20px;width:70%;border-width: 1px; border-color: #b1b1b1;border-style: dashed;"></span>
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>短信验证码：</span>
+                                <input type="text" class="text" id="MsgVerifyCode" name="MsgVerifyCode" ng-maxlength="8"
+                                       placeholder="请输入收到的短信验证码" ng-model="userInfo.MobileValidCode" required ng-change="checkValidData();">
+                                <span class="error" ng-show="!validMobileVCode">请输入短信验证码</span>
+                            </li>
+                            <li>
+                                <span><em class=" red">*</em>中文姓名：</span>
+                                <input type="text" placeholder="姓名" id="Name" name="Name" class="text noramal required"
+                                       ng-model="userInfo.Name" required ng-change="checkValidData();">
+                                <span class="error" ng-show="!validName">请输入中文姓名</span>
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>证件类型：</span>
+                                <select name="CertType" id="CertType" class="text">
+                                    <option value="身份证">身份证</option>
+                                </select>
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>证件号码：</span>
+                                <input type="text" class="text" id="CertNum" name="CertNum" placeholder="请输入身份证号码"
+                                       ng-model="userInfo.Foid" required ng-change="checkValidData();">
+                                <span class="error" ng-show="!validFoid">证件号码输入有误</span>
+
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>密　　码：</span>
+                                <input type="password" placeholder="密码长度至少为6位" class="text" id="Password"
+                                       name="Password" ng-model="userInfo.Password" required ng-minlength="6" ng-change="checkValidData();">
+                                <span class="error" ng-show="!validPwd">请输入密码</span>
+                            </li>
+                            <li>
+                                <span><em class="red">*</em>确认密码：</span>
+                                <input type="password" placeholder="密码长度至少为6位" class="text" id="RePassword" name="RePassword"
+                                       ng-model="userInfo.ConPassword" required ng-minlength="6" ng-change="checkValidData();">
+                                <span class="error" ng-show="!validPwd">确认密码输入有误</span>
+                            </li>
+                            <!--
+                            <li>
+                                <span><em class="red"></em>邮　　箱：</span>
+                                <input type="text" class="text" id="Email" name="Email">
+                            </li>
+                            <li>
+                                <span><em class="red"></em>地　　址：</span>
+                                <input type="text" class="text" id="Address" name="Address">
+                            </li>
+                            <li>
+                                <span>邮政编码：</span>
+                                <input type="text" class="text" id="ZipCode" name="ZipCode">
+                            </li>
+                            <li>
+                                <span>固定电话：</span>
+                                <input type="text" class="text" id="Tel" name="Tel">
+                            </li>
+-->
+
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <!--
+                            <li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+                                    class="checkbox inline"><input type="checkbox" class="mgl30" id="IsBookMag"
+                                                                   name="IsBookMag">订阅电子期刊</label>
+                            </li>
+                            -->
+                            <li class="service">
+                                <p>
+                                    进入本网站的访问者接受本协议书条款，注册成为长龙航空电子客票网站用户，并遵守本协议所述条款使用本网站所提供的服务。如果不接受本声明条款，请勿使用本网站。接受本声明条款，您将遵守本协议的规定。
+                                </p>
+
+                                <p>1、服务条款确认 </p>
+
+                                <p>用户确认本服务协议后，本服务协议即在用户和长龙航空有限公司之间产生法律效力。请用户务必在注册之前认真阅读全部服务协议内容，如有任何疑问，可向我们咨询。
+                                    无论用户事实上是否在注册之前认真阅读了本服务协议，只要用户点击"同意服务条款并注册"按钮并按照注册程序成功注册为用户，用户的行为即表示用户与长龙航空有限公司达成协议并接受所有的服务条款。</p>
+
+                                <p>2、用户注册： </p>
+
+                                <p>
+                                    用户仅能以个人名义完成在线注册。注册成功后，用户名和密码均由用户负责保管，用户名不可转让。用户应按照要求提供及时、详尽及准确的个人资料，如果用户提供的资料包含有不正确的信息，本网站保留停止用户使用本网站服务的权利。任何凭密码进行的操作视为用户本人的操作并由用户对该使用行为的后果承担责任。用户在未取得长龙航空授权许可的情况下，不得利用网站服务进行销售及其他营利活动，不得有损长龙航空形象，若经发现，长龙航空有权在未取得用户同意的情况下，直接停止用户账号的使用，并依法追究用户相应的责任。我们对用户注册信息将予以保密，不会用于其它目的或透露给第三者。用户的注册信息只用于用户购票时与用户联系之用途。除非得到用户的授权、政府或法律的强制，本站不会向外界披露用户隐私信息。由于用户将个人密码告知他人或与他人共享注册帐户，由此导致的任何个人资料泄露，本网站不负任何责任。</p>
+
+                                <p>3、用户义务： </p>
+
+                                <p>用户应遵守《中华人民共和国民用航空法》及中国有关法律、法规和本网站有关规定，禁止虚假订位，遵守网上预订规则。</p>
+
+                                <p>4、用户权利： </p>
+
+                                <p>用户可享受本网站提供的实时机位、航班时刻、机票价格、查询服务及购票服务。</p>
+
+                                <p>5、版权、商标权： </p>
+
+                                <p>本网站的图形、图像、文字及其程序等均属长龙航空电子商务网站，受商标法及相关知识产权保护。</p>
+
+                                <p>6、免责： </p>
+
+                                <p>对用户因使用本网站而产生的与第三方之间的纠纷，本网站不负任何责任。</p>
+
+                                <p>7、服务终止： </p>
+
+                                <p>本网站有权在预先通知或不予通知的情况下终止任何免费服务。</p>
+
+                                <p>
+                                    8、本网站因正常的系统维护、系统升级，或者因网络拥塞而导致网站不能访问，本网站不承担任何责任。任何由于计算机黑客攻击、计算机病毒侵入、硬件设施损坏、因政府管制而造成的暂时性关闭等影响网络正常经营的不可抗力而造成的用户资料泄露、丢失、被盗用或被篡改等，本网站不负任何责任。 </p>
+
+                                <p>9、本协议及因使用本网站而产生的与本网站之间纠纷，将依据中华人民共和国的有关法律解决。 </p>
+                            </li>
+                            <li class="reg-sub">
+                                <span>&nbsp;</span>
+                                <input type="button" ng-show="!isRegisting" ng-click="btnRegisterClick();"
+                                       class="btn btn-large" style="cursor: pointer;" value="同意服务条款并注册">
+                                <label style="line-height:20px;" ng-show="isRegisting">
+                                    <img src="/Resource/images/loadingCircleEx.jpg">
+                                </label>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+</body>
+</html>

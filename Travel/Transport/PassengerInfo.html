@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/TransportCtl.js"></script>
+</head>
+<body ng-controller="laAir_Transport_PassengerInfoCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+
+    <div class="container personal-wrapper">
+
+        <div ng-include="'../LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>运输旅客须知</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span style="font-weight: bold;">定座</span>
+                        </p>
+                        <p>
+                            <span>旅客只有在定妥座位以后，才能凭该定妥座位的客票乘机。旅客可根据有关规定向长龙航空、长龙航空授权的销售代理人售票处、长龙航空销售服务热线以及登录长龙航空官方网站预订座位。已定座位的旅客须在长龙航空规定或预先约定的时限内购票，否则，原定座位不予保留。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">购票</span>
+                        </p>
+                        <p>
+                            <span>旅客购票须凭本人有效身份证件或公安机关出具的其他有效身份证件，并填写《旅客定座单》；购买儿童、婴儿票，应提供儿童、婴儿出生年月的有效证明；重病旅客购票，应持有县级（含县级）以上医疗单位出具的医生诊断证明，经长龙航空同意后，方可购票。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">儿童票、婴儿票</span>
+                        </p>
+                        <p>
+                            <span>已满2周岁未满12周岁的儿童可按照同一航班成人普通全价票的50%购买儿童票，婴儿按照同一航班成人普通票价的10%购买婴儿票，不提供座位；如需要单独占座位时，应购买儿童票。每一成人旅客携带婴儿超过一名时，超过的人数应购买儿童票。官网暂时只支持儿童与成人同舱同价位购买，提供座位。每一成人旅客携带婴儿超过一名时，超过人数的婴儿应支付儿童票价。如果旅客需同时携带婴儿和儿童，则最多只能携带一名婴儿及二名儿童。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">客票有效期</span>
+                        </p>
+                        <p>
+                            <span>除另有规定外，普通票价的客票有效期自旅行开始之日起，一年内运输有效；如果客票全部未使用，则从填开客票之日起，一年内运输有效。特种票价的客票有效期，按照长龙航空规定的该特种票价的有效期计算。客票有效期的计算，从旅行开始或填开客票之日的次日零时起至有效期满之日的次日零时为止。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">客票变更</span>
+                        </p>
+                        <p>
+                            <span>旅客购票后，如自愿要求变更航班、日期、舱位等级，应遵守其客票适用的运输条件，并在长龙航空航班有可利用座位和时间允许的条件下办理（团体旅客另行规定）。</span>
+                        </p>
+                        <p>
+                            <span>航空运输电子客票行程单是旅客在中国境内购买电子客票的付款凭证或报销凭证。您购票时或在航班起飞后七日内向我们或我们的授权代理人索取。航空运输电子客票行程单不能重复打印，遗失不予补发。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">退票</span>
+                        </p>
+                        <p>
+                            <span>旅客在客票的有效期内没有完成部分或全部航段，可以提出退票申请。如客票上已注明“不得退票”、“NON-REF”或“NON-REFUND”，该客票不得退票。 旅客退票须持本人有效旅行证件及客票（如适用）至长龙航空规定的退票地点（原出票地）办理退票手续。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">乘机</span>
+                        </p>
+                        <p>
+                            <span>长龙航空开始办理航班乘机手续的时间一般不迟于客票上列明的航班离站时间前90分钟。旅客应当在长龙航空规定的时限内到达机场，凭客票及本人有效身份证件按时办理客票查验、托运行李、领取登机牌等乘机手续。如旅客未能按时到达乘机登机处，或未能出示其有效身份证件及运输凭证，或未能做好旅行准备，长龙航空为不延误航班可取消旅客已定妥的座位。对旅客由此产生的损失和费用，长龙航空不承担责任。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">不得随身携带或者托运的物品</span>
+                        </p>
+                        <p>
+                            <span>旅客不得在托运行李或随身携带物品内夹带易燃、易爆、腐蚀、有毒、放射性物品、可聚合物质、磁性物质及其它危险物品。旅客乘坐飞机不得携带武器、管制刀具、利器和凶器。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">不得作为托运行李运输的物品</span>
+                        </p>
+                        <p>
+                            <span>重要文件和资料、证券、货币、汇票、珠宝、贵重金属及其制品、银制品、贵重物品、古玩字画、易碎和易损坏物品、易腐物品、样品、旅行证件等需要专人照管的物品不得作为托运行李或夹入行李内托运，而应作为自理行李或免费随身携带物品带入客舱运输。</span>
+                        </p>
+                        <p>
+                            <span>为了加强旅客行李中锂电池航空运输安全管理，贯彻落实民航局下发的《关于切实做好旅客携带锂电池乘机安全管理工作的通知》，扎实做好锂电池运输安全管理和风险预防工作，对锂电池适用标准和使用要求通知如下：</span>
+                        </p>
+
+                        <p><span>1、 备用锂电池应作为手提行李或随身携带，不得作为托运行李或夹入行李内托运；</span></p>
+
+                        <p><span>2、 锂电池分为锂金属电池和锂离子电池两类。旅客作为手提行李或随身携带的锂金属电池，锂含量不得超过2克。锂离子电池的额定能量值不得超过1000Wh（瓦特小时）；超过100Wh但不超过160Wh的，须经浙江长龙航空批准方可作为随身物品携带，且每人最多允许携带两个；超过160Wh的锂电池严禁携带；</span>
+                        </p>
+
+                        <p>
+                            <span>3、 便捷式电子装置的备用电池，必须单个做好保护以防短路（放入原零售包装或以其他方式将电极绝缘，如在暴露的电极上贴上胶带，或将每个电池放入单独的塑料袋或保护盒当中）；</span>
+                        </p>
+
+                        <p><span>4、 锂电池移动电源（俗称“充电宝”）视为备用锂电池，不得作为托运行李运输；</span></p>
+
+                        <p><span>5、 在飞行过程中不得使用锂电池移动电源为电子设备充电或作为外部电源使用，不得开启电源的其他功能；</span></p>
+
+                        <p><span>6、 装有启动开关的锂电池移动电源，在飞行过程中应当确保开关处于关闭状态。</span></p>
+
+                        <p><span>7、 为确保飞行安全，即日起全面禁止旅客携带或托运以锂电池为动力的电动平衡车。电动平衡车是指以锂电池为动力，可载人的，单轮或多轮的移动辅助工具，包括但不仅限于：独轮车、电动滑板、风火轮、体感车和平衡车等。</span>
+                        </p>
+                        <p><span>详情可致电我们的服务热线咨询。</span></p>
+
+                        <p>
+                            <span style="font-weight: bold;">不正常航班服务</span>
+                        </p>
+                        <p>
+                            <span>由于长龙航空机务维护、航班调配、商务、机组等原因，造成航班在始发地延误或取消，长龙航空应按其规定向旅客提供餐食或住宿等服务。由于天气、突发事件、空中交通管制、安检以及旅客等非长龙航空原因，造成航班在始发地延误或取消，长龙航空应协助旅客安排餐食和住宿，费用应由旅客自理。</span>
+                        </p>
+
+                        <p>
+                            <span style="font-weight: bold;">特殊旅客运输须知</span>
+                        </p>
+                        <p><span>（一）婴儿</span></p>
+
+                        <p align="left">
+                            <span>婴儿，是指出生满</span><span>14</span><span>天以上但年龄不满</span><span>2</span><span>周岁的婴儿。出于小宝宝的安全和健康原因，长龙航空不能承运出生不足</span><span>14</span><span>天的婴儿，出生超过</span><span>14</span><span>天的早产婴儿必须出示《病情诊断证明书》。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>请带婴儿同行的旅客注意以下事项：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>每位年满</span><span>18</span><span>周岁成年旅客带一名婴儿同行，该婴儿可按同一航班成人普通票价的</span><span>10%</span><span>购买婴儿票，但我们不向持婴儿票的旅客提供单独的座位和免费行李额；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>每位成人旅客最多可携带</span><span>2</span><span>名婴儿。</span><span>2</span><span>名婴儿同行时，其中</span><span>1</span><span>名婴儿需要按同一航班成人普通票价的</span><span>50%</span><span>购买儿童票，我们将为其提供与成人旅客相同的免费行李额。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>（二）无成人陪伴儿童</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>无成人陪伴儿童，指年龄满</span><span>5</span><span>周岁但不满</span><span>12</span><span>周岁、或年满</span><span>12</span><span>周岁但不满</span><span>15</span><span>周岁，无年满</span><span>18</span><span>周岁且具有民事行为能力的成年人陪伴乘机的儿童。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>为了保证您托付给长龙航空的小朋友在空中和地面能够得到及时、必要的服务，请需要无成人陪伴儿童服务的购票人注意以下事项：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>年满</span><span>5</span><span>周岁但不满</span><span>12</span><span>周岁的无成人陪伴儿童需要按同一航班成人普通票价的</span><span>50%</span><span>购买儿童票，年满</span><span>12</span><span>周岁但不满</span><span>15</span><span>周岁的无成人陪伴儿童需按成人票价购买；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>出于安全原因，长龙航空对每一航班上无成人陪伴儿童的人数有所限制，因此无成人陪伴儿童乘机的申请应在航班起飞前一个工作日提出运输申请，填写《无成人陪伴儿童乘机申请书》，提供始发站和目的站的儿童接送人的姓名、地址和联系电话，经长龙航空同意后方可接受承运，否则长龙航空不能承运；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>无成人陪伴儿童的父母或监护人需要配送无成人陪伴儿童到上机地点，并且停留在机场，直至航班起飞，下机时需在下机地点安排人员迎接和照料。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>（三）孕妇</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>由于飞行会带来高空缺氧，因此长龙航空建议</span><span>“</span><span>准妈妈</span><span>”</span><span>们在计划旅行前，针对自身的身体状况咨询产科医生是否适宜飞行。为了充分保证您和宝宝的安全与健康，长龙航空对于孕妇乘机有以下规定，希望您能详细了解：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>旅客订座、登机时，须提供证明孕期的病历或预产期证明，长龙航空将据此判断是否能够接受运输；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>怀孕不足</span><span>32</span><span>周的健康孕妇乘机，除医生诊断不适宜乘机者外，我们将会视为普通旅客载运；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>怀孕超过</span><span>32</span><span>周但不足</span><span>35</span><span>周的孕妇乘机，需要填制《特殊旅客运输申请表》并提供航班起飞前</span><span>72</span><span>小时内，由县级以上医疗单位盖章和医生签字的诊断证明，其内容至少应包括：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>a. </span><span>旅客姓名、年龄；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>b. </span><span>怀孕时期、预产期；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>c. </span><span>航程和日期</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>d.</span><span>适宜乘机字样；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>e. </span><span>在机上是否需要提供特殊照料等。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>d. 4</span><span>．为了旅客的安全及健康，长龙航空不能承运怀孕超过</span><span>35</span><span>周以上孕妇旅客、有早产征状孕妇旅客和分娩后七天内产妇旅客。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>(</span><span>四</span><span>) </span><span>盲人旅客</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>有成人陪伴的盲人旅客乘机，按一般旅客接受运输；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>不满</span><span>16</span><span>周岁的无成人陪伴盲人旅客单独乘机，长龙公司不予承运；已满</span><span>16</span><span>周岁的无成人陪伴盲人旅客乘机，应符合下列条件：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>必须事先在长龙航空公司售票处提出特殊服务申请，经承长龙航空同意后方可运输。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>旅客有自理能力。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>通常情况下，导盲犬应作为小动物运输只能装在货舱内运输。特殊情况下经长龙航空同意，可由盲人旅客带入客舱且仅限一只。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>(</span><span>五</span><span>) </span><span>聋哑旅客</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>有成人陪伴的聋哑旅客乘机，按一航旅客接受运输；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>不满</span><span>16</span><span>周岁的无成人陪伴聋哑旅客单独乘机，长龙公司不予承运；已满</span><span>16</span><span>周岁的无成人陪伴聋哑旅客乘机，应符合下列条件：</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>必须事先在长龙航空公司售票处提出特殊服务申请，经承长龙航空同意后方可运输。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>旅客有自理能力。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>对于又聋又哑的旅客，应提前在乘机前告知沟通方式。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>4.</span><span>通常情况下，助听犬应作为小动物运输只能装在货舱内运输。特殊情况下经长龙航空同意，可由聋哑旅客带入客舱且仅限一只。</span>
+                        </p>
+
+                        <p align="left">
+                            <span>(</span><span>六</span><span>) </span><span>轮椅旅客</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>在公司正常定期航班，飞机预计起飞时间前24拨打客服电话申请（目前只支持我司呼叫中心或杭州萧山机场售票柜台申请）;</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>旅客需要提前2小时到机场办理关于轮椅服务相关手续；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>目前我司只提供机下轮椅服务（残疾人旅客除外），到达登机口后旅客需要自行或陪同人员搀扶到座位；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>(</span><span>七</span><span>) </span><span>残疾旅客</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>《残疾人航空运输管理办法》最新修订，自2015 年3 月1 日起正式施行。残疾人与其他公民一样享有航空旅行的机会，为残疾人提供的航空运输，承运人、机场和机场地面服务应免费为具备乘机条件的残疾人提供相应的设施、设备或特殊服务。承运人不得因残疾人的残疾造成其外表或非自愿的举止可能对机组或其他旅客造成冒犯、烦扰或不便而拒绝运输具备乘机条件的残疾人。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>具备乘机条件的残疾人需要承运人提供（医用氧气、托运电动轮椅、机上专用窄型轮椅、残疾人团体、进入客舱服务犬）以上服务、设备设施时，应在定座时提出，最迟不能晚于航班离站时间前48 小时，如残疾人旅客在48小时内来电申请我们也需要提供申请服务，但要说明因为时间紧急只能尽量申请。</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>(</span><span>八</span><span>) </span><span>军残，警残旅客</span><span> <span></span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>1.</span><span>目前只支持我司呼叫中心或杭州萧山机场售票柜台申请；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>2.</span><span>通过呼叫中心申请，旅客需要先将军残/警残证及身份证拍照发送至呼叫中心邮箱hjzx@loongair.cn</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>3.</span><span>需提醒旅客出行当天必须携带好乘机人的身份有效证件及军残/警残证原件前往长龙航空值机柜台办理值机手续；</span><span></span>
+                        </p>
+
+                        <p align="left">
+                            <span>4.</span><span>军残/警残旅客可享受经济舱/超值经济舱50%折扣优惠，如在经济舱/超值经济舱以外的舱位订票，以实际票价为准。</span><span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/MoreInfoCtl.js"></script>
+</head>
+<body ng-controller="laAir_MoreInfo_PurchaseAgreementPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <h2>购票协议</h2>
+
+                <div class="art-content">
+                    <p align="center">
+                        <b><span>危险品运输规定</span></b>
+                    </p>
+
+                    <p align="left">
+                        <span>以下物品均为危险品：</span>
+                    </p>
+
+                    <p align="left">
+                        <span>（一）危险品</span>
+                    </p>
+
+                    <p align="left">
+                        <span>1</span><span>．爆炸品；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>2</span><span>．气体，包括易燃和非易燃无毒气体、有毒气体；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>3</span><span>．易燃液体；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>4</span><span>．易燃固体、自燃物质和遇水释放易燃气体的物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>5</span><span>．氧化剂和有机过氧化物；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>6</span><span>．毒性物质和传染性物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>7</span><span>．放射性物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>8</span><span>．腐蚀性物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>9</span><span>．磁性物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>10</span><span>．具有麻醉或其他类似气味或性质的物质；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>11</span><span>．容易污损飞机的物品；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>12</span><span>．长龙航空规定不得作为行李运输的其他危险物品。</span>
+                    </p>
+
+                    <p align="left">
+                        <span>（二）枪支，含各种仿真玩具枪、枪型打火机及其他各种类型带有攻击性的武器，但体育运动用器械除外。</span>
+                    </p>
+
+                    <p align="left">
+                        <span>（三）军械、警械。</span>
+                    </p>
+
+                    <p align="left">
+                        <span>（四）管制刀具。</span>
+                    </p>
+
+                    <p align="left">
+                        <span>（五）国家规定的其它禁运物品。</span>
+                    </p>
+
+
+                    <p align="center">
+                        <b><span>长龙航空锂电池乘机须知</span></b>
+                    </p>
+
+                    <p align="left" style="background:white;text-align:left;text-indent:28.3pt;">
+                        <span>为了加强旅客行李中锂电池航空运输安全管理，贯彻落实民航局下发的《关于切实做好旅客携带锂电池乘机安全管理工作的通知》，扎实做好锂电池运输安全管理和风险预防工作，对锂电池适用标准和使用要求通知如下：</span>
+                    </p>
+
+                    <p align="left">
+                        <span>1</span><span>．备用锂电池应作为手提行李或随身携带，不得作为托运行李或夹入行李内托运；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>2</span><span>．锂电池分为锂金属电池和锂离子电池两类。旅客作为手提行李或随身携带的锂金属电池，锂含量不得超过<span>2</span>克。锂离子电池的额定能量值不得超过<span>1000Wh</span>（瓦特小时）；超过<span>100Wh</span>但不超过<span>160Wh</span>的，须经浙江长龙航空批准方可作为随身物品携带，且每人最多允许携带两个；超过<span>160Wh</span>的锂电池严禁携带；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>3</span><span>．便捷式电子装置的备用电池，必须单个做好保护以防短路（放入原零售包装或以其他方式将电极绝缘，如在暴露的电极上贴上胶带，或将每个电池放入单独的塑料袋或保护盒当中）；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>4</span><span>．锂电池移动电源（俗称“充电宝”）视为备用锂电池，不得作为托运行李运输；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>5</span><span>．在飞行过程中不得使用锂电池移动电源为电子设备充电或作为外部电源使用，不得开启电源的其他功能；</span>
+                    </p>
+
+                    <p align="left">
+                        <span>6</span><span>．装有启动开关的锂电池移动电源，在飞行过程中应当确保开关处于关闭状态。</span>
+                    </p>
+
+                    <p align="left">
+                        <span> </span>
+                    </p>
+
+                    <p align="center" style="text-align:center;">
+                        <span><strong>关于重申禁止旅客携带打火机、火柴</strong></span><span></span>
+                    </p>
+
+                    <p align="center" style="text-align:center;">
+                        <span><strong>乘坐民航飞机的公告</strong></span><span></span>
+                    </p>
+
+                    <p>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                    </p>
+
+                    <p style="text-indent:32.0pt;">
+                        <span>为维护民航运输秩序，保护旅客生命财产和航空器安全，根据《关于禁止旅客随身携带打火机、火柴乘坐民航飞机的公告》（民航公告【</span><span>2008</span><span>】</span><span>3</span><span>号）等有关规定，现就旅客携带打火机、火柴乘坐民航飞机应当遵守的规定重申如下：</span><span></span>
+                    </p>
+
+                    <p style="margin-left:86.25pt;text-indent:-54.0pt;">
+	<span>（一）&nbsp;&nbsp;
+禁止旅客随身携带打火机、火柴乘坐民航飞机。</span><span></span>
+                    </p>
+
+                    <p style="margin-left:86.25pt;text-indent:-54.0pt;">
+	<span>（二）&nbsp;&nbsp;
+禁止旅客将打火机、火柴放置在手提行李中运输。</span><span></span>
+                    </p>
+
+                    <p style="margin-left:86.25pt;text-indent:-54.0pt;">
+	<span>（三）&nbsp;&nbsp;
+禁止旅客将打火机、火柴放置在托运行李中运输。</span><span></span>
+                    </p>
+
+                    <p style="text-indent:32.15pt;">
+                        <span>请旅客在办理乘机手续时，严格遵守以上规定。对于违反上述规定的，公安机关将根据情节，依照国家有关法律、法规严肃处理。由此造成的其他后果，由旅客自行承担。</span><span></span>
+                    </p>
+
+                    <p style="text-indent:32.15pt;">
+                        <span>特此公告。</span><span></span>
+                    </p>
+
+                    <p align="right" style="text-align:right;text-indent:32.15pt;">
+                        <span>中国民用航空局</span><span></span>
+                    </p>
+
+                    <p align="right" style="text-align:right;text-indent:32.15pt;">
+                        <span>2015年</span><span>8</span><span>月</span><span>14</span><span>日</span>
+                    </p>
+
+                    <p align="right" style="text-align:right;text-indent:32.15pt;">
+	<span><br>
+</span>
+                    </p>
+
+                    <p align="right" style="text-align:right;text-indent:32.15pt;">
+	<span><br>
+</span>
+                    </p>
+
+                    <p align="right" style="text-align:right;text-indent:32.15pt;">
+                        <span> </span>
+                    </p>
+
+                    <p align="center" style="text-align:center;">
+                        <span><strong>关于重申民航旅客携带充电宝乘机规定的公告</strong></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>2015年</span><span>5</span><span>月份以来，民航航班上发生了多起充电宝引发的不安全事件，给航空运输安全带来安全隐患。为确保航空运输安全，现将旅客携带充电宝乘机的规定重申如下：</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>一、严禁在托运行李中携带充电宝。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>二、严禁携带额定能量超过</span><span>160Wh</span><span>的充电宝；携带额定能量超过</span><span>100Wh</span><span>但不超过</span><span>160Wh</span><span>的充电宝，必须经航空公司批准且不得超过两个。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>三、严禁携带标识不清的充电宝。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>四、严禁在飞行过程中使用充电宝。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>五、严禁非个人自用目的携带充电宝。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>对于违反上述规定者，公安机关将根据情节，依照国家有关法律、法规严肃处理。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>上述规定同时适用于机组人员。</span><span></span>
+                    </p>
+
+                    <p align="left" style="text-indent:32pt;">
+                        <span>本公告自公布之日起施行。</span><span></span>
+                    </p>
+
+                    <p align="left">
+                        <b><span>&nbsp;</span></b>
+                    </p>
+
+                    <p align="right" style="text-align:right;">
+                        <span>中国民用航空局</span><span>&nbsp;</span>
+                    </p>
+
+                    <div style="text-align:right;">
+                        <span style="line-height:1.5;font-size:18px;">2015年</span><span
+                            style="line-height:1.5;font-size:18px;">8</span><span
+                            style="line-height:1.5;font-size:18px;">月</span><span
+                            style="line-height:1.5;font-size:18px;">14</span><span
+                            style="line-height:1.5;font-size:18px;">日</span>
+                    </div>
+                    <p>
+                        <br>
+                    </p>
+
+                    <p align="right" style="text-align:left;text-indent:32.15pt;">
+                        <span><span
+                                style="color:#464646;font-family:宋体;font-size:18px;line-height:27px;background-color:#FFFFFF;">详情可致电我们的服务热线咨询。</span></span>
+                    </p>
+
+                    <p>
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

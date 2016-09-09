@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content="长龙,浙江长龙航空,长龙航空,长龙航空官网,长龙航空官方网站,特价机票,长龙航空机票预定,机票查询,打折机票"/>
+    <meta name="description" content="长龙航空官方网站，提供航班查询、飞机票查询、机票预订、网上订票的一站式服务。了解特价打折机票，关注航班动态，可拨打24小时客服热线：0571-8999 9999"/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/slider.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/city.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/homeCtl.js"></script>
+</head>
+<body ng-controller="laAir_HomePageCtl">
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="banner">
+        <!--
+        <div class="slidesfull">
+            <div class="indexbanner">
+                <a style="background-image: url(/Resource/images/loginbg1.jpg)"></a>
+                <a style="background-image: url(/Resource/images/loginbg2.jpg);"></a>
+            </div>
+        </div>
+        -->
+        <div class="slidesfull">
+            <div class="indexbanner">
+                <ul>
+                    <li>
+                        <a style="background-image: url(/Resource/images/loginbg1.jpg)"></a>
+                    </li>
+                    <li>
+                        <a style="background-image: url(/Resource/images/loginbg2.jpg);"></a>
+                    </li>
+                </ul>
+                <ol id="bannerCtrl" class="navListBox">
+                    <li class="active"><a>1</a></li>
+                    <li><a>2</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="banner-box">
+        <div class="home-box"><!--  home-box-sm-->
+            <ul class="tab-city" style="height:356px;">
+                <li class="active"><a href="javascript:;" data-href="ticket"><i class="br_jpyd">&nbsp;</i>机票预订</a></li>
+                <li><a href="javascript:;" data-href="flight"><i class="br_hbdt">&nbsp;</i>航班动态</a></li>
+                <!--
+                <li><a href="javascript:;" data-href="pay"><i class="br_wszj">&nbsp;</i>网上值机</a></li>
+
+                <li><a href="javascript:;" data-href="mall"><i class="br_mall">&nbsp;</i>商城</a></li>
+                -->
+            </ul>
+            <div class="box-con" style="height:356px;">
+                <!--预定机票-->
+                <div class="jpyd_con" mark="ticket">
+                    <form name="frmQueryFlight">
+                        <div class="tab-radiobox">
+                            <input type="radio" name="qu_mode" checked="checked" ng-model="qu_mode"
+                                   ng-init="qu_mode='0'" value="0" id="srode"/><label for="srode"
+                                                                                      class="active">单程</label>
+                            <input type="radio" name="qu_mode" ng-model="qu_mode" value="1" id="drode"
+                                   style="display:none;"/><label for="drode" style="display:none;">往返</label>
+                        </div>
+                        <p><span>出发城市</span><input type="text" autocomplete="off" placeholder="出发城市" title="出发城市"
+                                                   required
+                                                   id="startCity" ng-model="qu_startCity"
+                                                   ng-init="qu_startCity='';qu_startCityCode=''"
+                                                   style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;"/>
+                        </p>
+
+                        <p><span>到达城市</span><input type="text" autocomplete="off" placeholder="到达城市" title="到达城市"
+                                                   required
+                                                   id="endCity" ng-model="qu_endCity"
+                                                   ng-init="qu_endCity='';qu_endCityCode=''"
+                                                   style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;"/>
+                        </p>
+
+                        <p><span>出发时间</span><input type="text" autocomplete="off" id="startTime" required
+                                                   placeholder="yyyy-mm-dd" ng-model="qu_startTime"
+                                                   ng-init="qu_startTime=''"/></p>
+
+                        <p style="display:none;"><span>返程时间</span><input type="text" autocomplete="off" id="endTime"
+                                                                         placeholder="yyyy-mm-dd"
+                                                                         readonly ng-model="qu_endTime"
+                                                                         ng-init="qu_endTime=''"/></p>
+
+                        <p class="btn-center"><a id="btnQueryTicket" class="btn" href="javascript:;" ng-click="btnQueryTicketClick();">搜索航班</a>
+                        </p>
+                    </form>
+                    <div class="change_con"><a href="javascript:;" id="change">换</a></div>
+                    <p class="btn-center divide-top" style="text-align: left;">严禁携带额定能量超过160Wh的充电宝;携带额定能量超过100Wh但不超过160Wh的充电宝,必须经航空公司批准且不得超过两个.</p>
+                </div>
+                <!--/预定机票-->
+                <!--在线值机-->
+                <div class="wszj_con" style="display:none" mark="pay">
+
+                    <form>
+                        <div class="tab-radiobox">
+                        </div>
+                        <input type="hidden" id="Key" name="Key"/>
+
+                        <p><span>查询类型</span>
+                            <select id="CType" name="CType">
+                                <option value="NI">身份证</option>
+                                <option value="PP">护照</option>
+                                <option value="TN">票号</option>
+                                <option value="PP">其它</option>
+                            </select>
+                        </p>
+                        <p><span>查询号码</span><input type="text" name="CNumber" id="CNumber" placeholder="请输入正确的查询号码"
+                                                   title="请输入正确的查询号码"/></p>
+
+                        <p><span>乘客姓名</span><input type="text" name="PName" id="PName" placeholder="订票时使用的乘客姓名"
+                                                   title="订票时使用的乘客姓名"/></p>
+
+                        <p><span>验 证 码</span><input type="text" name="VerCode" id="VerCode" class="input-small"/><img
+                                id="imgVerCode" width="88px" height="28px" src="" title="点击切换验证码" alt="点击切换验证码"
+                                class="yzm_img"/></p>
+
+                        <p class="btn-center"><input type="button" id="SearchButton" value="办理值机" class="btn"/></p>
+
+                        <p class="btn-center"><a href="javascript:void(0);" id="SearchButton2" class="blue">值机记录查询</a>
+                        </p>
+
+                        <p class="btn-center divide-top">温馨提示：婴儿、特殊旅客暂时不能办理</p>
+
+                        <p class="btn-center"><a class="tips">《查看网上登机手续服务协议》</a></p>
+                    </form>
+                </div>
+                <!--/网上值机-->
+                <!--航班动态-->
+                <div class="hbdt_con flight" style="display:none;" mark="flight">
+                    <div class="tab-radiobox">
+                        <input type="radio" name="flidym" value="0" ng-model="flidymFlag" id="number"/><label for="number" onclick="javascript:$('#sub_flight').show().next().hide();">按航班号</label>
+                        <input type="radio" name="flidym" value="1" ng-model="flidymFlag" id="city" checked="checked"/><label for="city" onclick="javascript:$('#sub_flight').hide().next().show();" class="active">按城市</label>
+                    </div>
+                    <div id="sub_flight" style="display:none">
+                        <p><span>航  班  号</span><input type="text" id="flightNum" placeholder="GJ+4位数字" title="GJ+4位数字"
+                                                      value="GJ"/></p>
+
+                        <p><span>出发时间</span><input type="text" autocomplete="off" id="startTime2" placeholder="yyyy-mm-dd"/></p>
+
+                        <p class="btn-center"><a id="btnQueryTicket1" href="javascript:;" class="btn" ng-click="btnQueryFlightDynamic('0');">搜索航班</a></p>
+                    </div>
+                    <div id="sub_city">
+                        <p><span>出发城市</span><input type="text" autocomplete="off" placeholder="出发城市" title="出发城市"
+                                                   required
+                                                   id="startCity1"
+                                                   style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;"/>
+                        </p>
+
+                        <p><span>到达城市</span><input type="text" autocomplete="off" placeholder="到达城市" title="到达城市"
+                                                   required
+                                                   id="endCity1"
+                                                   style="background: url(/Resource/images/location.png) no-repeat right; margin-top: 2px; background-size: 19px 25px;"/>
+
+                        <p><span>出发时间</span><input type="text" autocomplete="off" id="startTime3" required
+                                                   placeholder="yyyy-mm-dd"/></p>
+
+                        <p class="btn-center"><a id="btnQueryTicket2" href="javascript:;" class="btn" ng-click="btnQueryFlightDynamic('1');">搜索航班</a></p>
+                        <div class="change_con"><a href="javascript:;" id="change1">换</a></div>
+                    </div>
+                </div>
+                <!--/航班动态-->
+                <!--商城-->
+                <div class="hbdt_con" style="display:none;" mark="mall">
+                    <div class="thumbnail"><img src="../Resource/images/res.png"></div>
+                </div>
+                <!--商城-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <!--
+    <div class="container">
+        <h2 class="imghead"><img src="../Resource/images/p_09.png"><span>长龙航空让您的旅程快乐、轻松。</span><a class="pull-right" href="#">更多活动&gt;&gt;</a>
+        </h2>
+    </div>
+    <div class="sectionpink">
+        <div class="container">
+            <div class="hotPic">
+                <div class="JQ-slide">
+                    <div class="JQ-slide-nav"><a class="prev" href="javascript:void(0);">&#8249;</a><a class="next"
+                                                                                                       href="javascript:void(0);">
+                        &#8250;</a></div>
+                    <div class="wrap">
+                        <ul class="JQ-slide-content imgList">
+                            <li>
+                                <a><img src="../Resource/images/img1.jpg" width="227" height="149"/></a>
+                            </li>
+                            <li>
+                                <a><img src="../Resource/images/img2.jpg" width="227" height="149"/></a>
+                            </li>
+                            <li>
+                                <a><img src="../Resource/images/img3.jpg" width="227" height="149"/></a>
+                            </li>
+                            <li>
+                                <a><img src="../Resource/images/img4.jpg" width="227" height="149"/></a>
+                            </li>
+                            <li>
+                                <a><img src="../Resource/images/img1.jpg" width="227" height="149"/></a>
+                            </li>
+                            <li>
+                                <a><img src="../Resource/images/img2.jpg" width="227" height="149"/></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h2 class="imghead"><img src="../Resource/images/p_26.png"></h2>
+
+                <div class="tabs">
+                    <ul class="country-choosen">
+                        <li class="active" data-href="nation"><a href="javascript:;">国内<span></span></a></li>
+                        <li data-href="foreign"><a href="javascript:;">国际<span></span></a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="nation">
+                        <div class="tabs tabs-small">
+                            <ul class="city-choosen">
+                                <li ng-class="{true:'active',false:''}[$index == 0]" ng-click="btnSpeciCityChange(speciCity.c.toLowerCase());" ng-if="$index <=3" ng-repeat="speciCity in SpecialTic.CityList track by $index" id="li_city_{{speciCity.c.toLowerCase()}}" data-href="city_{{speciCity.c.toLowerCase()}}">
+                                    <a href="javascript:;">{{speciCity.n}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane {{($index==0)?'active':''}}" ng-if="$index<=3" ng-repeat="speciCity in SpecialTic.CityList track by $index" id="city_{{speciCity.c.toLowerCase()}}">
+                                <ul class="tit-list">
+                                    <li ng-class="{true:'', false:'odd'}[$index % 2 ==0]" ng-if="tic.DepartureAirportCode==speciCity.c && $index<=5" ng-repeat="tic in SpecialTic.AirLineList|filter:{DepartureAirportCode:speciCity.c} track by $index">
+                                        <a href="javascript:;" ng-click="btnSpeciTicketQuery(tic);"><b>{{tic.DepartureAirportCH}}-{{tic.ArriveAirportCH}}</b><span>￥{{tic.Price}}</span><i>{{tic.FlightDate | date:'MM-dd'}}</i></a>
+                                    </li>
+                                </ul>
+                                <a class="more" target="_blank" href="/ETicket/SpecialTicket.html">更多特价机票&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="foreign">
+                        <div class="thumbnail"><img src="/Resource/images/res.png" width="200"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="span8">
+                <h2 class="imghead"><img src="/Resource/images/p_29.png"></h2>
+
+                <div>
+                    <ul class="xconbox" name="rmmd" style="display: block;">
+                        <li>
+                            <a href="/Others/PopDestination/Xiamen.html" target="_blank"><img
+                                    src="/Resource/images/cp1.jpg" width="336" height="300" class="img"></a>
+
+                            <div class="hd" style="display: block;"><a href="/Others/PopDestination/Xiamen.html" target="_blank">启航厦门</a></div>
+                        </li>
+                        <li>
+                            <a href="/Others/PopDestination/HangzhouBeijing.html" target="_blank"><img
+                                    src="/Resource/images/cp2.jpg" width="336" height="300" class="img"></a>
+
+                            <div class="hd"><a href="/Others/PopDestination/HangzhouBeijing.html" target="_blank">杭州=北京霸气之旅</a></div>
+                        </li>
+                        <li>
+                            <a href="/Others/PopDestination/Nanjing.html" target="_blank"><img
+                                    src="/Resource/images/cp3.jpg" width="336" height="300" class="img"></a>
+
+                            <div class="hd"><a href="/Others/PopDestination/Nanjing.html" target="_blank">南京印象</a></div>
+                        </li>
+                        <li class="last-li">
+                            <a href="/Others/PopDestination/Lijiang.html" target="_blank"><img
+                                    src="/Resource/images/cp4.jpg" width="336" height="300" class="img"></a>
+
+                            <div class="hd"><a href="/Others/PopDestination/Lijiang.html" target="_blank">丽江之旅</a></div>
+
+                        </li>
+                        <!--<li><a><div class="txt"><a class="more">更多旅程&gt;</a></div></a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+        <div class="row">
+            <div class="span3" style="width:33.33%;">
+                <h2 class="imghead"><img src="../Resource/images/p_45.png">></h2>
+
+                <div class="describe">
+                    <p>国内机票最高优惠30%.....</p>
+
+                    <p>长龙航空让您的旅途轻松、愉快</p>
+                </div>
+                <a class="more" href="/Others/Promotion/MorePromotion.html" target="_blank">更多促销与优惠&gt;</a>
+            </div>
+            <div class="span4" style="width:34%;height:224px;">
+                <ul class="ads" style="margin:0;">
+                    <li class="imgads">
+                        <a href="/Others/Promotion/Chifeng.html" target="_blank">
+                            <img src="/Resource/images/loongairBK.jpg" style="width:100%; height:229px;"></a>
+
+                        <div class="hd"
+                             style="position: absolute;bottom: 0;left: 0;width: 100%;height: 50px;line-height: 50px;text-align:center;background:#eedbcd;background:rgba(224,183,152,0.5);color: #fff;">
+                            <a href="/Others/Promotion/Chifeng.html"
+                               style="font-size:16px;font-weight:500;color: white; margin-bottom: 30px;" target="_blank">长龙夏季
+                                爆款推荐</a></div>
+                    </li>
+
+                    <!--
+                    <li class="imgads"><a href="/Others/Promotion/Chifeng.html" target="_blank"><img
+                            src="/Resource/images/limg.jpg" width="271" height="112"></a></li>
+                    <li class="slides"><a href="/Others/Promotion/Xinjiang.html" target="_blank"><img
+                            src="/Resource/images/limg2.jpg" width="271" height="112"></a></li>
+                    -->
+
+
+                    <!--<li class="JQ-slide slides">
+                        <ul class="slidetexts JQ-slide-content">
+                            <li><div class="textads"><p>长龙假期 爆款推荐</p><p>$800/人起</p></div></li>
+                            <li><div class="textads"><p>长龙假期 爆款推荐</p><p>$1200/人起</p></div></li>
+                            <li><div class="textads"><p>长龙假期 爆款推荐</p><p>$880/人起</p></div></li>
+                        </ul>
+                        <div class="JQ-slide-nav"><a class="prev" href="javascript:void(0);">&#8249;</a><a class="next" href="javascript:void(0);">&#8250;</a></div>
+                    </li>-->
+                </ul>
+            </div>
+            <div class="span5" style="float: right;width:325px;height:229px;">
+                <div class="news" style="padding-right:0;">
+                    <h2 class="imghead" style="padding-bottom: 10px;"><img src="/Resource/images/p_48.png"></h2>
+                    <ul class="posts tit-list">
+                        <li style="overflow: hidden;"><a href="/Others/News/News.html?ID=1" target="_blank" title="关于长龙航空暂停与去哪儿网合作的公告">关于长龙航空暂停与去哪儿网合作的公告</a>
+                        </li>
+                        <li class="odd" style="overflow: hidden;"><a href="/Others/News/News.html?ID=2" target="_blank"
+                                           title="长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名">长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名</a>
+                        </li>
+                        <li style="overflow: hidden;"><a href="/Others/News/News.html?ID=3" target="_blank" title="长龙航空2月10日新开杭州=桂林=西双版纳航线">长龙航空2月10日新开杭州=桂林=西双版纳航线</a>
+                        </li>
+                        <li class="odd" style="overflow: hidden;"><a href="/Others/News/News.html?ID=4" target="_blank"
+                                           title="长龙航空评选出“2015年度优秀地面服务代理人">长龙航空评选出“2015年度优秀地面服务代理人</a></li>
+                        <li style="overflow: hidden;"><a href="/Others/News/News.html?ID=5" target="_blank" title="长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆">长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script type="text/javascript">
+    $(function () {
+
+        var today = new Date();
+
+        $("#startTime").focus(function (e) {
+            calendar.show({
+                id: this,
+                minDay: today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                mode: "double",
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#startTime").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+
+        $("#startTime2").focus(function (e) {
+            calendar.show({
+                id: this,
+                minDay: today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                mode: "double",
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#startTime2").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+
+        $("#startTime3").focus(function (e) {
+            calendar.show({
+                id: this,
+                minDay: today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                mode: "double",
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#startTime3").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+
+        $("#endTime").focus(function (e) {
+            if ($(this).attr("readOnly")) {
+                return;
+            } else {
+                calendar.show({
+                    id: this,
+                    minDay: $("#startTime").val(),
+                    maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                    mode: "double",
+                    ok: function () {
+                        //callback ;
+                    }
+                });
+            }
+        });
+        $("#endTime").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+/*
+        $(".indexbanner").slide({
+            slideContainer: $('.indexbanner a'),
+            effect: 'easeOutCirc',
+            autoRunTime: 5000,
+            slideSpeed: 1000,
+            nav: true,
+            autoRun: true,
+            prevBtn: $('a.prevbtn'),
+            nextBtn: $('a.nextbtn')
+        });
+*/
+        var bannerSlider = new Slider($('.indexbanner'), {
+            time: 5000,
+            delay: 400,
+            event: 'click',
+            auto: true,
+            mode: 'fade',
+            controller: $('#bannerCtrl'),
+            activeControllerCls: 'active'
+        });
+
+        $(".hotPic .JQ-slide").Slide({
+            autoPlay: false,
+            effect: "scroolX",
+            speed: "normal",
+            timer: 9000
+        });
+        $(".slides").Slide({
+            effect: "scroolX",
+            speed: "normal",
+            autoPlay: false,
+            timer: 3000
+        });
+
+    })
+</script>
+</body>
+</html>

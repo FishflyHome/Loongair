@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/CustomCtl.js"></script>
+</head>
+<body ng-controller="laAir_Custom_ProblemPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <h2>常见问题</h2>
+
+                <div class="art-content">
+                    <p>
+                        长龙航空开始办理航班乘机手续的时间一般不迟于客票上列明的航班离站时间前90分钟。旅客应当在长龙航空规定的时限内到达机场，凭客票及本人有效身份证件按时办理客票查验、托运行李、领取登机牌等乘机手续。如旅客未能按时到达乘机登机处，或未能出示其有效身份证件及运输凭证，或未能做好旅行准备，长龙航空为不延误航班可取消旅客已定妥的座位。对旅客由此产生的损失和费用，长龙航空不承担责任。</p>
+
+                    <p><strong>定座</strong></p>
+
+                    <p>
+                        旅客只有在定妥座位以后，才能凭该定妥座位的客票乘机。旅客可根据有关规定向长龙航空、长龙航空授权的销售代理人售票处、长龙航空销售服务热线以及登录长龙航空官方网站预订座位。已定座位的旅客须在长龙航空规定或预先约定的时限内购票，否则，原定座位不予保留。</p>
+
+                    <p><strong>儿童票、婴儿票</strong></p>
+
+                    <p>
+                        已满2周岁未满12周岁的儿童可按照同一航班成人普通全价票的50%购买儿童票，官网支持儿童与成人同舱同价位购买或按全价票的一半进行购买，提供座位。每一成人旅客携带婴儿超过一名时，超过人数的婴儿应支付儿童票价。如果旅客需同时携带婴儿和儿童，则最多只能携带一名婴儿及二名儿童。</p>
+
+                    <p><strong>退票</strong></p>
+
+                    <p>旅客在客票的有效期内没有完成部分或全部航段，可以提出退票申请。如客票上已注明“不得退票”、“NON-REF”或“NON-REFUND”，该客票不得退票。
+                        旅客退票须持本人有效旅行证件及客票（如适用）至长龙航空规定的退票地点办理退票手续。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

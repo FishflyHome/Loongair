@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/SafetyTransport.js"></script>
+</head>
+<body ng-controller="laAir_Info_Safety_DangerousGoodsPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <div class="article">
+                    <h2>危险品运输规定</h2>
+
+                    <div class="art-content">
+                        <p>以下物品均为危险品：</p>
+
+                        <p><strong>（一）危险品</strong></p>
+
+                        <p>1．爆炸品；</p>
+
+                        <p>2．气体，包括易燃和非易燃无毒气体、有毒气体；</p>
+
+                        <p>3．易燃液体；</p>
+
+                        <p>4．易燃固体、自燃物质和遇水释放易燃气体的物质；</p>
+
+                        <p>5．氧化剂和有机过氧化物；</p>
+
+                        <p>6．毒性物质和传染性物质；</p>
+
+                        <p>7．放射性物质；</p>
+
+                        <p>8．腐蚀性物质；</p>
+
+                        <p>9．磁性物质；</p>
+
+                        <p>10．具有麻醉或其他类似气味或性质的物质；</p>
+
+                        <p>11．容易污损飞机的物品；</p>
+
+                        <p>12．长龙航空规定不得作为行李运输的其他危险物品。</p>
+
+                        <p><strong>（二）枪支，含各种仿真玩具枪、枪型打火机及其他各种类型带有攻击性的武器，但体育运动用器械除外。</strong></p>
+
+                        <p><strong>（三）军械、警械。</strong></p>
+
+                        <p><strong>（四）管制刀具。</strong></p>
+
+                        <p><strong>（五）国家规定的其它禁运物品。</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

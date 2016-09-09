@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/PointsCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberPointsPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+
+        <div ng-include="'LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="vipmessage">
+                    <br/>
+
+                    <h2>积分信息</h2>
+
+                    <div class="text-info">
+                        <p class="mship"><label>您好：<span>张三</span>，</label><label>您的卡号是：ASD1233333</label></p>
+
+                        <p class="mship"><label>会员等级：[等级] 会员，</label><label> 可用积分：<span>1200</span></label></p>
+
+                        <p class="mship"><label>您的下一个等级是[下一等级] 会员，</label><label><a
+                                onClick="$('.modal').modal('show');">点此可查看[下一等级]会员权益>></a></label></p>
+                    </div>
+                    <div class="text-default">
+                        <p class="mship"><label>总累计积分：<span>1200</span>，</label>
+                            <label>升级积分：<span>200</span></label>
+                            <label>升级航段：<span>700</span></label>
+                        </p>
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <h2>积分明细</h2>
+
+                    <div class="media-cilent">
+                        <div class="row_filter">
+                            <label class="span7">消费日期：
+                                <input type="text" autocomplete="off" id="startTime" ng-model="startTime">
+                                &nbsp;至&nbsp;
+                                <input type="text" autocomplete="off" id="endTime" ng-model="endTime">
+                                &nbsp;&nbsp;
+                            </label>
+                            <label class="span3">积分状态
+                                <select style="width:auto">
+                                    <option>全部积分</option>
+                                    <option>已审积分</option>
+                                    <option>未审积分</option>
+                                </select>
+                            </label>
+                            <label class="pull-right">
+                                <button class="btn btn-warning"><i class="icon-search"></i>查询</button>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>累计日期</th>
+                                <th>积分数</th>
+                                <th>有效期</th>
+                                <th>累计来源</th>
+                                <th>状态</th>
+                                <th>积分属性</th>
+                                <th>航段属性</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>2011-11-11</td>
+                                <td>2000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>2011-11-11</td>
+                                <td>220</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-body" style="max-height:480px; overflow-y:scroll;">
+        <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+                <th colspan="2">尊享礼遇</th>
+                <th>银卡</th>
+                <th>金卡</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="4">预订专享</td>
+                <td>7*24小时贵宾服务专线</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>优先座位选择</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>优先候补机位</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>优先保证付费机票定做</td>
+                <td>是（起飞前48小时内）</td>
+                <td>是（起飞前48小时内）</td>
+            </tr>
+            <tr>
+                <td rowspan="2">登机专享</td>
+                <td>专享值机柜台</td>
+                <td>长龙会员服务柜台</td>
+                <td>头等舱服务柜台</td>
+            </tr>
+            <tr>
+                <td>优先登机</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td rowspan="4">行李专享</td>
+                <td>额外托运行李限额</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>优先处理托运行李</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>特别手提行李限额</td>
+                <td></td>
+                <td>5公斤</td>
+            </tr>
+            <tr>
+                <td>优先提取行李</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td rowspan="3">专享贵宾室</td>
+                <td>享用机场贵宾室</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>同行贵宾</td>
+                <td></td>
+                <td>1名</td>
+            </tr>
+            <tr>
+                <td>兑换机场贵宾室使用券</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td rowspan="3">贵宾专属<br>额外礼遇</td>
+                <td>额外的积分奖励</td>
+                <td></td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>额外获赠机场贵宾室使用券</td>
+                <td>1张</td>
+                <td>2名</td>
+            </tr>
+            <tr>
+                <td>额外获赠机票升舱券</td>
+                <td>1张</td>
+                <td>2张</td>
+            </tr>
+            <tr>
+                <td rowspan="2">不正常<br>航班时</td>
+                <td>专享待遇</td>
+                <td>享受公务舱地面服务待遇</td>
+                <td>享受头等舱地面服务待遇</td>
+            </tr>
+            <tr>
+                <td>同行贵宾</td>
+                <td></td>
+                <td>1名同享金卡待遇</td>
+            </tr>
+            <tr>
+                <td rowspan="2">票务专享</td>
+                <td>机票免费变更及退票</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>奖励机票的免费变更</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td rowspan="7">会籍假期</td>
+                <td>是</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>享专用邮箱</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>优先尊享推广活动及计划</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>航空杂志</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>生日尊享问候</td>
+                <td>是</td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>生日尊享礼物</td>
+                <td></td>
+                <td>是</td>
+            </tr>
+            <tr>
+                <td>享专用邮箱</td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function (){
+
+        var today = new Date();
+        $("#startTime").click(function (e){
+            calendar.show({
+                id: this,
+                minDay: '2010-1-1',
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#endTime").click(function (e){
+            if($(this).attr("readOnly")){
+                return;
+            }else{
+                calendar.show({
+                    id: this,
+                    minDay: $("#startTime").val(),
+                    ok: function () {
+                        //callback ;
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

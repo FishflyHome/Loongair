@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/PayOrderCtl.js"></script>
+</head>
+<body ng-controller="laAir_ETicket_PayOrderPageCtl">
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container" ng-if="orderInfo">
+        <div class="panel panel-gray">
+            <div class="orderprice">
+                订单总金额<b><span style="color:orange">￥{{orderInfo.OrderAmountWithTax}}</span></b>
+                <span ng-if="orderInfo.IntegralType==2">&nbsp;&nbsp;积分<b><span style="color:orange">{{orderInfo.OrderIntegral}}</span></b></span>
+            </div>
+            <p class="warning"><i class="icon-warning"></i>注意：您需要在30分钟内完成支付，过期我们将取消订单</p>
+
+            <p class="order-no"><strong>订单编号</strong>：{{orderInfo.OrderId}}</p>
+        </div>
+        <div class="panelt">
+            <div class="panelt-head">
+                <h2>航班信息</h2>
+            </div>
+            <div class="airline" ng-repeat="fli in orderInfo.FlightList track by $index">
+                <div class="a-msg">
+                    <div class="icon-logo">
+                        <b>长龙航空</b><span>{{fli.FlightNum}}</span><span>{{fli.JiXing}}</span>
+                        <!--<a class="btn btn-yellow btn-small pull-right">经停 &nbsp;&nbsp; 襄阳</a>-->
+                    </div>
+                </div>
+                <div class="flight2">
+                    <p><span style="width:150px;"><strong>出发日期</strong></span></p>
+                    <p><span style="width:150px;"><strong>{{fli.DepartureTime | date:'yyyy-MM-dd'}}</strong></span></p>
+                </div>
+                <div class="flight2" style="margin-left: 100px;">
+                    <p><span><strong>出发:{{fli.DepartureTime | date:'HH:mm'}}</strong></span><span style="width:300px;">{{fli.DepartureAirportCH}}</span></p>
+
+                    <p><span><strong>到达:{{fli.ArriveTime | date:'HH:mm'}}</strong></span><span style="width:300px;">{{fli.ArriveAirportCH}}</span></p>
+                </div>
+                <div class="prices">
+                    <ul>
+                        <li class="level">{{fli.CabinType}}({{fli.Cabin}})</li>
+                        <!--<li class="pull-right detail"><span>机票：￥880</span><span>基建：￥880</span><span>燃油：￥880</span></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panelt">
+            <div class="panelt-head">
+                <h2>乘机人</h2>
+            </div>
+            <div>
+                <table class="tableorder">
+                    <tr>
+                        <td>姓名</td>
+                        <td>证件类型/证件号码</td>
+                        <td>出生日期</td>
+                        <td>购票类型</td>
+                        <td style="text-align: left;">费用</td>
+                    </tr>
+                    <tr ng-repeat="psg in orderInfo.Passengers track by $index">
+                        <td>{{psg.PassengerName}}</td>
+                        <td>{{psg.FoidTypeDisplay}}<br>{{psg.Foid}}</td>
+                        <td>{{psg.Brithday | date:'yyyy-MM-dd'}}</td>
+                        <td>{{psg.TravellerTypeDisplay}}</td>
+                        <td style="text-align: left;">
+                            <div>机票：<span style="color:orange; margin-left: 15px;">￥{{psg.AllTktAmount}}</span></div>
+                            <div ng-if="orderInfo.OrderType == 5">机票差价：<span style="color:orange; margin-left: 15px;">{{psg.AllTktAmount}}</span></div>
+                            <div ng-if="orderInfo.OrderType == 5">改期手续费：<span style="color:orange; margin-left: 15px;">{{psg.AllChangeHandleFee}}</span></div>
+                            <div>机建：<span style="color:orange; margin-left: 15px;">￥{{psg.AllAirportAmount}}</span></div>
+                            <div>燃油：<span style="color:orange; margin-left: 15px;">￥{{psg.AllFuelAmount}}</span></div>
+                            <div ng-bind-html="createInsuranceHtml(psg)"></div>
+                            <div>快递费：<span style="color:orange; margin-left: 3px;">￥{{(orderInfo.Address.ExpressChange!=undefined)?orderInfo.Address.ExpressChange:"0"}}</span></div>
+                            <div>其他：<span style="color:orange; margin-left: 15px;">￥{{psg.AllOtherAmount}}</span></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panelt">
+            <div class="panelt-head">
+                <h2>联系人</h2>
+            </div>
+            <div>
+                <table class="tableorder">
+                    <tr>
+                        <td style="text-align:right">联系人：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsName}}</td>
+                        <td style="text-align:right">手机号码：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsMobile}}</td>
+                        <td style="text-align:right">电子邮箱：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsEMail}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right">电话：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsPhone}}</td>
+                        <td style="text-align:right">邮编：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsZIP}}</td>
+                        <td style="text-align:right">地址：</td>
+                        <td style="text-align:left">{{orderInfo.Contacts.ContactsAddress}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panelt" ng-if="orderInfo.Address != undefined">
+            <div class="panelt-head">
+                <h2>行程单</h2>
+            </div>
+            <div>
+                <table class="tableorder">
+                    <tr>
+                        <td style="text-align:right;width:10%;">联系人：</td>
+                        <td style="text-align:left;width:20%;">{{orderInfo.Address.Name}}</td>
+                        <td style="text-align:right;width:10%;">手机号码：</td>
+                        <td style="text-align:left;width:20%;">{{orderInfo.Address.Mobile}}</td>
+                        <td style="text-align:right;width:10%;">电话：</td>
+                        <td style="text-align:left;">{{orderInfo.Address.Phone}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right">省份：</td>
+                        <td style="text-align:left">{{orderInfo.Address.Province}}</td>
+                        <td style="text-align:right">城市：</td>
+                        <td style="text-align:left">{{orderInfo.Address.City}}</td>
+                        <td style="text-align:right">城区：</td>
+                        <td style="text-align:left">{{orderInfo.Address.District}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right">快递信息：</td>
+                        <td style="text-align:left">{{orderInfo.Address.ExpressTypeDisplay +"  ￥" + orderInfo.Address.ExpressChange}}</td>
+                        <td style="text-align:right">详细地址：</td>
+                        <td style="text-align:left" colspan="3">{{orderInfo.Address.DetialAddress}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="pay">
+            <h2>银行卡支付</h2>
+            <div>
+                <label ng-repeat="B in channelList.BankList track by $index">
+                    <input type="radio" name="bankcard" ng-value="{{B.BankCode}}" ng-click="btnChoosePayType(B.PayPlatCode, B.BankCode);">
+                    <img ng-src="../Resource/images/pay_{{B.BankCode}}.png" alt="{{B.BankName}}">
+                </label>
+            </div>
+        </div>
+        <div class="pay">
+            <h2>平台支付</h2>
+
+            <div>
+                <label ng-repeat="P in channelList.PayPlat track by $index">
+                    <input type="radio" name="bankcard" ng-value="{{P.PayPlatCode}}" ng-click="btnChoosePayType(P.PayPlatCode, '');">
+                    <img ng-src="../Resource/images/pay_{{P.PayPlatCode}}.png" alt="{{P.PayPlatName}}">
+                </label>
+            </div>
+        </div>
+        <div class="submit-pay">
+            <a class="btn btn-large pull-right" ng-href="{{orderPayUrl}}" target="_blank" ng-click="btnGoPayment();" ng-if="orderInfo.OrderStatus==1 && orderInfo.PayStatus==1">去支付</a>
+        </div>
+        <div class="divide"></div>
+    </div>
+    <div class="container" ng-if="!orderInfo">
+        <div class="panel panel-gray">
+            <h3>未查到对应的订单信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<div class="modal">
+    <div class="modal-body">
+        <div class="tabs">
+            订单支付
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="vipbuy">
+                <div class="vp-submit text_center">
+                    <a class="btn " href="OrderDetail.html?ordId={{orderInfo.OrderId}}">完成支付</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-warning" style="background:#dedede;" href="OrderDetail.html?ordId={{orderInfo.OrderId}}">支付遇到问题</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

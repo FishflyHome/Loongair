@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/CustomCtl.js"></script>
+</head>
+<body ng-controller="laAir_Custom_RefundRulePageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <h2>退改签规定</h2>
+
+                <div class="art-content">
+                    <p>
+                        <strong>关于修订长龙航空国内多等级舱位<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp; 自愿变更及退票管理规定的业务通告</strong>
+                    </p>
+
+                    <p>
+                        <strong> 一、自愿变更<span></span> </strong>
+                    </p>
+
+                    <p>
+                        <strong>变更费及升舱差额均按票面价格计算，以系统中退座时间为准（官网、去哪儿旗舰店及微信<span>APP</span>以旅客提交申请时间为准）；变更费小数点后面四舍五入到个位。<span></span></strong>
+                    </p>
+
+                    <p>
+                        <strong><b>1. </b><b>同舱变更<span></span></b></strong>
+                    </p>
+
+                    <p>
+                        （<span>1</span>）订座系统中航班起飞时刻前两小时前<span>(</span>含<span>)</span>办理：
+                    </p>
+
+                    <p>F/C/R/R1/Y舱客票，在航班有效期内免费变更；</p>
+
+                    <p>
+                        B/M/H/K/L舱客票，每次变更收取 <span><strong>10％</strong></span> 的手续费；
+                    </p>
+
+                    <p>
+                        <span></span>P/Q/G舱客票，每次变更收取<span>25</span>％的手续费；<span></span>
+                    </p>
+
+                    <p>
+                        V/U/Z舱客票，每次变更收取<span>45</span>％的手续费；<span></span>
+                    </p>
+
+                    <p>
+                        <span style="line-height:1.5;">（</span><span style="line-height:1.5;">2</span><span
+                            style="line-height:1.5;">）订座系统中航班起飞时刻前两小时后办理：</span>
+                    </p>
+
+                    <p>
+                        F/C/R/R1/Y舱客票，每次变更收取<span>5</span>％的手续费；
+                    </p>
+
+                    <p>
+                        B/M/H/K/L舱客票，每次变更收取<span>20</span>％的手续费；
+                    </p>
+
+                    <p>
+                        P/Q/G舱客票，每次变更收取<span>35</span>％的手续费；
+                    </p>
+
+                    <p>
+                        V/U/Z舱客票，每次变更收取<span>65</span>％的手续费；
+                    </p>
+
+                    <p>
+                        （<span>3</span>） 同舱位间变更若存在高票价改低票价或低票价改高票价时，按以下第<span>2</span>条舱位间的变更规则办理。<b><span></span></b>
+                    </p>
+
+                    <p>
+                        <b>2.</b><b>舱位间的变更<span></span></b>
+                    </p>
+
+                    <p>
+                        （<span>1</span>）从高等级舱位改为低等级舱位或高票价变更至低票价，按自愿退票办理，重购客票；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>2</span>）从低等级舱位改为高等级舱位或低票价变更至高票价，换开客票时，收取原票面价与变更后适用舱位票价的票款差额，同时，按各舱位对应规则收取变更手续费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>3</span>）若舱位升高但价格降低时，按本条第（<span>1</span>）条办理；若舱位降低但价格升高时，按第（<span>2</span>）条办理。<span></span>
+                    </p>
+
+                    <p>
+                        3. E/D/I及其子舱位舱客票，不得自愿变更。<span></span>
+                    </p>
+
+                    <p>
+                        4. 各明折明扣舱位子舱位（<span>R1</span>除外），不得自愿变更。<span></span>
+                    </p>
+
+                    <p>
+                        5. 使用儿童、革命伤残军人和因公致残人民警察票价的客票按所使用舱位变更规定执行。<span></span>
+                    </p>
+
+                    <p>
+                        6. 使用婴儿票价的客票，客票有效期内免费变更。<span></span>
+                    </p>
+
+                    <p>
+                        7. 团队旅客购票后，如需变更，按自愿退票处理。<span></span>
+                    </p>
+
+                    <p>
+                        8. 使用其他舱位客票，依据对应文件规定执行。 <span></span>
+                    </p>
+
+                    <p>
+                        9. 旅客自愿变更航班后，如变更前后机型不同，民航发展基金多退少补。<span></span>
+                    </p>
+
+                    <p>
+                        10. 变更航程<span></span>
+                    </p>
+
+                    <p>
+                        旅客如需变更航程，则按自愿退票处理。<span></span>
+                    </p>
+
+                    <p>
+                        <b>二、自愿退票<span></span></b>
+                    </p>
+
+                    <p>
+                        退票费按票面价计算，以系统中退座时间为准（官网、去哪儿旗舰店及微信<span>APP</span>以旅客提交退票申请时间为准）。退票费小数点后面四舍五入到个位。退票时，代理费和促销费一并收回。<span></span>
+                    </p>
+
+                    <p>
+                        1. 订座系统中航班起飞时刻前两小时前（含）前办理：<span></span>
+                    </p>
+
+                    <p>
+                        （<span>1</span>）<span>F/C/R/R1/Y</span>舱客票，收取<span>5</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>2</span>）<span>B/M/H/K/L</span>舱客票，收取<span>20</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>3</span>）<span>P/Q/G</span>舱客票，收取<span>35</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>4</span>）<span>V/U/Z</span>舱客票，收取<span>65</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        2. 订座系统中航班起飞时刻前两小时后办理：<span></span>
+                    </p>
+
+                    <p>
+                        （<span>1</span>）<span>F/C/R/R1/Y</span>舱客票，收取<span>10</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>2</span>）<span>B/M/H/K/L</span>舱客票，收取<span>30</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>3</span>）<span>P/Q/G</span>舱客票，收取<span>45</span>％的退票费；<span></span>
+                    </p>
+
+                    <p>
+                        （<span>4</span>）<span>V/U/Z</span>舱不得自愿退票；<span></span>
+                    </p>
+
+                    <p>
+                        3. E/D/I舱客票，不得自愿退票。<span></span>
+                    </p>
+
+                    <p>
+                        4. 各明折明扣舱位子舱位（<span>R1</span>除外），不得自愿退票。<span></span>
+                    </p>
+
+                    <p>
+                        5. 儿童、革命伤残军人和因公致残人民警察客票，按照其订座舱位规定执行。<span></span>
+                    </p>
+
+                    <p>
+                        6. 婴儿客票免费退票。<span></span>
+                    </p>
+
+                    <p>
+                        7. 其他舱位客票参照对应文件规定执行。<span></span>
+                    </p>
+
+                    <p>
+                        8. 过期客票，仅退还民航发展基金和燃油附加费。<span></span>
+                    </p>
+
+                    <p>
+                        9. 同舱变更后如需退票，已收取的变更费不退。<span></span>
+                    </p>
+
+                    <p>
+                        10. 升舱或同舱低票价变更至高票价的客票退票，全额退还补收的差额，剩余部分按原客票舱位及退座时间（多次变更按第一张客票退座时间）收取退票费，已收取的变更费不退。<span></span>
+                    </p>
+
+                    <p>
+                        <b>三、其他<span></span></b>
+                    </p>
+
+                    <p>
+                        本规定自<span>2016</span>年<span>1</span>月<span>26</span>日（含，出票日期）起生效，其余多等级舱位操作均按《国内业务通告第<span>2015</span>【<span>011</span>】期关于修订长龙航空国内多等级舱位销售管理规定的通知》文件执行。过渡期间按以下执行：<span></span>
+                    </p>
+
+                    <p>
+                        1.
+                        出票日期在<span>2016</span>年<span>1</span>月<span>26</span>日（含）以后，若发生的客票变更、退票操作业务按本文件执行；<span></span>
+                    </p>
+
+                    <p>
+                        2.
+                        2016年<span>1</span>月<span>26</span>日（不含）前销售的客票，若在<span>2016</span>年<span>1</span>月<span>26</span>日（含）后首次发生变更业务，仍按原国内多等级舱位管理规定办理。若变更后再发生变更、退票业务，则按照本规定执行。<span></span>
+                    </p>
+
+                    <p>
+                        3.
+                        2016年<span>1</span>月<span>26</span>日（不含）前销售的客票，若在<span> 2016</span>年<span>1</span>月<span>26</span>日（含）后发生退票业务，仍按原国内航班多等级舱位管理规定办理。<span></span>
+                    </p>
+
+                    <p>
+                        四、本文件由长龙航空市场营销部负责解释。若有变更另行下文通知。未尽事宜按《浙江长龙航空有限公司旅客、行李国内运输总条件》执行。<span></span>
+                    </p>
+
+                    <p>
+                        &nbsp;
+                    </p>
+
+                    <p>
+                        附件：《明折明扣舱位使用条件简表》<span></span>
+                    </p>
+                    </span>
+                    <p>
+                        <br>
+                    </p>
+
+                    <p>
+                        <span> </span>
+                    </p>
+
+                    <p>
+                        附件：<span>1.</span>
+                    </p>
+
+                    <p align="center" style="text-align:center;">
+                        <b>长龙航空明折明扣舱位使用条件简表<span></span></b>
+                    </p>
+                    <table border="0" cellspacing="0" cellpadding="0" align="left" class="table">
+                        <tbody>
+                        <tr>
+                            <td width="57" rowspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>服务等级<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="57" rowspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>订座舱位<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="57" rowspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>票价级别<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="274" colspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>退票手续费<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="269" colspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>变更手续费<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="52" rowspan="2">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>签转<span></span></span></b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="146">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>订座系统中航班起飞前<span>2</span>小时前<span> (</span>含<span>)</span>办理<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="128">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>订座系统中航班起飞前<span>2</span>小时后办理<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="142">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>订座系统中航班起飞前<span>2</span>小时前<span> (</span>含<span>)</span>办理<span></span></span></b>
+                                </p>
+                            </td>
+                            <td width="127">
+                                <p align="center" style="text-align:center;">
+                                    <b><span>订座系统中航班起飞前<span>2</span>小时后办理<span></span></span></b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>头等舱<span></span></span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>F</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>F</span>
+                                </p>
+                            </td>
+                            <td width="146" rowspan="4">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>5%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="128" rowspan="4">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>10%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="142" rowspan="4">
+                                <p align="center" style="text-align:center;">
+                                    <span>免费变更<span></span></span>
+                                </p>
+                            </td>
+                            <td width="127" rowspan="4">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>5%</span>变更费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="52" rowspan="4">
+                                <p align="center" style="text-align:center;">
+                                    <span>允许<span></span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>公务舱<span></span></span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>C</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>C</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>超级经济舱<span></span></span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>R</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>R</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57" rowspan="12">
+                                <p align="center" style="text-align:center;">
+                                    <span>经济舱<span></span></span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Y</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Y</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>B</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>B</span>
+                                </p>
+                            </td>
+                            <td width="146" rowspan="5">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>20%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="128" rowspan="5">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>30%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="142" rowspan="5">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>10%</span></span><span>变更费</span><span></span>
+                                </p>
+                            </td>
+                            <td width="127" rowspan="5">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>20%</span></span><span>变更费</span><span></span>
+                                </p>
+                            </td>
+                            <td width="52" rowspan="8">
+                                <p align="center" style="text-align:center;">
+                                    <span>不允许<span></span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>M</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>M</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>H</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>H</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>K</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>K</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>L</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>L</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>P</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>P</span>
+                                </p>
+                            </td>
+                            <td width="146" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>35%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="128" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>45%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="142" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>25%</span></span><span>变更费</span><span></span>
+                                </p>
+                            </td>
+                            <td width="127" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>35%</span></span><span>变更费</span><span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Q</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Q</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>G</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>G</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>V</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>V</span>
+                                </p>
+                            </td>
+                            <td width="146" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>65%</span>退票费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="128" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>不允许<span></span></span>
+                                </p>
+                            </td>
+                            <td width="142" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>45%</span>变更费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="127" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>收取<span>65%</span>变更费<span></span></span>
+                                </p>
+                            </td>
+                            <td width="52" rowspan="3">
+                                <p align="center" style="text-align:center;">
+                                    <span>不允许<span></span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>U</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>U</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Z</span>
+                                </p>
+                            </td>
+                            <td width="57">
+                                <p align="center" style="text-align:center;">
+                                    <span>Z</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

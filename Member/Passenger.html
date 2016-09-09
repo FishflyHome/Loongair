@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/PassengerCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberPassengerPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+
+        <div ng-include="'LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="media-cilent">
+                    <div class="pull-left"><img src="/Resource/images/hi.png"></div>
+                    <h2>{{UserInfo.Name}}</h2>
+
+                    <p>欢迎您登录长龙会员中心</p>
+                </div>
+                <div class="vipmessage" ng-if="PassengerList && PassengerList.length>0">
+                    <h2>常用乘机人</h2>
+
+                    <div>
+                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>旅客类型</th>
+                                <th>姓名</th>
+                                <th>证件类型</th>
+                                <th>证件号码</th>
+                                <th>手机号码</th>
+                                <th>电子邮箱</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="psg in PassengerList track by $index">
+                                <td>{{psg.TravellerTypeCH}}</td>
+                                <td>{{psg.FlierName}}</td>
+                                <td>{{psg.FoidTypeCH}}</td>
+                                <td>{{psg.Foid}}</td>
+                                <td>{{psg.Mobile}}</td>
+                                <td>{{psg.EMail}}</td>
+                                <td><a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnEditPassengerClick(psg);">修改</a>
+                                    <a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnDelPassengerClick(psg.Tid)">删除</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <h2>常用旅客信息</h2>
+
+                    <div class="clip">
+                        <div class="control-group">
+                            <label class="control-label"><span style="color: red;">*</span>乘客类型:</label>
+
+                            <div class="controls">
+                                <select id="cmbPtype" ng-model="Passenger.TravellerType" ng-options="t.v as t.t for t in psgTypeOptions">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span style="color: red;">*</span>姓名:</label>
+
+                            <div class="controls">
+                                <input type="text" ng-model="Passenger.FlierName" ng-change="CheckFlierName();" placeholder="请输入姓名">
+                                <input type="hidden"  ng-model="Passenger.Tid">
+                                <span class="error" ng-show="!psgNameValid">请输入姓名</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span style="color: red;">*</span>证件类型:</label>
+
+                            <div class="controls">
+                                <select id="cmbFtype" ng-model="Passenger.FoidType" ng-options="t.v as t.t for t in foIdTypeOptions">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span style="color: red;">*</span>证件号码:</label>
+
+                            <div class="controls">
+                                <input type="text" ng-model="Passenger.Foid" ng-change="CheckFoid();" placeholder="请输入证件号码">
+                                <span class="error" ng-show="!psgFoidValid">请输入正确的证件号码</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span style="color: red;">*</span>出生日期:</label>
+
+                            <div class="controls">
+                                <input type="text" id="psgBirthday" placeholder="请输入出生日期(YYYY-MM-DD)" ng-change="CheckBirthday();" ng-model="Passenger.Brithday" onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});">
+                                <span class="error" ng-show="!psgBirthdayValid">请输入出生日期</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">手机号码:</label>
+
+                            <div class="controls">
+                                <input type="text" ng-model="Passenger.Mobile" placeholder="请输入11位手机号码">
+                                <span class="error" ng-show="!psgMobileValid">请输入11位手机号码</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">电子邮箱:</label>
+
+                            <div class="controls">
+                                <input type="text" ng-model="Passenger.EMail" placeholder="请输入电子邮箱">
+                                <span class="error" ng-show="!psgEMailValid">请输入格式正确的电子邮箱</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <div class="vp-submit">
+                        <a class="btn pull-right" ng-if="Passenger.Tid <=0" href="javascript:;" ng-click="btnAddPassengerClick();">添加</a>
+                        <a class="btn pull-right" ng-if="Passenger.Tid >0" href="javascript:;" ng-click="btnAddPassengerClick();">修改</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

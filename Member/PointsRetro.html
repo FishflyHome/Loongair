@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/PointsRetroCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberPointsRetroPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+
+        <div ng-include="'LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <br/>
+
+                <div class="vipmessage">
+                    <h2>积分补登 &nbsp; &nbsp;<a class="tips red" onClick="$('.modal').modal('show');">*我在哪里可以找到要填写的信息</a>
+                    </h2>
+                    <br/><br/>
+
+                    <div class="register">
+                        <ul>
+                            <li>
+                                <span>机票票号:</span>
+                                <input type="text" class="text">
+                            </li>
+                            <li>
+                                <span>航班号:</span>
+                                <select class="text" style="width:auto;">
+                                    <option>浙江长龙航空（GJ）</option>
+                                </select>
+                                <input type="text" class="text w70">
+                            </li>
+                            <li>
+                                <span>舱位:</span>
+                                <select class="text">
+                                    <option>经济舱</option>
+                                    <option>超级经济舱</option>
+                                </select>
+                            </li>
+                            <li>
+                                <span>航班日期:</span>
+                                <input type="text" class="text" id="startTime">
+
+                                <p class="red"><span>&nbsp;</span>仅限补录5天以前，6个月以内的机票</p>
+                            </li>
+                            <li>
+                                <span>起始地:</span>
+                                <input type="text" class="text">
+                            </li>
+                            <li>
+                                <span>目的地:</span>
+                                <input type="text" class="text">
+                            </li>
+                            <li>
+                                <span>座位号:</span>
+                                <input type="text" class="text">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vipmessage">
+                    <div class="vp-submit">
+                        <a class="btn pull-right">保存</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div class="modal modal-large">
+    <div class="modal-body">
+        <div class="thumbnail"><img src="/Resource/images/ueticket.jpg"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

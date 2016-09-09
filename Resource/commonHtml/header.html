@@ -1,0 +1,80 @@
+<div class="header" ng-controller="laAir_CommonHtmlHeaderCtl">
+    <div class="container clearfix">
+        <a class="logo pull-left" href="/B2C/home.html"></a>
+
+        <div class="pull-right">
+            <div class="searchform">
+                <!--
+                <input type="text" class="input-search" placeholder="输入关键字搜索"/>
+                <button type="submit" class="searchbtn">提交</button>-->
+
+                <div ng-if="UserLogined" style="float:left;">
+                    <img src="/Resource/images/welcomebg.png" style="width:150px; margin-top: -2px;">
+                    <span style="margin-left: -150px; color:white;width:150px;">
+                        <a href="/Member/OrderList.html" style="color:white;">&nbsp;{{userInfo_C.Name}}&nbsp;欢迎来长龙&nbsp;</a>
+                    </span>
+                    <span>
+                        <a href="javascript:;" ng-click="btnUserLogoutClick();"><img src="/Resource/images/refresh.png"
+                                                                                      style="width:18px;height:18px;">&nbsp;退出</a>
+                    </span>
+                </div>
+
+                <div ng-if="!UserLogined" style="float:left;">
+                    <span>欢迎来长龙</span>
+                    <a href="/Member/Login.html"><img src="/Resource/images/user_login.png"
+                                                      style="width:18px;height:18px;">&nbsp;登录</a>
+                    <a href="/Member/Register.html"><img src="/Resource/images/user_reg.png"
+                                                         style="width:18px;height:18px;">&nbsp;注册</a>
+                </div>
+
+                <div style="float:left;">
+                    <span>
+                        <a class="fortips" data-title="扫描下载客户端" data-name="tooltips" data-tips="<img src='/Resource/images/APP_QRCode.jpg'><img src='/Resource/images/AD_QRCode.jpg'>">客户端<i class="arrow-down"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topmenu">
+        <div class="container">
+            <ul class="nav">
+                <li ng-class="{true:'active',false:''}[isHomeNav]"><a href="/B2C/home.html">首页</a></li>
+                <li ng-class="{true:'active',false:''}[isSchTripNav]"><a href="/ETicket/AirlineList.html">预定行程</a></li>
+                <li ng-class="{true:'active',false:''}[isQueryOrderNav]"><a
+                        href="/ETicket/QueryOrderDetail.html">查询订单</a></li>
+                <li ng-class="{true:'active',false:''}[isCarReserveNav]"><a href="/Car/Car.html">用车</a></li>
+                <li ng-class="{true:'active',false:''}[isMallNav]"><a href="/Mall/Mall.html">商城</a></li>
+                <!-- <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="/Infomation/index.html">旅客服务</a></li> -->
+                <li ng-class="{true:'active',false:''}[isTravelNav]"><a href="/Travel/Transport/PassengerInfo.html">出行帮助</a>
+                    <!--
+                    <div class="secondary_menu hide">
+                        <div class="s_menu airplane">
+                            <div class="span4" style="float:right;">
+                                <h4>运输规定</h4>
+                                <div>
+                                    <a href="/Travel/Transport/PassengerInfo.html">旅客须知</a> &nbsp; | &nbsp;
+                                    <a href="/Travel/Transport/Rule.html">运输总条件</a> &nbsp; | &nbsp;
+                                    <a href="/Travel/Transport/Overbooking.html">超售公示说明</a><br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </li>
+                <!--
+                <li ng-class="{true:'active',false:''}[isSelfSvrNav]"><a href="#">自助服务</a></li>
+                <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="#">信息服务</a></li>
+                <li ng-class="{true:'active',false:''}[isMallNav]"><a href="#">积分商城</a></li>
+                <li ng-class="{true:'active',false:''}[isTourNav]"><a href="#">旅游度假</a></li>
+                <li ng-class="{true:'active',false:''}[isHotelNav]"><a href="#">酒店</a></li>
+                -->
+            </ul>
+            <ul class="nav pull-right">
+                <li ng-if="UserLogined" ng-class="{true:'active',false:''}[isMyInfoNav]"><a href="/Member/MyInfo.html">我的信息</a>
+                </li>
+                <!-- <li ng-if="!UserLogined" ng-class="{true:'active',false:''}[isMyOrderNav]"><a href="javascript:;" ng-click="btnMyOrderClick();">我的订单</a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+

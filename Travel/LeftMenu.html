@@ -1,0 +1,19 @@
+<div class="personal-menu message-menu">
+    <div>
+        <h2>出行帮助</h2>
+    </div>
+    <!--
+    <ul>
+        <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">运输规定</span></a></li>
+        <li ng-class="{true:'active',false:''}[is_Transport_PsgInfoNav]"><a href="/Travel/Transport/PassengerInfo.html" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旅客须知</a></li>
+        <li ng-class="{true:'active',false:''}[is_Transport_RuleNav]"><a href="/Travel/Transport/Rule.html" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运输总条件</a></li>
+        <li ng-class="{true:'active',false:''}[is_Transport_OverbookingNav]"><a href="/Travel/Transport/Overbooking.html" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;超售公示说明</a></li>
+    </ul>
+    -->
+    <ul>
+        <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">出行准备</span></a></li>
+        <li ng-repeat="menu in menuList | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
+        <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">旅客服务</span></a></li>
+        <li ng-repeat="menu in menuListPsgSvr | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
+    </ul>
+</div>

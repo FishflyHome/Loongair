@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery.seat-charts.js"></script>
+    <script type="text/javascript" src="/Library/others/tinyscrollbar.js"></script>
+
+    <script src="controller/OnlineCheckin.js"></script>
+</head>
+<body ng-controller="laAir_MemberOnlineCheckinCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel panel-client">
+            <h2 class="title-new">网上值机</h2>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="panel-sm">
+                        <div class="panel-head">
+                            <h2>选择您的座位</h2>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <div class="scrollbox">
+                                <div id="scrollinner" class="scrollinner">
+                                    <div class="scrollbarbg">
+                                        <div class="scrollbar">
+                                            <div class="track">
+                                                <div class="thumb">
+                                                    <div class="end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="viewport">
+                                        <div id="seat-map" class="overview">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div id="legend"></div>
+                            <div class="checktips">
+                                <p>1.请选择您的座位</p>
+
+                                <p>2.使用左侧飞机上的滑动块或滑动鼠标来查看更多座位</p>
+
+                                <p>3.确认无误后，请点击“确认办理”</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="panel-sm">
+                        <div class="m-cart" id="J_Cart">
+                            <div class="route">
+                                <div class="route-hd f-cb">
+                                    <i class="i-plane-g"></i>
+
+                                    <h2 class="title-plane">长龙航空{{CheckinInfo.FlightNumber}}</h2>
+                                </div>
+                                <div class="route-bd">
+                                    <p class="f-cb"><em class="date">{{CheckinInfo.FlightTime | date:'yyyy-MM-dd'}}</em><span>{{getWeek()}}</span></p>
+
+                                    <p class="f-cb"><em class="time"></em><span>{{CheckinInfo.FromCityCH}}</span></p>
+
+                                    <p class="f-cb"><em class="time"></em><span>{{CheckinInfo.ToCityCH}}</span></p>
+                                </div>
+                            </div>
+                            <div class="total">
+                                <div class="amount f-cb">
+                                    <span class="fl" id="seatNumber">请选择座位</span>
+                                    <span id="seatNumberReal" style="display: none;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn pull-right" href="javascript:;" ng-click="btnCheckinClick();">确认办理</a>
+                </div>
+            </div>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script language="JavaScript">
+    /*
+    $(function () {
+
+     var sc = $('#seat-map').seatCharts({
+     map: [ //座位图
+     'fff_fff_ff',
+     'fff_fff_ff',
+     'gge_eee_e',
+     '__________',
+     'hhe_eee_ee',
+     'fee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     '_________e',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee',
+     'eee_eee_ee'
+     ],
+     seats: { //定义座位属性
+     f: {
+     price: 2120,
+     classes: 'first-class',
+     category: '头等舱'
+     },
+     g: {
+     price: 1230,
+     classes: 'business-class',
+     category: '商务舱'
+     },
+     h: {
+     price: 1230,
+     classes: 'preeconomy-class',
+     category: '超级经济舱'
+     },
+     e: {
+     price: 1230,
+     classes: 'economy-class',
+     category: '经济舱'
+     }
+     },
+     naming: { //定义行列等信息
+     top: true,
+     columns: ['A', 'B', 'C', '', 'D', 'E', 'F', '', 'G', 'H'],
+     rows: ['01', '02', '03', '', '04', '05', '06', '07', '08', '09', '', '10', '11', '12', '13', '14'],
+     getLabel: function (character, row, column) {
+     return row + column;
+     }
+     },
+     legend: { //定义图例
+     node: $('#legend'),
+     items: [
+     ['f', 'available', '头等舱'],
+     ['g', 'available', '商务舱'],
+     ['h', 'available', '超级经济舱'],
+     ['e', 'available', '经济舱'],
+     ['f', 'unavailable', '已被定'],
+     ['e', 'selected', '已选择'],
+     ]
+     },
+     click: function () {
+     if (this.status() == 'available') {//可选座
+     $("#seatNumber").html("<p data-id='item" + this.settings.id + "'>当前选择座位选择：" + this.settings.label + "</p>");//修改右侧显示的座位号
+     sc.find('selected').status('available');//每次只有一个座位能被选中，选中后移除其他选中
+     return 'selected';
+     } else if (this.status() == 'selected') {//已选中
+     $("p[data-id='item" + this.settings.id + "']").remove();
+     return 'available';
+     } else if (this.status() == 'unavailable') {//已售出
+
+     return 'unavailable';
+     } else {
+     return this.style();
+     }
+     },
+     focus: function () {
+     if (this.status() == 'available') {
+     return 'focused';
+     } else {
+     return this.style();
+     }
+     }
+     });
+
+     //设置已售出不可选座
+     sc.get(['01_A', '04_A', '07_B', '07_F']).status('unavailable');
+
+     $('#scrollinner').tinyscrollbar({trackSize: 200});
+    })
+    */
+</script>
+
+</body>
+</html>

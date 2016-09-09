@@ -1,0 +1,3420 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/IndexCtl.js"></script>
+</head>
+<body ng-controller="laAir_Infomation_IndexPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container personal-wrapper">
+        <div class="personal-menu message-menu">
+            <div>
+                <h2>旅客服务</h2>
+            </div>
+            <ul>
+                <li><a href="#"><span style="font-size: 14px;">出行准备</span></a></li>
+                <li ng-repeat="menu in menuListTrans | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
+                <li><a href="#"><span style="font-size: 14px;">旅客服务</span></a></li>
+                <li ng-repeat="menu in menuList | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
+            </ul>
+        </div>
+
+        <!-- 旅客购票及旅行须知 -->
+        <div id="content1" ng-show="ShowIndex==1" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2 class="leftheader">旅客购票及旅行须知</h2>
+
+                    <div class="art-content">
+                        <ul class="art-list">
+                            <li><a href="Travelnotes/Travelnotes.html" target="_blank"><i></i>旅客购票及旅行须知</a> <span class="right">2015-04-14</span>
+                            </li>
+                            <li><a href="Travelnotes/SpecialPassenger.html" target="_blank"><i></i>特殊旅客运输须知</a> <span
+                                    class="right">2015-04-13</span></li>
+                            <li><a href="Travelnotes/Passenger.html" target="_blank"><i></i>运输旅客须知</a> <span
+                                    class="right">2015-04-12</span></li>
+                        </ul>
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li class="disabled"><a href="#">«</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li class="disabled"><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 安全运输须知 -->
+        <div id="content2" ng-show="ShowIndex==2" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2 class="leftheader">安全运输须知</h2>
+
+                    <div class="art-content">
+                        <ul class="art-list">
+                            <li><a href="SafetyTransport/DangerousGoods.html" target="_blank"><i></i>危险品运输规定</a><span
+                                    class="right">2015-04-20</span></li>
+                            <li><a href="SafetyTransport/LithiumBattery.html" target="_blank"><i></i>长龙航空锂电池乘机须知</a> <span class="right">2015-04-20</span>
+                            </li>
+                            <li><a href="SafetyTransport/SafetyTransport.html" target="_blank"><i></i>安全运输须知</a> <span class="right">2015-04-01</span>
+                            </li>
+                        </ul>
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li class="disabled"><a href="#">«</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li class="disabled"><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 网上值机 -->
+        <div id="content3" ng-show="ShowIndex==3" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>网上值机服务条款</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span>为了给广大旅客提供优质、便捷的服务，浙江长龙航空有限公司（以下简称</span><span>“</span><span>长龙航空</span><span>”</span><span>）推出了网上自助值机服务，即旅客可自行在长龙航空官方网站上办理自助乘机手续。为了您的顺利出行，请您仔细阅读并遵守本协议所规定的内容。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>1. </span><span>该协议适用于长龙航空电子客票旅客，但不支持中转联程、改签、未确定航班的客票。纸质客票不能办理网上自助值机。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>2. </span><span>适用对象：成人旅客，不含需要办理特殊服务申请的旅客。重要旅客、伤病旅客、轮椅旅客、革命伤残军人（警察）、孕妇、占座行李、担架旅客、无人陪伴老人和特殊餐食申请者等请直接到机场值机柜台办理值机手续，长龙航空网上值机业务暂不受理上述特殊旅客网上值机的申请。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>3. </span><span></span><span>长龙航空暂时无法为婴儿或已满两周岁但未满十二周岁的儿童提供网上值机服务，携带婴儿、儿童的成人旅客请不要办理网上自助值机。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>4. </span><span>网上值机不办理行李托运手续。有行李托运的旅客请至少提前</span><span>90</span><span>分钟到机场指定值机柜台办理托运手续。尺寸超过</span><span>20cm×40cm×55cm</span><span>或重量超过</span><span>5</span><span>公斤的行李必须托运。行李托运必须符合安检相应规定，为了您和他人的乘机安全、请将刀具、工具、酒类物品等禁止随身携带的物品办理托运。行李中禁止夹带贵重物品、旅行证件、易碎物品以及易燃、易爆、腐蚀等危险物品。详细信息可查询：</span>
+                        </p>
+
+                        <p>
+                            <span>5. </span><span>已经在值机柜台办理过值机的客票不得再次办理网上自助值机。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>6. </span><span>为避免误机，请您务必于航班原定起飞时间前</span><span>50</span><span>分钟通过安检，并最迟于航班起飞前</span><span>15</span><span>分钟登机，若未按时通过安检和登机，航班将不再等候您起飞，由此造成的误机，责任由您自己承当。盖有安检章的登机牌被视为登机的有效凭证，其他复印件及无安检章的登机牌将不再被视为有效凭证。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>7. </span><span>由于办理值机的时间较早，可能会出现登机口未分配或登机口临时变更等情况，请您到达机场后，询问机场咨询柜台工作人员或根据机场动态显示屏来确定最终登机口位置。</span><span><span>&nbsp;</span></span><span></span>
+                        </p>
+
+                        <p>
+                            <span>8. </span><span>如发生临时更换机型等情况，我们将为您重新安排座位，请配合长龙航空工作人员的安排。</span><span></span><br/>
+                        </p>
+
+                        <p>
+                            <span>9. </span><span>如您已办理网上值机手续，但因特殊原因临时取消乘机计划，最迟应在航班起飞时间</span><span>1</span><span>小时前上网自行取消值机，一个航班只能办理三次网上取消值机和网上补打登机牌手续，请谨慎使用；如果旅客已到机场，也可联系机场指定的值机柜台工作人员协助取消网上值机。</span><span> </span><span>如未取消值机，您将承担误机责任。</span><span></span><br/>
+                        </p>
+
+                        <p>
+                            <span>10. </span><span>目前长龙航空网上值机服务已开通部分城市始发的国内航班。但在航班延误等特殊情况下，长龙航空有权关闭航班网上值机业务，敬请谅解。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>11. </span><span>旅客应严格遵守政府主管部门对乘坐民航班机所需要有效证件的规定，保证乘机旅客证件的合法性和有效性，如因证件与姓名不符或证件失效等问题产生的后果均由旅客本人负责。（若姓名中含有生僻字或同时含有中文及拼音的旅客，</span><span> </span><span>请到机场柜台办理值机手续）。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>12. </span><span>由于网上值机系统直接连接各机场离港，若机场锁座、配载平衡等特殊不可控原因，可能导致您无法进入值机页面或座位无法选择，若遇特殊情况请您联系长龙航空</span><span>7*24</span><span>小时热线</span><span>0571-89999999</span><span>，同时建议您更换浏览器再次尝试，若无法完成网上值机，建议您及时赶至机场现场值机。</span><span></span>
+                        </p>
+
+                        <p>
+                            <span>本声明最终解释权归浙江长龙航空有限公司所有。</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行李 -->
+        <div id="content4" ng-show="ShowIndex==4" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>行李托运须知</h2>
+
+                    <div class="art-content">
+                        <p><strong>不得随身携带或者托运的物品</strong></p>
+
+                        <p>旅客不得在托运行李或随身携带物品内夹带易燃、易爆、腐蚀、有毒、放射性物品、可聚合物质、
+                            磁性物质及其它危险物品。旅客乘坐飞机不得携带武器、管制刀具、利器和凶器。</p>
+
+                        <p><strong>不得作为托运行李运输的物品</strong></p>
+
+                        <p>重要文件和资料、证券、货币、汇票、珠宝、贵重金属及其制品、银制品、贵重物品、古玩字画、易碎和易损坏物品、易腐物品、样品、旅行证件等需要专人照管的物品不得作为托运行李或夹入行李内托运，而应作为自理行李或免费随身携带物品带入客舱运输。</p>
+
+                        <p>为确保飞行安全，即日起全面禁止旅客携带或托运以锂电池为动力的电动平衡车。电动平衡车是指以锂电池为动力，可载人的，单轮或多轮的移动辅助工具，包括但不仅限于：独轮车、电动滑板、风火轮、体感车和平衡车等。</p>
+
+                        <p><strong>危险品运输规定</strong></p>
+                        <p>以下物品均为危险品：</p>
+                        <p>（一）危险品</p>
+                        <p>1．爆炸品；</p>
+                        <p>2．气体，包括易燃和非易燃无毒气体、有毒气体；</p>
+                        <p>3．易燃液体；</p>
+                        <p>4．易燃固体、自燃物质和遇水释放易燃气体的物质；</p>
+                        <p>5．氧化剂和有机过氧化物；</p>
+                        <p>6．毒性物质和传染性物质；</p>
+                        <p>7．放射性物质；</p>
+                        <p>8．腐蚀性物质；</p>
+                        <p>9．磁性物质；</p>
+                        <p>10．具有麻醉或其他类似气味或性质的物质；</p>
+                        <p>11．容易污损飞机的物品；</p>
+                        <p>12．长龙航空规定不得作为行李运输的其他危险物品。</p>
+                        <p>（二）枪支，含各种仿真玩具枪、枪型打火机及其他各种类型带有攻击性的武器，但体育运动用器械除外。</p>
+                        <p>（三）军械、警械。</p>
+                        <p>（四）管制刀具。</p>
+                        <p>（五）国家规定的其它禁运物品。</p>
+
+                        <p><strong>长龙航空锂电池运输须知</strong></p>
+                        <p>为了加强旅客行李中锂电池航空运输安全管理，贯彻落实民航局下发的《关于切实做好旅客携带锂电池乘机安全管理工作的通知》，扎实做好锂电池运输安全管理和风险预防工作，对锂电池适用标准和使用要求通知如下：</p>
+                        <p>1、 备用锂电池应作为手提行李或随身携带，不得作为托运行李或夹入行李内托运；</p>
+                        <p>2、 锂电池分为锂金属电池和锂离子电池两类。旅客作为手提行李或随身携带的锂金属电池，锂含量不得超过2克。锂离子电池的额定能量值不得超过1000Wh（瓦特小时）；超过100Wh但不超过160Wh的，须经浙江长龙航空批准方可作为随身物品携带，且每人最多允许携带两个；超过160Wh的锂电池严禁携带；</p>
+                        <p>3、 便捷式电子装置的备用电池，必须单个做好保护以防短路（放入原零售包装或以其他方式将电极绝缘，如在暴露的电极上贴上胶带，或将每个电池放入单独的塑料袋或保护盒当中）；</p>
+                        <p>4、 锂电池移动电源（俗称“充电宝”）视为备用锂电池，不得作为托运行李运输；</p>
+                        <p>5、 在飞行过程中不得使用锂电池移动电源为电子设备充电或作为外部电源使用，不得开启电源的其他功能；</p>
+                        <p>6、 装有启动开关的锂电池移动电源，在飞行过程中应当确保开关处于关闭状态。</p>
+                        <p>7、 为确保飞行安全，即日起全面禁止旅客携带或托运以锂电池为动力的电动平衡车。电动平衡车是指以锂电池为动力，可载人的，单轮或多轮的移动辅助工具，包括但不仅限于：独轮车、电动滑板、风火轮、体感车和平衡车等。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 售票及机场信息 -->
+        <div id="content5" ng-show="ShowIndex==5" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>城市机场信息</h2>
+
+                    <div class="art-content">
+                        <h3><span>深圳宝安国际机场</span></h3>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>机场简介</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span>深圳宝安国际机场是中国境内集海、陆、空联运为一体的现代化国际空港<span>,</span>也是中国境内第一个采用过境运输方式的国际机场，位于珠江口东岸的一片滨海平原上，距离深圳市区<span>32</span>公里，场地辽阔，净空条件优良，实行<span>24</span>小时运行服务。详情参见</span><span><a
+                                href="http://www.szairport.com/szairport/index.shtml" target="_blank"><span><span>http://www.szairport.com/szairport/index.shtml</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>机场巴士</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span>330</span><span>主线机场巴士深圳机场至深圳市区往返时间表</span>
+                        </p>
+
+                        <div align="center">
+                            <span> </span>
+                            <table width="567" style="border:currentColor;width:15cm;border-collapse:collapse;" border="1" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td width="63" style="">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">起点</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">终点</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">首班时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">末班时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="78" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">票价</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="227" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">备注</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">华联大厦</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">深圳机场</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">5</span><span
+                                                style="color:#333333;font-size:9pt;">：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">21</span><span
+                                                style="color:#333333;font-size:9pt;">：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="78" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">20</span><span
+                                                style="color:#333333;font-size:9pt;">元人民币</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="227" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span style="color:#333333;font-size:9pt;">约<span>40</span>分钟到达；途中经停深航大厦可购票乘坐。旅客乘机请按起飞时间提前<span>2</span>个小时坐车。</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">深圳机场</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">火车站西广场</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">7</span><span
+                                                style="color:#333333;font-size:9pt;">：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">航班结束</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="78" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">20</span><span
+                                                style="color:#333333;font-size:9pt;">元人民币</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="227" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span style="color:#333333;font-size:9pt;">走广深高速公路，停深航大厦、投资大厦、华联大厦，终点站侨社城市候机楼（火车站西广场）。</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <span> </span>
+                        </div>
+                        <br/>
+
+                        <p align="left" style="text-align:left;">
+                            <span>330B</span><span>线机场巴士深圳机场至深圳市区往返时间表</span><br/>
+                        </p>
+
+                        <div align="center">
+                            <span> </span>
+                            <table width="80%" style="border:currentColor;width:80%;border-collapse:collapse;" border="1" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td width="124">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>起点</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="113" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>终点</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="74" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>首班时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="77" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>末班时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="91" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>票价</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="85" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span>在途时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="124" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>龙岗城市候机楼</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="113" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>深圳机场</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="74" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>5</span><span>：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="77" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>21</span><span>：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="91" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>30</span><span>元人民币</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="85" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>约<span>50</span>分钟</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="124" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>深圳机场</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="113" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>龙岗城市候机楼</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="74" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>7</span><span>：<span>00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="77" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>凌晨<span>02:00</span></span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="91" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>30</span><span>元人民币</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="85" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="left" style="text-align:left;">
+                                            <span>约<span>50</span>分钟</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <span> </span>
+                        </div>
+                        <br/>
+
+                        <p align="left" style="text-align:left;">
+                            <span>请按机票起飞时间提前两个半小时乘坐<span>330B</span>线巴士</span></p>
+
+                        <p>
+                            <span>地址：深圳市龙岗区吉祥中路吉祥来花园<span>B01\B02</span>商铺</span></p>
+
+                        <p>
+                            <span>电话：<span>0755-89893330<span>&nbsp;&nbsp; </span></span>传真：<span>0755-89893330</span></span>
+                        </p>
+
+                        <p>
+                            <span>另有地铁、公交等多种交通方式可达机场，详情请见</span><span><a
+                                href="http://www.szairport.com/szairport/jcjt/jcjt.shtml" target="_blank"><span
+                                style="background:white;font-family:Arial;font-size:9pt;"><span>http://www.szairport.com/szairport/jcjt/jcjt.shtml</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>机场平面图</span></b><span style="color:#333333;font-family: Arial;font-size:9pt;"></span>
+                        </p>
+
+                        <p><span>网站链接：</span>
+                            <span><a href="http://www.szairport.com/szairport/lkfw/lkfw.shtml" target="_blank"><span>http://www.szairport.com/szairport/lkfw/lkfw.shtml</span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>常用电话</span></b>
+                        </p>
+
+                        <p>
+                            <span>客服电话：</span><span
+                                style="color:#333333;font-size:9pt;"><span>+86-755-23456789</span></span>
+                        </p>
+
+                        <p>
+                            <span>投诉电话：</span><span style="color:#333333;font-size:9pt;"><span>+86-755-23456315 </span></span>
+                        </p>
+
+                        <p>
+                            <span style="color:#333333;font-size:9pt;"><span>&nbsp;</span></span>
+                        </p>
+
+                        <h3><span>重庆江北国际机场</span>
+                        </h3>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>机场简介</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span>重庆江北国际机场是中国民航区域性枢纽之一，位于重庆市东北部，距市中心</span><span>19</span><span>公里，目前拥有两条跑道（其中：第一跑道长</span><span>3200</span><span>米、第二跑道长</span><span>3600</span><span>米），在西部地区率先实现双跑道、双航站楼运行。详情请参见</span><span><a
+                                href="http://www.cqa.cn/u/jichang/" target="_blank"><span
+                                style="background:white;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;"><span>http://www.cqa.cn/u/jichang/</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>机场巴士</span></b>
+                        </p>
+
+                        <p>
+                            <span>机场大巴车运行线路为机场——上清寺，全长</span><span>28</span><span>公里，行驶时间约</span><span>40</span><span>分钟，停靠站点为：</span>
+                        </p>
+
+                        <p>
+                            <span>1</span><span>、机场——上清寺：机场——加州车站——外贸大厦——上清寺，发车时间为每日第一个航班到达时——最后一个到达航班截止。</span>
+                        </p>
+
+                        <p>
+                            <span>2</span><span>、上清寺——机场：上清寺——加州车站——机场，发车时间为早上</span><span>6</span><span>：</span><span>00</span><span>——晚上</span><span>21</span><span>：</span><span>00</span><span>，每半小时一班。</span>
+                        </p>
+
+                        <p>
+                            <span>咨询电话：</span><span>023-67152341</span>
+                        </p>
+
+                        <p>
+                            <span>详情请参考</span><span><a href="http://www.cqa.cn/u/jichang/page_531.shtml" target="_blank"><span
+                                style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;"><span>http://www.cqa.cn/u/jichang/page_531.shtml</span></span></a>、</span><span
+                                style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;"><span><a href="http://www.cqa.cn/u/jichang/page_578.shtml" target="_blank">http://www.cqa.cn/u/jichang/page_578.shtml</a></span></span>
+                        </p>
+
+                        <p>
+                            <b><span>常用电话</span></b>
+                        </p>
+
+                        <p>
+                            <span>百事通</span><span style="font-size:9pt;"><span>24</span></span><span>小时服务：</span><span
+                                style="font-size:9pt;"><span>023-966666</span></span>
+                        </p>
+
+                        <p>
+                            <span>服务投诉电话：</span><span style="font-size:9pt;"><span>67155777</span></span>
+                        </p>
+
+                        <p>
+                            <span>长途换乘中心：</span><span style="font-size:9pt;"><span>67153484</span></span>
+                        </p>
+
+                        <p>
+                            <span>机场失物招领：</span><span style="font-size:9pt;"><span>67152254</span></span>
+                        </p>
+
+                        <p>
+                            <span>公安办证电话：</span><span style="font-size:9pt;"><span>67152316.</span></span>
+                        </p>
+
+                        <p>
+                            <b><span>成都双流机场</span></b>
+                        </p>
+
+                        <p style="background:white;">
+                            <b><span>机场简介</span></b>
+                        </p>
+
+                        <p style="background:white;">
+                            <span>成都双流国际机场位于成都市西南郊，距市中心</span><span>16</span><span>公里，有高速公路与市区相通，设有通往省内主要城市的长途汽车、直达市区的专用公交车和出租车服务站。详情请参考：</span><span><a
+                                href="http://www.cdairport.com/" target="_blank"><span>http://www.cdairport.com</span></a></span>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>机场巴士</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>常用电话</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span style="color:#333333;font-size:9pt;">机场服务热线：</span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205555</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>机场贵宾服务：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85206150</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>遗失物品查找服务：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85206200</span><span
+                                style="color:#333333;font-size:9pt;"><span>（</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">T1</span><span
+                                style="color:#333333;font-size:9pt;"><span>）、</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-85207230</span><span
+                                style="color:#333333;font-size:9pt;"><span>（</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">T2</span><span
+                                style="color:#333333;font-size:9pt;"><span>）</span></span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>医疗急救服务：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205120</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>临时登机证件办理：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205311</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>机场服务投诉受理：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205678</span><span
+                                style="color:#333333;font-size:9pt;"><span>、</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-85205432</span><span
+                                style="color:#333333;font-size:9pt;"><span>（</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">24</span><span
+                                style="color:#333333;font-size:9pt;"><span>小时）</span></span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>机场匪警：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205110</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>机场火警：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028—85205119</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>国航行李查询电话：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-85205815</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>川航行李查询电话：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-85205635</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>机场地服行李查询电话：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-85205513</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>出租车预约电话：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-962999</span>
+                        </p>
+
+                        <p style="text-align:justify;">
+                            <span style="color:#333333;font-size:9pt;"><span>交通投诉服务热线：</span></span><span
+                                style="color:#333333;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;">028-96515</span>
+                        </p>
+
+                        <h3><span>西安咸阳国际机场</span>
+                        </h3>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>机场简介</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span>西安咸阳国际机场位于中国内陆中心，是中国西北地区最大的空中交通枢纽，中国第八大机场，西部第三大机场，位于西安市西北、咸阳市东北方向，</span><span>距西安市中心</span><span>25</span><span>公里，距离咸阳市</span><span>13</span><span>公里</span><span>，现拥有</span><span>3</span><span>座航站楼，</span><span>2</span><span>条跑道。详情请参考</span><span><a
+                                href="http://www.xxia.com/" target="_blank"><span
+                                style="background:white;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;"><span>http://www.xxia.com/</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>机场巴士</span></b>
+                        </p>
+
+                        <p>
+                            <span>购票地点：</span>
+                        </p>
+
+                        <p>
+                            <span>2</span><span>号航站楼—请您在</span><span>T2</span><span>航站楼</span><span>1</span><span>楼（到达层）旅客服务中心购票</span>
+                        </p>
+
+                        <p>
+                            <span>3</span><span>号航站楼—请您在</span><span>T3</span><span>航站楼综合交通枢纽（</span><span>GTC</span><span>）一层购票</span>
+                        </p>
+
+                        <p>
+                            <span>乘坐位置：</span>
+                        </p>
+
+                        <p>
+                            <span>2</span><span>号航站楼—请您在</span><span>T2</span><span>航站楼</span><span>1</span><span>楼（到达层）外部乘车</span>
+                        </p>
+
+                        <p>
+                            <span>3</span><span>号航站楼—请您在</span><span>T3</span><span>航站楼综合交通枢纽（</span><span>GTC</span><span>）一层乘车</span>
+                        </p>
+
+                        <table width="99%"
+                               style="background:white;margin:auto auto auto -0.5pt;border:1pt solid windowtext;width:99%;"
+                               border="1" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td width="114" style="background:#FFF4DF;border:1pt solid windowtext;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>线路</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="background:#FFF4DF;border:1pt solid windowtext;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>行驶区间</span></b><b><span
+                                            style="font-size:9pt;">(</span></b><b><span>对发</span></b><b><span
+                                            style="font-size:9pt;">)</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="background:#FFF4DF;border:1pt solid windowtext;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>经停站</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="background:#FFF4DF;border:1pt solid windowtext;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>市区方向</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>钟楼线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>钟楼</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西稍门空港商务酒店</span><span
+                                            style="font-size:9pt;">(</span><span>返回市区经停</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>中心</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>火车站线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>火车站</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>无</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>北部</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西高新线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西高新</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西稍门空港商务酒店</span><span
+                                            style="font-size:9pt;">(</span><span>前往机场经停</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>西部</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>小寨线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>小寨国贸</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>东方大酒店，唐城宾馆</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>南门外</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>建国线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>建国饭店</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>长庆宾馆</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>东门外</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>咸阳专线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>咸阳彩虹宾馆</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>民生商厦，市政府，渭城中学，火车站</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>咸阳市</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>长安线</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西北饭店</span><span
+                                            style="font-size:9pt;"> <span>- </span></span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>智慧城，长征国际酒店</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span><span style="font-size:9pt;"> (</span><span>长安区</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>城西城南客运站线</span>
+                                    </p>
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span style="font-size:9pt;">(</span><span>试运行</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>城南客运站</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>无</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="114" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西航公司线</span><span style="font-size:9pt;">(</span><span>试运行</span><span
+                                            style="font-size:9pt;">)</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="123" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西航公司</span><span style="font-size:9pt;"> - </span><span>机场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="227" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>无</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="85" style="">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <span>西安</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+
+                        <p>
+                            <span>*</span><span>西安市区机场巴士票价</span><span>26</span><span>元，请上车购票（含</span><span>1</span><span>元燃油附加费）。</span>
+                        </p>
+
+                        <p>
+                            <span>*</span><span>西安市区线路全程正常行驶时间约</span><span>60</span><span>分钟，建议于航班起飞前</span><span>2</span><span>小时</span><span>30</span><span>分钟乘坐机场巴士，请各位旅客合理安排乘车时间，以免误机。</span>
+                        </p>
+
+                        <p>
+                            <span>*</span><span>如有疑问请咨询现场工作人员，机场巴士工作人员统一着工装（分为夏季与冬季两套），司机佩戴工牌，工牌上印有公司名称及员工编号，售票员及调度员佩戴工牌及红色袖章。</span>
+                        </p>
+
+                        <p>
+                            <span>*</span><span>乘坐东方航空（</span><span>MU</span><span>）、南方航空（</span><span>CZ</span><span>）、上海航空（</span><span>FM</span><span>）、联合航空（</span><span>KN</span><span>）、四川航空（</span><span>3U</span><span>）、长龙航空（</span><span>GJ</span><span>）、春秋航空（</span><span>9C</span><span>）、吉祥航空（</span><span>HO</span><span>）、奥凯航空（</span><span>BK</span><span>）、成都航空（</span><span>EU</span><span>）、河北航空（</span><span>NS</span><span>）、华夏航空（</span><span>G5</span><span>）航班的旅客请您在</span><span>3</span><span>号航站楼下车，其他航空公司的旅客，请您在</span><span>2</span><span>号航站楼下车。</span>
+                        </p>
+
+                        <p>
+                            <span>机场巴士唯一指定官方网站：</span><span> </span><span><a href="http://www.cwagi.com" target="_blank"><span
+                                style="background:white;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:9pt;"><span>www.cwagi.com</span></span></a></span><span> </span>
+                        </p>
+
+                        <p>
+                            <span>客服及投诉电话</span><span>:4000-787-737<span>&nbsp;&nbsp;&nbsp;&nbsp; </span>029-88798787</span>
+                        </p>
+
+                        <p>
+                            <span>网站链接</span><span><a href="http://www.xxia.com/map/flashmap.aspx" target="_blank"><span
+                                style="font-size:9pt;"><span>http://www.xxia.com/map/flashmap.aspx</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>常用电话</span></b>
+                        </p>
+
+                        <p>
+                            <span>机场服务热线电话</span><span
+                                style="font-size:9pt;"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>029-88796997<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>（机场每日出港航班运营期间）</span>
+                        </p>
+
+                        <p>
+                            <span>航班自动查询电话</span><span
+                                style="font-size:9pt;"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>029-88798450<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>（</span><span
+                                style="font-size:9pt;"><span>24</span></span><span>小时</span><span
+                                style="font-size:9pt;"><span> </span></span><span>限本机场航班）</span>
+                        </p>
+
+                        <p>
+                            <span>大巴问询电话</span><span style="font-size:9pt;"><span><span>&nbsp;&nbsp;&nbsp; </span> 029-88791384</span></span><span>、</span><span
+                                style="font-size:9pt;"><span>88798780<span> </span> </span></span><span>（机场每日进出港航班运营期间）</span>
+                        </p>
+
+                        <p>
+                            <span>长途客运中心、火车票预售处</span><span style="font-size:9pt;"><span>029-88796259<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>（</span><span
+                                style="font-size:9pt;"><span>9:00-20:00</span></span><span>）</span>
+                        </p>
+
+                        <p>
+                            <span>国内查询订票电话</span><span
+                                style="font-size:9pt;"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; </span> 029-96780</span></span><span>、</span><span
+                                style="font-size:9pt;"><span>88795555<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>（</span><span
+                                style="font-size:9pt;"><span>24</span></span><span>小时）</span>
+                        </p>
+
+                        <p>
+                            <span>机场服务质量监督电话</span><span style="font-size:9pt;"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> 029-88798727<span>&nbsp;&nbsp; </span></span></span><span>（</span><span
+                                style="font-size:9pt;"><span>24</span></span><span>小时）</span>
+                        </p>
+                        <br/>
+
+                        <h3><span style="font-size:16pt;">广州白云国际机场</span>
+                        </h3>
+
+                        <p align="left" style="text-align:left;">
+                            <b><span>机场简介</span></b>
+                        </p>
+
+                        <p align="left" style="text-align:left;">
+                            <span>广州新白云国际机场位于广州市北部，白云区人和镇和花都区新华镇交界处，距广州市中心<span>--</span>海珠广场直线距离约<span>28</span>公里，距原白云国际机场<span>18</span>公里。</span><span>详情请参考：</span><span><a
+                                href="http://www.gbiac.net/byhome" target="_blank"><span><span>http://www.gbiac.net/byhome</span></span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>机场巴士</span></b>
+                        </p>
+
+                        <table style="background:white;margin:auto auto auto 7.5pt;border:currentColor; border-collapse:collapse;"
+                               border="1" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td width="16%" style="background:#EAEAEA;border:1pt solid windowtext;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>线路</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#EAEAEA;">
+                                    <span> </span>
+
+                                    <p align="center" style="text-align:center;">
+                                        <b><span>站点</span></b>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline1" target="_blank"><span><span>空港快线一号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>旧机场北门、中央海航酒店、边检站、民航售票处（火车站）</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline2"><span><span>空港快线二号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>旧机场北门、边检站、花园酒店、文化假日酒店、广州中心皇冠假日酒店、天河华师粤海酒店</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline3" target="_blank"><span><span>空港快线三号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>星都大酒店、芳村客运站</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline4" target="_blank"><span><span>空港快线四号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>广园客运站、华南理工大、华金盾大洒店、皇冠嘉逸大酒店、怡港花园、东城广场、明珠大酒店</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline5" target="_blank"><span><span>机场快线五号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>东方宾馆、海珠广场、穗景大厦、东方宾馆、海珠广场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline6" target="_blank"><span><span>机场快线六号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>中信广场、南方日报社</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline7" target="_blank"><span><span>机场快线七号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>永成大酒店、丽江明珠大酒店、奥园高尔夫酒店</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline8" target="_blank"><span><span>机场快线八号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>广园客运站、凤凰城候机楼、太阳城大酒店、华厦国际商务酒店、翡翠皇冠假日酒店</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline9" target="_blank"><span><span>机场快线九号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background-color:transparent;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>云峰大酒店 、南航花园、亨利商务酒店、新世纪广场</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="16%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p>
+                                        <span><a
+                                                href="http://www.gbiac.net/jtzy/busline10" target="_blank"><span><span>机场快线十号线</span></span></a></span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                                <td width="83%" style="background:#F4F4F4;">
+                                    <span> </span>
+
+                                    <p align="left" style="text-align:left;">
+                                        <span>海涛酒店、大沙头</span>
+                                    </p>
+                                    <span> </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <span>详细时刻及站点信息请参考</span><span><a href="http://www.gbiac.net/jtzy/bus" target="_blank"><span>http://www.gbiac.net/jtzy/bus</span></a></span>
+                        </p>
+
+                        <p>
+                            <b><span>常用电话</span></b>
+                        </p>
+
+                        <p>
+                            <span>白云机场客服呼叫中心</span><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>020-36066999</span>
+                        </p>
+
+                        <p>
+                            <span>航站楼警务室</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-86137273</span><span>（</span><span>07</span><span>：</span><span>00-22</span><span>：</span><span>00</span><span>）</span>
+                        </p>
+
+                        <p>
+                            <span>航站楼医务室</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-36066926、</span><span>020-86133851</span>
+                        </p>
+
+                        <p>
+                            <span>机场火警电话</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-36063119</span>
+                        </p>
+
+                        <p>
+                            <span>行李寄存电话</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-36066859</span>
+                        </p>
+
+                        <p>
+                            <span>机场行李查询</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-36066763</span><span>（国内）</span><span>020-86130102</span><span>（国际）</span>
+                        </p>
+
+                        <p>
+                            <span>南航行李查询</span><span><span>&nbsp;&nbsp;&nbsp; </span>020-86122921</span><span>（国内）</span><span>020-86122913</span><span>（国际）</span>
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 电子客票行程单邮寄说明 -->
+        <div id="content6" ng-show="ShowIndex==6" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>电子客票行程单邮寄使用规定</h2>
+
+                    <div class="art-content">
+                        <p>为规范电商行程单邮寄流程，提升购票旅客使用体验，特制订《电子客票行程单邮寄使用规定》。</p>
+
+                        <p><strong>一、邮寄方式</strong>
+
+                        <p>
+
+                        <p>
+                            旅客在直销平台购买电子客票后，可要求邮寄行程单。旅客可在购票时一同支付快递费并填写收件地址由客服统一安排邮寄，或致电客服以快递到付的形式邮寄，目前可选用顺丰或EMS；由于各地邮资不同,具体费用以快递公司公布价为准；</p>
+
+                        <p><strong>二、收件人注意事项</strong></p>
+
+                        <p>1、请输入明确的收件人姓名，不可填写“XX先生/小姐”；</p>
+
+                        <p>2、请输入正确的手机号码，以便送件人员或遇异常情况时可以及时与您联系；</p>
+
+                        <p>3、请输入正确的收件地址，详细到区/县、街道地址（路名、小区/楼房名称、门牌号）；</p>
+
+                        <p>4、若由于您填写的地址不详、有误，或因其他特殊情况无法安排邮寄行程单，长龙航空将尽快与您联系。</p>
+
+                        <p><strong>三、多张行程单邮寄</strong></p>
+
+                        <p>涉及多位乘机人的订单，由网上提交，我们将按整单一起邮寄：</p>
+
+                        <p>1、如果同一订单里的多份行程单需要分开邮寄，或者需要多个订单的行程单一起邮寄，请勿填写邮寄信息，可致电0571-89999999人工办理，以免出现错寄、漏寄；</p>
+
+                        <p>2、如果未邮寄前有部分或全部客票提交了退票，该退票旅客的行程单不予邮寄；</p>
+
+                        <p><strong>四、重要提醒</strong></p>
+
+                        <p>1、行程单仅能在航班起飞后7天内打印，需要邮寄行程单的旅客请务必尽早提交打印申请；</p>
+
+                        <p>2、一张电子客票只允许打印一次行程单，遗失不补；</p>
+
+                        <p>3、一张行程单对应一个票号，如果往返程客票（往返程订在同一个票号里）需要对其中一程退票，则另一程的行程单不予提供。</p>
+
+                        <p>如有疑问，请致电长龙航空客服热线0571-89999999。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 值机柜台 -->
+        <div id="content7" ng-show="ShowIndex==7" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>值机柜台</h2>
+
+                    <div class="art-content">
+                        <div align="center">
+                            <p>
+                                <span>温馨提示:尊敬的旅客，为保障您的出行顺利，请于航班起飞前90分钟到达机场指定柜台办理乘机手续。</span>
+                            </p>
+                            <table width="567" style="border:currentColor;width:15cm;border-collapse:collapse;" border="1" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td width="63" style="">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">出发地</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">截载时间</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">航站楼</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <b><span style="color:#333333;font-size:9pt;">柜台</span></b>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">广州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">K4、K5号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">重庆</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">A航站楼A值机岛</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">成都</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">H,J,K,L,M,N岛<br>（全开放式柜台）</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">北京</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T3</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">J20-21号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">深圳</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T3</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">C13-23号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">哈尔滨</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T1</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">43-50号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">南京</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">C9-24</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">西安</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T3</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">M区所有柜台</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">长春</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">B01--B08</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">安顺</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1号-2号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">贵阳</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">全开放式柜台</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">昆明</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">C,D,E岛<br>（除专属柜台以外）</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">杭州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T3</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">F18.19.20散客柜台，F21团队柜台</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">海口</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">38-53号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">郑州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">45</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">28-35号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">长沙</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">40</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">B、C岛</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">毕节</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">3号-4号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">丹东</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">2-4号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">邯郸</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">3-4号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">赤峰</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-2号<br>（全开放式柜台）</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">银川</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1号-10号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">西双版纳/景洪</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">14-23号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">黔江</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-2号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">桂林</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">10-12、17-25号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">六盘水</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-5号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">兰州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">13-19号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">丽江</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">4、6、8、15、17、19、20、21号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">洛阳</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">4号-5号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">连云港</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">2号-3号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">临沂</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">	1-8号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">柳州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-4号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">南宁</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">C,E岛<br>（全开放式柜台）</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">通辽</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-7号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">天津</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T2</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">H值机柜台</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">万州</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">2-4号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">襄阳</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1号-2号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">厦门</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">T4</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">L岛6-10号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">烟台</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">B5-B13号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">珠海</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">F02-F03；F05-F08号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="63" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">遵义</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="76" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">30</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="57" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">唯一</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                    <td width="66" style="background-color:transparent;">
+                                        <span> </span>
+
+                                        <p align="center" style="text-align:center;">
+                                            <span style="color:#333333;font-size:9pt;">1-3号</span>
+                                        </p>
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <p>
+                                <span>温馨提示:尊敬的旅客，为保障您的出行顺利，请于航班起飞前90分钟到达机场指定柜台办理乘机手续。</span>
+                            </p>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 航线 -->
+        <div id="content8" ng-show="ShowIndex==8" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>国内国际航线网络图</h2>
+
+                    <div class="art-content">
+                        <div class="thumbnail"><img src="/Resource/images/AirlineMap.png"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 医生诊断说明书 -->
+        <div id="content9" ng-show="ShowIndex==9" class="content" style="display:none;">
+            <div class="panel-sm">
+                <div class="article">
+
+                    <h2>医生诊断说明书</h2>
+
+                    <div align="center">
+                        <br>
+                        <table width="80%" style="border:black;width:80%;border-collapse:collapse;" border="1" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr valign="top">
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Loong airline（GJ）</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" width="80%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDICAL INFORMATION SHEET – (MEDIF)</span>
+                                        <br>
+                                        <span>诊 断 证 明 书</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>由主治医生填写</span>
+                                    </div>
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>1）This form is intended to provide CONFIDENTIAL information to enable Loongair Airlines to assess the fitness of the passenger to travel, if the passenger is acceptable, this information will permit the issuance of the necessary directives</span>
+                                        <br>
+                                        <span>designed to provide for the passenger’s welfare and comfort.此表中提供的保密信息，用于长龙航空评估旅客是否适宜成行。如果旅客可以运输，我们会根据此表中服务需求进行安排和准备，为旅客提供安全和舒适的服务。</span>
+                                        <span>2）The PHYSICIAN ATTENDING the incapacitated passenger is requested to ANSWER ALL QUESTIONS ,Enter a cross “×”in the appropriate “yes”or “no”boxes, and/or give precise concise answers.请病患/残疾旅客的主治医生按要求回答以下所有的问题，在相应的“是”或“否”的框中打“×”，并且/或者给予精确简练的回答。</span>
+                                        <br>
+                                        <span>3）COMPLETING OF THE FORM IN BLOCK LETTERS OR BY TYPEWRITER WILL BE APPRECIATED请用黑粗字体填写此表，或者用打印机打印，要求不留空白项。</span>
+                                        <br>
+                                        <span>4）The form must be returned to Loongair Airlines booking office where passenger purchase the tickets.此表填写完成后必须交还给长龙售票部门。</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA01</span>
+                                    </div>
+                                </td>
+                                <td width="60%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>PATIENT ’ S NAME ,SEX,AGE<br>患者姓名，性别，年龄</span>
+                                    </div>
+                                </td>
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td rowspan="2" width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA02</span>
+                                    </div>
+                                </td>
+                                <td width="60%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>ATTENDING PHYSICIAN’S<br>name and address<br>主治医生姓名，地址</span>
+                                    </div>
+                                </td>
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td width="60%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>ATTENDINGPHYSICIAN’S telephone contact<br>主治医生联系电话</span>
+                                    </div>
+                                </td>
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>办公电话Business:<br>家庭电话Home:</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA03</span>
+                                    </div>
+                                </td>
+                                <td width="60%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>
+                                            MEDICAL DATA<br>医疗信息<br>
+                                            DIAGNOSIS  in  details<br>(including vital signs)<br>诊断详细资料（包括重要症状）<br>
+                                            Day/month/year  of  first<br>symptoms <br>第一次症状发生的时间<br>日/月/年<br></span>
+                                    </div>
+                                </td>
+                                <td width="20%" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            Date of operation<br>
+                                            手术日期：<br>
+                                            Date of diagnosis<br>
+                                            诊断日期：<br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA04</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>PROGNOSIS for the flight(s): 根据症状对疾病在飞行中的结果进行预测</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA05</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Contagious AND communicable disease? 是否有传染性疾病？ No否 □ Yes是 □<br>
+                                        Specify详细说明:___________________________________
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA06</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Would the physical and/or mental condition of the patient be likely to cause distress or discomfort to other passengers?<br>
+                                        患者的身体和/或精神状况是否会对其他旅客造成危害或引起其他旅客不安或不舒适？ No 否□ Yes 是□<br>
+                                        Specify详细说明:________________________________________
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA07</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Can patient use normal aircraft seat with seatback placed in the UPRIGHT position when so required? 当飞机因安全需要调直座椅靠背时，患者是否可以使用普通客舱座椅？ Yes 是□ No否 □</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA08</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Can patient take care of his own needs on board UNASSISTED (including meals, visit to toilet, etc.)?在飞机上，患者是否可以照顾自己（包括进餐，去洗手间等）？ Yes是 □ No否 □<br>
+                                        If not ,type of help needed:如旅客不能照顾自己，请填写协助需求：______________________________________________
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA09</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>If to be ESCORTED, is the arrangement Satisfactory to you? 如果旅客需要进行陪护，您认为陪护人员的安排是否合适？<br>
+                                            Yes是 □ No否 □<br>
+                                            If not ,type of escort proposed by YOU：如果您认为不妥，请说明您的陪护人员安排建议：________________________________
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA10</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Does patient need OXYGEN equipment in flight? 患者在机上是否需要氧气设备？ No否 □ Yes是 □<br>
+                                        （if yes, state rate of flow 如果需要请说明流量）□ Liters per minute升/分钟 ；continuous是否持续? No否 □ Yes是 □
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA11</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>-Does patient need any MEDICATION（*NOTICE）, other than self-administered, and/or the use of special apparatus<br>
+                                        such as respirator, incubator, etc.?<br>
+                                        除了患者自己准备的药物，患者是否还需要一些药物，和/或是否需要使用特殊设备，比如呼吸器、恒温箱等？<br>
+                                        (a) on the GROUND while at the airport(s) 在机场候机楼地面：No否 □ Yes是 □<br>
+                                        Specify详细说明:_____________________________________<br>
+                                        (b) on the board of the AIRCRAFT 在飞机上客舱内：No否 □ Yes是 □<br>
+                                        Specify详细说明:_____________________________________<br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA12</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Does patient need HOSPITALISATION? 以下两种情况，患者是否需要住院治疗？ (if yes, indicate arrangements made or, if none were made, indicate“NO ACTION TAKEN”) （如果“是”，请简要说明已进行的住院安排情况；如果“否”，请注明“没有进行安排”）<br>
+                                        (a) during long layover or night stop at CONNECTING POINTS en route 在衔接站长时间停场或过夜停留：No否□ Yes是 □ Action安排情况:_______________________________________<br>
+                                        (b) upon arrival at DESTINATION：到达终点站：<br>
+                                        No否 □ Yes是 □ Action 安排情况:_____________________<br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA13</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Other remarks or information in the interest of your patient’s smooth and comfortable transportation: 为了使旅客能够更加舒适、顺利进行航空运输，请提供其他相关信息：None无 □ <br>
+                                        Specify if any其他的详细说明：____________________________<br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>MEDA14</span>
+                                    </div>
+
+                                </td>
+                                <td colspan="2" style="background-color:transparent;">
+                                    <div style="padding: 5px;">
+                                        <span>Other arrangements made by the attending physician:<br>
+                                        主治医生的其他安排：________________________________
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td colspan="3">
+                                    <table border="1" cellpadding="0" cellspacing="0" style="margin: -1px;">
+                                        <tr>
+                                            <td colspan="2" width="50%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>NOTE:<br>
+                                                    Cabin attendants are NOT authorized to give special assistance (e.g. lifting) to particular passengers, to the detriment of their service to other passengers. Additionally, they are trained only in FIRST AID and are NOT PERMITTED to administer any injection, or to give medication.<br>
+                                                    备注：不允许客舱乘务员向特殊旅客提供某项特别的帮助（如抬或架起）,而对其他旅客造成损害。此外，客舱乘务员仅仅只进行了急救培训，不允许进行注射或提供药物救治。
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td style="background-color:transparent; border-left: black;">
+                                                <div style="padding: 5px;">
+                                                    <span>IMPORTANT:<br>
+                                                    FEES, IF ANY, RELEVANT TO THE PROVISION OF THE ABOVE  INFORMATION  AND  FOR CARRIER-PROVIDED SPECIAL EQUIPEMNT ARE TO BE PAID BY THE PASSENGER CONCERNED.<br>
+                                                    重要说明：<br>
+                                                    关于以上所提到的供应品和承运人提供的特殊设备，这些费用由患者支付。
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td width="25%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Date日期：</span>
+                                                </div>
+                                            </td>
+                                            <td width="25%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Place地点：</span>
+                                                </div>
+                                            </td>
+                                            <td width="50%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Attending Physician’s Signature<br>
+                                                        主治医生签名：
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <div style="padding: 5px;">
+                                                    <span>PASSENGER’S DECLARATION旅客声明<br>
+                                                        “I HEREBY AUTHORIZE_________________ (Name of nominated physician) to provide the airlines with the information required by those airlines’ medical departments for purpose of determining my fitness for carriage by air and in consideration thereof I hereby relieve the physician of his /her professional duty of confidentiality in respect of such information, and agree to meet such physician’s fees in connection therewith.
+                                                        I take note that, if accepted for carriage, my journey will be subject to the general conditions of carriage/tariffs of the carrier concerned and that the carrier does not assume any special liability exceeding those conditions /tariffs.
+                                                        I agree to reimburse the carrier upon demand for any special expenditures or costs in connections with my carriage .”
+                                                        (where needed ,to be read by /to the passenger, dated and signed by him/her or on his/her behalf.<br>
+                                                        为了我旅程顺利成行，我授权_______（指定的医生姓名）向航空公司医疗部门提供必要的信息资料，同时，考虑到减少医生对信息进行保密的职业责任，我同意支付医生由此产生的费用。
+                                                        我声明，如果能被航空公司接受运输，我遵从航空公司的运输条件以及相关承运人收费标准，航空承运人不承担任何超出的这些条件及收费标准的责任。
+                                                        我同意支付航空承运人为了承运我而产生的任何特殊支出或成本"。（根据需要，请旅客阅读或阅读给旅客听，由他/她或他/她的代表签字，注明日期）
+                                                        </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td width="25%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Place地点：</span>
+                                                </div>
+                                            </td>
+                                            <td width="25%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Date日期：</span>
+                                                </div>
+                                            </td>
+                                            <td width="50%" style="background-color:transparent;">
+                                                <div style="padding: 5px;">
+                                                    <span>Passenger’s Signature旅客签名</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="art-content">
+                        <div align="center" style="width:100%;">
+                            <a href="/Resource/file/doc/doctor.docx" style="color:#182C4E;">医生诊断说明书 下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

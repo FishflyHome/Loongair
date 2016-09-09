@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js ng-app:laAir" lang="en" ng-app="laAir" id="ng-app"> <!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+
+    <!--[if lte IE 9]>
+    <script src="../Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="../Library/angular/angular1.4.8.min.js"></script>
+    <script src="../Library/angular/angular-cookies1.4.8.min.js"></script>
+
+    <script src="../Service/entityClass/laEntityClass.js"></script>
+    <script src="../Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="../Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="../Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="../Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/indexCtl.js"></script>
+
+    <title></title>
+</head>
+<body>
+<div ng-controller="laIndexController">
+    <input type="button" value="查询航班信息" style="background-color: green" ng-click="btnGetFlightInfo()"><br>
+
+    <div ng-repeat="singleFli in loginbackjson.FlightList">
+        Flight Info:
+        <hr>
+        <font color="red">FlightNum:</font>{{singleFli.FlightNum}}<br>
+        <font color="red">AirportFrom:</font>{{singleFli.AirportFrom}}<br>
+        <font color="red">AirportFromCH:</font>{{singleFli.AirportFromCH}}<br>
+        <font color="red">AirportTo:</font>{{singleFli.AirportTo}}<br>
+        <font color="red">AirportToCH:</font>{{singleFli.AirportToCH}}<br>
+        <font color="red">Distance:</font>{{singleFli.Distance}}<br>
+        <font color="red">DepartureTime:</font>{{singleFli.DepartureTime}}<br>
+        <font color="red">ArriveTime:</font>{{singleFli.ArriveTime}}<br>
+        <font color="red">AirportTax:</font>{{singleFli.AirportTax}}<br>
+        <font color="red">FuelTax:</font>{{singleFli.FuelTax}}<br>
+        <font color="red">OtherTax:</font>{{singleFli.OtherTax}}<br>
+        <font color="red">ChildAirportTax:</font>{{singleFli.ChildAirportTax}}<br>
+        <font color="red">ChildFuelTax:</font>{{singleFli.ChildFuelTax}}<br>
+        <font color="red">ChildOtherTax:</font>{{singleFli.ChildOtherTax}}<br>
+        <font color="red">JiXing:</font>{{singleFli.JiXing}}<br>
+
+        <hr>
+        CarbinInfo:<br><br>
+        <table border="1" cellpadding="0" cellspacing="0">
+            <tr style="color:blue">
+                <td>&nbsp;Order&nbsp;</td>
+                <td>&nbsp;CabinName&nbsp;</td>
+                <td>&nbsp;CabinType&nbsp;</td>
+                <td>&nbsp;LeftCount&nbsp;</td>
+                <td>&nbsp;Price&nbsp;</td>
+                <td>&nbsp;ChildPrice&nbsp;</td>
+                <td>&nbsp;SalePrice&nbsp;</td>
+                <td>&nbsp;ChildSalePrice&nbsp;</td>
+                <td>&nbsp;PriceBase&nbsp;</td>
+                <td>&nbsp;ChildPriceBase&nbsp;</td>
+                <td>&nbsp;RefundRule&nbsp;</td>
+                <td>&nbsp;ChangeRule&nbsp;</td>
+                <td>&nbsp;SignedTransfer&nbsp;</td>
+                <td>&nbsp;SignedTransferDisplay&nbsp;</td>
+            </tr>
+            <tr ng-repeat="carbinInfo in singleFli.CabinInfoList" align="center">
+                <td><input type="checkbox" name="chkflight" ng-click="chkOrderClk(singleFli, carbinInfo);"></td>
+                <td>{{carbinInfo.CabinName}}</td>
+                <td>{{carbinInfo.CabinType}}</td>
+                <td>{{carbinInfo.LeftCount}}</td>
+                <td>{{carbinInfo.Price}}</td>
+                <td>{{carbinInfo.ChildPrice}}</td>
+                <td>{{carbinInfo.SalePrice}}</td>
+                <td>{{carbinInfo.ChildSalePrice}}</td>
+                <td>{{carbinInfo.PriceBase}}</td>
+                <td>{{carbinInfo.ChildPriceBase}}</td>
+                <td>{{carbinInfo.RefundRule}}</td>
+                <td>{{carbinInfo.ChangeRule}}</td>
+                <td>{{carbinInfo.SignedTransfer}}</td>
+                <td>{{carbinInfo.SignedTransferDisplay}}</td>
+            </tr>
+        </table>
+    </div>
+    预定返回:{{orderflightBack || JSON}}<br>
+    <hr>
+    订单号:<input type="text" value="" ng-model="orderidDetail"><br>
+    <input type="button" value="查询订单信息" style="background-color: green" ng-click="btnGetOrderDetail();"><br>
+    {{orderidDetailback ||JSON}}<br>
+
+    <input type="button" value="获取订单支付链接" style="background-color: green" ng-click="btnGetOrderPayUrl();"><br>
+    {{orderPayUrlback||JSON}}<br>
+
+    <input type="button" value="获取订单列表" style="background-color: green" ng-click="btnGetOrderList();"><br>
+    {{orderListback||JSON}}<br>
+
+    <input type="text" ng-model="cancelorderid" placeholder="要取消的订单号">
+    <input type="button" value="取消订单" style="background-color: green" ng-click="btnCancelOrder();"><br>
+    {{cancelOrderback||JSON}}<br>
+
+    <input type="button" value="退票" style="background-color: green" ng-click="btnRefundOrder();"><br>
+    {{refundOrderback||JSON}}<br>
+    <hr>
+    <input type="button" value="获取订单支付方式" style="background-color: green" ng-click="btnGetPayChannel();"><br>
+    支付方式:{{orderpaychannelBack || JSON}}<br>
+
+    <hr>
+    <input type="button" value="获取当前登录用户信息" style="background-color: green" ng-click="btnGetCurrentUInfo();">
+    <br>
+    Code:{{currentUserInfo.Code}}<br>
+    Message:{{currentUserInfo.Message}}<br>
+    Address:{{currentUserInfo.Address}}<br>
+    EMail:{{currentUserInfo.EMail}}<br>
+    Mobile:{{currentUserInfo.Mobile}}<br>
+    Name:{{currentUserInfo.Name}}<br>
+    Sex:{{currentUserInfo.Sex}}<br>
+    UserName:{{currentUserInfo.UserName}}<br>
+    SessionOut:{{currentUserInfo.SessionOut}}<br>
+    <br>
+    <hr>
+    <input type="password" ng-model="oldpwd" placeholder="旧密码"><br>
+    <input type="password" ng-model="newpwd" placeholder="新密码"><br>
+    <input type="button" value="修改登录密码" style="background-color: green" ng-click="btnChangeLoginPwd();"><br>
+    {{changeLoginPwdBack||JSON}}<br>
+    <hr>
+    <input type="button" value="发送找回密码的短信验证码" style="background-color: green" ng-click="btnSendFindPwdValidCode();"><br>
+    {{SendFindPwdValidCodeBack||JSON}}<br>
+    <hr>
+    <input type="text" ng-model="fpwdmvalidcode" placeholder="短信验证码"><br>
+    <input type="password" ng-model="fpwdnewpwd" placeholder="新密码"><br>
+    <input type="button" value="找回密码" style="background-color: green" ng-click="btnFindLoginPassword();"><br>
+    {{FindLoginPasswordBack||JSON}}<br>
+    <hr>
+    UserName:<input type="text" ng-model="userName"><br>
+    Foid:<input type="text" ng-model="foid"><br>
+    Password:<input type="password" ng-model="pwd"><br>
+    mobile:<input type="text" ng-model="mobile"><br>
+    mobile Code:<input type="text" ng-model="mobilecode">
+    <input type="button" value="获取验证码" style="background-color: green" ng-click="btnGetMobileCode();"><br>
+    SessionId:<input type="text" ng-model="SessionId"><br>
+    GetMobileCodeBack:{{MobileCodeBack || JSON}}
+    <br>
+    <input type="button" value="注册" style="background-color: green" ng-click="btnUserRegister();"><br>
+    RegisterBack:{{RegisterBack || JSON}}
+    <hr>
+    UserName:<input type="text" ng-model="userNamelogin"><br>
+    Password:<input type="password" ng-model="pwdlogin"><br>
+    <input type="button" value="登录" style="background-color: green" ng-click="btnUserLogin();">
+    <input type="button" value="退出登录" style="background-color: green" ng-click="btnUserLogout();">
+    <br>
+    LoginBack:{{LoginBack || JSON}}<br>
+
+    <hr>
+    <input type="button" value="常用乘机人列表" style="background-color: green" ng-click="btnQueryStationPassengers();"><br>
+    {{stationPassengersBack||JSON}}<br>
+
+    <hr>
+    <input type="button" value="常用乘机人详情" style="background-color: green" ng-click="btnQueryStationPassengersDetail();"><br>
+    {{stationPassengersDetailBack||JSON}}<br>
+
+    <hr>
+    <input type="text" style="width:300px;" ng-model="fl.FlierName" placeholder="姓名"><br>
+    <input type="text" style="width:300px;" ng-model="fl.Foid" placeholder="证件号码"><br>
+    <input type="text" style="width:300px;" ng-model="fl.FoidType" placeholder="证件类型：1身份证，2护照，100其他"><br>
+    <input type="text" style="width:300px;" ng-model="fl.TravellerType" placeholder="乘客类型：1成人，2儿童"><br>
+    <input type="text" style="width:300px;" ng-model="fl.Mobile" placeholder="手机号"><br>
+    <input type="text" style="width:300px;" ng-model="fl.EMail" placeholder="邮箱"><br>
+    <input type="text" style="width:300px;" ng-model="fl.Brithday" placeholder="生日，儿童必须要有生日，可从身份证解析"><br>
+    <input type="text" style="width:300px;" ng-model="fl.Tid" placeholder="Tid为0则是添加，Tid不为0为修改"><br>
+    <input type="button" value="常用乘机人维护" style="background-color: green" ng-click="btnMStationPassengers();">
+    <input type="button" value="删除常用乘机人" style="background-color: green" ng-click="btnDelMStationPassengers();"><br>
+    {{mStationPassengersBack||JSON}}<br>
+
+    <hr>
+    <input type="button" value="获取机场信息" style="background-color: green" ng-click="btnQueryAirportInfo();"><br>
+    {{queryAirportInfoBack||JSON}}<br>
+</div>
+<!--
+    <div class="col-md-6">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="name">1.必填项</label>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" id="name" type="text" required ng-model='user.name' />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="minlength">2.最小长度=5</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" id="minlength" ng-minlength="5" ng-model="user.minlength" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="minlength">3.最大长度=20</label>
+                    　　　　　　　　　　</div>
+                <div class="col-md-8">
+                    <input type="text" ng-model="user.maxlength" ng-maxlength="20" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="minlength">4. 模式匹配</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" id="minlength" ng-model="user.pattern" ng-pattern="/^[a-zA-Z]*\d$/" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="email">5. 电子邮件</label>
+                    　　　　　　　　　　</div>
+                <div class="col-md-8">
+                    <input type="email" id="email" name="email" ng-model="user.email" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="age">6. 数字</label>
+                    　　　　　　　　　　</div>
+                <div class="col-md-8">
+                    <input type="number" id="age" name="age" ng-model="user.age" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="url"> 7. URL</label>
+                    　　　　　　　　　　</div>
+                <div class="col-md-8">
+                    <input type="url" id="url" name="homepage" ng-model="user.url" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input class="btn btn-primary btn-lg" type="submit" value="提交" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        1.必填项:{{user.name}}<br>
+        2.最小长度=5:{{user.minlength}}<br>
+        3.最大长度=20:{{user.maxlength}}<br>
+        4.模式匹配:{{user.pattern}}<br>
+        5.电子邮件:{{user.email}}<br>
+        6.数字:{{user.age}}<br>
+        7.URL:{{user.url}}<br>
+    </div>
+    -->
+
+<div ng-controller="lahello">
+    userinfoo:{{userinfoshow}}<br>
+    <input type="button" value="Show User" ng-click="btnShowU();">
+</div>
+</body>
+</html>

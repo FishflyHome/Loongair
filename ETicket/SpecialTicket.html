@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/city.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/SpecialTicket.js"></script>
+</head>
+<body ng-controller="laAir_ETicket_SpecialTicketPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <div class="clearfix">
+                    <h2>特价航班</h2>
+
+                    <p class="pull-right ftop" style="margin-right: 30px;"><span>出发城市:</span><input type="text" id="startCity" autocomplete="off"
+                                                                          placeholder="出发城市" title="出发城市"
+                                                                          class="input-sm input-location">
+                        <a class="btn btn-locat" href="javascript:;" ng-click="btnQueryTicket();">搜索</a></p>
+                </div>
+                <div class="hot-airline" ng-if="SpecialTicket.AirLineList.length >0">
+                    <div class="col2" ng-repeat="tic in SpecialTicket.AirLineList track by $index">
+                        <div class="msg-airline">
+                            <h4>{{tic.DepartureAirportCH}}-{{tic.ArriveAirportCH}}</h4>
+
+                            <p>{{tic.FlightDate | date:'yyyy-MM-dd'}}</p>
+
+                            <p>[{{tic.FlightWeekName}}]</p>
+                        </div>
+                        <div class="price">￥{{tic.Price}}</div>
+                        <a class="btn" href="javascript:;" ng-click="btnTicketClick(tic);">立即预订</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+<script>
+    $(function () {
+        $(".wrapper>.container>.panel").each(function () {
+            var wheight = $(window).height();
+            var ph = wheight - $(".header").height() - $(".footer").height() - 98;
+            if ($(this).css("min-height") == "300px" && $(this).height() < ph) {
+                $(".panel").height(ph);
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

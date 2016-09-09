@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/slider.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/LoginCtl.js"></script>
+</head>
+<body ng-controller="laAir_MemberLoginPageCtl">
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+<div class="wrapper">
+    <div class="banner-login">
+        <div class="slidesfull">
+            <div class="indexbanner">
+                <ul>
+                    <li ng-repeat="img in IndexImageList | orderBy:'showindex' | filter:{v:true}">
+                        <a style="background-image: url({{img.imgUrl}});height:608px;"></a>
+                    </li>
+                </ul>
+                <ol id="bannerCtrl" class="navListBox">
+                    <li ng-repeat="img in IndexImageList | filter:{v:true}" ng-class="{true:'active',false:''}[$index==0]"><a>{{$index + 1}}</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="login-box">
+        <div class="loginhome-box">
+            <p>非会员订票查询，点击<a href="/ETicket/QueryOrderDetail.html">查询订单</a></p>
+
+            <div class="box-con">
+                <h2>会员登录</h2>
+
+                <div class="login">
+                    <div>
+                        <span class="icon-user"></span>
+                        <input type="text" id="loginId" name="loginId" class="logininput"
+                               placeholder="手机号" required ng-model="loginId" ng-keyup="LoginByPressEnterKey($event, loginId, password);"/>
+                    </div>
+                    <div>
+                        <span class="icon-password"></span>
+                        <input type="password" id="password" name="password" class="logininput"
+                               placeholder="请输入您的密码" required ng-model="password"
+                               ng-keyup="LoginByPressEnterKey($event, loginId, password);"/>
+                    </div>
+                    <div>
+                        <label class="checkbox inline">
+                            <input type="checkbox" class="mgl30" id="autoLogin" name="autoLogin" ng-checked="isAutoLogin" ng-model="isAutoLogin">两周内自动登录
+                        </label>
+                        <a class="pull-right fpwd" href="ForgetPassword.html">忘记密码</a>
+                        <a class="pull-right fpwd" href="Register.html">注册&nbsp;&nbsp;</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-large btn-block" href="javascript:void(0);"
+                           ng-click="btnLoginClick(loginId, password);">登录</a>
+                    </div>
+                    <!--
+                    <div>
+                        <a class="alipay">支付宝快捷登录</a>
+                        <a class="pull-right fpwd red" href="Register.html">快捷注册</a>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+<script>
+    $(function (){
+        var bannerSlider = new Slider($('.indexbanner'), {
+            time: 5000,
+            delay: 400,
+            event: 'click',
+            auto: true,
+            mode: 'fade',
+            controller: $('#bannerCtrl'),
+            activeControllerCls: 'active'
+        });
+    })
+</script>
+</body>
+</html>

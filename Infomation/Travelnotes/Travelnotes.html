@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/TravelnotesCtl.js"></script>
+</head>
+<body ng-controller="laAir_Info_Travelnotes_TravelnotesPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <div class="article">
+                    <h2>旅客购票及旅行须知</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <b>购票</b>
+                        </p>
+
+                        <p>
+                            旅客购票须凭本人有效身份证件或公安机关出具的其他有效身份证件，并填写《旅客定座单》；购买儿童、婴儿票，应提供儿童、婴儿出生年月的有效证明；重病旅客购票，应持有县级（含县级）以上医疗单位出具的医生诊断证明，经长龙航空同意后，方可购票。
+                        </p>
+
+                        <p>
+                            <b>儿童票、婴儿票</b>
+                        </p>
+
+                        <p>
+                            已满2周岁未满12周岁的儿童可按照同一航班成人普通全价票的50%购买儿童票，官网暂时只支持儿童与成人同舱同价位购买，提供座位。每一成人旅客携带婴儿超过一名时，超过人数的婴儿应支付儿童票价。如果旅客需同时携带婴儿和儿童，则最多只能携带一名婴儿及二名儿童。
+                        </p>
+
+                        <p>
+                            <b>客票有效期</b>
+                        </p>
+
+                        <p>
+                            除另有规定外，普通票价的客票有效期自旅行开始之日起，一年内运输有效；如果客票全部未使用，则从填开客票之日起，一年内运输有效。特种票价的客票有效期，按照长龙航空规定的该特种票价的有效期计算。客票有效期的计算，从旅行开始或填开客票之日的次日零时起至有效期满之日的次日零时为止。
+                        </p>
+
+                        <p>
+                            <b>客票变更</b>
+                        </p>
+
+                        <p>
+                            旅客购票后，如自愿要求变更航班、日期、舱位等级，应遵守其客票适用的运输条件，并在长龙航空航班有可利用座位和时间允许的条件下办理。（团体旅客另行规定）
+                        </p>
+                        <b>航空运输电子客票行程单 </b>
+
+                        <p>
+                            航空运输电子客票行程单是旅客在中国境内购买电子客票的付款凭证或报销凭证。您购票时或在航班起飞后七日内向我们或我们的授权代理人索取。航空运输电子客票行程单不能重复打印，遗失不予补发。
+                        </p>
+
+                        <p>
+                            <b>退票</b>
+                        </p>
+
+                        <p>
+                            旅客在客票的有效期内没有完成部分或全部航段，可以提出退票申请。如客票上已注明“不得退票”、“NON-REF”或“NON-REFUND”，该客票不得退票。
+                            旅客退票须持本人有效旅行证件及客票（如适用）至长龙航空规定的退票地点办理退票手续。
+                        </p>
+
+                        <p>
+                            <b>乘机</b>
+                        </p>
+
+                        <p>
+                            长龙航空开始办理航班乘机手续的时间一般不迟于客票上列明的航班离站时间前90分钟。旅客应当在长龙航空规定的时限内到达机场，凭客票及本人有效身份证件按时办理客票查验、托运行李、领取登机牌等乘机手续。如旅客未能按时到达乘机登机处，或未能出示其有效身份证件及运输凭证，或未能做好旅行准备，长龙航空为不延误航班可取消旅客已定妥的座位。对旅客由此产生的损失和费用，长龙航空不承担责任。
+                        </p>
+
+                        <p>
+                            <b>不得随身携带或者托运的物品</b></p>
+
+                        <p>
+                            旅客不得在托运行李或随身携带物品内夹带易燃、易爆、腐蚀、有毒、放射性物品、可聚合物质、磁性物质及其它危险物品。旅客乘坐飞机不得携带武器、管制刀具、利器和凶器。
+                        </p>
+
+                        <p><b>不得作为托运行李运输的物品</b></p>
+
+                        <p>
+                            重要文件和资料、证券、货币、汇票、珠宝、贵重金属及其制品、银制品、贵重物品、古玩字画、易碎和易损坏物品、易腐物品、样品、旅行证件等需要专人照管的物品不得作为托运行李或夹入行李内托运，而应作为自理行李或免费随身携带物品带入客舱运输。
+                        </p>
+
+                        <p><b>不正常航班服务</b></p>
+
+                        <p>
+                            由于长龙航空机务维护、航班调配、商务、机组等原因，造成航班在始发地延误或取消，长龙航空应按其规定向旅客提供餐食或住宿等服务。由于天气、突发事件、空中交通管制、安检以及旅客等非长龙航空原因，造成航班在始发地延误或取消，长龙航空应协助旅客安排餐食和住宿，费用应由旅客自理。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/MoreInfoCtl.js"></script>
+</head>
+<body ng-controller="laAir_MoreInfo_ClubPrivacyPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel-sm panel">
+            <div class="article">
+                <h2>俱乐部规则与条款</h2>
+
+                <div class="art-content">
+                    <p>
+                        以下规则与条款一方面规定并限制俱乐部及其合作伙伴的行为，另一方面也是俱乐部与会员之间的协议。请细阅以下条文，以了解俱乐部在责任上所受的限制及其免责事项。
+                    </p>
+
+                    <p>1、俱乐部是浙江省长龙航空的常旅客奖励计划。</p>
+
+                    <p>2、年满12周岁的旅客，均可免费加入俱乐部，参加积分累积奖励活动。</p>
+
+                    <p>3、公司或其它法人实体没有资格参加本常旅客计划。本常旅客计划亦不受理以共同累积积分或相关情况为目的的数人联合申请或同一人重复申请。</p>
+
+                    <p>4、旅客填写的个人信息须详细、准确；若个人信息提供不全或不真实，俱乐部有权拒绝此类入会申请。</p>
+
+                    <p>5、会员填写由本人签名的申请表，即表示本人同意并遵守俱乐部积分累积奖励活动的规定和要求，以及今后可能发生的变动和补充。</p>
+
+                    <p>6、俱乐部拥有会员卡的所有权，获得资格的常旅客对会员卡仅享有个人占有、使用和获益权，不得对其随意处置或转让。</p>
+
+                    <p>7、如您的会员卡损坏、遗失或未收到，请立即与俱乐部联系，我们将免费为您补办新卡，您的会员卡号保持不变。</p>
+
+                    <p>8、会员的地址、电话如有变更，请主动与俱乐部联系；因地址错误导致邮件遗失、延误或过期者，俱乐部恕不负责。</p>
+
+                    <p>9、会员的积分和帐号均不得转让或合并，积分不可兑换成现金，积分奖励如因相关政府法规而应予课税时，税费由会员自行负担。</p>
+
+                    <p>10、所有用于兑换奖励的积分，必须为同一会员在同一帐户内累积的，除非俱乐部特别说明，不可连同其他帐户内的积分一同计算。</p>
+
+                    <p>11、俱乐部有权在不通知会员的情况下对会员账户进行审计，以确保会员遵守俱乐部的规定以及航空公司的相关运输和运价条款。在审计期间，俱乐部有权采取相应行动，包括但不限于暂停会员积分累积、暂停会员优惠和权益、禁止会员兑换奖励品等，直至得到满意的解决。</p>
+
+                    <p>12、积分或奖励机票任何时候都不得用于买卖或者交易（包括但不限于销售、转让、赠送、交换商业、产品或者慈善赞助，参与拍卖、抽奖或者比赛等）；俱乐部禁止其会员对其他会员实施任何损害行为，以及呈报虚假、错误资料或其它由俱乐部认定为不当的行为，包括但不限于违反俱乐部合作伙伴的规定，对俱乐部职员不当或骚扰行为，或拒绝接受职员之建议等。</p>
+
+                    <p>13、任何不恰当、欺诈或错误使用俱乐部的积分、优惠或奖励，或未能遵守俱乐部和航空公司有关条款及规则的行为，俱乐部有权在不通知会员的情况下，采取相应的行政和法律行动，包括但不限于：取消会员资格及会员权益，取消会员的所有积分，拒绝此类会员再次入会，没收所有奖励品及其它维护俱乐部合法权益的行为。此外，俱乐部保留采取法律行动进行索赔的权利。违规者（包括使用通过买卖或交易获得奖励机票的乘客）需承担损失赔偿和诉讼费用责任。</p>
+
+                    <p>14、任何违反俱乐部规则及条款的行为，将导致在任何时间会员或乘机人的奖励机票被没收或者登机被拒绝，若已出行，任何后续旅行产生的费用将由乘客按相应舱位的全价票款承担，对于任何已使用的航段，会员和乘机人须缴付已搭乘航段相应舱位的全价票款。</p>
+
+                    <p>15、如会员利用系统差错、故障或其它原因导致的漏洞，损害俱乐部或其他会员的权益，俱乐部将终止该会员资格，取消已获积分，并保留采取法律行动进行索赔的权利。</p>
+
+                    <p>16、俱乐部或合作伙伴不对因提供或拒绝提供有关优惠、奖励以及奖励的使用，而导致会员、乘机人或同行旅客需承担的任何间接损失负责。</p>
+
+                    <p>17、俱乐部是决定会员是否符合资格获取积分的最终机构；若会员违反会员手册中的条款及规则而获得积分，俱乐部有权在任何时候予以取消。</p>
+
+                    <p>18、俱乐部有权根据具体情况变化对积分累积和兑换标准进行调整，并且通过通讯及网站通知会员。</p>
+
+                    <p>19、俱乐部有权在任何时候废除、诠释或执行俱乐部的有关规则、条款及相关程序甚至终止本常旅客计划，变更实施之前将以网站公告等方式进行告知。</p>
+
+                    <p>20、俱乐部合作伙伴及其地址、电话如有更改或终止合作计划，俱乐部及有关合作伙伴恕不另行通知，亦不对此类变动负责。</p>
+
+                    <p>21、俱乐部将全力确保合作伙伴提供有关服务，但是对于合作伙伴提供的产品与服务均不予负责。</p>
+
+                    <p>22、如发生法律纠纷，其诉讼所在地为中国浙江省杭州市。</p>
+
+                    <p>23、当俱乐部规则与条款的中文版与英文版发生冲突时，以中文版为准。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

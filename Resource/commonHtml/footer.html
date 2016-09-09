@@ -1,0 +1,53 @@
+<div class="footer" ng-controller="laAir_CommonHtmlFooterCtl">
+    <div class="container">
+        <dl>
+            <dd>关于我们</dd>
+            <dt><a target="_blank" href="/Others/AboutUs/LoongAir.html">长龙简介</a></dt>
+            <dt><a target="_blank" href="/Others/AboutUs/JoinUs.html">长龙招聘</a></dt>
+            <dt><a target="_blank" href="/Others/AboutUs/WebSiteMap.html">网站地图</a></dt>
+            <dt><a target="_blank" href="/Others/AboutUs/Contact.html">联系我们</a></dt>
+        </dl>
+        <dl>
+            <dd>客户服务</dd>
+            <dt><a target="_blank" href="/Others/Custom/ETicketVerify.html">客票验真</a></dt>
+            <dt><a target="_blank" href="/Others/Custom/Problem.html">常见问题</a></dt>
+            <dt><a target="_blank" href="/Others/Custom/RefundRule.html">退改签规定</a></dt>
+            <dt><a target="_blank" href="/ETicket/QueryOrderDetail.html">申请退票</a></dt> <!-- /Others/Custom/RefundApply.html-->
+
+        </dl>
+        <dl>
+            <dd>飞机上</dd>
+            <dt ng-repeat="menu in AirplaneMenuList | orderBy:'i'" ng-if="menu.s"><a target="_blank" href="{{menu.u}}">{{menu.t}}</a></dt>
+        </dl>
+        <dl>
+            <dd>更多信息</dd>
+            <dt><a target="_blank" href="/Others/MoreInfo/Partner.html">合作伙伴</a></dt>
+            <dt><a target="_blank" href="/Others/MoreInfo/LegalStatement.html">法律声明</a></dt>
+            <dt><a target="_blank" href="/Others/MoreInfo/Privacy.html">隐私保护条款</a></dt>
+            <dt><a target="_blank" href="/Others/MoreInfo/Transport.html">运输条款</a></dt>
+
+        </dl>
+        <dl>
+            <dd>联系我们</dd>
+            <dt>地址：浙江省杭州市萧山国际机场5号路长龙航空办公大楼</dt>
+            <dt>电话：0571-89999999</dt>
+            <dt>邮箱：e-commerce@loongair.cn</dt>
+        </dl>
+        <div class="clearfix"></div>
+    </div>
+    <div class="social">
+        <div>
+            <span>关注我们</span><span>关注长龙航空，给您带来更多惊喜</span>
+            <!--<div class="imgs qrcode"><img src="images/weichat.png"></div>-->
+            <div class="imgs"><a class="weibo" href="http://weibo.com/3213801462/profile?topnav=1&wvr=5" target="_blank"></a></div>
+            <div class="imgs"><a class="weixin" onmouseover="javascript:$(this).find('.popqrcode').show();" onmouseout="javascript:$(this).find('.popqrcode').hide();"><span class="popqrcode"><img src="/Resource/images/weichat.png" style="width:73px;height:74px;"></span></a></div>
+        </div>
+    </div>
+    <div class="foot text_center">
+        Copyright © 2015 ZheJiang Loong Airlines CO.,Ltd, All Rights Reserved 浙ICP：12006774
+        <div style="display: inline-block; margin-left: 10px;height: 60px;">
+            <a id="___szfw_logo___" href="https://credit.szfw.org/CX20150724010851200156.html" target="_blank" style=" display: block; line-height: 60px; "><img src="http://icon.szfw.org/cert.png" border="0" style="vertical-align: middle;"></a>
+            <script type="text/javascript">(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
+        </div>
+    </div>
+</div>

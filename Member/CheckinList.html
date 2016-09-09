@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/CheckinList.js"></script>
+</head>
+<body ng-controller="laAir_MemberCheckinListCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="panel panel-gray">
+            <p>
+                <span><strong>温馨提示</strong></span>
+            </p>
+
+            <p>1.本查询所展示的日期和时间均为北京时间。</p>
+            <p>2.所列航班时间仅供参考，如发现与实际不符，请以实际为准。</p>
+            <p>3.此为长龙航空官方值机办理渠道，如您使用其他第三方服务办理值机，长龙将无法保证您的后续服务。</p>
+            <p>4.如使用网站聚到办理值机请于航班起飞前一天14:00之后办理，取消值机请于航班起飞前2小时办理，（目前仅支持北京，广州，深圳，成都，西安，昆明，哈尔滨，重庆，大连，兰州，乌鲁木齐，沈阳，郑州，杭州出发的航班办理网上值机）。</p>
+            <p>5.婴儿及其他特殊旅客暂不办理网上值机，携带儿童或婴儿以及需要办理特殊服务申请的旅客请至机场柜台办理登机手续。</p>
+            <p>6.本渠道所办理的座位仅可在本渠道取消。</p>
+            <p>7.航班发生特殊情况，长龙航空将关闭网上值机手续，敬请见谅。</p>
+        </div>
+        <div id="divcheckinlist" class="panelt" ng-if="CheckinList.TNs.length >0">
+            <div class="panelt-head">
+                <h2>值机信息</h2>
+            </div>
+            <div>
+                <table class="tableorder">
+                    <tr style="background-color: #f8f8f8;">
+                        <td style="width:10%;">乘机人</td>
+                        <td>
+                            <table class="tableorder">
+                                <tr>
+                                    <td width="8%">航班号</td>
+                                    <td width="15%">起飞机场</td>
+                                    <td width="15%">到达机场</td>
+                                    <td width="24%">计划起飞时间</td>
+                                    <td width="28%">状态</td>
+                                    <td width="10%">操作</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="tns in CheckinList.TNs">
+                        <td style="width:10%;" align="center">{{tns.PassangerName}}</td>
+                        <td>
+                            <table class="tableorder">
+                                <tr ng-repeat="chk in tns.CheckINSegments">
+                                    <td width="8%">{{chk.FlightNumber}}</td>
+                                    <td width="15%">{{chk.FromCityCH}}</td>
+                                    <td width="15%">{{chk.ToCityCH}}</td>
+                                    <td width="24%">{{chk.FlightTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td width="28%">
+                                        {{getCheckinStatusDesc(chk)}}
+                                        <span ng-if="(chk.CannotCheckInReason!=null && chk.CannotCheckInReason!='')"><br>{{chk.CannotCheckInReason}}</span>
+                                    </td>
+                                    <td width="10%">
+                                        <a href="javascript:;" style="color:orange;" ng-if="chk.CheckInStatus.toString()=='2'" ng-click="btnCheckinOnline(chk, tns.TKTNumber)">值机</a>
+                                        <a href="javascript:;" style="color:orange;" ng-if="chk.CheckInStatus.toString()=='1'" ng-click="btnCancelCheckinOnline(chk)">取消值机</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="divide"></div>
+    </div>
+
+    <div id="nodivcheckinlist" class="container" ng-if="CheckinList.TNs.length <=0 || rs.Code !='0000'">
+        <div class="panel panel-gray">
+            <h3>未查到对应的值机信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div class="modal" style="border-radius: 5px;width:830px;margin-left:-395px;">
+    <div class="modal-body" style="max-height:500px; overflow-y:scroll; overflow-x: hidden;">
+        <div class="tabs">
+            <ul class="modal-tab clearfix" style="margin-top: 0;">
+                <li class="active" data-href="vipbuy">
+                    <img src="/Resource/images/logo.png" style="width:80px;height: 33px;">
+                    <span style="color:black;font-size: 16px;font-weight: bold; margin-left: 220px;">禁止携带危险品的公告</span>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <div>
+                    <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <img src="/Resource/images/hazardousTip1.png" style="width:763px;height:1038px;"><br><br>
+
+                                <div style="text-align: left;text-indent: 26px; font-size: 14px; line-height: 30px;">
+                                    <p>根据《中华人民共和国民用航空法》第一百零一条规定“禁止以非危险品品名托运危险品。
+                                        禁止旅客随身携带危险品乘坐民用航空器。除因执行公务并按照国家规定经过批准外，禁止旅客携带枪支、管制刀具乘坐民用航空器。禁止违反国务院民用航空主管部门的规定将危险品作为行李托运”，隐匿携带的乘坐民用航空器造成后果的，将比照刑法追究刑事责任。</p>
+
+                                    <p>一、旅客的托运行李和随身携带物品中，不得包含以下危险物品：</p>
+                                    <p>1) 爆炸物品，包括弹药、爆破器材和烟火制品等(经承运人同意，限于体育运动用的小型枪械的弹药除外)。<br></p>
+                                    <p>2) 气体，包括氢气、氧气、丁烷等瓶装压缩气体、液化气体等。<br></p>
+                                    <p>3) 易燃液体，如汽油、煤油、柴油、苯、乙醇（酒精）、油漆、松香油等。<br></p>
+                                    <p>4) 易燃固体、自燃物质和遇水释放易燃气体的物质，如火柴、闪光粉、固体酒精、赛璐珞等易燃固体；黄磷、白磷、硝化纤维（含胶片）、油纸及其制品等自燃物品；金属钠、钾、碳化钙（电石）、镁铝粉等遇水燃烧物品。<br></p>
+                                    <p>5) 氧化物质及有机过氧化物，包括过氧化钠、过氧化钾、过氧化铅、过醋酸等各种无机、有机氧化剂。<br></p>
+                                    <p>6) 有毒物质及有传染性的物质，包括氰化物、剧毒农药等剧毒物品。<br></p>
+                                    <p>7) 放射性物质，如放射性同位素等放射性物品。<br></p>
+                                    <p>8) 腐蚀性物质，包括硫酸、盐酸、硝酸、有液蓄电池、氢氧化钠、氢氧化钾等。<br></p>
+                                    <p>9) 国际民航组织的《危险物品安全航空运输技术细则》中列出的其它危害飞行安全的物品，如可能干扰飞机上各种仪表正常工作的强磁化物、有强烈刺激性气味的物品等。<br></p>
+                                    <p>10) 国家法律法规规定的其他禁止携带、运输的物品。<br></p>
+
+                                    <p>二、作为行李运输的锂电池的规定：</p>
+                                </div>
+
+                                <img src="/Resource/images/hazardousTip2.png" style="width:763px;height:782px;"><br><br>
+
+                                <div style="text-align: left;text-indent: 26px; font-size: 14px; line-height: 30px;">
+                                    <p>对于锂含量不超过2g的锂金属电池和额定能量不超过100Wh的锂离子电池，携带备用电池数量应以旅客在行程中使用设备所需的合理数量为判断标准；对于额定能量在100~160Wh的大型锂离子电池，经航空运营人批准后，每人携带备用电池的数量不超过二块。内含锂电池的设备可置于托运行李或手提行李中，备用锂电池仅能置于手提行李。</p>
+                                    <p>锂电池作为行李运输的操作规范：</p>
+                                    <p>1、适用范围</p>
+                                    <p>个人自用的内含锂电池的电子消费品设备（如：手表、计算机、照相机、手机、手提电脑、便携式摄像机等）及备用电池，可以由旅客置于行李中带上航空器。</p>
+                                    <p>注：锂电池包括锂离子电池（锂聚合物电池也属于锂离子电池一种）、锂金属电池（锂合金电池也属于锂金属电池一种）。</p>
+                                    <p>2、含量限制</p>
+                                    <p>备用电池或安装在设备中的电池作为行李运输时，锂含量和额定能量限制如下：</p>
+                                    <p>A）锂金属或锂合金电池，锂含量不得超过2g；</p>
+                                    <p>B）锂离子电池，额定能量不得超过100Wh；</p>
+                                    <p>C）大型锂离子电池，经航空运营人批准，其额定能量可大于100Wh，但不得超过160Wh。</p>
+                                    <p>3、保护措施</p>
+                                    <p>备用电池应单个做好保护以防短路，包括将备用电池放置于原厂零售包装中或对电极进行绝缘处理，比如将暴露的电极用胶布粘住或将每一块电池单独装在塑料袋或保护袋中。</p>
+                                    <p>带电池设备应有防止设备意外启动的措施。</p>
+                                    <p>4、备用电池数量</p>
+                                    <p>对于锂含量不超过2g的锂金属电池和额定能量不超过100Wh的锂离子电池，携带备用电池数量应以旅客在行程中使用设备所需的合理数量为判断标准。</p>
+                                    <p>对于额定能量在100~160Wh的大型锂离子电池，经航空运营人批准后，每人携带备用电池的数量不超过二块。</p>
+                                    <p>5、行李类型</p>
+                                    <p>内含锂电池的设备可置于托运行李或手提行李中，备用锂电池仅能置于手提行李。具体要求如下：</p>
+
+                                </div>
+
+                                <table class="table-paper table" border="0" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>电池类型</td>
+                                        <td>锂含量或额定能量限制</td>
+                                        <td>行李类型</td>
+                                        <td>数量限制</td>
+                                        <td>是否需要营运人批准</td>
+                                        <td>保护措施</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">内含锂电池的设备</td>
+                                        <td>≤100Wh或≤2g</td>
+                                        <td rowspan="2">托运行李或手提行李</td>
+                                        <td rowspan="2">-</td>
+                                        <td>无需批准</td>
+                                        <td rowspan="2">防设备意外启动</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100Wh~160Wh</td>
+                                        <td>需要营运人批准</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">备用锂电池</td>
+                                        <td>≤100Wh或≤2g</td>
+                                        <td rowspan="2">手提行李</td>
+                                        <td>见第4条</td>
+                                        <td>无需批准</td>
+                                        <td rowspan="2">单个保护防短路</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100Wh~160Wh</td>
+                                        <td>每人二块</td>
+                                        <td>需要营运人批准</td>
+                                    </tr>
+                                </table>
+
+                                <div style="text-align: left;text-indent: 26px; font-size: 14px; line-height: 30px;">
+                                    <p>6、图示</p>
+                                </div>
+
+                                <img src="/Resource/images/hazardousTip3.png" style="width:385px;height:288px;"><br><br>
+                                <div style=" font-size: 14px; line-height: 30px;">
+                                    <p>锂金属电池图示</p>
+                                </div>
+
+                                <img src="/Resource/images/hazardousTip4.png" style="width:385px;height:288px;"><br><br>
+                                <div style=" font-size: 14px; line-height: 30px;">
+                                    <p>锂离子电池图示-1</p>
+                                </div>
+
+                                <img src="/Resource/images/hazardousTip5.png" style="width:385px;height:286px;"><br><br>
+                                <div style=" font-size: 14px; line-height: 30px;">
+                                    <p>锂离子电池-2</p>
+                                </div>
+
+                                <div style="text-align: left;text-indent: 26px; font-size: 14px; line-height: 30px;">
+                                    <p>三、携带充电宝乘机的安全指南：</p>
+                                </div>
+                                <img src="/Resource/images/hazardousTip6.png" style="width:763px;height:958px;"><br><br>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vp-submit text_center" style="border-top:1px solid darkgray;">
+        <a class="btn " href="javascript:;" onclick="$('.modal').modal('hide');">我知道了</a>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.modal').modal('show');
+    });
+</script>
+
+</body>
+</html>

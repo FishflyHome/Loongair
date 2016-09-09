@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/AboutUsCtl.js"></script>
+</head>
+<body ng-controller="laAir_AboutUs_loongAirPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <!--
+        <div class="container">
+            <div class="panel-sm panel">
+                <div class="article">
+                    <h2>公司简介</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span>浙江长龙航空有限公司（<span>ZHEJIANG LOONGAIRLINES CO., LTD.</span>），成立于<span>2011</span>年<span>4</span>月<span>19</span>日，是经中国民用航空局批准的浙江省首家和唯一的本土客、货运航空公司，公司总部设在杭州。<span></span></span>
+                        </p>
+
+                        <p>
+                            <span>2011</span><span>年<span>4</span>月<span>19</span>日，长龙国际货运航空有限公司成立，<span>2012</span>年<span>8</span>月<span>9</span>日，成功首航。为贯彻落实民航局和浙江省《关于加快推进浙江民航发展的会议纪要》精神，浙江省政府积极推动浙江民航发展，通过长龙国际货运航空有限公司增加客运项目的方式组建浙江长龙航空公司。<span>2013</span>年<span>2</span>月<span>16</span>日，“长龙国际货运航空有限公司”更名为“浙江长龙航空有限公司”，同年<span>7</span>月<span>26</span>日获得中国民用航空局正式颁发的客运经营许可证。<span>2013</span>年<span>12</span>月<span>29</span>日，长龙航空顺利完成客运首航，正式投入客运航班运营，实现了从纯货运到“客货并举”的华丽转身，掀开了浙江民航发展崭新的一页。<span></span></span>
+                        </p>
+
+                        <p>
+                            <span>长龙航空在客运开航的两年时间里，发展迅速。机队规模达到<span>14</span>架，旅客运输量超过<span>250</span>万人次，安全飞行<span>5.5</span>万小时，累计开通了杭州至北京、广州、深圳、成都、西安、昆明等<span>50</span>余个国内城市的客运航线，预计<span>2016</span>年初开通国际及地区客运航线。<span></span></span>
+                        </p>
+
+                        <p><span>长龙航空致力于成为创造美好旅程体验的一流航空服务品牌，立足浙江、面向全国、飞向世界。公司采用差异化竞争策略，追求高效能运营和高品质服务。在航线布局上，长龙航空将紧紧围绕浙江民航强省建设和杭州市打造国际化大都市的需要，通过构建、完善以杭州、温州等省内机场为中心的国内外航线网络，积极打造华东、华南、西南、华北四大市场片区，构建以杭州为中心的“全国<span>4</span>小时交通圈、全球<span>12</span>小时交通圈”航线网络。<span></span></span>&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divide"></div>
+        </div>
+    -->
+    <div class="container personal-wrapper">
+
+        <div ng-include="'AboutUsLeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>浙江长龙航空有限公司简介</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span>浙江长龙航空有限公司（ZHEJIANG LOONG AIRLINES CO., LTD.），成立于2011年4月19日，是经中国民用航空局批准的浙江省首家和唯一的本土客、货运航空公司，公司总部设在杭州。</span>
+                        </p>
+
+                        <p>
+                            <span>2011年4月19日，长龙国际货运航空有限公司成立，2012年8月9日，成功首航。为贯彻落实民航局和浙江省《关于加快推进浙江民航发展的会议纪要》精神，浙江省政府积极推动浙江民航发展，通过长龙国际货运航空有限公司增加客运项目的方式组建浙江长龙航空公司。2013年2月16日，“长龙国际货运航空有限公司”更名为“浙江长龙航空有限公司”，同年7月26日获得中国民用航空局正式颁发的客运经营许可证。2013年12月29日，长龙航空顺利完成客运首航，正式投入客运航班运营，实现了从纯货运到“客货并举”的华丽转身，掀开了浙江民航发展崭新的一页。</span>
+                        </p>
+
+                        <p>
+                            <span>长龙航空自成立以来，发展迅速。截止2016年7月6日，机队规模达到20架（其中A320客机17架，B737货机3架），旅客运输量超过400万人次，安全飞行8万小时，累计开通了杭州至北京、广州、深圳、成都、西安、昆明、岘港、芽庄等70余个国内外城市的客运航线，以及北京、青岛、深圳、昆明、达卡等10多个国内及国际城市的货运航线。</span>
+                        </p>
+
+                        <p>
+                            <span>长龙航空致力于成为创造美好旅程体验的一流航空服务品牌，立足浙江、面向全国、飞向世界。公司采用差异化竞争策略，追求高效能运营和高品质服务。在航线布局上，长龙航空将紧紧围绕浙江民航强省建设和杭州市打造国际化大都市的需要，通过构建、完善以杭州、温州等省内机场为中心的国内外航线网络，积极打造华东、华南、西南、华北四大市场片区，构建以杭州为中心的“全国4小时交通圈、全球12小时交通圈”航线网络。</span>
+                        </p>
+                        <p style="text-align: center;">
+                            <img src="/Resource/images/loongairTower.jpg" alt="浙江长龙航空有限公司" style="width:500px;height:407px; vertical-align:middle;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/AboutUsCtl.js"></script>
+</head>
+<body ng-controller="laAir_AboutUs_ResponsibilityPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <!--
+        <div class="container">
+            <div class="panel-sm panel">
+                <div class="article">
+                    <h2>公司简介</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span>浙江长龙航空有限公司（<span>ZHEJIANG LOONGAIRLINES CO., LTD.</span>），成立于<span>2011</span>年<span>4</span>月<span>19</span>日，是经中国民用航空局批准的浙江省首家和唯一的本土客、货运航空公司，公司总部设在杭州。<span></span></span>
+                        </p>
+
+                        <p>
+                            <span>2011</span><span>年<span>4</span>月<span>19</span>日，长龙国际货运航空有限公司成立，<span>2012</span>年<span>8</span>月<span>9</span>日，成功首航。为贯彻落实民航局和浙江省《关于加快推进浙江民航发展的会议纪要》精神，浙江省政府积极推动浙江民航发展，通过长龙国际货运航空有限公司增加客运项目的方式组建浙江长龙航空公司。<span>2013</span>年<span>2</span>月<span>16</span>日，“长龙国际货运航空有限公司”更名为“浙江长龙航空有限公司”，同年<span>7</span>月<span>26</span>日获得中国民用航空局正式颁发的客运经营许可证。<span>2013</span>年<span>12</span>月<span>29</span>日，长龙航空顺利完成客运首航，正式投入客运航班运营，实现了从纯货运到“客货并举”的华丽转身，掀开了浙江民航发展崭新的一页。<span></span></span>
+                        </p>
+
+                        <p>
+                            <span>长龙航空在客运开航的两年时间里，发展迅速。机队规模达到<span>14</span>架，旅客运输量超过<span>250</span>万人次，安全飞行<span>5.5</span>万小时，累计开通了杭州至北京、广州、深圳、成都、西安、昆明等<span>50</span>余个国内城市的客运航线，预计<span>2016</span>年初开通国际及地区客运航线。<span></span></span>
+                        </p>
+
+                        <p><span>长龙航空致力于成为创造美好旅程体验的一流航空服务品牌，立足浙江、面向全国、飞向世界。公司采用差异化竞争策略，追求高效能运营和高品质服务。在航线布局上，长龙航空将紧紧围绕浙江民航强省建设和杭州市打造国际化大都市的需要，通过构建、完善以杭州、温州等省内机场为中心的国内外航线网络，积极打造华东、华南、西南、华北四大市场片区，构建以杭州为中心的“全国<span>4</span>小时交通圈、全球<span>12</span>小时交通圈”航线网络。<span></span></span>&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divide"></div>
+        </div>
+    -->
+    <div class="container personal-wrapper">
+
+        <div ng-include="'AboutUsLeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>社会责任与企业理念</h2>
+
+                    <div class="art-content">
+                        <p>
+                            <span>
+                                <span style="font-weight: bold;">社会责任</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浙江长龙航空腾飞于美丽的杭州，作为一家综合航空运输服务企业，长龙航空在成立初期便牢记自己的使命，紧紧围绕社会目标和价值观制定政策、作出决策、采取行动并自愿践行社会责任。在追求企业财富不断增长的同时，努力将社会责任理念融入企业经营理念、发展战略、企业文化，努力构建企业与投资者、员工、客户、行业伙伴乃至自然环境的和谐关系，实现企业和全社会可持续发展。
+                        我们的社会责任使命——立信、崇德、博爱、修礼、践行
+                            </span>
+                        </p>
+
+                        <p>
+                            <span>
+                                <span style="font-weight: bold;">企业理念</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;核心理念：安全至上，服务为本<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文化理念：开放包容、创新求变<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务理念：放心、顺心、舒心、动心<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用人理念：德才兼备、以德为先<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经营理念：高效能运营、高品质服务<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司愿景：致力于成为创造美好旅程体验的世界一流航空服务品牌<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标识释义：<br>
+                                <span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/Resource/images/loong.png" style="width:100px;height:100px;">
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长龙航空标识的创意灵感来自于从新石器时代至今一直作为中国文化象征的龙。在中国神话中，龙是一种善变化、利万物的神异动物。龙能腾云驾雾、上天入海、兴云致雨，无所不能被视为祥瑞的象征。
+                        龙是中国人的独特文化创造，蕴含丰富内涵，承载了中国人的梦想与感情，代表了长龙航空勇敢、坚韧、自强、奋进、创新、包融、诚信、担当的企业精神。长龙寓意长久平安、福瑞吉祥、奋扬腾飞。
+                        长龙航空标识造型是以中国传统剪纸艺术中的“飞龙在天”形象为设计元素，以简洁流畅的线条，重新诠释了作为中国吉祥图腾的龙的凌厉动势、豪迈气魄、威严尊贵。造型整体呈现为抽象的英文“China”的首字母“C”，寓意中国龙。标识用色为中国传统文化中喜庆祥和的颜色中国红。色彩与图案相结合，使标识整体充满动感，辅以留白表现，阴阳虚实相应，层次丰富而精致，突显了龙的行云流水的气韵和充满生命热情的爆发力道。
+                        飞扬激昂的标识造型，准确表达了长龙航空的行业特质，以气象万千的丰沛意想，鼓舞长龙人以热情释放源源不断的力量奋扬腾飞，表达了企业为客户、为社会提供安全、快捷、优质、高效的航空服务的美好愿望——“乘龙四海，福瑞呈祥”。
+                            </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>

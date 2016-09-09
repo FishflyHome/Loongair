@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="laAir">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/Library/others/Placeholders.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+    <script type="text/javascript" src="/Library/others/Base64.js"></script>
+
+    <script src="controller/RefundOrder.js"></script>
+</head>
+<body ng-controller="laAir_ETicket_RefundOrderPageCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+    <div class="container" ng-if="orderInfo">
+        <div class="panel-sm panel">
+            <div class="ff_form">
+                <h2>申请退票</h2>
+
+                <div ng-repeat="psg in orderInfo.Passengers" ng-if="psgCanRefund(psg)==true">
+                    <h3>乘机人:{{psg.PassengerName}}&nbsp;&nbsp;
+                        <input type="checkbox" name="chkPsg" value="{{psg.PassengerId}}" ng-true-value="{{psg.PassengerId}}" ng-false-value="0" ng-model="checkedPsg[$index]"></h3>
+                    <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>行程</th>
+                            <th>航班号</th>
+                            <th>舱位</th>
+                            <th>票号</th>
+                            <th>时间</th>
+                            <th>退票规则</th>
+                            <th>价格</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fliPsg in psg.Flights" ng-if="fliPsg.CanRefund == true || fliPsg.CanErrorRefund == true || fliPsg.CanInvoluntary == true ">
+                            <td>{{fliPsg.DepartureCityCH}}-{{fliPsg.ArriveCityCH}}</td>
+                            <td>{{fliPsg.FlightNum}}</td>
+                            <td>{{fliPsg.CabinType}}({{fliPsg.Cabin}})</td>
+                            <td>{{fliPsg.ETKT}}</td>
+                            <td>{{fliPsg.DepartureTime | date:'yyyy-MM-dd'}}<br>{{fliPsg.DepartureTime |
+                                date:'HH:mm'}}-{{fliPsg.ArriveTime | date:'HH:mm'}}
+                            </td>
+                            <td>
+                                <div ng-bind-html="createTGQHtml(fliPsg)"></div>
+                            </td>
+                            <td style="text-align: left;">
+                                票价:<span style="color:orange">￥{{fliPsg.SaleTicketPrice}}</span><br>
+                                机建/燃油:<span style="color:orange">￥{{fliPsg.AirportTax+fliPsg.FuelTax+fliPsg.OtherTax}}</span><br>
+                                保险:<span style="color:orange">￥{{fliPsg.InsAmount}}</span><br>
+                                合计:<span style="color:orange">￥{{fliPsg.SaleTicketPrice+fliPsg.AirportTax+fliPsg.FuelTax+fliPsg.OtherTax+fliPsg.InsAmount}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+                <div class="panel-sm" ng-if="CanRefundPsgCnt>0">
+                    <div class="panel-head">
+                        <h2>退票联系人信息</h2>
+                    </div>
+                    <div class="panel-body clearfix">
+                        <div class="control">
+                            <label><span style="color: red;">*</span>联系人</label><input type="text" ng-model="contactInfo.ContactsName"/>
+                        </div>
+                        <div class="control">
+                            <label><span style="color: red;">*</span>手机号码</label><input type="text" ng-model="contactInfo.ContactsMobile"/>
+                        </div>
+                        <div class="control">
+                            <label>电子邮箱</label><input type="text" ng-model="contactInfo.ContactsEMail"/>
+                        </div>
+                        <div class="control">
+                            <label>退票类型</label>
+                            <select ng-model="refund.RefundType" ng-change="btnChooseRefundType();" ng-options="t.v as t.t for t in RefundTypeOptions">
+                            </select>
+                        </div>
+                        <div id="divRefundNote" class="control" style="width:100%;display:none;">
+                            <label>退票原因</label><input type="text" style="width:68%;" ng-model="contactInfo.Note"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="text_center" ng-if="CanRefundPsgCnt>0">
+                    <a class="btn btn-large btn-gray" href="javascript:window.history.go(-1);">&nbsp;返&nbsp;&nbsp;&nbsp;&nbsp;回&nbsp;</a>
+                    <a class="btn btn-large" href="javascript:;" ng-if="!isRefunding" ng-click="btnRefundClick();">申请退票</a>
+                    <a class="btn btn-large" href="javascript:;" ng-if="!isRefunding" ng-click="btnChangeClick();">申请改期</a>
+                    <br>
+                    <label style="line-height:60px;" ng-show="isRefunding">
+                        <img src="/Resource/images/loadingCircle.jpg" style="width:60px;height:60px;">
+                        <span>正在申请退票...</span>
+                    </label>
+                    <div style="margin-top: 20px; color:orange;font-weight: bold; font-size: 14px;">
+                        *退票申请一旦提交无法撤回
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divide"></div>
+    </div>
+    <div class="container" ng-if="CanRefundPsgCnt<=0">
+        <div class="panel panel-gray">
+            <h3>没有可以退票的乘机人航段信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+    <div class="container" ng-if="!orderInfo">
+        <div class="panel panel-gray">
+            <h3>未查到对应的订单信息</h3>
+        </div>
+        <div class="divide"></div>
+    </div>
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+</body>
+</html>
