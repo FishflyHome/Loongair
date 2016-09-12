@@ -29,7 +29,9 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
     $scope.jobOptions = laEntityEnumjob;
     $scope.positionOptions = laEntityEnumjobPosition;
     $scope.languageOptions = laEntityEnumlanguageHope;
+    $scope.contactHopeOptions = laEntityEnumcontactHope;
 
+    $scope.ContactHopeCH = "";
     $scope.checkmealTypelist = laEntityEnummealType;
     $scope.checkseatTypelist = laEntityEnumseatType;
     $scope.checksaleTypelist = laEntityEnumsaleChannelType;
@@ -369,12 +371,21 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
                 }
                 if (conhope != undefined && conhope != null) {
                     var cl = conhope.split(",");
+
                     var conhopelist = document.getElementsByName("contacthope");
                     for (var i = 0; i < conhopelist.length; i++) {
                         for (var n = 0; n < cl.length; n++) {
                             if (cl[n] == conhopelist[i].value) {
                                 conhopelist[i].checked = true;
                                 break;
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < $scope.contactHopeOptions.length; i++) {
+                        for (var n = 0; n < cl.length; n++) {
+                            if ($scope.contactHopeOptions[i].v == cl[n]) {
+                                $scope.ContactHopeCH += $scope.contactHopeOptions[i].t;
                             }
                         }
                     }
