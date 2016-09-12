@@ -89,8 +89,7 @@ var laGlobalProperty = (function () {
         /*
          接口地址
          */
-        laServiceUrl_Interface: 'http://120.26.229.120/Flight/InterfaceService', //'http://120.26.229.120/Flight/InterfaceService',
-        //laServiceUrl_Interface: '/Flight/InterfaceService',
+        laServiceUrl_Interface: '/Flight/InterfaceService',
         /*
          查找航班
          */
