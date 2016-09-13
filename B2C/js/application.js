@@ -63,13 +63,17 @@ function InitPage() {
     //鼠标滑过显示二级菜单
     $(document).on("mouseover mouseout",".nav li",function(event){
         if(event.type == "mouseover"){
-            $(this).attr("class", "active");
+            //$(this).attr("class", "active");
+            $(this).find(".overhref").css("display", "block");
+            $(this).find(".outhref").css("display", "none");
             if($(this).find(".secondary_menu").length > 0 && $(this).find(".secondary_menu").hasClass("hide"))
             {
                 $(this).find(".secondary_menu").removeClass("hide");
             }
         }else if(event.type == "mouseout"){
-            $(this).attr("class", "");
+            //$(this).attr("class", "");
+            $(this).find(".overhref").css("display", "none");
+            $(this).find(".outhref").css("display", "block");
             if($(this).find(".secondary_menu").length > 0)
             {
                 $(this).find(".secondary_menu").addClass("hide");
