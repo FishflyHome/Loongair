@@ -52,13 +52,38 @@
         <div class="container">
             <ul class="nav">
                 <li ng-class="{true:'active',false:''}[isHomeNav]"><a href="/B2C/home.html">首页</a></li>
-                <li ng-class="{true:'active',false:''}[isSchTripNav]"><a href="/ETicket/AirlineList.html">预定行程</a></li>
-                <li ng-class="{true:'active',false:''}[isQueryOrderNav]"><a
-                        href="/ETicket/QueryOrderDetail.html">查询订单</a></li>
-                <li ng-class="{true:'active',false:''}[isCarReserveNav]"><a href="/Car/Car.html">用车</a></li>
-                <li ng-class="{true:'active',false:''}[isMallNav]"><a href="/Mall/Mall.html">商城</a></li>
+                <!--<li ng-class="{true:'active',false:''}[isSchTripNav]"><a href="/ETicket/AirlineList.html">预定行程</a></li>-->
+                <li ng-class="{true:'active',false:''}[isSchTripNav]"><a href="javascript:;">机票<i class="arrow-down"></i></a>
+                    <div class="secondary_menu hide">
+                        <div class="s_menu">
+                            <div class="span4">
+                                <div>
+                                    <img src="/Resource/images/bookplan1.png"><a href="/ETicket/AirlineList.html">机票预订</a> &nbsp; | &nbsp;
+                                    <img src="/Resource/images/bookplan2.png"><a href="/ETicket/QueryOrderDetail.html">查询订单</a> &nbsp; | &nbsp;
+                                    <img src="/Resource/images/bookplan3.png"><a href="/ETicket/Checkin.html">办理值机</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--<li ng-class="{true:'active',false:''}[isQueryOrderNav]"><a href="/ETicket/QueryOrderDetail.html">查询订单</a></li>-->
+                <!--<li ng-class="{true:'active',false:''}[isCarReserveNav]"><a href="/Car/Car.html">用车</a></li>-->
+                <!--<li ng-class="{true:'active',false:''}[isMallNav]"><a href="/Mall/Mall.html">商城</a></li>-->
                 <!-- <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="/Infomation/index.html">旅客服务</a></li> -->
-                <li ng-class="{true:'active',false:''}[isTravelNav]"><a href="/Travel/Transport/PassengerInfo.html">出行帮助</a>
+                <li ng-class="{true:'active',false:''}[isTravelNav]"><a href="/Travel/Transport/PassengerInfo.html">出行帮助</a></li>
+                <li ng-class="{true:'active',false:''}[isHolidayNav]"><a href="javascript:;">长龙假期<i class="arrow-down"></i></a>
+                    <div class="secondary_menu hide">
+                        <div class="s_menu">
+                            <div class="span4">
+                                <div>
+                                    <img src="/Resource/images/booktic.png"><a href="/Holiday/Holiday.html">门票</a> &nbsp; | &nbsp;
+                                    <img src="/Resource/images/bookhotel.png"><a href="http://hotels.ctrip.com/?allianceid=365358&sid=849624&popup=close&autoawaken=close&sourceid=&ouid=" target="_blank">酒店</a> &nbsp; | &nbsp;
+                                    <img src="/Resource/images/bookcar.png"><a href="/Car/Car.html">用车</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li ng-class="{true:'active',false:''}[isClubNav]"><a href="/Member/Club.html">会员俱乐部</a>
                     <!--
                     <div class="secondary_menu hide">
