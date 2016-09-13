@@ -9,17 +9,17 @@ $(function () {
 
     //航班预定页，舱位价格显示和隐藏
     /*
-    $("a.showmore").on('click', function () {
-        if ($(this).next(".prices").height() != 80) {
-            //console.log($(this).next(".prices").height())
-            $(this).next(".prices").animate({height: "80px"});
-            $(this).html("<b>+</b>展开");
-        } else {
-            $(this).next(".prices").css({height: "auto"});
-            $(this).html("<b>-</b>收起")
-        }
-    })
-    */
+     $("a.showmore").on('click', function () {
+     if ($(this).next(".prices").height() != 80) {
+     //console.log($(this).next(".prices").height())
+     $(this).next(".prices").animate({height: "80px"});
+     $(this).html("<b>+</b>展开");
+     } else {
+     $(this).next(".prices").css({height: "auto"});
+     $(this).html("<b>-</b>收起")
+     }
+     })
+     */
 
     /*
      $("a[data-name='tooltips']").hover(function () {
@@ -63,13 +63,17 @@ function InitPage() {
     //鼠标滑过显示二级菜单
     $(document).on("mouseover mouseout",".nav li",function(event){
         if(event.type == "mouseover"){
-            $(this).attr("class", "active");
+            //$(this).attr("class", "active");
+            $(this).find(".overhref").css("display", "block");
+            $(this).find(".outhref").css("display", "none");
             if($(this).find(".secondary_menu").length > 0 && $(this).find(".secondary_menu").hasClass("hide"))
             {
                 $(this).find(".secondary_menu").removeClass("hide");
             }
         }else if(event.type == "mouseout"){
-            $(this).attr("class", "");
+            //$(this).attr("class", "");
+            $(this).find(".overhref").css("display", "none");
+            $(this).find(".outhref").css("display", "block");
             if($(this).find(".secondary_menu").length > 0)
             {
                 $(this).find(".secondary_menu").addClass("hide");
@@ -235,9 +239,9 @@ function InitPage() {
         , hideWithTransition: function () {
             var that = this
                 , timeout = setTimeout(function () {
-                    that.$element.off($.support.transition.end)
-                    that.hideModal()
-                }, 500)
+                that.$element.off($.support.transition.end)
+                that.hideModal()
+            }, 500)
             this.$element.one($.support.transition.end, function () {
                 clearTimeout(timeout)
                 that.hideModal()
