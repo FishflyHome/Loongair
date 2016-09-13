@@ -63,11 +63,13 @@ function InitPage() {
     //鼠标滑过显示二级菜单
     $(document).on("mouseover mouseout",".nav li",function(event){
         if(event.type == "mouseover"){
+            $(this).attr("class", "active");
             if($(this).find(".secondary_menu").length > 0 && $(this).find(".secondary_menu").hasClass("hide"))
             {
                 $(this).find(".secondary_menu").removeClass("hide");
             }
         }else if(event.type == "mouseout"){
+            $(this).attr("class", "");
             if($(this).find(".secondary_menu").length > 0)
             {
                 $(this).find(".secondary_menu").addClass("hide");
