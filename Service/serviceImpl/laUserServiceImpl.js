@@ -1584,7 +1584,8 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      */
     laUserService.QueryIndexImageList = function (callBack) {
         var imgList = {
-            "list": [{"showindex": 1, "v": true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg8.jpg"},
+            "list": [{"showindex": 1, "v": true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg9.jpg"},
+                {"showindex": 1, "v": true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg8.jpg"},
                 {"showindex": 2, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg7.jpg"},
                 {"showindex": 3, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg6.jpg"},
                 {"showindex": 4, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg5.jpg"},
