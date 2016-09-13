@@ -78,7 +78,7 @@ input.input-search{ border-radius:15px; -webkit-border-radius:15px; -moz-border-
 .searchform a{ margin: 0 5px;  color: #333;}
 .banner{ background:none; width: 100%; height: 472px; position: relative;}
 .banner-box{ width:960px; position: absolute; top:0px; left:50%; margin-left:-480px;}
-.home-box { position: absolute;top: 60px;left: 0;width: 390px;height: 406px;}
+.home-box { position: absolute;top: 60px;left: -35px;width: 390px;height: 406px;}
 .home-box-tips{ position: absolute; bottom:100%; left: 0; width: 100%; padding:5px 0; margin-bottom: 10px; line-height: 16px; background-color: #ccc;   background-color: rgba(255, 255, 255, 0.8); box-shadow: 2px 2px 4px 0 rgba(102, 102, 102, 0.3);}
 .home-box-tips p{ padding: 0 15px;}.home-box-tips p,.home-box-tips p a{ color: #b81b22; font-size: 12px;}
 .tab-city {
