@@ -10,6 +10,6 @@ laAir.controller('laAir_Car_CarPageCtl', ['$document', '$scope', function ($docu
      * 设置导航栏ClassName
      * @type {boolean}
      */
-    $scope.isSchTripNav = true;
+    $scope.isHolidayNav = true;
 
 }]);
