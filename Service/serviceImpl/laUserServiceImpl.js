@@ -650,8 +650,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      */
     laUserService.QueryNewList = function (callBack) {
         var newsList = {
-            "list": [{"n": 43, "showindex": 958, "v":true, "t": "长龙航空正式成为国际航空运输协会（IATA）会员", "d": "2016-9-14", "c": ""},
-                {"n": 42, "showindex": 959, "v":true, "t": "浙江长龙航空圆满完成G20峰会保障任务", "d": "2016-9-8", "c": ""},
+            "list": [{"n": 42, "showindex": 959, "v":true, "t": "浙江长龙航空圆满完成G20峰会保障任务", "d": "2016-9-8", "c": ""},
                 {"n": 41, "showindex": 960, "v":true, "t": "长龙航空8月19日将新开深圳=乌兰察布=哈尔滨独飞航线", "d": "2016-8-19", "c": ""},
                 {"n": 40, "showindex": 961, "v":true, "t": "长龙航空顺利保障浙江省第三批援青干部人才出行", "d": "2016-7-28", "c": ""},
                 {"n": 39, "showindex": 962, "v":true, "t": "关于郑州调整出港航班值机关闭时间的通知", "d": "2016-7-19", "c": ""},
