@@ -318,116 +318,65 @@
     </div>
 </div>
 <div class="wrapper">
-    <!--
-    <div class="container">
-        <h2 class="imghead"><img src="../Resource/images/p_09.png"><span>长龙航空让您的旅程快乐、轻松。</span><a class="pull-right" href="#">更多活动&gt;&gt;</a>
-        </h2>
-    </div>
-    <div class="sectionpink">
-        <div class="container">
-            <div class="hotPic">
-                <div class="JQ-slide">
-                    <div class="JQ-slide-nav"><a class="prev" href="javascript:void(0);">&#8249;</a><a class="next"
-                                                                                                       href="javascript:void(0);">
-                        &#8250;</a></div>
-                    <div class="wrap">
-                        <ul class="JQ-slide-content imgList">
-                            <li>
-                                <a><img src="../Resource/images/img1.jpg" width="227" height="149"/></a>
-                            </li>
-                            <li>
-                                <a><img src="../Resource/images/img2.jpg" width="227" height="149"/></a>
-                            </li>
-                            <li>
-                                <a><img src="../Resource/images/img3.jpg" width="227" height="149"/></a>
-                            </li>
-                            <li>
-                                <a><img src="../Resource/images/img4.jpg" width="227" height="149"/></a>
-                            </li>
-                            <li>
-                                <a><img src="../Resource/images/img1.jpg" width="227" height="149"/></a>
-                            </li>
-                            <li>
-                                <a><img src="../Resource/images/img2.jpg" width="227" height="149"/></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
+
     <div class="container">
         <div class="row">
-            <div class="span4">
-                <h2 class="imghead">特价机票</h2>
-
-                <div class="tabs">
-                    <ul class="country-choosen">
-                        <li class="active" data-href="nation"><a href="javascript:;">国内<span></span></a></li>
-                        <li data-href="foreign"><a href="javascript:;">国际<span></span></a></li>
-                    </ul>
+            <div class="span12">
+                <div class="clearfix">
+                    <h2 class="imghead pull-left">国内特价机票</h2>
+                    <div class="pull-right startcity_select">
+                        <a class="city_select">
+                            <span class="icon-location"></span>
+                            <input type="text" id="startcity2" placeholder="切换出发城市" />
+                            <!--<span class="arrow-down"></span>-->
+                            <a href="javascript:;" ng-click="btnQuerySpecialTicket()"><img src="/Resource/images/cc_06.png" style="width:17px;height:16px;"></a>
+                        </a>
+                    </div>
                 </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="nation">
-                        <div class="tabs tabs-small" ng-if="SpecialTic.CityList.length >0">
-                            <ul class="city-choosen">
-                                <li ng-class="{true:'active',false:''}[$index == 0]" ng-click="btnSpeciCityChange(speciCity.c.toLowerCase());" ng-if="$index <=3" ng-repeat="speciCity in SpecialTic.CityList track by $index" id="li_city_{{speciCity.c.toLowerCase()}}" data-href="city_{{speciCity.c.toLowerCase()}}">
-                                    <a href="javascript:;">{{speciCity.n}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane {{($index==0)?'active':''}}" ng-if="$index<=3" ng-repeat="speciCity in SpecialTic.CityList track by $index" id="city_{{speciCity.c.toLowerCase()}}">
-                                <ul class="tit-list">
-                                    <li ng-class="{true:'', false:'odd'}[$index % 2 ==0]" ng-if="tic.DepartureAirportCode==speciCity.c && $index<=5" ng-repeat="tic in SpecialTic.AirLineList|filter:{DepartureAirportCode:speciCity.c} track by $index">
-                                        <a href="javascript:;" ng-click="btnSpeciTicketQuery(tic);"><b>{{tic.DepartureAirportCH}}-{{tic.ArriveAirportCH}}</b><span>￥{{tic.Price}}</span><i>{{tic.FlightDate | date:'MM-dd'}}</i></a>
-                                    </li>
-                                </ul>
-                                <a class="more" target="_blank" href="/ETicket/SpecialTicket.html">更多特价机票&gt;</a>
+                <div class="forsale_tickets">
+                    <div>
+                        <div class="row" ng-repeat="tics in SpecialTiclist">
+                            <div class="span2" ng-if="tic != null" ng-repeat="tic in tics track by $index">
+                                <div class="s_pricetag">
+                                    <a href="javascript:;" ng-click="btnSpeciTicketQuery(tic);">
+                                        <span class="s_pricetag_p">￥<i>{{tic.Price}}</i></span>
+                                        <span>{{tic.DepartureAirportCH}}-{{tic.ArriveAirportCH}}</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="foreign">
-                        <div class="thumbnail"><img src="/Resource/images/res.png" width="200"></div>
-                    </div>
+                    <a class="fnbtn pt_prev" style="cursor:pointer;"></a>
+                    <a class="fnbtn pt_next" style="cursor:pointer;"></a>
                 </div>
             </div>
-            <div class="span8">
-                <h2 class="imghead">热门目的地</h2>
-
+        </div>
+        <div class="row">
+            <div class="span12">
                 <div>
                     <ul class="xconbox" name="rmmd" style="display: block;">
                         <li>
-                            <a href="/Others/PopDestination/Dalian.html" target="_blank"><img
-                                    src="/Resource/images/cp1.jpg" width="336" height="300" class="img"></a>
-
+                            <a href="/Others/PopDestination/Dalian.html" target="_blank"><img src="/Resource/images/cp1.jpg" class="img"></a>
                             <div class="hd" style="display: block;"><a href="/Others/PopDestination/Dalian.html" target="_blank">盛夏新航线</a></div>
                         </li>
                         <li>
-                            <a href="/Others/PopDestination/HangzhouBeijing.html" target="_blank"><img
-                                    src="/Resource/images/cp2.jpg" width="336" height="300" class="img"></a>
-
+                            <a href="/Others/PopDestination/HangzhouBeijing.html" target="_blank"><img src="/Resource/images/cp2.jpg" class="img"></a>
                             <div class="hd"><a href="/Others/PopDestination/HangzhouBeijing.html" target="_blank">杭州=北京霸气之旅</a></div>
                         </li>
                         <li>
-                            <a href="/Others/PopDestination/Nanjing.html" target="_blank"><img
-                                    src="/Resource/images/cp3.jpg" width="336" height="300" class="img"></a>
-
+                            <a href="/Others/PopDestination/Nanjing.html" target="_blank"><img src="/Resource/images/cp3.jpg" class="img"></a>
                             <div class="hd"><a href="/Others/PopDestination/Nanjing.html" target="_blank">傣家人的乐土</a></div>
                         </li>
                         <li class="last-li">
-                            <a href="/Others/PopDestination/Lijiang.html" target="_blank"><img
-                                    src="/Resource/images/cp4.jpg" width="336" height="300" class="img"></a>
-
+                            <a href="/Others/PopDestination/Lijiang.html" target="_blank"><img src="/Resource/images/cp4.jpg" class="img"></a>
                             <div class="hd"><a href="/Others/PopDestination/Lijiang.html" target="_blank">壮丽东南第一州</a></div>
-
                         </li>
                         <!--<li><a><div class="txt"><a class="more">更多旅程&gt;</a></div></a></li>-->
                     </ul>
                 </div>
             </div>
         </div>
+
         <div class="divide"></div>
         <div class="row">
             <div class="span3" style="width:33.33%;">
@@ -612,6 +561,8 @@
 <script type="text/javascript">
     $(function () {
 
+        new Vcity.CitySelector({input: 'startcity2'});
+
         var today = new Date();
 
         $("#startTime").focus(function (e) {
@@ -695,6 +646,23 @@
             controller: $('#bannerCtrl'),
             activeControllerCls: 'active'
         });
+
+        var bannerSliderprices = new Slider($('.forsale_tickets'), {
+            time: 5000,
+            delay: 400,
+            event: 'click',
+            auto: false,
+            mode: 'fade',
+            controller: $('#forsaleCtrl'),
+            activeControllerCls: 'active'
+        });
+        $(".pt_prev").on('click', function () {
+            bannerSliderprices.prev()
+        });
+        $(".pt_next").on('click', function () {
+            bannerSliderprices.next()
+        });
+
         /*
          $(".indexbanner").slide({
          slideContainer: $('.indexbanner a'),

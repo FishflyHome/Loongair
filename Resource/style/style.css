@@ -201,7 +201,7 @@ input[type=text].input-small, input[type=password].input-small,.input-small{ wid
 }
 .xconbox li:first-child {
     margin-left: 0;
-    width: 350px;
+    width: 694px;
     height: 326px;
 }
 .customerbox li:first-child{width: 158px; height: 158px; margin: 5px;}
@@ -1428,3 +1428,56 @@ span.seatCharts-legendDescription {line-height: 30px;}
 .vipmessage-small .dates-arrow-r{ right: }
 .vipmessage-small li.level{ margin-left: 255px;}
 .vipmessage-small .dates li{ width: 96.9px;}
+
+.span2{ width: 16.66%;}
+.forsale_tickets{ height: 230px;}
+.forsale_tickets>div{ position: relative; width: 100%; height: 230px;}
+.forsale_tickets .row{ width: 100%;}
+.s_pricetag{ font-size: 18px; border-bottom: 1px dotted #ddd; padding:5px 0  10px 0; height: 90px;}
+.span2:nth-child(n+7) .s_pricetag{ border: none;}
+.s_pricetag span{ display: block; text-align: center; font-weight: 100; font-size: 18px;}
+.s_pricetag_p{ color:#b81b22; font-size: 22px; padding: 5px 0;}
+.s_pricetag_p i{ font-size: 48px; font-style: normal; }
+.fnbtn{ position: absolute; width: 35px; height: 35px; background: #ddd; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+.pt_prev{ left: 15px; top: 160px;}
+.pt_prev:after{
+    content: "";
+    display: inline-block;
+    margin: 6px 5px 3px 10px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 10px 0;
+    border-style: solid;
+    _border-style: dashed;
+    border-color: transparent;
+    border-right-width: 10px;
+    border-right-color: #fff;
+}
+.pt_next{ right: 15px; top: 160px;}
+.pt_next:after{
+    content: "";
+    display: inline-block;
+    margin: 6px 0 3px 12px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 10px 0;
+    border-style: solid;
+    _border-style: dashed;
+    border-color: transparent;
+    border-left-width: 10px;
+    border-left-color: #fff;
+}
+.s_pricetag a{ cursor: pointer;}
+.s_pricetag a.active span,.s_pricetag a:hover span{ color: #b81b22; font-size: 18px;}
+.s_pricetag a.active .s_pricetag_p,.s_pricetag a:hover .s_pricetag_p{ font-size: 25px;}
+.s_pricetag a.active i,.s_pricetag a:hover i{ font-weight: bold;}
+
+.startcity_select{ padding: 35px 10px 0 0; line-height: 24px;}
+.icon-location{ background: url(../images/location.png) no-repeat center; width: 24px; height: 24px; display: inline-block; }
+.startcity_select .icon-location{ float: left;}
+.startcity_select .arrow-down{ border-top-color:#ccc; border-width: 6px; border-bottom: none; margin-top: 2px;}
+.city_select{ overflow: hidden; cursor: pointer;}
+.city_select span{ color: #b81b22;}
+.startcity_select input{ color: #b81b22; width: auto; display: inline; max-width: 79px; margin: 0;border: none; text-align: center;}

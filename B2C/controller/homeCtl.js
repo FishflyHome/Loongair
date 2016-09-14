@@ -13,6 +13,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
     $scope.isHomeNav = true;
 
     $scope.SpecialTic;
+    $scope.SpecialTiclist = new Array();
 
     $scope.AirplaneMenuList = laMapMenu_Airplane;
     $scope.CheckinTypeOptions = laEntityEnumfoIdTypeForCheckinOptions;
@@ -63,22 +64,23 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
     $("#startCity").attr("segnum", "");
     $("#endCity").attr("segnum", "");
 
-    //查询特价机票
-    laFlightService.QuerySpecialTicket('', '', function (dataBack, status) {
-        var rs = dataBack;
-        if (rs.Code == laGlobalProperty.laServiceCode_Success) {
-            $scope.SpecialTic = rs;
-        }
-    });
+    QuerySpecialTicket({"airportFromCode": "", "airportToCode": ""});
+
+    $scope.btnQuerySpecialTicket = function () {
+        var sCity = $("#startcity2").val();
+        var sCityCode = laUserService.SearchCityCodeByCityName(sCity);
+
+        QuerySpecialTicket({"airportFromCode": sCityCode, "airportToCode": ""});
+    };
 
     /**
-    var key_cookie_indexTip = "cookie_indexTip";
-    var cookieIndexTip = laGlobalLocalService.getCookie(key_cookie_indexTip);
-    if (cookieIndexTip == undefined || cookieIndexTip == null || cookieIndexTip != "1") {
+     var key_cookie_indexTip = "cookie_indexTip";
+     var cookieIndexTip = laGlobalLocalService.getCookie(key_cookie_indexTip);
+     if (cookieIndexTip == undefined || cookieIndexTip == null || cookieIndexTip != "1") {
         $('.modal').modal('show');
     }
 
-    $scope.btnCloseTipClick = function () {
+     $scope.btnCloseTipClick = function () {
         laGlobalLocalService.writeCookie(key_cookie_indexTip, "1", 0);
         $('.modal').modal('hide');
     };
@@ -283,7 +285,31 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
         $("#li_city_" + c).addClass("active");
         $("#li_city_" + c).siblings().removeClass("active");
         $("#city_" + c).addClass("active").siblings().removeClass("active");
+    };
+
+    ////查询特价机票
+    function QuerySpecialTicket(query) {
+        laFlightService.QuerySpecialTicket(query.airportFromCode, query.airportToCode, function (dataBack, status) {
+            var rs = dataBack;
+            if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                $scope.SpecialTic = rs;
+
+                $scope.SpecialTiclist = new Array();
+                var nSize = 12;
+                var allSize = $scope.SpecialTic.AirLineList.length;
+                var nPageCount = Math.ceil(allSize / nSize);
+                for (var i = 0; i < nPageCount; i++) {
+                    var tmpArr = new Array();
+                    for (var n = 0; n < nSize; n++) {
+                        if (((i * nSize) + n) < allSize) {
+                            tmpArr[n] = $scope.SpecialTic.AirLineList[(i * nSize) + n];
+                        } else {
+                            tmpArr[n] = null
+                        }
+                    }
+                    $scope.SpecialTiclist.push(tmpArr);
+                }
+            }
+        });
     }
-
-
 }]);
