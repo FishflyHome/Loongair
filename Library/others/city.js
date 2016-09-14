@@ -62,7 +62,7 @@ Vcity._m = {
     /* 获取元素位置 */
     getPos: function (node) {
         var scrollx = document.documentElement.scrollLeft || document.body.scrollLeft,
-                scrollt = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollt = document.documentElement.scrollTop || document.body.scrollTop;
         var pos = node.getBoundingClientRect();
         return { top: pos.top + scrollt, right: pos.right + scrollx, bottom: pos.bottom + scrollt, left: pos.left + scrollx }
     },
@@ -153,33 +153,33 @@ Vcity.regExChiese = /([\u4E00-\u9FA5\uf900-\ufa2d]+)/;
  * */
 
 (function () {
-/*
-    var citys = Vcity.allCity, match, letter,
-            regEx = Vcity.regEx,
-            reg2 = /^[a-h]$/i, reg3 = /^[i-p]$/i, reg4 = /^[q-z]$/i;
-    if (!Vcity.oCity) {
-        Vcity.oCity = { hot: {}, ABCDEFGH: {}, IJKLMNOP: {}, QRSTUVWXYZ: {} };
-        for (var i = 0, n = citys.length; i < n; i++) {
-            match = regEx.exec(citys[i]);
-            letter = match[3].toUpperCase();
-            if (reg2.test(letter)) {
-                if (!Vcity.oCity.ABCDEFGH[letter]) Vcity.oCity.ABCDEFGH[letter] = [];
-                Vcity.oCity.ABCDEFGH[letter].push(citys[i]);
-            } else if (reg3.test(letter)) {
-                if (!Vcity.oCity.IJKLMNOP[letter]) Vcity.oCity.IJKLMNOP[letter] = [];
-                Vcity.oCity.IJKLMNOP[letter].push(citys[i]);
-            } else if (reg4.test(letter)) {
-                if (!Vcity.oCity.QRSTUVWXYZ[letter]) Vcity.oCity.QRSTUVWXYZ[letter] = [];
-                Vcity.oCity.QRSTUVWXYZ[letter].push(citys[i]);
-            }
-            //热门城市 前16条
-            if (i < 16) {
-                if (!Vcity.oCity.hot['hot']) Vcity.oCity.hot['hot'] = [];
-                Vcity.oCity.hot['hot'].push(citys[i]);
-            }
-        }
-    }
-    */
+    /*
+     var citys = Vcity.allCity, match, letter,
+     regEx = Vcity.regEx,
+     reg2 = /^[a-h]$/i, reg3 = /^[i-p]$/i, reg4 = /^[q-z]$/i;
+     if (!Vcity.oCity) {
+     Vcity.oCity = { hot: {}, ABCDEFGH: {}, IJKLMNOP: {}, QRSTUVWXYZ: {} };
+     for (var i = 0, n = citys.length; i < n; i++) {
+     match = regEx.exec(citys[i]);
+     letter = match[3].toUpperCase();
+     if (reg2.test(letter)) {
+     if (!Vcity.oCity.ABCDEFGH[letter]) Vcity.oCity.ABCDEFGH[letter] = [];
+     Vcity.oCity.ABCDEFGH[letter].push(citys[i]);
+     } else if (reg3.test(letter)) {
+     if (!Vcity.oCity.IJKLMNOP[letter]) Vcity.oCity.IJKLMNOP[letter] = [];
+     Vcity.oCity.IJKLMNOP[letter].push(citys[i]);
+     } else if (reg4.test(letter)) {
+     if (!Vcity.oCity.QRSTUVWXYZ[letter]) Vcity.oCity.QRSTUVWXYZ[letter] = [];
+     Vcity.oCity.QRSTUVWXYZ[letter].push(citys[i]);
+     }
+     //热门城市 前16条
+     if (i < 16) {
+     if (!Vcity.oCity.hot['hot']) Vcity.oCity.hot['hot'] = [];
+     Vcity.oCity.hot['hot'].push(citys[i]);
+     }
+     }
+     }
+     */
 })();
 
 /* 城市HTML模板 */
@@ -240,7 +240,13 @@ Vcity.CitySelector.prototype = {
         });
         div.className = 'citySelector';
         div.style.position = 'absolute';
-        div.style.left = inputPos.left + 'px';
+
+        if(inputPos.left + 330 > document.body.clientWidth )
+        {
+            div.style.right = 10 + 'px';
+        }else{
+            div.style.left = inputPos.left + 'px';
+        }
         div.style.top = inputPos.bottom + 'px';
         div.style.zIndex = 999999;
 
@@ -284,7 +290,7 @@ Vcity.CitySelector.prototype = {
 
     createHotCity: function () {
         var odiv, odl, odt, odd, odda = [], str, key, ckey, sortKey, regEx = Vcity.regEx,
-                oCity = Vcity.oCity;
+            oCity = Vcity.oCity;
         for (key in oCity) {
             odiv = this[key] = document.createElement('div');
             // 先设置全部隐藏hide
@@ -301,7 +307,7 @@ Vcity.CitySelector.prototype = {
                 odd = document.createElement('dd');
                 odt.innerHTML = sortKey[j] == 'hot' ? '&nbsp;' : sortKey[j];
                 odda = [];
-                //var reg = new RegExp("^" + value + "|\\|" + value, 'gi'); 
+                //var reg = new RegExp("^" + value + "|\\|" + value, 'gi');
 
                 var reg = /^([\u4E00-\u9FA5\uf900-\ufa2d]+)\|(\w+)\|(\w+)\|(\w+)$/i;
                 for (var i = 0, n = oCity[key][sortKey[j]].length; i < n; i++) {
