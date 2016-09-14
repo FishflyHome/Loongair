@@ -10,7 +10,7 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
      * 设置导航栏ClassName
      * @type {boolean}
      */
-    $scope.isHolidayNav = true;
+    $scope.isSchTripNav = true;
 
     $scope.orderId;
     $scope.sessionId;
