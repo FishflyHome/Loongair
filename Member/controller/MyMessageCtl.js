@@ -28,6 +28,9 @@ laAir.controller('laAir_MemberMyMessagePageCtl', ['$interval', '$document', '$wi
     $scope.pageIndex = 1;
     $scope.pageSize = 10;
     $scope.totalPage = 0;
+    $scope.pageIndexCnt = 5;
+    $scope.pageIndexList = new Array();
+    $scope.inputPageSize = "";
 
     QueryMessageList();
 
@@ -55,6 +58,24 @@ laAir.controller('laAir_MemberMyMessagePageCtl', ['$interval', '$document', '$wi
         QueryMessageList();
     };
 
+    $scope.btnPageClick = function (p) {
+        $scope.pageIndex = p;
+        QueryMessageList();
+    };
+
+    $scope.btnGoPage = function () {
+        if (!laGlobalLocalService.IsNum($scope.inputPageSize)) {
+            bootbox.alert("页码请输入数字");
+            return;
+        }
+        if ($scope.inputPageSize < 1 || $scope.inputPageSize > $scope.totalPage) {
+            bootbox.alert("请输入正确的页码范围");
+            return;
+        }
+        $scope.pageIndex = $scope.inputPageSize;
+        QueryMessageList();
+    };
+
     $scope.btnDelMessage = function () {
         var arrMsg = new Array();
         var chklist = document.getElementsByName('messageCheck');
@@ -64,7 +85,7 @@ laAir.controller('laAir_MemberMyMessagePageCtl', ['$interval', '$document', '$wi
                 arrMsg.push(chklist[i].value);
             }
         }
-        if (arrMsg.length<=0){
+        if (arrMsg.length <= 0) {
             bootbox.alert("请选择要删除的信息");
             return;
         }
@@ -92,6 +113,36 @@ laAir.controller('laAir_MemberMyMessagePageCtl', ['$interval', '$document', '$wi
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.MessageList = rs.result;
                 $scope.totalPage = rs.PageCount;
+
+                $scope.pageIndexList = new Array();
+                if ($scope.totalPage <= $scope.pageIndexCnt) {
+                    for (var i = 0; i < $scope.totalPage; i++) {
+                        var pitem = {"p": (i + 1), "t": (i + 1), "s": false};
+                        if ($scope.pageIndex == (i + 1)) {
+                            pitem.s = true;
+                        }
+                        $scope.pageIndexList.push(pitem);
+                    }
+                } else {
+                    var headCurPage = parseInt($scope.pageIndex / $scope.pageIndexCnt);
+                    var subCurPage = $scope.pageIndex % $scope.pageIndexCnt;
+                    if (subCurPage == 0) {
+                        headCurPage--;
+                    }
+                    if (headCurPage < 0) {
+                        headCurPage = 0;
+                    }
+
+                    for (var i = headCurPage * $scope.pageIndexCnt + 1; i <= (headCurPage + 1) * $scope.pageIndexCnt; i++) {
+                        var pitem = {"p": i, "t": i, "s": false};
+                        if (i == $scope.pageIndex) {
+                            pitem.s = true;
+                        }
+                        if (i <= $scope.totalPage) {
+                            $scope.pageIndexList.push(pitem);
+                        }
+                    }
+                }
             }
         })
     }
