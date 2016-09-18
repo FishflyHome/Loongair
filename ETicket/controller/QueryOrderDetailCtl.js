@@ -16,6 +16,41 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
     $scope.sessionId;
 
     $scope.ImgVerifyCode = '';
+
+    var curHref = $window.location.href.split('?');
+    if (curHref.length >= 2) {
+        var QueryParam = {
+            "ordid": "",
+            "mobile": "",
+            "verifycode": "",
+            "sessionId": ""
+        };
+        var params = curHref[1].split('&');
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i].split('=');
+            if (param.length >= 2) {
+                try {
+                    if (param[0].toLowerCase() == 'orderid') {
+                        QueryParam.ordid = param[1];
+                    }
+                    if (param[0].toLowerCase() == 'mobile') {
+                        QueryParam.mobile = param[1];
+                    }
+                    if (param[0].toLowerCase() == 'verifycode') {
+                        QueryParam.verifycode = param[1];
+                    }
+                    if (param[0].toLowerCase() == 'sessionid') {
+                        QueryParam.sessionId = param[1];
+                    }
+                }
+                catch (e) {
+
+                }
+            }
+        }
+        $window.location.href = '/ETicket/OrderDetail.html?param=' + new Base64().encode(JSON.stringify(param));
+    }
+
     GetImageVerifyCode();
 
     $scope.btnChangeVerifyCode = function () {
