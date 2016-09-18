@@ -77,37 +77,6 @@
 
                     <p>欢迎您登录长龙会员中心</p>
                 </div>
-                <div class="vipmessage" ng-if="PassengerList && PassengerList.length>0">
-                    <h2>常用乘机人</h2>
-
-                    <div>
-                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>旅客类型</th>
-                                <th>姓名</th>
-                                <th>证件类型</th>
-                                <th>证件号码</th>
-                                <th>手机号码</th>
-                                <th>电子邮箱</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="psg in PassengerList track by $index">
-                                <td>{{psg.TravellerTypeCH}}</td>
-                                <td>{{psg.FlierName}}</td>
-                                <td>{{psg.FoidTypeCH}}</td>
-                                <td>{{psg.Foid}}</td>
-                                <td>{{psg.Mobile}}</td>
-                                <td>{{psg.EMail}}</td>
-                                <td><a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnEditPassengerClick(psg);">修改</a>
-                                    <a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnDelPassengerClick(psg.Tid)">删除</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
                 <div class="vipmessage">
                     <h2>常用旅客信息</h2>
 
@@ -175,6 +144,35 @@
                     <div class="vp-submit">
                         <a class="btn pull-right" ng-if="Passenger.Tid <=0" href="javascript:;" ng-click="btnAddPassengerClick();">添加</a>
                         <a class="btn pull-right" ng-if="Passenger.Tid >0" href="javascript:;" ng-click="btnAddPassengerClick();">修改</a>
+                    </div>
+                </div>
+                <div class="vipmessage" ng-if="PassengerList && PassengerList.length>0">
+                    <h2>常用乘机人</h2>
+
+                    <div>
+                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>旅客类型</th>
+                                <th>姓名</th>
+                                <th>证件类型/证件号码</th>
+                                <th>手机号码</th>
+                                <th>电子邮箱</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="psg in PassengerList track by $index">
+                                <td>{{psg.TravellerTypeCH}}</td>
+                                <td>{{psg.FlierName}}</td>
+                                <td>{{psg.FoidTypeCH}}/{{psg.Foid}}</td>
+                                <td>{{psg.Mobile}}</td>
+                                <td>{{psg.EMail}}</td>
+                                <td><a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnEditPassengerClick(psg);">修改</a>
+                                    <a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnDelPassengerClick(psg.Tid)">删除</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

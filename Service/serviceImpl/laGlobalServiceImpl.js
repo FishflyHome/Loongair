@@ -97,8 +97,8 @@ var laGlobalProperty = (function () {
         /*
          接口地址
          */
-        //laServiceUrl_Interface: 'http://120.26.229.120:84/Flight/InterfaceService', //'http://120.26.229.120/Flight/InterfaceService',
-        laServiceUrl_Interface: 'http://www.loongair.cn/Flight/InterfaceService',
+        laServiceUrl_Interface: 'http://120.26.229.120:84/Flight/InterfaceService', //'http://120.26.229.120/Flight/InterfaceService',
+        //laServiceUrl_Interface: 'http://www.loongair.cn/Flight/InterfaceService',
         /*
          查找航班
          */
