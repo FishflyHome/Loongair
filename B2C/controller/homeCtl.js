@@ -72,8 +72,8 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
 
         QuerySpecialTicket({"airportFromCode": sCityCode, "airportToCode": ""});
     };
-    /**
-    var key_cookie_indexTip = "cookie_indexTip";
+
+    var key_cookie_indexTip = "cookie_indexTip_galaxy";
     var cookieIndexTip = laGlobalLocalService.getCookie(key_cookie_indexTip);
     if (cookieIndexTip == undefined || cookieIndexTip == null || cookieIndexTip != "1") {
         $('.modal').modal('show');
@@ -83,7 +83,6 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
         laGlobalLocalService.writeCookie(key_cookie_indexTip, "1", 0);
         $('.modal').modal('hide');
     };
-     **/
 
     /**
      * 搜索机票按钮点击事件
