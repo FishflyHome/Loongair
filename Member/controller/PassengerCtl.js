@@ -30,9 +30,9 @@ laAir.controller('laAir_MemberPassengerPageCtl', ['$document', '$window', '$scop
     $scope.psgBirthdayValid = true;
 
     $scope.pageIndex = 1;
-    $scope.pageSize = 2;
+    $scope.pageSize = 10;
     $scope.totalPage = 0;
-    $scope.pageIndexCnt = 2;
+    $scope.pageIndexCnt = 5;
     $scope.pageIndexList = new Array();
     $scope.inputPageIndex = "";
 
