@@ -1591,11 +1591,11 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 {"showindex": 1, "v": true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg8.jpg"},
                 {"showindex": 2, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg7.jpg"},
                 {"showindex": 3, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg6.jpg"},
-                {"showindex": 4, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg5.jpg"},
+                {"showindex": 4, "v":false, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg5.jpg"},
                 {"showindex": 5, "v":true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg4.jpg"},
                 {"showindex": 6, "v": false, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg3.jpg"},
                 {"showindex": 7, "v": false, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg1.jpg"},
-                {"showindex": 8, "v": true, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg2.jpg"}]
+                {"showindex": 8, "v": false, "t": "", "href": "#", "imgUrl": "/Resource/images/loginbg2.jpg"}]
         };
 
         callBack(imgList.list, true);
