@@ -716,6 +716,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                         psg.EMail = tmpPsg.EMail;
                         psg.Brithday = tmpPsg.Brithday;
                         psg.Tid = tmpPsg.Tid;
+                        psg.AllCount = psgData.Count;
                         psgList[i] = psg;
                     }
                 }
