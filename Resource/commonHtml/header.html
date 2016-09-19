@@ -50,12 +50,15 @@
     </div>
     <div class="topmenu">
         <div class="container">
+            <!--
             <ul class="nav">
-                <li ng-class="{true:'active',false:''}[isHomeNav]"><a href="/B2C/home.html">首页</a></li>
-                <!--<li ng-class="{true:'active',false:''}[isSchTripNav]"><a href="/ETicket/AirlineList.html">预定行程</a></li>-->
+                <li ng-class="{true:'active',false:''}[isHomeNav]">
+                    <a class="overhref" href="/B2C/home.html" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">首页</a>
+                    <a class="outhref" href="/B2C/home.html" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">首页</a>
+                </li>
                 <li ng-class="{true:'active',false:''}[isSchTripNav]">
-                    <a class="overhref" href="javascript:;" style="display:none;height: 45px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">机票<i class="arrow-down" style="border-top-color: black;"></i></a>
-                    <a class="outhref" href="javascript:;" style="margin: 0 10px 0 10px;">机票<i class="arrow-down" style="border-top-color: white;"></i></a>
+                    <a class="overhref" href="javascript:;" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">机票<i class="arrow-down" style="border-top-color: black;"></i></a>
+                    <a class="outhref" href="javascript:;" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">机票<i class="arrow-down" style="border-top-color: white;"></i></a>
                     <div class="secondary_menu hide">
                         <div class="s_menu">
                             <div class="span4">
@@ -68,56 +71,82 @@
                         </div>
                     </div>
                 </li>
-                <!--<li ng-class="{true:'active',false:''}[isQueryOrderNav]"><a href="/ETicket/QueryOrderDetail.html">查询订单</a></li>-->
-                <!--<li ng-class="{true:'active',false:''}[isCarReserveNav]"><a href="/Car/Car.html">用车</a></li>-->
-                <!--<li ng-class="{true:'active',false:''}[isMallNav]"><a href="/Mall/Mall.html">商城</a></li>-->
-                <!-- <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="/Infomation/index.html">旅客服务</a></li> -->
-                <li ng-class="{true:'active',false:''}[isTravelNav]"><a href="/Travel/Transport/PassengerInfo.html">出行帮助</a></li>
+                <li ng-class="{true:'active',false:''}[isTravelNav]">
+                    <a class="overhref" href="/Travel/Transport/PassengerInfo.html" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">出行帮助</a>
+                    <a class="outhref" href="/Travel/Transport/PassengerInfo.html" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">出行帮助</a>
+                </li>
                 <li ng-class="{true:'active',false:''}[isHolidayNav]">
-                    <a class="overhref" href="javascript:;" style="display:none;height: 45px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">长龙假期<i class="arrow-down" style="border-top-color: black;"></i></a>
-                    <a class="outhref" href="javascript:;" style="margin: 0 10px 0 10px;">长龙假期<i class="arrow-down" style="border-top-color: white;"></i></a>
+                    <a class="overhref" href="javascript:;" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">长龙假期<i class="arrow-down" style="border-top-color: black;"></i></a>
+                    <a class="outhref" href="javascript:;" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">长龙假期<i class="arrow-down" style="border-top-color: white;"></i></a>
                     <div class="secondary_menu hide">
                         <div class="s_menu">
                             <div class="span4">
                                 <div>
                                     <img src="/Resource/images/booktic.png"><a href="/Holiday/Holiday.html" style="font-size:14px;">门票</a> &nbsp; | &nbsp;
-                                    <!--<img src="/Resource/images/bookhotel.png"><a style="font-size:14px;" href="http://hotels.ctrip.com/?allianceid=365358&sid=849624&popup=close&autoawaken=close&sourceid=&ouid=" target="_blank">酒店</a> &nbsp; | &nbsp;-->
                                     <img src="/Resource/images/bookcar.png"><a href="/Car/Car.html" style="font-size:14px;">用车</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li ng-class="{true:'active',false:''}[isClubNav]"><a href="/Member/Club.html">会员俱乐部</a>
-                    <!--
+                <li ng-class="{true:'active',false:''}[isClubNav]">
+                    <a class="overhref" href="/Member/Club.html" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">会员俱乐部</a>
+                    <a class="outhref" href="/Member/Club.html" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">会员俱乐部</a>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li ng-if="UserLogined" ng-class="{true:'active',false:''}[isMyInfoNav]">
+                    <a class="overhref" ng-if="!userInfo_C.IsFrequentPassenger" href="/Member/MyInfo.html" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">我的信息</a>
+                    <a class="outhref" ng-if="!userInfo_C.IsFrequentPassenger" href="/Member/MyInfo.html" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">我的信息</a>
+
+                    <a class="overhref" ng-if="userInfo_C.IsFrequentPassenger" href="/Member/MyVipInfo.html" style="display:none;height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;">我的信息</a>
+                    <a class="outhref" ng-if="userInfo_C.IsFrequentPassenger" href="/Member/MyVipInfo.html" style="height: 45px;line-height:40px;margin: 10px 10px 0 10px;">我的信息</a>
+                </li>
+            </ul>
+            -->
+            <ul class="nav">
+                <li class="mouseout">
+                    <a href="/B2C/home.html">首页</a>
+                </li>
+                <li class="mouseout">
+                    <a href="javascript:;">机票<i class="arrow-down"></i></a>
                     <div class="secondary_menu hide">
-                        <div class="s_menu airplane">
-                            <div class="span4" style="float:right;">
-                                <h4>运输规定</h4>
+                        <div class="s_menu" style="padding: 10px;">
+                            <div class="span4" style="width:60%;">
                                 <div>
-                                    <a href="/Travel/Transport/PassengerInfo.html">旅客须知</a> &nbsp; | &nbsp;
-                                    <a href="/Travel/Transport/Rule.html">运输总条件</a> &nbsp; | &nbsp;
-                                    <a href="/Travel/Transport/Overbooking.html">超售公示说明</a><br/>
+                                    <img class="s_menu_image" src="/Resource/images/bookplan1.png"><a href="/ETicket/AirlineList.html" style="font-size:14px;">机票预订</a> &nbsp; | &nbsp;
+                                    <img class="s_menu_image" src="/Resource/images/bookplan2.png"><a href="/ETicket/QueryOrderDetail.html" style="font-size:14px;">查询订单</a> &nbsp; | &nbsp;
+                                    <img class="s_menu_image" src="/Resource/images/bookplan3.png"><a href="/ETicket/Checkin.html" style="font-size:14px;">办理值机</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    -->
                 </li>
-                <!--
-                <li ng-class="{true:'active',false:''}[isSelfSvrNav]"><a href="#">自助服务</a></li>
-                <li ng-class="{true:'active',false:''}[isInfoSvrNav]"><a href="#">信息服务</a></li>
-                <li ng-class="{true:'active',false:''}[isMallNav]"><a href="#">积分商城</a></li>
-                <li ng-class="{true:'active',false:''}[isTourNav]"><a href="#">旅游度假</a></li>
-                <li ng-class="{true:'active',false:''}[isHotelNav]"><a href="#">酒店</a></li>
-                -->
+                <li class="mouseout">
+                    <a href="/Travel/Transport/PassengerInfo.html">出行帮助</a>
+                </li>
+                <li class="mouseout">
+                    <a href="javascript:;">长龙假期<i class="arrow-down"></i></a>
+                    <div class="secondary_menu hide">
+                        <div class="s_menu" style="padding: 10px;">
+                            <div class="span4" style="width:60%;">
+                                <div>
+                                    <img class="s_menu_image" src="/Resource/images/booktic.png"><a href="/Holiday/Holiday.html" style="font-size:14px;">门票</a> &nbsp; | &nbsp;
+                                    <img class="s_menu_image" src="/Resource/images/bookcar.png"><a href="/Car/Car.html" style="font-size:14px;">用车</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mouseout">
+                    <a href="/Member/Club.html">会员俱乐部</a>
+                </li>
             </ul>
             <ul class="nav pull-right">
-                <li ng-if="UserLogined" ng-class="{true:'active',false:''}[isMyInfoNav]">
+                <li ng-if="UserLogined"  class="mouseout">
                     <a ng-if="!userInfo_C.IsFrequentPassenger" href="/Member/MyInfo.html">我的信息</a>
                     <a ng-if="userInfo_C.IsFrequentPassenger" href="/Member/MyVipInfo.html">我的信息</a>
                 </li>
-                <!-- <li ng-if="!UserLogined" ng-class="{true:'active',false:''}[isMyOrderNav]"><a href="javascript:;" ng-click="btnMyOrderClick();">我的订单</a></li> -->
             </ul>
         </div>
     </div>
