@@ -20,7 +20,7 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
 
     var today = new Date();
     $scope.endTime = $filter('date')(new Date(), 'yyyy-MM-dd');
-    $scope.startTime = $filter('date')(new Date(today.setDate(today.getDate() - 30)), 'yyyy-MM-dd');
+    $scope.startTime = $filter('date')(new Date(today.setDate(today.getDate() - 90)), 'yyyy-MM-dd');
     $scope.ticketOrderNum = "";
     $scope.flightNum = "";
     $scope.flier = "";
