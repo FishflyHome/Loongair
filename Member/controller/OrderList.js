@@ -21,13 +21,16 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
     var today = new Date();
     $scope.endTime = $filter('date')(new Date(), 'yyyy-MM-dd');
     $scope.startTime = $filter('date')(new Date(today.setDate(today.getDate() - 30)), 'yyyy-MM-dd');
+    $scope.ticketOrderNum = "";
+    $scope.flightNum = "";
+    $scope.flier = "";
 
     $scope.pageIndex = 1;
     $scope.pageSize = 6;
     $scope.totalPage = 0;
     $scope.pageIndexCnt = 5;
     $scope.pageIndexList = new Array();
-    $scope.inputPageSize = "";
+    $scope.inputPageIndex = "";
 
     $scope.isQuerying = false;
 
@@ -69,15 +72,16 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
     };
 
     $scope.btnGoPage = function () {
-        if (!laGlobalLocalService.IsNum($scope.inputPageSize)) {
+        $scope.inputPageIndex = $("#inputPindex").val();
+        if (!laGlobalLocalService.IsNum($scope.inputPageIndex)) {
             bootbox.alert("页码请输入数字");
             return;
         }
-        if ($scope.inputPageSize < 1 || $scope.inputPageSize > $scope.totalPage) {
+        if ($scope.inputPageIndex < 1 || $scope.inputPageIndex > $scope.totalPage) {
             bootbox.alert("请输入正确的页码范围");
             return;
         }
-        $scope.pageIndex = $scope.inputPageSize;
+        $scope.pageIndex = $scope.inputPageIndex;
         queryOrderList();
     };
     /**
@@ -110,7 +114,16 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
         $("#noOrder").hide();
 
         $scope.isQuerying = true;
-        laOrderService.QueryOrderList($scope.pageIndex, $scope.pageSize, $scope.startTime, $scope.endTime, function (backData, status) {
+        var queryJSON = {
+            "NewPageIndex": $scope.pageIndex,
+            "OnePageCount": $scope.pageSize,
+            "TicketOrderNum": $scope.ticketOrderNum,
+            "FlightNum": $scope.flightNum,
+            "Flier": $scope.flier,
+            "CreateTimeStart": $scope.startTime,
+            "CreateTimeEnd": $scope.endTime
+        };
+        laOrderService.QueryOrderList(queryJSON, function (backData, status) {
             $scope.rs = backData;
             if ($scope.rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.totalPage = $scope.rs.TotalPage;

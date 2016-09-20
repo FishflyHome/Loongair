@@ -405,24 +405,24 @@ laOrder.factory('laOrderService', ['$http', 'laGlobalHTTPService', 'laGlobalLoca
 
     /**
      * 查询订单列表
-     * @param newPageIndex 查询第几页
-     * @param pageSize 每页记录数
-     * @param createTimeStart 开始时间
-     * @param createTimeEnd 结束时间
+     * @param queryOrder
      * @param callBack
      * @constructor
      */
-    laOrderService.QueryOrderList = function (newPageIndex, pageSize, createTimeStart, createTimeEnd, callBack) {
+    laOrderService.QueryOrderList = function (queryOrder, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_OrderList;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
 
         var requestBody = {};
         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
-        requestBody.NewPageIndex = newPageIndex;
-        requestBody.OnePageCount = pageSize;
-        requestBody.CreateTimeStart = createTimeStart;
-        requestBody.CreateTimeEnd = createTimeEnd;
+        requestBody.NewPageIndex = queryOrder.NewPageIndex;
+        requestBody.OnePageCount = queryOrder.OnePageCount;
+        requestBody.TicketOrderNum = queryOrder.TicketOrderNum;
+        requestBody.FlightNum = queryOrder.FlightNum;
+        requestBody.Flier = queryOrder.Flier;
+        requestBody.CreateTimeStart = queryOrder.CreateTimeStart;
+        requestBody.CreateTimeEnd = queryOrder.CreateTimeEnd;
 
         requestParam.Args = JSON.stringify(requestBody);
 
