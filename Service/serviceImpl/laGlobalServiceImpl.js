@@ -564,6 +564,42 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
     };
 
     /**
+     * 获取字符串(含汉字)长度
+     * @param v
+     */
+    laGlobalLocalService.getStringLength = function (v) {
+        var sum = 0;
+        for (var i = 0; i < v.length; i++) {
+            var c = v.charCodeAt(i);
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                sum++;
+            }
+            else {
+                sum += 2;
+            }
+        }
+        return sum;
+    };
+
+    /**
+     * 找出汉字的个数
+     * @param v
+     * @returns {number}
+     */
+    laGlobalLocalService.getChineseStringCnt = function (v) {
+        var sum = 0;
+        for (var i = 0; i < v.length; i++) {
+            var c = v.charCodeAt(i);
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+            }
+            else {
+                sum++;
+            }
+        }
+        return sum;
+    };
+    
+    /**
      * 校验字符串长度
      * @param v
      * @param len
