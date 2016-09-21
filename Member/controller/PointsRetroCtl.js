@@ -121,7 +121,7 @@ laAir.controller('laAir_MemberPointsRetroPageCtl', ['$interval', '$document', '$
             $scope.PointsRetroInfo.Cabin, $scope.PointsRetroInfo.FlightDate, $scope.PointsRetroInfo.From, $scope.PointsRetroInfo.To, $scope.PointsRetroInfo.SeatNo, function (backData, status) {
                 var rs = backData;
                 if (rs.Code == laGlobalProperty.laServiceCode_Success) {
-                    bootbox.alert("补登成功");
+                    bootbox.alert("提交成功,请等待审核后生效");
                 } else {
                     bootbox.alert(rs.Message);
                 }
