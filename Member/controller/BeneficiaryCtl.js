@@ -113,6 +113,10 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
         }
     };
 
+    $scope.btnShowAddInfo = function () {
+        $('.modal').modal('show');
+    };
+
     $scope.btnEditBenefit = function (b) {
         b.MB_Birthday = $filter('date')(b.MB_Birthday, 'yyyy-MM-dd');
         //$scope.benefit = b;
@@ -242,6 +246,7 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
         laUserService.AddBenefit($scope.benefit, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                $('.modal').modal('hide');
                 initBenefitInfo();
                 QueryBenefitList();
             } else {
@@ -293,6 +298,7 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
         laUserService.AddBenefitIdInfo($scope.benefit.Tid, newFoidlist, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                $('.modal').modal('hide');
                 $scope.isAdd = true;
                 initBenefitInfo();
                 QueryBenefitList();
@@ -303,6 +309,7 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
     };
 
     $scope.btnCancelBenefit = function () {
+        $('.modal').modal('hide');
         initBenefitInfo();
     };
 

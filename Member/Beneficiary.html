@@ -89,7 +89,10 @@
                     </div>
                 </div>
                 <div class="vipmessage">
-                    <h2>受益人</h2>
+                    <h2>
+                        受益人
+                        <a class="btn pull-right" style="margin-top: -10px;" href="javascript:;" id="infoeditbutton" ng-click="btnShowAddInfo();">添加</a>
+                    </h2>
                     <div>
                         <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
                             <thead>
@@ -123,93 +126,98 @@
                     </div>
                 </div>
 
-                <div class="vipmessage">
-                    <h2>受益人信息</h2>
-                    <div class="panel-body clearfix">
-                        <div class="control" style="width:100%;">
-                            <label style="width:120px;">会员卡号</label>&nbsp;<input type="text" ng-model="benefit.MB_FPCardNo"/><!-- ng-readonly="!isAdd" -->
-                            <span>(受益人为会员,填写此项,否则不用填写)</span>
-                        </div>
 
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>性别</label>&nbsp;
-                            <select ng-options="t.v as t.t for t in sexOptions" ng-model="benefit.MB_SexType" ng-disabled="!isAdd"></select>
-                        </div>
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>出生日期</label>&nbsp;<input type="text" ng-readonly="!isAdd" id="birthday" placeholder="YYYY-MM-DD" ng-model="benefit.MB_Birthday" onclick="javascript:showbenefitBirthday(this)"/>
-                        </div>
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>中文姓</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondName" ng-change="getChinesePYXing();"/>
-                        </div>
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>中文名</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstName" ng-change="getChinesePYMing();"/>
-                        </div>
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>英文姓\中文姓拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondNamePinYin" ng-change="UpperCaseInfoSecondName();"/>
-                        </div>
-                        <div class="control">
-                            <label style="width:120px;"><span style="color: red;">*</span>英文名\中文名拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstNamePinYin" ng-change="UpperCaseInfoFirstName();"/>
-                        </div>
 
-                        <div ng-repeat="f in FoidDiv" ng-show="f.s">
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>
-                                <select ng-options="t.v as t.t for t in foIdTypeOptions" ng-disabled="!isAdd && f.h" ng-model="f.v" ng-change="ChooseFoidType(f);"></select>
-                            </div>
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;
-                                <input type="text" id="foid{{f.v}}" ng-readonly="!isAdd" ng-model="f.no" ng-change="ParseBirthdayByFoid(f);"/>
-                                <a id="href{{f.v}}" href="javascript:;" ng-show="$index>0" ng-click="btnDelFoidDiv(f)"><span style="font-size: 10px;">&nbsp;&nbsp;隐藏</span></a>
-                            </div>
-                        </div>
-                        <!--
-                        <div ng-show="benefit.BeneficiaryInfolist[0].f1.s">
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
-                                身份证
-                            </div>
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
-                            </div>
-                        </div>
-                        <div ng-show="benefit.BeneficiaryInfolist.f2.s">
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
-                                护照
-                            </div>
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
-                            </div>
-                        </div>
-                        <div ng-show="benefit.BeneficiaryInfolist.f100.s">
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
-                                其他
-                            </div>
-                            <div class="control">
-                                <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
-                            </div>
-                        </div>
-                        -->
-
-                        <div class="control">
-                            <label style="width:120px;">&nbsp;</label>
-                            <a href="javascript:;" ng-show="showFoidDivCnt<FoidDiv.length" ng-click="btnShowMoreFoid();"><span style="color:#337ab7;font-size: 10px;">+&nbsp;新增证件类型</span></a>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="vipmessage">
-                    <div class="table-paper">
-                        <a class="btn pull-right" href="javascript:;" ng-show="isAdd" ng-click="btnAddBenefit();">添加</a>&nbsp;&nbsp;
-                        <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnCancelBenefit();" style="margin-left: 10px;margin-right: 10px;">取消</a>
-                        <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnSaveBenefit();">保存</a>&nbsp;&nbsp;
-                    </div>
-                </div>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="divide"></div>
+    </div>
+</div>
+
+<div class="modal" style="width:850px;left:40%;">
+    <div class="vipmessage">
+        <h2>受益人信息</h2>
+        <div class="panel-body clearfix">
+            <div class="control" style="width:100%;">
+                <label style="width:120px;">会员卡号</label>&nbsp;<input type="text" ng-model="benefit.MB_FPCardNo"/><!-- ng-readonly="!isAdd" -->
+                <span>(受益人为会员,填写此项,否则不用填写)</span>
+            </div>
+
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>性别</label>&nbsp;
+                <select ng-options="t.v as t.t for t in sexOptions" ng-model="benefit.MB_SexType" ng-disabled="!isAdd"></select>
+            </div>
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>出生日期</label>&nbsp;<input type="text" ng-readonly="!isAdd" id="birthday" placeholder="YYYY-MM-DD" ng-model="benefit.MB_Birthday" onclick="javascript:showbenefitBirthday(this)"/>
+            </div>
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>中文姓</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondName" ng-change="getChinesePYXing();"/>
+            </div>
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>中文名</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstName" ng-change="getChinesePYMing();"/>
+            </div>
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>英文姓\中文姓拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_SecondNamePinYin" ng-change="UpperCaseInfoSecondName();"/>
+            </div>
+            <div class="control">
+                <label style="width:120px;"><span style="color: red;">*</span>英文名\中文名拼音</label>&nbsp;<input type="text" ng-readonly="!isAdd" ng-model="benefit.MB_FirstNamePinYin" ng-change="UpperCaseInfoFirstName();"/>
+            </div>
+
+            <div ng-repeat="f in FoidDiv" ng-show="f.s">
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>
+                    <select ng-options="t.v as t.t for t in foIdTypeOptions" ng-disabled="!isAdd && f.h" ng-model="f.v" ng-change="ChooseFoidType(f);"></select>
+                </div>
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;
+                    <input type="text" id="foid{{f.v}}" ng-readonly="!isAdd" ng-model="f.no" ng-change="ParseBirthdayByFoid(f);"/>
+                    <a id="href{{f.v}}" href="javascript:;" ng-show="$index>0" ng-click="btnDelFoidDiv(f)"><span style="font-size: 10px;">&nbsp;&nbsp;隐藏</span></a>
+                </div>
+            </div>
+            <!--
+            <div ng-show="benefit.BeneficiaryInfolist[0].f1.s">
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                    身份证
+                </div>
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                </div>
+            </div>
+            <div ng-show="benefit.BeneficiaryInfolist.f2.s">
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                    护照
+                </div>
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                </div>
+            </div>
+            <div ng-show="benefit.BeneficiaryInfolist.f100.s">
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件类型</label>&nbsp;
+                    其他
+                </div>
+                <div class="control">
+                    <label style="width:120px;"><span style="color: red;">*</span>证件号码</label>&nbsp;<input type="text" ng-readonly="!isAdd"/>
+                </div>
+            </div>
+            -->
+
+            <div class="control">
+                <label style="width:120px;">&nbsp;</label>
+                <a href="javascript:;" ng-show="showFoidDivCnt<FoidDiv.length" ng-click="btnShowMoreFoid();"><span style="color:#337ab7;font-size: 10px;">+&nbsp;新增证件类型</span></a>
+            </div>
+
+        </div>
+    </div>
+    <div class="vipmessage">
+        <div class="table-paper" style="padding-bottom: 15px;">
+            <a class="btn pull-right" href="javascript:;" ng-show="isAdd" ng-click="btnAddBenefit();">添加</a>&nbsp;&nbsp;
+            <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnCancelBenefit();" style="margin-left: 10px;margin-right: 10px;">取消</a>
+            <a class="btn pull-right" href="javascript:;" ng-show="!isAdd" ng-click="btnSaveBenefit();">保存</a>&nbsp;&nbsp;
+        </div>
     </div>
 </div>
 
