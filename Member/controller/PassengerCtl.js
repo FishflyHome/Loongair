@@ -44,6 +44,16 @@ laAir.controller('laAir_MemberPassengerPageCtl', ['$document', '$window', '$scop
         if (laGlobalLocalService.CheckStringIsEmpty($scope.Passenger.FlierName)) {
             $scope.psgNameValid = false;
             return false;
+        } else if (laGlobalLocalService.getChineseStringCnt($scope.Passenger.FlierName) > 0) {
+            if (laGlobalLocalService.getStringLength($scope.Passenger.FlierName) < 4) {
+                $scope.psgNameValid = false;
+                return false;
+            }
+        } else if (laGlobalLocalService.getChineseStringCnt($scope.Passenger.FlierName) <= 0) {
+            if (laGlobalLocalService.getStringLength($scope.Passenger.FlierName) < 3) {
+                $scope.psgNameValid = false;
+                return false;
+            }
         } else {
             return true;
         }

@@ -180,8 +180,16 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
             bootbox.alert("请输入中文姓");
             return;
         }
+        if (laGlobalLocalService.getChineseStringCnt($scope.benefit.MB_SecondName) <= 0) {
+            bootbox.alert("中文姓请输入汉字");
+            return;
+        }
         if (laGlobalLocalService.CheckStringIsEmpty($scope.benefit.MB_FirstName)) {
             bootbox.alert("请输入中文名");
+            return;
+        }
+        if (laGlobalLocalService.getChineseStringCnt($scope.benefit.MB_FirstName) <= 0) {
+            bootbox.alert("中文名请输入汉字");
             return;
         }
         if (laGlobalLocalService.CheckStringIsEmpty($scope.benefit.MB_SecondNamePinYin)) {
