@@ -1342,7 +1342,7 @@ span.seatCharts-legendDescription {line-height: 30px;}
 
 /*seats style 值机选坐 end*/
 
-.secondary_menu{ position: absolute; right: 0; z-index: 99; background: #fff; width:100%; box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3); -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);}
+.secondary_menu{ position: absolute; right: 0; z-index: 990; background: #fff; width:100%; box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3); -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);}
 .s_menu a{ color: #666; padding: 0; display: inline; font-size: 12px;}
 .secondary_menu h4{ border-bottom: 1px solid #c8c8c8; font-size: 16px; font-weight: normal; padding: 5px 0; margin-bottom: 5px;}
 .s_menu{ padding:20px 15px 20px; overflow: hidden; text-align: left; line-height: 22px;}
