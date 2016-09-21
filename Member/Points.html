@@ -112,7 +112,7 @@
                                 </select>
                             </label>
                             <label class="pull-right">
-                                <button class="btn btn-warning" ng-click="btnQueryClick();"><i class="icon-search"></i>查询</button>
+                                <a class="btn" href="javascript:;" ng-click="btnQueryClick();">查询</a>
                             </label>
                         </div>
                     </div>
@@ -148,9 +148,15 @@
                             </tbody>
                         </table>
                         <div class="submit-pay" style="text-align:right;">
-                            <span>共{{totalPage}}页,当前第{{pageIndex}}页</span>
-                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex>1]" href="javascript:;" ng-disabled="pageIndex>1" ng-click="btnPrePageClick();">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex<totalPage]" href="javascript:;" ng-disabled="pageIndex<totalPage" ng-click="btnNextPageClick();">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex>1]" href="javascript:;" ng-disabled="pageIndex>1" ng-click="btnPrePageClick();" style="padding: 5px 10px 5px 10px;">上一页</a>&nbsp;&nbsp;
+                            <a href="javascript:;" ng-if="pageIndexList[0].p >pageIndexCnt" ng-click="btnPageClick(pageIndexList[0].p -1)">...</a>&nbsp;&nbsp;
+                            <span ng-repeat="p in pageIndexList"><a ng-class="{true:'btn', false:'btn btn-gray'}[p.s]" href="javascript:;" ng-click="btnPageClick(p.p);" style="padding: 5px 10px 5px 10px;">{{p.t}}</a>&nbsp;&nbsp;</span>
+                            <a href="javascript:;" ng-if="pageIndexList[pageIndexList.length-1].p <totalPage" ng-click="btnPageClick(pageIndexList[pageIndexList.length-1].p +1)">...</a>&nbsp;&nbsp;
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex<totalPage]" href="javascript:;" ng-disabled="pageIndex<totalPage" ng-click="btnNextPageClick();" style="padding: 5px 10px 5px 10px;">下一页</a>&nbsp;&nbsp;
+                            <span>
+                                共{{totalPage}}页&nbsp;&nbsp;到第&nbsp;<input type="text" id="inputPindex" ng-model="inputPageIndex" style="width:20px;">&nbsp;页&nbsp;&nbsp;
+                                <a class="btn" href="javascript:;" ng-click="btnGoPage();" style="padding: 5px 10px 5px 10px;">确定</a>
+                            </span>
                         </div>
                         <!--
                         <div class="pagination pull-right">
