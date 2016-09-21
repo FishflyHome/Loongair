@@ -214,6 +214,9 @@ laAir.controller('laAir_MemberPassengerPageCtl', ['$document', '$window', '$scop
                         bootbox.alert("删除成功");
                         for (var i = 0; i < arrMsg.length; i++) {
                             $("#tr" + arrMsg[i]).css({"display": "none"});
+                            if (arrMsg[i] == $scope.Passenger.Tid) {
+                                $scope.Passenger = InitNewPassenger();
+                            }
                         }
                     } else {
                         bootbox.alert(rs.Message);
