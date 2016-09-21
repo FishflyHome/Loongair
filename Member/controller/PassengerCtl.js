@@ -187,6 +187,37 @@ laAir.controller('laAir_MemberPassengerPageCtl', ['$document', '$window', '$scop
         });
     };
 
+    $scope.btnDelMulPsg = function () {
+        var arrMsg = new Array();
+        var chklist = document.getElementsByName('messageCheck');
+
+        for (var i = 0; i < chklist.length; i++) {
+            if (chklist[i].checked) {
+                arrMsg.push(chklist[i].value);
+            }
+        }
+        if (arrMsg.length <= 0) {
+            bootbox.alert("请选择要删除的乘机人");
+            return;
+        }
+
+        bootbox.confirm('您是否要删除这些乘机人?', function (result) {
+            if (result) {
+                laUserService.DelMaintainStationPassengers(arrMsg, function (backData, status) {
+                    var rs = backData;
+                    if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                        bootbox.alert("删除成功");
+                        for (var i = 0; i < arrMsg.length; i++) {
+                            $("#tr" + arrMsg[i]).css({"display": "none"});
+                        }
+                    } else {
+                        bootbox.alert(rs.Message);
+                    }
+                })
+            }
+        })
+    };
+
     $scope.btnEditPassengerClick = function (psg) {
         //$scope.Passenger = psg;
         $scope.Passenger.FlierName = psg.FlierName;
