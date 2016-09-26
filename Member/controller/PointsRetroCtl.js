@@ -36,30 +36,7 @@ laAir.controller('laAir_MemberPointsRetroPageCtl', ['$interval', '$document', '$
     $("#startCity").attr("segnum", "");
     $("#endCity").attr("segnum", "");
 
-    laUserService.FillCityAirportInfo(new Array("startCity", "endCity"), function () {
-        var sv = $("#startCity").val();
-        if (sv == undefined || sv == '') {
-            var defCity = {"s": {"c": "HGH", "n": "杭州"}, "e": {"c": "PEK", "n": "北京"}};
-            $("#startCity").attr("segnum", defCity.s.c);
-            $("#startCity").val(defCity.s.n);
-            $("#endCity").attr("segnum", defCity.e.c);
-            $("#endCity").val(defCity.e.n);
-        }
-
-        var st = $("#startTime").val();
-        if (st == undefined || st == '') {
-            var td = new Date();
-            td = new Date(td.setDate(td.getDate() + 1));
-            var tdmm = (parseInt(td.getMonth() + 1)).toString();
-            tdmm = (tdmm.length < 2) ? '0' + tdmm : tdmm;
-            var tdday = td.getDate().toString();
-            tdday = (tdday.length < 2) ? '0' + tdday : tdday;
-            $("#startTime").val(td.getFullYear() + '-' + tdmm + '-' + tdday);
-            $("#startTime").attr("date", td.getFullYear() + '-' + tdmm + '-' + tdday);
-        } else {
-            $("#startTime").attr("date", st);
-        }
-    });
+    initFillCity();
 
     /**
      * 根据出发/到达城市文本查找城市代码
@@ -121,11 +98,48 @@ laAir.controller('laAir_MemberPointsRetroPageCtl', ['$interval', '$document', '$
             $scope.PointsRetroInfo.Cabin, $scope.PointsRetroInfo.FlightDate, $scope.PointsRetroInfo.From, $scope.PointsRetroInfo.To, $scope.PointsRetroInfo.SeatNo, function (backData, status) {
                 var rs = backData;
                 if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                    $scope.PointsRetroInfo = {
+                        "TicketNo": "",
+                        "FlightNo": "",
+                        "Cabin": "",
+                        "FlightDate": "",
+                        "From": "",
+                        "To": "",
+                        "SeatNo": ""
+                    };
+
                     bootbox.alert("提交成功,请等待审核后生效");
                 } else {
                     bootbox.alert(rs.Message);
                 }
             });
+    };
+
+    function initFillCity() {
+        laUserService.FillCityAirportInfo(new Array("startCity", "endCity"), function () {
+            //var sv = $("#startCity").val();
+            //if (sv == undefined || sv == '') {
+                var defCity = {"s": {"c": "HGH", "n": "杭州"}, "e": {"c": "PEK", "n": "北京"}};
+                $("#startCity").attr("segnum", defCity.s.c);
+                $("#startCity").val(defCity.s.n);
+                $("#endCity").attr("segnum", defCity.e.c);
+                $("#endCity").val(defCity.e.n);
+            //}
+
+            var st = $("#startTime").val();
+            if (st == undefined || st == '') {
+                var td = new Date();
+                td = new Date(td.setDate(td.getDate() + 1));
+                var tdmm = (parseInt(td.getMonth() + 1)).toString();
+                tdmm = (tdmm.length < 2) ? '0' + tdmm : tdmm;
+                var tdday = td.getDate().toString();
+                tdday = (tdday.length < 2) ? '0' + tdday : tdday;
+                $("#startTime").val(td.getFullYear() + '-' + tdmm + '-' + tdday);
+                $("#startTime").attr("date", td.getFullYear() + '-' + tdmm + '-' + tdday);
+            } else {
+                $("#startTime").attr("date", st);
+            }
+        });
     }
 
 }]);

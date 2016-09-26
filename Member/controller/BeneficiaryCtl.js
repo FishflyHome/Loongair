@@ -152,6 +152,8 @@ laAir.controller('laAir_MemberBeneficiaryPageCtl', ['$sce', '$filter', '$interva
                 }
             }
         }
+
+        $('.modal').modal('show');
     };
 
     $scope.btnDeleteBenefit = function (b) {

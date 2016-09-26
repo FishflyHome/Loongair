@@ -108,7 +108,7 @@
                             <tbody>
                             <tr ng-repeat="b in BenefitList track by $index">
                                 <td>{{b.MB_FPCardNo}}</td>
-                                <td><span ngb-if="b.MB_SexType==1">男</span><span ng-if="b.MB_SexType==2">女</span></td>
+                                <td><span ng-if="b.MB_SexType==1">男</span><span ng-if="b.MB_SexType==2">女</span></td>
                                 <td>{{b.MB_Birthday | date:'yyyy-MM-dd'}}</td>
                                 <td>{{b.MB_SecondName + b.MB_FirstName}}</td>
                                 <td>
