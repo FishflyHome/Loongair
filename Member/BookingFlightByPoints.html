@@ -120,8 +120,8 @@
                     </div>
                     <div class="panel-sm">
                         <div class="panel-body">
-                            <!--<h2>添加受益人</h2>-->
-                            <div><a class="btn btn-small" href="/Member/Beneficiary.html" target="_blank">添加受益人</a></div>
+                            <h2 ng-if="stationPassengerList.length==0" style="color:#b81b22;">请先添加受益人再兑换免票</h2>
+                            <!--<div><a class="btn btn-small" href="/Member/Beneficiary.html" target="_blank">添加受益人</a></div>-->
 
                             <div class="common" id="divpsglist" style="display: none;">
                                 <a style="border-width:1px;border-radius:10px; border-color: #F99569;color:black;" id="stdPsg_{{$index}}" ng-repeat="stdPsg in stationPassengerList" href="javascript:;"
