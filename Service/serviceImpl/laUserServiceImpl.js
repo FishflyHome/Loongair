@@ -651,7 +651,8 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      */
     laUserService.QueryNewList = function (callBack) {
         var newsList = {
-            "list": [{"n": 44, "showindex": 957, "v":true, "t": "关于禁止携带三星Galaxy Note 7手机乘机的安全提示", "d": "2016-9-18", "c": ""},
+            "list": [{"n": 45, "showindex": 956, "v":true, "t": "浙江长龙航空曲臂式高空作业车项目招标公告", "d": "2016-9-29", "c": ""},
+                {"n": 44, "showindex": 957, "v":true, "t": "关于禁止携带三星Galaxy Note 7手机乘机的安全提示", "d": "2016-9-18", "c": ""},
                 {"n": 43, "showindex": 958, "v":true, "t": "长龙航空正式成为国际航空运输协会（IATA）会员", "d": "2016-9-14", "c": ""},
                 {"n": 42, "showindex": 959, "v":true, "t": "浙江长龙航空圆满完成G20峰会保障任务", "d": "2016-9-8", "c": ""},
                 {"n": 41, "showindex": 960, "v":true, "t": "长龙航空8月19日将新开深圳=乌兰察布=哈尔滨独飞航线", "d": "2016-8-19", "c": ""},
