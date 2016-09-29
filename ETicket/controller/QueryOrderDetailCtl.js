@@ -49,7 +49,7 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
                 }
             }
         }
-        $window.location.href = '/ETicket/OrderDetail.html?param=' + new Base64().encode(JSON.stringify(param));
+        $window.location.href = '/ETicket/OrderDetail.html?param=' + new Base64().encode(JSON.stringify(QueryParam));
     }
 	else
 		GetImageVerifyCode();
