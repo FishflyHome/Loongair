@@ -37,7 +37,7 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
                         QueryParam.mobile = param[1];
                     }
                     if (param[0].toLowerCase() == 'verifycode') {
-                        QueryParam.verifycode = param[1];
+                        QueryParam.verifycode = decodeURI(param[1]);
                     }
                     if (param[0].toLowerCase() == 'sessionid') {
                         QueryParam.sessionId = param[1];
