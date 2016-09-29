@@ -708,6 +708,8 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
      * @constructor
      */
     laGlobalLocalService.CheckPassportFormat = function (v) {
+        return true;
+
         var temp = v;
         //对护照的验证
         var passport = /^1[45][0-9]{7}|G[0-9]{8}|E[0-9]{8}|R[0-9]{6,9}|P[0-9]{7}|S[0-9]{7,8}|D[0-9]+$/;
