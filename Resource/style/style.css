@@ -69,8 +69,12 @@ html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {-webkit-text-size-ad
 .nav{ line-height: 55px;  position: relative;}
 .nav li{ float: left; background:url(../images/navbg.png) no-repeat left center;}
 .nav li:first-child{ background-image:none;}
-.nav a{ display: block; padding: 0 50px; color:#fff; cursor: pointer;font-size:16px;}
+.nav a{ display: block; padding: 0 40px; color:#fff; cursor: pointer;font-size:16px;}
 .nav li.active{ background:#df937b;}
+.nav li.mouseover a {height: 45px;line-height:40px;margin: 10px 10px 0 10px;border-radius:5px 5px 0 0;background-color: white;color:black;}
+.nav li.mouseover a i {border-top-color: black;}
+.nav li.mouseout a {height: 45px;line-height:40px;margin: 10px 10px 0 10px;}
+.nav li.mouseout a i {border-top-color: white;}
 input[type=text],input[type=password],textarea{ width: 170px; background:#fff; background:rgba(255,255,255,0.6); border:1px solid #ddd; padding:6px 8px; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 input.input-search{ border-radius:15px; -webkit-border-radius:15px; -moz-border-radius:15px; border: none; padding: 6px 20px; text-indent: 1.5em; width: 220px; font-size: 14px; line-height: 20px; background:#eeefef url(../images/cc_09.png) 12px center no-repeat; }
 .searchbtn{ cursor: pointer; background: url(../images/cc_06.png) no-repeat; margin: 0 10px; width: 34px; height: 32px; border: none; text-indent: -999px; color:#fff;}
@@ -1338,11 +1342,12 @@ span.seatCharts-legendDescription {line-height: 30px;}
 
 /*seats style 值机选坐 end*/
 
-.secondary_menu{ position: absolute; right: 0; z-index: 99; background: #fff; width:100%; box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3); -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);}
+.secondary_menu{ position: absolute; right: 0; z-index: 990; background: #fff; width:100%; box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3); -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);}
 .s_menu a{ color: #666; padding: 0; display: inline; font-size: 12px;}
 .secondary_menu h4{ border-bottom: 1px solid #c8c8c8; font-size: 16px; font-weight: normal; padding: 5px 0; margin-bottom: 5px;}
 .s_menu{ padding:20px 15px 20px; overflow: hidden; text-align: left; line-height: 22px;}
 .s_menu .span4{ padding: 0 15px; box-sizing: border-box;}
+.s_menu_image{ margin-top: 8px;margin-right: -8px;}
 .airplane{ background: url(../images/airplane.jpg) no-repeat left;}
 .rulelist{
     list-style-type: none;

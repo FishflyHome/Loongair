@@ -20,11 +20,17 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
 
     var today = new Date();
     $scope.endTime = $filter('date')(new Date(), 'yyyy-MM-dd');
-    $scope.startTime = $filter('date')(new Date(today.setDate(today.getDate() - 30)), 'yyyy-MM-dd');
+    $scope.startTime = $filter('date')(new Date(today.setDate(today.getDate() - 90)), 'yyyy-MM-dd');
+    $scope.ticketOrderNum = "";
+    $scope.flightNum = "";
+    $scope.flier = "";
 
     $scope.pageIndex = 1;
     $scope.pageSize = 6;
     $scope.totalPage = 0;
+    $scope.pageIndexCnt = 5;
+    $scope.pageIndexList = new Array();
+    $scope.inputPageIndex = "";
 
     $scope.isQuerying = false;
 
@@ -59,6 +65,25 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
         $scope.pageIndex++;
         queryOrderList();
     };
+
+    $scope.btnPageClick = function (p) {
+        $scope.pageIndex = p;
+        queryOrderList();
+    };
+
+    $scope.btnGoPage = function () {
+        $scope.inputPageIndex = $("#inputPindex").val();
+        if (!laGlobalLocalService.IsNum($scope.inputPageIndex)) {
+            bootbox.alert("页码请输入数字");
+            return;
+        }
+        if ($scope.inputPageIndex < 1 || $scope.inputPageIndex > $scope.totalPage) {
+            bootbox.alert("请输入正确的页码范围");
+            return;
+        }
+        $scope.pageIndex = $scope.inputPageIndex;
+        queryOrderList();
+    };
     /**
      * 查询订单
      */
@@ -89,11 +114,50 @@ laAir.controller('laAir_MemberOrderListPageCtl', ['$document', '$interval', '$fi
         $("#noOrder").hide();
 
         $scope.isQuerying = true;
-        laOrderService.QueryOrderList($scope.pageIndex, $scope.pageSize, $scope.startTime, $scope.endTime, function (backData, status) {
+        var queryJSON = {
+            "NewPageIndex": $scope.pageIndex,
+            "OnePageCount": $scope.pageSize,
+            "TicketOrderNum": $scope.ticketOrderNum,
+            "FlightNum": $scope.flightNum,
+            "Flier": $scope.flier,
+            "CreateTimeStart": $scope.startTime,
+            "CreateTimeEnd": $scope.endTime
+        };
+        laOrderService.QueryOrderList(queryJSON, function (backData, status) {
             $scope.rs = backData;
             if ($scope.rs.Code == laGlobalProperty.laServiceCode_Success) {
                 $scope.totalPage = $scope.rs.TotalPage;
                 $scope.ordList = $scope.rs.OrderList;
+
+                $scope.pageIndexList = new Array();
+                if ($scope.totalPage <= $scope.pageIndexCnt) {
+                    for (var i = 0; i < $scope.totalPage; i++) {
+                        var pitem = {"p": (i + 1), "t": (i + 1), "s": false};
+                        if ($scope.pageIndex == (i + 1)) {
+                            pitem.s = true;
+                        }
+                        $scope.pageIndexList.push(pitem);
+                    }
+                } else {
+                    var headCurPage = parseInt($scope.pageIndex / $scope.pageIndexCnt);
+                    var subCurPage = $scope.pageIndex % $scope.pageIndexCnt;
+                    if (subCurPage == 0) {
+                        headCurPage--;
+                    }
+                    if (headCurPage < 0) {
+                        headCurPage = 0;
+                    }
+
+                    for (var i = headCurPage * $scope.pageIndexCnt + 1; i <= (headCurPage + 1) * $scope.pageIndexCnt; i++) {
+                        var pitem = {"p": i, "t": i, "s": false};
+                        if (i == $scope.pageIndex) {
+                            pitem.s = true;
+                        }
+                        if (i <= $scope.totalPage) {
+                            $scope.pageIndexList.push(pitem);
+                        }
+                    }
+                }
 
                 $scope.timeDown = 1;
                 timer = $interval(function () {

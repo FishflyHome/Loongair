@@ -161,6 +161,9 @@
                                     <div class="control" id="msgName_{{$index}}" style="width:75%; display:none;">
                                         <span class="error">请输入乘客姓名</span>
                                     </div>
+                                    <div class="control" id="msgNamelen_{{$index}}" style="width:75%; display:none;">
+                                        <span class="error">乘客姓名不得小于两个汉字或三个字符</span>
+                                    </div>
                                 </div>
                                 <div class="control">
                                     <label><span style="color: red;">*</span>证件类型</label>
@@ -359,7 +362,8 @@
                         <label class="checkbox inline"><input type="checkbox" name="dd" ng-model="acceptClause" checked>
                             我已阅读并接受此票价的<a href="/Travel/Transport/Rule.html" style="color:#df937b; font-size:12px;" target="_blank">《运输总条件》</a>、
                             <a href="/Infomation/Travelnotes/Passenger.html" style="color:#df937b; font-size:12px;" target="_blank">《旅客须知》</a>、
-                            <a href="/Infomation/index.html?index=4" style="color:#df937b; font-size:12px;" target="_blank">《行李须知》</a>
+                            <a href="/Infomation/index.html?index=4" style="color:#df937b; font-size:12px;" target="_blank">《行李须知》</a>、
+                            <a href="/Infomation/index.html?index=10" style="color:#df937b; font-size:12px;" target="_blank">《马上有优惠产品退改期须知》</a>
                         </label>
                         <br><br>
                         <label class="pull-right" style="margin-left: 10px;margin-top: 10px;" ng-show="!CommitOrder">
@@ -511,7 +515,7 @@
                 <div class="controls">
                     <input type="text" ng-model="Passenger.FlierName" ng-change="CheckFlierName();" placeholder="请输入姓名">
                     <input type="hidden"  ng-model="Passenger.Tid">
-                    <span class="error" ng-show="!psgNameValid">请输入姓名</span>
+                    <span class="error" ng-show="!psgNameValid">请输入不少于两个汉字或三个字符的姓名</span>
                 </div>
             </div>
             <div class="control-group">

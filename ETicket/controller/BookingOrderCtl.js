@@ -314,6 +314,21 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
             $("#msgName_" + idx).css("display", "block");
             result = false;
         }
+
+        $("#msgNamelen_" + idx).css("display", "none");
+        if (laGlobalLocalService.getChineseStringCnt($scope.passengerList[idx].PassengerName) > 0) {
+            if (laGlobalLocalService.getStringLength($scope.passengerList[idx].PassengerName) < 4) {
+                $("#msgNamelen_" + idx).css("display", "block");
+                result = false;
+            }
+        }
+        if (laGlobalLocalService.getChineseStringCnt($scope.passengerList[idx].PassengerName) <= 0) {
+            if (laGlobalLocalService.getStringLength($scope.passengerList[idx].PassengerName) < 3) {
+                $("#msgNamelen_" + idx).css("display", "block");
+                result = false;
+            }
+        }
+
         return result;
     };
 
@@ -843,9 +858,20 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
         if (laGlobalLocalService.CheckStringIsEmpty($scope.Passenger.FlierName)) {
             $scope.psgNameValid = false;
             return false;
-        } else {
-            return true;
         }
+        if (laGlobalLocalService.getChineseStringCnt($scope.Passenger.FlierName) > 0) {
+            if (laGlobalLocalService.getStringLength($scope.Passenger.FlierName) < 4) {
+                $scope.psgNameValid = false;
+                return false;
+            }
+        }
+        if (laGlobalLocalService.getChineseStringCnt($scope.Passenger.FlierName) <= 0) {
+            if (laGlobalLocalService.getStringLength($scope.Passenger.FlierName) < 3) {
+                $scope.psgNameValid = false;
+                return false;
+            }
+        }
+        return true;
     };
 
     $scope.CheckFoid = function () {
