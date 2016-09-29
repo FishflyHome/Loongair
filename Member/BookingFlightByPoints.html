@@ -129,8 +129,42 @@
                             </div>
                         </div>
                     </div>
+                    <!--
+                    <div class="panel-sm" ng-if="stationPassengerList.length>0">
+                        <div class="tab-pane active">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="table-message">
+                                <thead>
+                                <tr>
+                                    <th width="30"><input type="checkbox" id="SelectAll" onclick="javascript:checkallmsg();"></th>
+                                    <th>乘客姓名</th>
+                                    <th>乘客类型</th>
+                                    <th>生日</th>
+                                    <th>证件类型</th>
+                                    <th>证件号码</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="stdPsg in stationPassengerList track by $index">
+                                    <td><input type="checkbox" name="messageCheck" value="{{stdPsg.Tid}}" onclick="javascript:setcheckedall();"></td>
+                                    <td>{{stdPsg.MBName}}</td>
+                                    <td>{{stdPsg.TravellerTypeCH}}</td>
+                                    <td>{{stdPsg.Brithday | date:'yyyy-MM-dd'}}</td>
+                                    <td>
+                                        <select id="foIdType_{{$index}}" ng-model="psg.FoidType"
+                                                ng-options="t.v as t.t for t in foIdTypeOptions" ng-change="ChangeFoidType(psg);">
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="foIdNo_{{$index}}" readonly ng-model="psg.Foid" ng-change="IdentityChange($index);" ng-blur="CheckPsgFoid($index);"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    -->
                     <div class="panel-sm">
-                        <div ng-repeat="psg in passengerList track by $index">
+                        <div ng-if="stationPassengerList.length>0" ng-repeat="psg in passengerList track by $index">
                             <div class="panel-head">
                                 <h2>第&nbsp;<strong>{{$index + 1}}</strong>&nbsp;位乘机人&nbsp;&nbsp;&nbsp;
                                     <span ng-if="$index == 0 && passengerList.length==1"><a class="btn btn-small" style="font-size:8px;color:white;"
@@ -178,7 +212,7 @@
                                 </div>
                                 <div class="control">
                                     <label><span style="color: red;">*</span>出生日期</label>
-                                    <input type="text" id="psgBirth_{{$index}}" readonly placeholder="YYYY-MM-DD" ng-model="psg.Brithday"><!-- onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});" ng-blur="CheckPsgBirtyday($index);" -->
+                                    <input type="text" id="psgBirth_{{$index}}" readonly placeholder="YYYY-MM-DD" ng-model="psg.Brithday">
                                     <div class="control" style="width:25%;"></div>
                                     <div class="control" id="msgBirthday_{{$index}}" style="width:75%; display:none;">
                                         <span class="error">请输入正确的出生日期</span>
