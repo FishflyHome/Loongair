@@ -41,6 +41,7 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
                     }
                     if (param[0].toLowerCase() == 'sessionid') {
                         QueryParam.sessionId = param[1];
+						$scope.sessionId = QueryParam.sessionId;
                     }
                 }
                 catch (e) {
@@ -50,8 +51,8 @@ laAir.controller('laAir_ETicket_QueryOrderDetailPageCtl', ['$window', '$document
         }
         $window.location.href = '/ETicket/OrderDetail.html?param=' + new Base64().encode(JSON.stringify(param));
     }
-
-    GetImageVerifyCode();
+	else
+		GetImageVerifyCode();
 
     $scope.btnChangeVerifyCode = function () {
         GetImageVerifyCode();
