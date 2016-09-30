@@ -130,8 +130,8 @@ var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?
 var laMapMenu_PassengerSvr = [{i: 0, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true},
     {i: 1, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "Passenger", s: true},
     {i: 2, t: "航线", u: "/Infomation/index.html?index=8", c: "8", s: true},
-    {i: 3, t: "医生诊断说明书", u: "/Infomation/index.html?index=9", c: "9", s: true},
-    {i: 4, t: "马上有优惠产品退改期须知", u: "/Infomation/index.html?index=10", c: "10", s: true}];
+    {i: 3, t: "医生诊断说明书", u: "/Infomation/index.html?index=9", c: "9", s: true}];
+    //{i: 4, t: "马上有优惠产品退改期须知", u: "/Infomation/index.html?index=10", c: "10", s: true}];
 
 var laMapMenu_Airplane = [{i: 0, t: "超级经济舱", u: "/Others/News/News.html?ID=29", s: true},///Others/AirPlane/SuperEconomyClass.html
     {i: 1, t: "经济舱", u: "/Others/AirPlane/EconomyClass.html", s: true},
