@@ -116,6 +116,8 @@
                             //calDay.push("<td date='" + _dx + "' title='" + m + "-" + _d + "' class='festival'>" + f + "");
                             if (calendar.config.minDay != null && new Date(calendar.config.minDay.replace(/[年月日-]/g, "\/")) > new Date(_dx.replace(/[-]/g, "\/"))) {
                                 calDay.push("<td date='' class='festival disDay'>" + f + "");
+                            } else if (calendar.config.maxDay != null && new Date(calendar.config.maxDay.replace(/[年月日-]/g, "\/")) < new Date(_dx.replace(/[-]/g, "\/"))){
+                                calDay.push("<td date='' class='festival disDay'>" + f + "");
                             } else {
                                 calDay.push("<td date='" + _dx + "' class='festival' " + tdCallenPriceClickStr + ">" + f + "");
                             }
