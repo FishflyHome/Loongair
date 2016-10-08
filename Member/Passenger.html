@@ -118,7 +118,7 @@
                             <label class="control-label"><span style="color: red;">*</span>出生日期:</label>
 
                             <div class="controls">
-                                <input type="text" id="psgBirthday" placeholder="请输入出生日期(YYYY-MM-DD)" ng-change="CheckBirthday();" ng-model="Passenger.Brithday" onclick="javascript:calendar.show({id: this, minDay: '1900-1-1', ok: function () {}});">
+                                <input type="text" id="psgBirthday" placeholder="请输入出生日期(YYYY-MM-DD)" ng-change="CheckBirthday();" ng-model="Passenger.Brithday" onclick="javascript:var today = new Date();calendar.show({id: this, minDay: '1900-1-1', maxDay: (today.getFullYear()) + '-' + parseInt(today.getMonth() + 1) + '-' + today.getDate(), ok: function () {}});">
                                 <span class="error" ng-show="!psgBirthdayValid">请输入出生日期</span>
                             </div>
                         </div>
