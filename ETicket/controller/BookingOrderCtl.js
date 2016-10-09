@@ -239,6 +239,7 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
                 "<span>特别申明:</span><br>" +
                 "<span>1.航意险只连同机票一起退还</span><br>" +
                 "<span>2.官网购买机票和保险，保险不支持改期</span><br>" +
+                "<span>3.航班正常时，客票的变更及退票均以优惠前的价格为基准，按各订座舱位或产品对应的公布运价计算手续费</span><br>" +
                 "</div>");
 
         $("#" + idx).css({"background-color":"#e17a00","color":"white"});
