@@ -279,12 +279,12 @@ laAir.controller('laAir_ETicket_AirlineListPageCtl', ['$document', '$interval', 
                 chRuleJSON.a.p = chRule[2];
             }
         }
-        var box = $("<div class='roles table-fli'><br><span style='font-weight:bold'>票面价:</span>￥" +
+        var box = $("<div class='roles table-fli' style='width:450px;'><br><span style='font-weight:bold'>票面价:</span>￥" +
             carbin.SalePrice + "&nbsp;&nbsp;<span style='font-weight:bold'>舱位:</span>" + carbin.CabinTypeName + "(" + carbin.CabinName + ")" +
             "<table style='width:100%;'><tr><td>类型</td><td>起飞前2小时前</td><td>起飞前2小时后</td></tr>" +
             "<tr><td style='background:#FFFFFF;text-align: right;'>退票手续费</td><td style='background:#FFFFFF;text-align: left;'>" + reRuleJSON.b.p + reRuleJSON.b.a + "</td><td style='background:#FFFFFF;text-align: left;'>" + reRuleJSON.a.p + reRuleJSON.a.a + "</td></tr>" +
             "<tr><td style='background:#FFFFFF;text-align: right;'>同舱改期收费</td><td style='background:#FFFFFF;text-align: left;'>" + chRuleJSON.b.p + chRuleJSON.b.a + "</td><td style='background:#FFFFFF;text-align: left;'>" + chRuleJSON.a.p + chRuleJSON.a.a + "</td></tr>" +
-            "<tr><td style='background:#FFFFFF;text-align: right;'>说明</td><td style='background:#FFFFFF;text-align: left;' colspan='2'>签转条件:" + carbin.SignedTransferDisplay + "</td></tr>" +
+            "<tr><td style='background:#FFFFFF;text-align: right;'>说明</td><td style='background:#FFFFFF;text-align: left;' colspan='2'>签转条件:" + carbin.SignedTransferDisplay + "<br>如自愿要求变更或退票，按优惠前公布运价(" + carbin.Price + "元)收取手续费</td></tr>" +
             "</table></div>");
 
         $("#" + Fidx).css({"background-color":"#e17a00","color":"white"});
