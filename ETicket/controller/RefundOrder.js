@@ -139,7 +139,7 @@ laAir.controller('laAir_ETicket_RefundOrderPageCtl', ['$sce', '$document', '$int
         insHtml = "<div><table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='text-align: right;'>类型</td><td style='text-align: left;'>起飞前2小时前</td><td style='text-align: left;'>起飞前2小时后</td></tr>" +
             "<tr><td style='text-align: right;'>退票手续费</td><td style='text-align: left;color: orange;'>" + reRuleJSON.b.p + reRuleJSON.b.a + "</td><td style='text-align: left;color: orange;'>" + reRuleJSON.a.p + reRuleJSON.a.a + "</td></tr>" +
             "<tr><td style='text-align: right;'>同舱改期收费</td><td style='text-align: left;color: orange;'>" + chRuleJSON.b.p + chRuleJSON.b.a + "</td><td style='text-align: left;color: orange;'>" + chRuleJSON.a.p + chRuleJSON.a.a + "</td></tr>" +
-            "<tr><td style='text-align: right;'>说明</td><td style='text-align: left;color: orange;' colspan='2'>签转条件:" + carbin.SignedTransfer + "</td></tr>" +
+            "<tr><td style='text-align: right;'>说明</td><td style='text-align: left;color: orange;' colspan='2'>签转条件:" + carbin.SignedTransfer + "<br>如自愿要求变更或退票，按优惠前公布运价(" + carbin.TicketPrice + "元)收取手续费</td></tr>" +
             "</table></div>";
 
         return $sce.trustAsHtml(insHtml);
