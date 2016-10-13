@@ -21,6 +21,7 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
     $scope.Flight_Psglist = new Array();
 
     $scope.selFlightId = "";
+    $scope.selTransDate = "";
     $scope.changePsglist = new Array();
 
     $scope.Param;
@@ -56,6 +57,15 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
     if ($scope.Param != undefined && $scope.Param != null) {
         getOrderInfoWithoutLogin();
     }
+
+    var td = new Date();
+    td = new Date(td.setDate(td.getDate() + 1));
+    var tdmm = (parseInt(td.getMonth() + 1)).toString();
+    tdmm = (tdmm.length < 2) ? '0' + tdmm : tdmm;
+    var tdday = td.getDate().toString();
+    tdday = (tdday.length < 2) ? '0' + tdday : tdday;
+    //$("#startTime").val(td.getFullYear() + '-' + tdmm + '-' + tdday);
+    $scope.selTransDate = td.getFullYear() + '-' + tdmm + '-' + tdday;
 
     $scope.setFlightId = function (fliId) {
         $scope.selFlightId = fliId;
@@ -100,6 +110,7 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
     };
 
     $scope.btnTransClick = function () {
+
         if (laGlobalLocalService.CheckStringIsEmpty($scope.selFlightId)) {
             bootbox.alert("请选择要改期的航程");
             return;
@@ -130,6 +141,12 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
             return;
         }
 
+        $scope.selTransDate = $("#startTime").val();
+        if (laGlobalLocalService.CheckStringIsEmpty($scope.selTransDate)) {
+            bootbox.alert('请选择要改期的日期');
+            return;
+        }
+
         bootbox.confirm("您确定要改期吗?", function (result) {
             if (result) {
                 var transInfo = {
@@ -137,7 +154,7 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
                     "DepartureCityCH": fPsg.Flight.DepartureCityCH,
                     "ArriveCityCH": fPsg.Flight.ArriveCityCH,
                     "ArriveAirport": fPsg.Flight.ArriveAirport,
-                    "DepartureTime": $filter('date')(fPsg.Flight.DepartureTime, 'yyyy-MM-dd'),
+                    "DepartureTime": $scope.selTransDate,//$filter('date')(fPsg.Flight.DepartureTime, 'yyyy-MM-dd'),
                     "OrderId": $scope.orderInfo.OrderId,
                     "ChangePassenger": $scope.changePsglist
                 };

@@ -54,6 +54,8 @@
 
     <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="/Library/others/jquery.slide.js"></script>
+    <script type="text/javascript" src="/Library/others/hDate.js"></script>
+    <script type="text/javascript" src="/Library/others/city.js"></script>
     <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
     <script type="text/javascript" src="/B2C/js/application.js"></script>
     <script type="text/javascript" src="/Library/others/Base64.js"></script>
@@ -71,7 +73,9 @@
                 <h2>申请改期</h2>
 
                 <div ng-repeat="fPsg in Flight_Psglist">
-                    <h3>航程信息:&nbsp;&nbsp;<input type="radio" ng-click="setFlightId(fPsg.Flight.FlightNum)" >&nbsp;{{fPsg.Flight.DepartureCityCH + "-" + fPsg.Flight.ArriveCityCH}}</h3>
+                    <h3>
+                        航程信息:&nbsp;&nbsp;<input type="radio" ng-click="setFlightId(fPsg.Flight.FlightNum)" >&nbsp;{{fPsg.Flight.DepartureCityCH + "-" + fPsg.Flight.ArriveCityCH}}&nbsp;&nbsp;&nbsp;&nbsp;
+                    </h3>
                     <table class="main-tbs" border="0" cellpadding="0" cellspacing="0">
                         <thead>
                         <tr>
@@ -108,6 +112,10 @@
                         </tbody>
                     </table>
                     <br>
+                    <div>
+                        申请改期日期:<input type="text" class="text" id="startTime" ng-model="selTransDate" onclick="var today = new Date();calendar.show({id: this, minDay: today.getFullYear() + '-' + parseInt(today.getMonth() + 1) + '-' + (today.getDate()+1), maxDay: (today.getFullYear()+1) + '-' + parseInt(today.getMonth() + 1) + '-' + today.getDate(),ok: function () {}});" placeholder="YYYY-MM-DD">
+                    </div>
+                    <br>
                 </div>
 
                 <div class="text_center" ng-if="Flight_Psglist.length>0">
@@ -138,6 +146,38 @@
 </div>
 
 <div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#startTime").val("2016-10-13");
+        /*
+        var today = new Date();
+        $("#startTime").focus(function (e) {
+            var tmpd = $("#startTime").val();
+            if (tmpd != undefined){
+                $("#startTime").attr("date", tmpd);
+            }
+            calendar.show({
+                id: this,
+                minDay: '2016-1-1',
+                maxDay: (today.getFullYear()+1) + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate(),
+                ok: function () {
+                    //callback ;
+                }
+            });
+        });
+        $("#startTime").keydown(function (e){
+            if (e.keyCode == 9){
+                calendar.colse();
+            }
+        });
+        */
+    });
+
+</script>
 
 </body>
 </html>
