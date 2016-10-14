@@ -77,6 +77,56 @@
 
                     <p>欢迎您登录长龙会员中心</p>
                 </div>
+
+                <div class="vipmessage" ng-if="PassengerList && PassengerList.length>0">
+                    <h2>常用乘机人</h2>
+
+                    <div>
+                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="SelectAll" onclick="javascript:checkallpsg();"></th>
+                                <th>旅客类型</th>
+                                <th>姓名</th>
+                                <th>证件类型/证件号码</th>
+                                <th>手机号码</th>
+                                <th>电子邮箱</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="psg in PassengerList track by $index" id="tr{{psg.Tid}}">
+                                <td><input type="checkbox" name="messageCheck" value="{{psg.Tid}}" onclick="javascript:setcheckedall();"></td>
+                                <td>{{psg.TravellerTypeCH}}</td>
+                                <td>{{psg.FlierName}}</td>
+                                <td>{{psg.FoidTypeCH}}/{{psg.Foid}}</td>
+                                <td>{{psg.Mobile}}</td>
+                                <td>{{psg.EMail}}</td>
+                                <td>
+                                    <a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnEditPassengerClick(psg);">修改</a>
+                                    <!--<a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnDelPassengerClick(psg.Tid)">删除</a>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="article" style="min-height: 0px;">
+                        <a class="btn btn-gray" style="" href="javascript:;" ng-if="PassengerList.length>0" ng-click="btnDelMulPsg();">删除</a><br><br>
+
+                        <div class="submit-pay" style="text-align:right;">
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex>1]" href="javascript:;" ng-disabled="pageIndex>1" ng-click="btnPrePageClick();" style="padding: 5px 10px 5px 10px;">上一页</a>&nbsp;&nbsp;
+                            <a href="javascript:;" ng-if="pageIndexList[0].p >pageIndexCnt" ng-click="btnPageClick(pageIndexList[0].p -1)">...</a>&nbsp;&nbsp;
+                            <span ng-repeat="p in pageIndexList"><a ng-class="{true:'btn', false:'btn btn-gray'}[p.s]" href="javascript:;" ng-click="btnPageClick(p.p);" style="padding: 5px 10px 5px 10px;">{{p.t}}</a>&nbsp;&nbsp;</span>
+                            <a href="javascript:;" ng-if="pageIndexList[pageIndexList.length-1].p <totalPage" ng-click="btnPageClick(pageIndexList[pageIndexList.length-1].p +1)">...</a>&nbsp;&nbsp;
+                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex<totalPage]" href="javascript:;" ng-disabled="pageIndex<totalPage" ng-click="btnNextPageClick();" style="padding: 5px 10px 5px 10px;">下一页</a>&nbsp;&nbsp;
+                            <span>
+                                共{{totalPage}}页&nbsp;&nbsp;到第&nbsp;<input type="text" id="inputPindex" ng-model="inputPageIndex" style="width:20px;">&nbsp;页&nbsp;&nbsp;
+                                <a class="btn" href="javascript:;" ng-click="btnGoPage();" style="padding: 5px 10px 5px 10px;">确定</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="vipmessage">
                     <h2>常用旅客信息</h2>
 
@@ -144,54 +194,6 @@
                     <div class="vp-submit">
                         <a class="btn pull-right" ng-if="Passenger.Tid <=0" href="javascript:;" ng-click="btnAddPassengerClick();">添加</a>
                         <a class="btn pull-right" ng-if="Passenger.Tid >0" href="javascript:;" ng-click="btnAddPassengerClick();">修改</a>
-                    </div>
-                </div>
-                <div class="vipmessage" ng-if="PassengerList && PassengerList.length>0">
-                    <h2>常用乘机人</h2>
-
-                    <div>
-                        <table class="table-paper" border="0" cellpadding="0" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" id="SelectAll" onclick="javascript:checkallpsg();"></th>
-                                <th>旅客类型</th>
-                                <th>姓名</th>
-                                <th>证件类型/证件号码</th>
-                                <th>手机号码</th>
-                                <th>电子邮箱</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="psg in PassengerList track by $index" id="tr{{psg.Tid}}">
-                                <td><input type="checkbox" name="messageCheck" value="{{psg.Tid}}" onclick="javascript:setcheckedall();"></td>
-                                <td>{{psg.TravellerTypeCH}}</td>
-                                <td>{{psg.FlierName}}</td>
-                                <td>{{psg.FoidTypeCH}}/{{psg.Foid}}</td>
-                                <td>{{psg.Mobile}}</td>
-                                <td>{{psg.EMail}}</td>
-                                <td>
-                                    <a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnEditPassengerClick(psg);">修改</a>
-                                    <!--<a class="link" style="font-size:12px;" href="javascript:;" ng-click="btnDelPassengerClick(psg.Tid)">删除</a>-->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="article">
-                        <a class="btn btn-gray" style="" href="javascript:;" ng-if="PassengerList.length>0" ng-click="btnDelMulPsg();">删除</a><br><br>
-
-                        <div class="submit-pay" style="text-align:right;">
-                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex>1]" href="javascript:;" ng-disabled="pageIndex>1" ng-click="btnPrePageClick();" style="padding: 5px 10px 5px 10px;">上一页</a>&nbsp;&nbsp;
-                            <a href="javascript:;" ng-if="pageIndexList[0].p >pageIndexCnt" ng-click="btnPageClick(pageIndexList[0].p -1)">...</a>&nbsp;&nbsp;
-                            <span ng-repeat="p in pageIndexList"><a ng-class="{true:'btn', false:'btn btn-gray'}[p.s]" href="javascript:;" ng-click="btnPageClick(p.p);" style="padding: 5px 10px 5px 10px;">{{p.t}}</a>&nbsp;&nbsp;</span>
-                            <a href="javascript:;" ng-if="pageIndexList[pageIndexList.length-1].p <totalPage" ng-click="btnPageClick(pageIndexList[pageIndexList.length-1].p +1)">...</a>&nbsp;&nbsp;
-                            <a ng-class="{true:'btn',false:'btn btn-gray'}[pageIndex<totalPage]" href="javascript:;" ng-disabled="pageIndex<totalPage" ng-click="btnNextPageClick();" style="padding: 5px 10px 5px 10px;">下一页</a>&nbsp;&nbsp;
-                            <span>
-                                共{{totalPage}}页&nbsp;&nbsp;到第&nbsp;<input type="text" id="inputPindex" ng-model="inputPageIndex" style="width:20px;">&nbsp;页&nbsp;&nbsp;
-                                <a class="btn" href="javascript:;" ng-click="btnGoPage();" style="padding: 5px 10px 5px 10px;">确定</a>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>

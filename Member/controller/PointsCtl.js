@@ -117,6 +117,7 @@ laAir.controller('laAir_MemberPointsPageCtl', ['$filter', '$interval', '$documen
     };
 
     function QueryPointsList() {
+        $scope.inputPageIndex = $scope.pageIndex;
         $scope.endTime = $("#endTime").val();
         $scope.startTime = $("#startTime").val();
         laUserService.QueryPointsList($scope.pageIndex, $scope.pageSize, $scope.startTime, $scope.endTime, $scope.approved, function (backData, status) {

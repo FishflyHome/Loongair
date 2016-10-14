@@ -242,6 +242,11 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
             return false;
         }
 
+        if (laGlobalLocalService.CheckEMailFormat($scope.userInfo.EMail)){
+            bootbox.alert("请输入格式正确的电邮地址");
+            return false;
+        }
+
         if (!document.getElementById("IsBookMag").checked) {
             bootbox.alert("成为常旅客必须同意长龙会员服务条款");
             return false;
