@@ -59,7 +59,7 @@ laAir.controller('laAir_ETicket_TransOrderPageCtl', ['$sce', '$document', '$inte
     }
 
     var td = new Date();
-    td = new Date(td.setDate(td.getDate() + 1));
+    td = new Date(td.setDate(td.getDate() + 2));
     var tdmm = (parseInt(td.getMonth() + 1)).toString();
     tdmm = (tdmm.length < 2) ? '0' + tdmm : tdmm;
     var tdday = td.getDate().toString();
