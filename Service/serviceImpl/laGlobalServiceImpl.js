@@ -271,10 +271,18 @@ var laGlobalProperty = (function () {
         机票改期
          */
         laServiceUrl_ActionType_TransFlight: 45,
-        /**
+        /*
          * 查询改期航班
          */
         laServiceUrl_ActionType_QueryFlightForTrans: 46,
+        /*
+         * 查询新闻列表
+         */
+        laServiceUrl_ActionType_QueryNewsList: 47,
+        /*
+         * 查询新闻详情
+         */
+        laServiceUrl_ActionType_QueryNewsDetail: 48,
         /*
          查询常旅客积分列表
          */

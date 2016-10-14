@@ -1527,9 +1527,11 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     /**
      * 查询新闻列表
      * @param callBack
+     * @param queryNews
      * @constructor
      */
-    laUserService.QueryNewList = function (callBack) {
+    laUserService.QueryNewList = function (callBack, queryNews) {
+
         var newsList = {
             "list": [{"n": 47, "showindex": 954, "v":true, "t": "长龙航空打造“国庆”主题航班为祖国庆生", "d": "2016-10-8", "c": ""},
                 {"n": 46, "showindex": 955, "v":true, "t": "长龙航空10月1日首开昆明=榆林直飞航线", "d": "2016-10-1", "c": ""},
@@ -1580,7 +1582,78 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 {"n": 1, "showindex": 10000, "v": true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
         };
 
-        callBack(newsList.list, true);
+        if (queryNews == null || queryNews == undefined) {
+            callBack(newsList.list, true);
+        } else {
+            var requestParam = {};
+            requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewsList;
+            requestParam.SessionId = "";
+
+            var requestBody = {};
+            requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+            requestBody.NewPageIndex = queryNews.PageIndex;
+            requestBody.OnePageCount = queryNews.PageSize;
+            requestBody.CreateTimeStart = queryNews.StartTime;
+            requestBody.CreateTimeEnd = queryNews.EndTime;
+
+            requestParam.Args = JSON.stringify(requestBody);
+
+            var postData = JSON.stringify(requestParam);
+
+            laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                    var list = newLists.NLs;
+                    var outList = new Array();
+                    var n = list.length;
+                    for (var i = 0; i < n; i++) {
+                        var sim = list[n];
+                        var item = {
+                            "n": sim.NewTid,
+                            "showindex": (i + 1 ),
+                            "v": true,
+                            "t": sim.NewTitle,
+                            "d": sim.CreateTime,
+                            "c": ""
+                        };
+                        outList.push(item);
+                    }
+                    var allInfo = {
+                        "newsList": outList,
+                        "PageInfo": {
+                            "PageIndex": newLists.NowPageIndex,
+                            "TotalPage": newLists.TotalPage,
+                            "PageSize": newLists.OnePageCount,
+                            "DataCount": newLists.DataCount
+                        }
+                    };
+                    callBack(allInfo, status);
+                }
+            )
+        }
+    };
+
+    /**
+     * 查询新闻详情
+     * @param tid
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryNewsDetail = function (tid, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewsDetail;
+        requestParam.SessionId = "";
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.NewTid = tid;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
     };
 
     /**
