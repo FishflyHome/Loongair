@@ -647,9 +647,11 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     /**
      * 查询新闻列表
      * @param callBack
+     * @param queryNews
      * @constructor
      */
-    laUserService.QueryNewList = function (callBack) {
+    laUserService.QueryNewList = function (callBack, queryNews) {
+
         var newsList = {
             "list": [{"n": 47, "showindex": 954, "v":true, "t": "长龙航空打造“国庆”主题航班为祖国庆生", "d": "2016-10-8", "c": ""},
                 {"n": 46, "showindex": 955, "v":true, "t": "长龙航空10月1日首开昆明=榆林直飞航线", "d": "2016-10-1", "c": ""},
@@ -662,45 +664,116 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 {"n": 39, "showindex": 962, "v":true, "t": "关于郑州调整出港航班值机关闭时间的通知", "d": "2016-7-19", "c": ""},
                 {"n": 38, "showindex": 963, "v":true, "t": "长龙航空新开深圳=遵义=西宁独飞航线", "d": "2016-7-19", "c": ""},
                 {"n": 37, "showindex": 964, "v":true, "t": "浙江长龙航空有限公司货运包舱销售招标公告", "d": "2016-7-11", "c": ""},
-                {"n": 36, "showindex": 965, "v":true, "t": "长龙航空再添新飞机助力暑运  机队规模达到20架", "d": "2016-7-8", "c": ""},
-                {"n": 35, "showindex": 966, "v":true, "t": "长龙航空开通杭州至越南航线 开启国际客运征程", "d": "2016-6-29", "c": ""},
-                {"n": 34, "showindex": 967, "v":true, "t": "关于禁止旅客携带或托运锂电池动力平衡车乘机的通告", "d": "2016-6-13", "c": ""},
-                {"n": 33, "showindex": 968, "v":true, "t": "长龙航空顺利接收首台CFM56-5B备用发动机", "d": "2016-6-12", "c": ""},
-                {"n": 32, "showindex": 969, "v":true, "t": "长龙航空又一架A320客机抵杭  机队规模达到19架", "d": "2016-6-7", "c": ""},
-                {"n": 31, "showindex": 970, "v":true, "t": "旅途中的六一  与长龙航空一起高空寄语童年", "d": "2016-6-3", "c": ""},
-                {"n": 30, "showindex": 971, "v":true, "t": "长龙航空6月1日新开昆明=银川、杭州=桂林=昆明航线", "d": "2016-6-3", "c": ""},
-                {"n": 29, "showindex": 972, "v":true, "t": "长龙航空优化超级经济舱服务  龙井茶为饮品标配", "d": "2016-6-3", "c": ""},
-                {"n": 28, "showindex": 973, "v":true, "t": "浙江长龙航空人力资源管理系统项目招标公告", "d": "2016-5-24", "c": ""},
-                {"n": 27, "showindex": 974, "v":true, "t": "关于防范短信诈骗的提醒", "d": "2016-5-10", "c": ""},
-                {"n": 26, "showindex": 975, "v":true, "t": "关于昆明机场调整出港航班值机关闭时间的通知", "d": "2016-5-4", "c": ""},
-                {"n": 25, "showindex": 976, "v":true, "t": "长龙航空万米高空开展世界读书日活动 伴着书香去旅行", "d": "2016-4-25", "c": ""},
-                {"n": 24, "showindex": 977, "v":true, "t": "长龙航空荣获浙江省2016年春运工作先进单位称号", "d": "2016-4-14", "c": ""},
-                {"n": 23, "showindex": 978, "v":true, "t": "长龙航空再添一架全新A320客机 机队规模达到18架", "d": "2016-4-14", "c": ""},
-                {"n": 22, "showindex": 979, "v":false, "t": "招商邀请书", "d": "2016-4-11", "c": ""},
-                {"n": 21, "showindex": 980, "v":false, "t": "浙江长龙航空关于杭州出港国际航班招标业务公告", "d": "2016-4-11", "c": ""},
-                {"n": 20, "showindex": 981, "v":true, "t": "长龙航空3月29日开通杭州=安顺=西双版纳独飞航线", "d": "2016-3-30", "c": ""},
-                {"n": 19, "showindex": 982, "v":true, "t": "长龙航空3月27日开通杭州=淮安=西安独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 18, "showindex": 983, "v":true, "t": "长龙航空3月27日开通杭州=沈阳航线", "d": "2016-3-29", "c": ""},
-                {"n": 17, "showindex": 984, "v":true, "t": "长龙航空3月27日开通杭州=盐城=太原独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 16, "showindex": 985, "v":true, "t": "长龙航空3月27日开通深圳=洛阳=哈尔滨独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 15, "showindex": 986, "v":true, "t": "长龙航空3月28日开通杭州=银川=乌鲁木齐航线", "d": "2016-3-29", "c": ""},
-                {"n": 14, "showindex": 987, "v":true, "t": "长龙航空又迎来一架全新A320客机  机队规模达到17架", "d": "2016-3-29", "c": ""},
-                {"n": 13, "showindex": 988, "v":true, "t": "长龙航空3月27日开通杭州=邯郸=成都独飞航线", "d": "2016-3-29", "c": ""},
-                {"n": 12, "showindex": 989, "v":true, "t": "夏秋换季 长龙航空将于3月27日起新开7条航线", "d": "2016-3-29", "c": ""},
-                {"n": 11, "showindex": 990, "v":true, "t": "风雪无情人有情,长龙助力回家路", "d": "2016-3-29", "c": ""},
-                {"n": 10, "showindex": 991, "v":true, "t": "女子丢失驾驶证万分着急,长龙航空辗转物归原主", "d": "2016-3-29", "c": ""},
-                {"n": 9, "showindex": 992, "v":true, "t": "新闻通稿：女人节空姐放假,长龙航班上清一色男空乘服务", "d": "2016-3-29", "c": ""},
-                {"n": 8, "showindex": 993, "v":true, "t": "长龙航空获萧山经济技术开发区两项年度十强企业称号", "d": "2016-3-29", "c": ""},
-                {"n": 7, "showindex": 994, "v":true, "t": "为确保航班安全,长龙航空开展人鼠大战", "d": "2016-3-29", "c": ""},
-                {"n": 6, "showindex": 995, "v":true, "t": "长龙航空获民航华东“安康杯”竞赛优胜单位称号", "d": "2016-3-29", "c": ""},
-                {"n": 5, "showindex": 996, "v":true, "t": "2016长龙航空夏秋航季新增航班", "d": "2016-3-24", "c": ""},
-                {"n": 4, "showindex": 997, "v":true, "t": "长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名", "d": "2016-2-22", "c": ""},
-                {"n": 3, "showindex": 998, "v":true, "t": "长龙航空2月10日新开杭州=桂林=西双版纳航线", "d": "2016-2-14", "c": ""},
-                {"n": 2, "showindex": 999, "v":true, "t": "长龙航空评选出“2015年度优秀地面服务代理人", "d": "2016-2-6", "c": ""},
-                {"n": 1, "showindex": 10000, "v":true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
+                {"n": 36, "showindex": 965, "v": true, "t": "长龙航空再添新飞机助力暑运  机队规模达到20架", "d": "2016-7-8", "c": ""},
+                {"n": 35, "showindex": 966, "v": true, "t": "长龙航空开通杭州至越南航线 开启国际客运征程", "d": "2016-6-29", "c": ""},
+                {"n": 34, "showindex": 967, "v": true, "t": "关于禁止旅客携带或托运锂电池动力平衡车乘机的通告", "d": "2016-6-13", "c": ""},
+                {"n": 33, "showindex": 968, "v": true, "t": "长龙航空顺利接收首台CFM56-5B备用发动机", "d": "2016-6-12", "c": ""},
+                {"n": 32, "showindex": 969, "v": true, "t": "长龙航空又一架A320客机抵杭  机队规模达到19架", "d": "2016-6-7", "c": ""},
+                {"n": 31, "showindex": 970, "v": true, "t": "旅途中的六一  与长龙航空一起高空寄语童年", "d": "2016-6-3", "c": ""},
+                {"n": 30, "showindex": 971, "v": true, "t": "长龙航空6月1日新开昆明=银川、杭州=桂林=昆明航线", "d": "2016-6-3", "c": ""},
+                {"n": 29, "showindex": 972, "v": true, "t": "长龙航空优化超级经济舱服务  龙井茶为饮品标配", "d": "2016-6-3", "c": ""},
+                {"n": 28, "showindex": 973, "v": true, "t": "浙江长龙航空人力资源管理系统项目招标公告", "d": "2016-5-24", "c": ""},
+                {"n": 27, "showindex": 974, "v": true, "t": "关于防范短信诈骗的提醒", "d": "2016-5-10", "c": ""},
+                {"n": 26, "showindex": 975, "v": true, "t": "关于昆明机场调整出港航班值机关闭时间的通知", "d": "2016-5-4", "c": ""},
+                {"n": 25, "showindex": 976, "v": true, "t": "长龙航空万米高空开展世界读书日活动 伴着书香去旅行", "d": "2016-4-25", "c": ""},
+                {"n": 24, "showindex": 977, "v": true, "t": "长龙航空荣获浙江省2016年春运工作先进单位称号", "d": "2016-4-14", "c": ""},
+                {"n": 23, "showindex": 978, "v": true, "t": "长龙航空再添一架全新A320客机 机队规模达到18架", "d": "2016-4-14", "c": ""},
+                {"n": 22, "showindex": 979, "v": false, "t": "招商邀请书", "d": "2016-4-11", "c": ""},
+                {"n": 21, "showindex": 980, "v": false, "t": "浙江长龙航空关于杭州出港国际航班招标业务公告", "d": "2016-4-11", "c": ""},
+                {"n": 20, "showindex": 981, "v": true, "t": "长龙航空3月29日开通杭州=安顺=西双版纳独飞航线", "d": "2016-3-30", "c": ""},
+                {"n": 19, "showindex": 982, "v": true, "t": "长龙航空3月27日开通杭州=淮安=西安独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 18, "showindex": 983, "v": true, "t": "长龙航空3月27日开通杭州=沈阳航线", "d": "2016-3-29", "c": ""},
+                {"n": 17, "showindex": 984, "v": true, "t": "长龙航空3月27日开通杭州=盐城=太原独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 16, "showindex": 985, "v": true, "t": "长龙航空3月27日开通深圳=洛阳=哈尔滨独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 15, "showindex": 986, "v": true, "t": "长龙航空3月28日开通杭州=银川=乌鲁木齐航线", "d": "2016-3-29", "c": ""},
+                {"n": 14, "showindex": 987, "v": true, "t": "长龙航空又迎来一架全新A320客机  机队规模达到17架", "d": "2016-3-29", "c": ""},
+                {"n": 13, "showindex": 988, "v": true, "t": "长龙航空3月27日开通杭州=邯郸=成都独飞航线", "d": "2016-3-29", "c": ""},
+                {"n": 12, "showindex": 989, "v": true, "t": "夏秋换季 长龙航空将于3月27日起新开7条航线", "d": "2016-3-29", "c": ""},
+                {"n": 11, "showindex": 990, "v": true, "t": "风雪无情人有情,长龙助力回家路", "d": "2016-3-29", "c": ""},
+                {"n": 10, "showindex": 991, "v": true, "t": "女子丢失驾驶证万分着急,长龙航空辗转物归原主", "d": "2016-3-29", "c": ""},
+                {"n": 9, "showindex": 992, "v": true, "t": "新闻通稿：女人节空姐放假,长龙航班上清一色男空乘服务", "d": "2016-3-29", "c": ""},
+                {"n": 8, "showindex": 993, "v": true, "t": "长龙航空获萧山经济技术开发区两项年度十强企业称号", "d": "2016-3-29", "c": ""},
+                {"n": 7, "showindex": 994, "v": true, "t": "为确保航班安全,长龙航空开展人鼠大战", "d": "2016-3-29", "c": ""},
+                {"n": 6, "showindex": 995, "v": true, "t": "长龙航空获民航华东“安康杯”竞赛优胜单位称号", "d": "2016-3-29", "c": ""},
+                {"n": 5, "showindex": 996, "v": true, "t": "2016长龙航空夏秋航季新增航班", "d": "2016-3-24", "c": ""},
+                {"n": 4, "showindex": 997, "v": true, "t": "长龙航空在华东地区2015年度“平安民航”建设工作考核中位列航空公司第二名", "d": "2016-2-22", "c": ""},
+                {"n": 3, "showindex": 998, "v": true, "t": "长龙航空2月10日新开杭州=桂林=西双版纳航线", "d": "2016-2-14", "c": ""},
+                {"n": 2, "showindex": 999, "v": true, "t": "长龙航空评选出“2015年度优秀地面服务代理人", "d": "2016-2-6", "c": ""},
+                {"n": 1, "showindex": 10000, "v": true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
         };
 
-        callBack(newsList.list, true);
+        if (queryNews == null || queryNews == undefined) {
+            callBack(newsList.list, true);
+        } else {
+            var requestParam = {};
+            requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewsList;
+            requestParam.SessionId = "";
+
+            var requestBody = {};
+            requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+            requestBody.NewPageIndex = queryNews.PageIndex;
+            requestBody.OnePageCount = queryNews.PageSize;
+            requestBody.CreateTimeStart = queryNews.StartTime;
+            requestBody.CreateTimeEnd = queryNews.EndTime;
+
+            requestParam.Args = JSON.stringify(requestBody);
+
+            var postData = JSON.stringify(requestParam);
+
+            laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                    var list = newLists.NLs;
+                    var outList = new Array();
+                    var n = list.length;
+                    for (var i = 0; i < n; i++) {
+                        var sim = list[n];
+                        var item = {
+                            "n": sim.NewTid,
+                            "showindex": (i + 1 ),
+                            "v": true,
+                            "t": sim.NewTitle,
+                            "d": sim.CreateTime,
+                            "c": ""
+                        };
+                        outList.push(item);
+                    }
+                    var allInfo = {
+                        "newsList": outList,
+                        "PageInfo": {
+                            "PageIndex": newLists.NowPageIndex,
+                            "TotalPage": newLists.TotalPage,
+                            "PageSize": newLists.OnePageCount,
+                            "DataCount": newLists.DataCount
+                        }
+                    };
+                    callBack(allInfo, status);
+                }
+            )
+        }
+    };
+
+    /**
+     * 查询新闻详情
+     * @param tid
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryNewsDetail = function (tid, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewsDetail;
+        requestParam.SessionId = "";
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.NewTid = tid;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack(data, status);
+            }
+        )
     };
 
     /**
