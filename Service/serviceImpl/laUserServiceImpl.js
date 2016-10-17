@@ -653,7 +653,8 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     laUserService.QueryNewList = function (callBack, queryNews) {
 
         var newsList = {
-            "list": [{"n": 47, "showindex": 954, "v":true, "t": "长龙航空打造“国庆”主题航班为祖国庆生", "d": "2016-10-8", "c": ""},
+            "list": [{"n": 48, "showindex": 953, "v":true, "t": "长龙航空圆满完成全国首架B737-300货机 WQAR改装", "d": "2016-10-17", "c": ""},
+                {"n": 47, "showindex": 954, "v":true, "t": "长龙航空打造“国庆”主题航班为祖国庆生", "d": "2016-10-8", "c": ""},
                 {"n": 46, "showindex": 955, "v":true, "t": "长龙航空10月1日首开昆明=榆林直飞航线", "d": "2016-10-1", "c": ""},
                 {"n": 45, "showindex": 956, "v":true, "t": "浙江长龙航空曲臂式高空作业车项目招标公告", "d": "2016-9-29", "c": ""},
                 {"n": 44, "showindex": 957, "v":true, "t": "关于禁止携带三星Galaxy Note 7手机乘机的安全提示", "d": "2016-9-18", "c": ""},
