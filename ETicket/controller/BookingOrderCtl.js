@@ -225,17 +225,17 @@ laAir.controller('laAir_ETicket_BookingOrderPageCtl', ['$document', '$interval',
      */
     $scope.btnAccidentDetMouseOver = function (idx) {
         var box = $("<div class='roles table-fli' style='padding: 5px; width:500px;'><br><span style='font-weight:bold'>保险产品介绍:</span><br>" +
-                "<span>保险名称:中银三星航空旅行保障计划</span><br>" +
-                "<span>承保公司:中银三星人寿保险有限公司</span><br>" +
-                "<span>产品介绍:30元/份/航段</span><br>" +
-                "<span>保险有效期:当次航班。自被保险人持有效身份证件到达机场通过安全检查时始，至被保险人抵达目的港走出所乘航班班机的舱门时止</span><br>" +
-                "<span>投保年龄:本产品暂不支持婴儿购买</span><br><br>" +
+                "<span>保险名称:合众人寿2015高额1天航意险</span><br>" +
+                "<span>承保公司:合众人寿保险股份有限公司</span><br>" +
+                "<span>产品介绍:30元/份/天</span><br>" +
+                "<span>保险有效期:1天</span><br>" +
+                "<span>投保年龄:30天-90周岁</span><br><br>" +
                 "<table style='width:100%;'><tr><td style='text-align: center;'>保险责任</td><td style='text-align: center;'>赔偿限额</td></tr>" +
-                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外身故/残疾</td><td style='background:#FFFFFF;text-align: center;'>150万元人民币</td></tr>" +
-                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外伤害住院医疗</td><td style='background:#FFFFFF;text-align: center;'>6万元人民币</td></tr>" +
+                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外身故/伤残</td><td style='background:#FFFFFF;text-align: center;'>150万元人民币</td></tr>" +
+                "<tr><td style='background:#FFFFFF;text-align: center;'>航空意外伤害住院医疗</td><td style='background:#FFFFFF;text-align: center;'>3万元人民币</td></tr>" +
                 "</table><br>" +
-                "<span>电话验真:致电航联全国客服电话400-810-2688或者中银三星人寿保险有限公司全国客服电话400-810-1888进行验真</span><br>" +
-                "<span>网自助验真:登录中银三星人寿保险有限公司网址：<a href='http://www.boc-samsunglife.cn' target='_blank'>http://www.boc-samsunglife.cn</a> </span><br>" +
+                "<span>电话验真:致电航联全国客服电话400-810-2688或者合众人寿保险股份有限公司全国客服电话95515进行验真</span><br>" +
+                "<span>网自助验真:登录合众人寿保险股份有限公司网址：<a href='http://www.unionlife.com.cn' target='_blank'>http://www.unionlife.com.cn</a> </span><br>" +
                 "<span>特别申明:</span><br>" +
                 "<span>1.航意险只连同机票一起退还</span><br>" +
                 "<span>2.官网购买机票和保险，保险不支持改期</span><br>" +
