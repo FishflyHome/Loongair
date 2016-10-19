@@ -162,7 +162,7 @@ laAir.controller('laAir_MemberPointsPageCtl', ['$filter', '$interval', '$documen
                         break;
                     }
                 }
-
+                
                 /*
                  $scope.totalPage = 0;
                  var cn = rs.DataCount;
