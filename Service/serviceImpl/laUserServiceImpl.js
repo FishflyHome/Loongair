@@ -206,6 +206,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                     userInfo.Fax = uInfo.Fax;
                     userInfo.PPMeals = uInfo.PPMeals;
                     userInfo.PPSeats = uInfo.PPSeats;
+                    userInfo.PPDiscount = uInfo.PPDiscount;
                     userInfo.PPChannel = uInfo.PPChannel;
                     userInfo.PPPaymentMethod = uInfo.PPPaymentMethod;
                     userInfo.ContactHope = uInfo.ContactHope;//希望联系方式
@@ -289,6 +290,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.FPD_Fax = u.Fax;
         requestBody.FPD_PPMeals = u.PPMeals;
         requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPDiscount = u.PPDiscount;
         requestBody.FPD_PPChannel = u.PPChannel;
         requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
         requestBody.FPD_Wechat = u.Wechat;
@@ -474,6 +476,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.FPD_Fax = u.Fax;
         requestBody.FPD_PPMeals = u.PPMeals;
         requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPDiscount = u.PPDiscount;
         requestBody.FPD_PPChannel = u.PPChannel;
         requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
         requestBody.FPD_Wechat = u.Wechat;
@@ -541,6 +544,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.FPD_Fax = u.Fax;
         requestBody.FPD_PPMeals = u.PPMeals;
         requestBody.FPD_PPSeats = u.PPSeats;
+        requestBody.FPD_PPDiscount = u.PPDiscount;
         requestBody.FPD_PPChannel = u.PPChannel;
         requestBody.FPD_PPPaymentMethod = u.PPPaymentMethod;
         requestBody.FPD_Wechat = u.Wechat;

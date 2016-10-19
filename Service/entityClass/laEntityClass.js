@@ -84,10 +84,16 @@ var laEntityEnummemberLevel = [{n: "普通卡"}, {n: "银卡"}, {n: "金卡"}, {
 var laEntityEnummealType = [{v: 1, t: '牛肉类'}, {v: 2, t: '鸡肉类'}, {v: 3, t: '鱼肉类'}, {v: 4, t: '米饭'}, {v: 5, t: '面条'}, {v: 6, t: '素食'}, {v: 7, t: '特色小吃'}, {v: 8, t: '清真餐'}];
 
 /**
- * 座位枚举
+ * 折扣枚举
  * @type {*[]}
  */
 var laEntityEnumseatType = [{v: 1, t: '特价机票'}, {v: 2, t: '5-8折机票'}, {v: 3, t: '九折至全价'}, {v: 4, t: '公务舱至头等舱机票'}];
+
+/**
+ * 座位枚举
+ * @type {*[]}
+ */
+var laEntityEnumseatrealType = [{v: 1, t: '走道'}, {v: 2, t: '靠窗'}, {v: 3, t: '前排'}, {v: 4, t: '紧急出口的座位'}];
 
 /**
  * 销售渠道枚举
@@ -202,6 +208,7 @@ function laEntityUser() {
     this.Fax;
     this.PPMeals;
     this.PPSeats;
+    this.PPDiscount;
     this.PPChannel;
     this.PPPaymentMethod;
     this.ContactHope;//希望联系方式

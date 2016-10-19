@@ -34,10 +34,12 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
     $scope.ContactHopeCH = "";
     $scope.checkmealTypelist = laEntityEnummealType;
     $scope.checkseatTypelist = laEntityEnumseatType;
+    $scope.checkseatrealTypelist = laEntityEnumseatrealType;
     $scope.checksaleTypelist = laEntityEnumsaleChannelType;
     $scope.checkpayTypelist = laEntityEnumpayPlatType;
     $scope.MealTypelist = new Array();
     $scope.SeatTypelist = new Array();
+    $scope.SeatRealTypelist = new Array();
     $scope.SaleTypelist = new Array();
     $scope.PayTypelist = new Array();
 
@@ -243,6 +245,11 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
             var chk = {"v": item.v, "t": item.t, "s": false};
             $scope.SeatTypelist.push(chk);
         }
+        for (var i = 0; i < $scope.checkseatrealTypelist.length; i++) {
+            var item = $scope.checkseatrealTypelist[i];
+            var chk = {"v": item.v, "t": item.t, "s": false};
+            $scope.SeatRealTypelist.push(chk);
+        }
         for (var i = 0; i < $scope.checksaleTypelist.length; i++) {
             var item = $scope.checksaleTypelist[i];
             var chk = {"v": item.v, "t": item.t, "s": false};
@@ -317,6 +324,7 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
 
                 var food = $scope.UserInfo.PPMeals;
                 var seat = $scope.UserInfo.PPSeats;
+                var dis = $scope.UserInfo.PPDiscount;
                 var buy = $scope.UserInfo.PPChannel;
                 var pay = $scope.UserInfo.PPPaymentMethod;
                 var conhope = $scope.UserInfo.ContactHope;
@@ -335,11 +343,23 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
                 }
                 if (seat != undefined && seat != null) {
                     var sl = seat.split(",");
-                    var seatlist = document.getElementsByName("seat");
+                    var seatlist = document.getElementsByName("seatreal");
                     for (var i = 0; i < seatlist.length; i++) {
                         for (var n = 0; n < sl.length; n++) {
                             if (sl[n] == seatlist[i].value) {
                                 seatlist[i].checked = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (dis != undefined && dis != null) {
+                    var dl = dis.split(",");
+                    var dislist = document.getElementsByName("seat");
+                    for (var i = 0; i < dislist.length; i++) {
+                        for (var n = 0; n < dl.length; n++) {
+                            if (dl[n] == dislist[i].value) {
+                                dislist[i].checked = true;
                                 break;
                             }
                         }
@@ -415,7 +435,7 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
         $scope.UserInfo.PPMeals = food;
 
         var seat = "";
-        var seatlist = document.getElementsByName("seat");
+        var seatlist = document.getElementsByName("seatreal");
         for (var i = 0; i < seatlist.length; i++) {
             if (seatlist[i].checked) {
                 seat += seatlist[i].value + ",";
@@ -425,6 +445,18 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
             seat = seat.substr(0, seat.length - 1);
         }
         $scope.UserInfo.PPSeats = seat;
+
+        var dis = "";
+        var dislist = document.getElementsByName("seat");
+        for (var i = 0; i < dislist.length; i++) {
+            if (dislist[i].checked) {
+                dis += dislist[i].value + ",";
+            }
+        }
+        if (!laGlobalLocalService.CheckStringIsEmpty(dis)) {
+            dis = dis.substr(0, dis.length - 1);
+        }
+        $scope.UserInfo.PPDiscount = dis;
 
         var buy = "";
         var buylist = document.getElementsByName("buy");
