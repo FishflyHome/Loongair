@@ -47,7 +47,8 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
     $scope.SessionID;
 
     $scope.countrylist = new Array();
-    $scope.citylist = new Array();
+    $scope.cityHlist = new Array();
+    $scope.cityClist = new Array();
 
     FillChecklist();
     QueryCurrentUserInfo();
@@ -334,6 +335,14 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
         })
     };
 
+    $scope.btnQueryHCityByProvince = function () {
+        QueryCityList($scope.userInfo.HomeAddressProvince, 0);
+    };
+
+    $scope.btnQueryCCityByProvince = function () {
+        QueryCityList($scope.userInfo.CompanyAddressProvince, 1);
+    };
+
     function FillChecklist() {
         for (var i = 0; i < $scope.checkmealTypelist.length; i++) {
             var item = $scope.checkmealTypelist[i];
@@ -376,17 +385,30 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
         })
     }
 
-    function QueryCityList(provinceId) {
+    function QueryCityList(provinceId, ptype) {
+        if (ptype == 0) {
+            $scope.cityHlist = new Array();
+        }
+        if (ptype == 1) {
+            $scope.cityClist = new Array();
+        }
         laUserService.QueryCityList(provinceId, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.City.length; i++) {
                     var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
-                    $scope.citylist.push(p);
+                    if (ptype == 0) {
+                        $scope.cityHlist.push(p);
+                    }
+                    if (ptype == 1) {
+                        $scope.cityClist.push(p);
+                    }
+
                 }
             }
 
         })
+
     }
 
     function GetImgVerifyCode() {

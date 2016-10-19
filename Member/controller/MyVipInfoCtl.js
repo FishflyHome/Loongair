@@ -236,12 +236,12 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
     };
 
     $scope.btnQueryHCityByProvince = function () {
-        $scope.cityHlist = QueryCityList($scope.UserInfo.HomeAddressProvince);
-    }
+        QueryCityList($scope.UserInfo.HomeAddressProvince, 0);
+    };
 
     $scope.btnQueryCCityByProvince = function () {
-        $scope.cityClist = QueryCityList($scope.UserInfo.CompanyAddressProvince);
-    }
+        QueryCityList($scope.UserInfo.CompanyAddressProvince, 1);
+    };
 
     function FillChecklist() {
         for (var i = 0; i < $scope.checkmealTypelist.length; i++) {
@@ -303,16 +303,26 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
         })
     }
 
-    function QueryCityList(provinceId) {
-        var citylist = new Array();
+    function QueryCityList(provinceId, ptype) {
+        if (ptype == 0) {
+            $scope.cityHlist = new Array();
+        }
+        if (ptype == 1) {
+            $scope.cityClist = new Array();
+        }
         laUserService.QueryCityList(provinceId, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.City.length; i++) {
                     var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
-                    citylist.push(p);
+                    if (ptype == 0) {
+                        $scope.cityHlist.push(p);
+                    }
+                    if (ptype == 1) {
+                        $scope.cityClist.push(p);
+                    }
+
                 }
-                return citylist;
             }
 
         })
@@ -436,16 +446,13 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
                     }
                 }
 
-                //$scope.UserInfo.HomeAddressProvince = 33;
-                //$scope.UserInfo.CompanyAddressProvince = 20;
                 QueryProvinceList();
 
                 if ($scope.UserInfo.HomeAddressCountry == 1) { //如果是中国
-                    $scope.cityHlist = QueryCityList($scope.UserInfo.HomeAddressProvince);
-                    console.log("hilst", $scope.cityHlist);
+                    QueryCityList($scope.UserInfo.HomeAddressProvince, 0);
                 }
                 if ($scope.UserInfo.CompanyAddressCountry == 1) {
-                    $scope.cityClist = QueryCityList($scope.UserInfo.CompanyAddressProvince);
+                    QueryCityList($scope.UserInfo.CompanyAddressProvince, 1);
                 }
 
             }

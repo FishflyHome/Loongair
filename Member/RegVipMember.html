@@ -207,13 +207,13 @@
 
                                 <select class="text" style="width:auto;" ng-if="userInfo.HomeAddressCountry==1"
                                         ng-options="t.v as t.t for t in countrylist"
-                                        ng-model="userInfo.HomeAddressProvince">
+                                        ng-model="userInfo.HomeAddressProvince" ng-change="btnQueryHCityByProvince();">
                                 </select>
                                 <input ng-if="userInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
                                        ng-model="userInfo.HomeAddressProvince">
 
                                 <select class="text" style="width:auto;" ng-if="userInfo.HomeAddressCountry==1"
-                                        ng-options="t.v as t.t for t in citylist"
+                                        ng-options="t.v as t.t for t in cityHlist"
                                         ng-model="userInfo.HomeAddressCity">
                                 </select>
                                 <input ng-if="userInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="城市"
@@ -241,13 +241,13 @@
 
                                 <select class="text" style="width:auto;" ng-if="userInfo.CompanyAddressCountry==1"
                                         ng-options="t.v as t.t for t in countrylist"
-                                        ng-model="userInfo.CompanyAddressProvince">
+                                        ng-model="userInfo.CompanyAddressProvince" ng-change="btnQueryCCityByProvince();">
                                 </select>
                                 <input ng-if="userInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
                                        ng-model="userInfo.CompanyAddressProvince">
 
                                 <select class="text" style="width:auto;" ng-if="userInfo.CompanyAddressCountry==1"
-                                        ng-options="t.v as t.t for t in citylist"
+                                        ng-options="t.v as t.t for t in cityClist"
                                         ng-model="userInfo.CompanyAddressCity">
                                 </select>
                                 <input ng-if="userInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="城市"
