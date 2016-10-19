@@ -23,6 +23,7 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
 
     $scope.isFoidFull = true;
     $scope.countrylist = new Array();
+    $scope.citylist = new Array();
 
     $scope.foIdTypeOptions = laEntityEnumfoIdTypeOptions;
     $scope.nativeOptions = laEntityEnumnationaityOptions;
@@ -286,8 +287,21 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.Province.length; i++) {
-                    var p = {"v": rs.Province[i], "t": rs.Province[i]};
+                    var p = {"v": rs.Province[i].Tid, "t": rs.Province[i].ProvinceName};
                     $scope.countrylist.push(p);
+                }
+            }
+
+        })
+    }
+
+    function QueryCityList(provinceId) {
+        laUserService.QueryCityList(provinceId, function (backData, status) {
+            var rs = backData;
+            if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                for (var i = 0; i < rs.City.length; i++) {
+                    var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
+                    $scope.citylist.push(p);
                 }
             }
 

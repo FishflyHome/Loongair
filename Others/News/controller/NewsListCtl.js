@@ -15,6 +15,6 @@ laAir.controller('laAir_News_NewsListPageCtl', ['$window', '$document', '$scope'
 
     laUserService.QueryNewList(function (dataBack, status) {
         $scope.NewsList = dataBack;
-    });
+    });//, {"PageIndex": 1, "PageSize": 10, "StartTime": "", "EndTime": ""}
 
 }]);

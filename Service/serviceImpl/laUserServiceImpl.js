@@ -1511,7 +1511,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
      */
     laUserService.QueryProvinceList = function (country, callBack) {
         var requestParam = {};
-        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryProvinceList;
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewProvinceList;
         requestParam.SessionId = "";
 
         var requestBody = {};
@@ -1523,7 +1523,32 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         var postData = JSON.stringify(requestParam);
 
         laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
-                callBack(data, status);
+                callBack({"Province": data.Result}, status);
+            }
+        )
+    };
+
+    /**
+     * 获取城市列表
+     * @param provinceId
+     * @param callBack
+     * @constructor
+     */
+    laUserService.QueryCityList = function (provinceId, callBack) {
+        var requestParam = {};
+        requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryCityList;
+        requestParam.SessionId = "";
+
+        var requestBody = {};
+        requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
+        requestBody.provinceTid = provinceId;
+
+        requestParam.Args = JSON.stringify(requestBody);
+
+        var postData = JSON.stringify(requestParam);
+
+        laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
+                callBack({"City": data.Result}, status);
             }
         )
     };

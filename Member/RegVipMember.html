@@ -211,7 +211,12 @@
                                 </select>
                                 <input ng-if="userInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
                                        ng-model="userInfo.HomeAddressProvince">
-                                <input type="text" class="text w113 " placeholder="城市"
+
+                                <select class="text" style="width:auto;" ng-if="userInfo.HomeAddressCountry==1"
+                                        ng-options="t.v as t.t for t in citylist"
+                                        ng-model="userInfo.HomeAddressCity">
+                                </select>
+                                <input ng-if="userInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="城市"
                                        ng-model="userInfo.HomeAddressCity">
                             </li>
                             <li>
@@ -240,7 +245,12 @@
                                 </select>
                                 <input ng-if="userInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州"
                                        ng-model="userInfo.CompanyAddressProvince">
-                                <input type="text" class="text w113 " placeholder="城市"
+
+                                <select class="text" style="width:auto;" ng-if="userInfo.CompanyAddressCountry==1"
+                                        ng-options="t.v as t.t for t in citylist"
+                                        ng-model="userInfo.CompanyAddressCity">
+                                </select>
+                                <input ng-if="userInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="城市"
                                        ng-model="userInfo.CompanyAddressCity">
                             </li>
                             <li>

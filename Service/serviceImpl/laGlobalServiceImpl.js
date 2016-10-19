@@ -350,7 +350,15 @@ var laGlobalProperty = (function () {
         /**
          * 查询已审核过的受益人列表
          */
-        laServiceUrl_ActionType_QueryAuditBenefitList: 2019
+        laServiceUrl_ActionType_QueryAuditBenefitList: 2019,
+        /**
+         * 获取省份列表new
+         */
+        laServiceUrl_ActionType_QueryNewProvinceList: 2020,
+        /**
+         * 获取城市列表
+         */
+        laServiceUrl_ActionType_QueryCityList: 2021
 
     };
 })();

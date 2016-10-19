@@ -47,6 +47,7 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
     $scope.SessionID;
 
     $scope.countrylist = new Array();
+    $scope.citylist = new Array();
 
     FillChecklist();
     QueryCurrentUserInfo();
@@ -367,8 +368,21 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.Province.length; i++) {
-                    var p = {"v": rs.Province[i], "t": rs.Province[i]};
+                    var p = {"v": rs.Province[i].Tid, "t": rs.Province[i].ProvinceName};
                     $scope.countrylist.push(p);
+                }
+            }
+
+        })
+    }
+
+    function QueryCityList(provinceId) {
+        laUserService.QueryCityList(provinceId, function (backData, status) {
+            var rs = backData;
+            if (rs.Code == laGlobalProperty.laServiceCode_Success) {
+                for (var i = 0; i < rs.City.length; i++) {
+                    var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
+                    $scope.citylist.push(p);
                 }
             }
 

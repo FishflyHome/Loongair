@@ -443,7 +443,10 @@
                                 <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.HomeAddressProvince">
                                 </select>
                                 <input ng-if="UserInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.HomeAddressProvince">
-                                <input type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.HomeAddressCity">
+
+                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in citylist" ng-model="UserInfo.HomeAddressCity">
+                                </select>
+                                <input ng-if="UserInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.HomeAddressCity">
                             </li>
                             <li>
                                 <span>详细地址：</span>
@@ -466,7 +469,10 @@
                                 <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.CompanyAddressProvince">
                                 </select>
                                 <input ng-if="UserInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.CompanyAddressProvince">
-                                <input type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.CompanyAddressCity">
+
+                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in citylist" ng-model="UserInfo.CompanyAddressCity">
+                                </select>
+                                <input ng-if="UserInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.CompanyAddressCity">
                             </li>
                             <li>
                                 <span>单位名称：</span>
