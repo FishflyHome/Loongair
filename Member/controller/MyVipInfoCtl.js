@@ -23,7 +23,8 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
 
     $scope.isFoidFull = true;
     $scope.countrylist = new Array();
-    $scope.citylist = new Array();
+    $scope.cityHlist = new Array();
+    $scope.cityClist = new Array();
 
     $scope.foIdTypeOptions = laEntityEnumfoIdTypeOptions;
     $scope.nativeOptions = laEntityEnumnationaityOptions;
@@ -54,7 +55,6 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
 
     FillChecklist();
     QueryCurrentUserInfo();
-    QueryProvinceList();
 
     $("#li_detinfo_foid").css({"height": $scope.foIdTypeOptions.length * 32});
 
@@ -235,6 +235,14 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
         })
     };
 
+    $scope.btnQueryHCityByProvince = function () {
+        $scope.cityHlist = QueryCityList($scope.UserInfo.HomeAddressProvince);
+    }
+
+    $scope.btnQueryCCityByProvince = function () {
+        $scope.cityClist = QueryCityList($scope.UserInfo.CompanyAddressProvince);
+    }
+
     function FillChecklist() {
         for (var i = 0; i < $scope.checkmealTypelist.length; i++) {
             var item = $scope.checkmealTypelist[i];
@@ -296,16 +304,19 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
     }
 
     function QueryCityList(provinceId) {
+        var citylist = new Array();
         laUserService.QueryCityList(provinceId, function (backData, status) {
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.City.length; i++) {
                     var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
-                    $scope.citylist.push(p);
+                    citylist.push(p);
                 }
+                return citylist;
             }
 
         })
+
     }
 
     /**
@@ -423,6 +434,18 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
                             }
                         }
                     }
+                }
+
+                //$scope.UserInfo.HomeAddressProvince = 33;
+                //$scope.UserInfo.CompanyAddressProvince = 20;
+                QueryProvinceList();
+
+                if ($scope.UserInfo.HomeAddressCountry == 1) { //如果是中国
+                    $scope.cityHlist = QueryCityList($scope.UserInfo.HomeAddressProvince);
+                    console.log("hilst", $scope.cityHlist);
+                }
+                if ($scope.UserInfo.CompanyAddressCountry == 1) {
+                    $scope.cityClist = QueryCityList($scope.UserInfo.CompanyAddressProvince);
                 }
 
             }

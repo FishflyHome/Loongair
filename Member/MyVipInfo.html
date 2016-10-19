@@ -440,11 +440,11 @@
                                 <select class="text" style="width:auto;" ng-model="UserInfo.HomeAddressCountry" ng-options="t.v as t.t for t in nativeOptions">
                                 </select>
 
-                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.HomeAddressProvince">
+                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.HomeAddressProvince" ng-change="btnQueryHCityByProvince();">
                                 </select>
                                 <input ng-if="UserInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.HomeAddressProvince">
 
-                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in citylist" ng-model="UserInfo.HomeAddressCity">
+                                <select class="text" style="width:auto;" ng-if="UserInfo.HomeAddressCountry==1" ng-options="t.v as t.t for t in cityHlist" ng-model="UserInfo.HomeAddressCity">
                                 </select>
                                 <input ng-if="UserInfo.HomeAddressCountry!=1" type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.HomeAddressCity">
                             </li>
@@ -466,11 +466,11 @@
                                 <select class="text" style="width:auto;" ng-model="UserInfo.CompanyAddressCountry" ng-options="t.v as t.t for t in nativeOptions">
                                 </select>
 
-                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.CompanyAddressProvince">
+                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in countrylist" ng-model="UserInfo.CompanyAddressProvince" ng-change="btnQueryCCityByProvince();">
                                 </select>
                                 <input ng-if="UserInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="省份/州" ng-model="UserInfo.CompanyAddressProvince">
 
-                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in citylist" ng-model="UserInfo.CompanyAddressCity">
+                                <select class="text" style="width:auto;" ng-if="UserInfo.CompanyAddressCountry==1" ng-options="t.v as t.t for t in cityClist" ng-model="UserInfo.CompanyAddressCity">
                                 </select>
                                 <input ng-if="UserInfo.CompanyAddressCountry!=1" type="text" class="text w113 " placeholder="城市" ng-model="UserInfo.CompanyAddressCity">
                             </li>

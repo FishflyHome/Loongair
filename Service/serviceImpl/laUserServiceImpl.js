@@ -1523,7 +1523,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         var postData = JSON.stringify(requestParam);
 
         laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
-                callBack({"Province": data.Result}, status);
+                callBack({"Province": data.Result, "Code": data.Code}, status);
             }
         )
     };
@@ -1548,7 +1548,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         var postData = JSON.stringify(requestParam);
 
         laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
-                callBack({"City": data.Result}, status);
+                callBack({"City": data.Result, "Code": data.Code}, status);
             }
         )
     };
