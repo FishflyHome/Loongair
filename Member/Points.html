@@ -107,9 +107,10 @@
                         </div>
                     </div>
                     <div class="pull-left" style="margin: 20px 0 20px 40px;width:100%;">
-                        <span style="width:30%;font-size: 14px;">总累计积分：<span style="color:#e50717;font-size: 18px;">{{PointsList.IntegralCount}}</span></span>
-                        <span style="width:30%;font-size: 14px;margin-left: 100px;">升级积分：<span style="color:#e50717;font-size: 18px;">{{PointsList.LevelUpIntegral}}</span></span>
-                        <span style="width:30%;font-size: 14px;margin-left: 100px;">升级航段：<span style="color:#e50717;font-size: 18px;">{{PointsList.FlightIntegral}}</span></span>
+                        <span style="width:25%;font-size: 14px;">总累计积分：<span style="color:#e50717;font-size: 18px;">{{PointsList.IntegralCount}}</span></span>
+                        <span style="width:25%;font-size: 14px;margin-left: 100px;">奖励积分：<span style="color:#e50717;font-size: 18px;">{{PointsList.BonusIntegral}}</span></span>
+                        <span style="width:25%;font-size: 14px;margin-left: 100px;">升级积分：<span style="color:#e50717;font-size: 18px;">{{PointsList.LevelUpIntegral}}</span></span>
+                        <span style="width:25%;font-size: 14px;margin-left: 100px;">升级航段：<span style="color:#e50717;font-size: 18px;">{{PointsList.FlightIntegral}}</span></span>
                     </div>
 <!--
                     <div class="text-info">
@@ -163,6 +164,7 @@
                                 <th>起始地</th>
                                 <th>到达地</th>
                                 <th>累计积分</th>
+                                <th>奖励积分</th>
                                 <th>升级积分</th>
                                 <th>有效期</th>
                                 <th>状态</th>
@@ -177,6 +179,7 @@
                                 <td>{{P.From}}</td>
                                 <td>{{P.To}}</td>
                                 <td>{{P.IntegralAccu}}</td>
+                                <td>{{P.BonusIntegral}}</td>
                                 <td>{{P.IntegralForLevel}}</td>
                                 <td>{{P.EffectiveDate | date:'yyyy-MM-dd'}}</td>
                                 <td>{{getEnumTextPointEnabled(P.Reviewed)}}</td>
@@ -409,9 +412,9 @@
         display: none;
         position: fixed;
         top: 10%;
-        left: 50%;
+        left: 40%;
         z-index: 990;
-        width: 660px;
+        width: 750px;
         margin-left: -280px;
         background-color: #ffffff;
         border: 1px solid #eee;
@@ -423,7 +426,7 @@
 <div class="modalDet" style="border-radius: 5px; top:45%; left:52%; display:none;" id="divmsgcontent">
     <div class="modal-body">
         <div class="tabs">
-            <div class="vipmessage" style="width:615px; padding-left: 0;">
+            <div class="vipmessage" style="width:700px; padding-left: 0;">
                 <h2>积分详细</h2>
                 <span style="float:right; margin-top: -23px;"><a id="divclosemsgcontent" href="javascript:;">关闭</a></span><br><br>
             </div>
@@ -438,6 +441,7 @@
                             <th>起始地</th>
                             <th>到达地</th>
                             <th>累计积分</th>
+                            <th>奖励积分</th>
                             <th>升级积分</th>
                             <th>有效期</th>
                             <th>状态</th>
@@ -451,6 +455,7 @@
                             <td>{{curP.From}}</td>
                             <td>{{curP.To}}</td>
                             <td>{{curP.IntegralAccu}}</td>
+                            <td>{{curP.BonusIntegral}}</td>
                             <td>{{curP.IntegralForLevel}}</td>
                             <td>{{curP.EffectiveDate | date:'yyyy-MM-dd'}}</td>
                             <td>{{getEnumTextPointEnabled(curP.Reviewed)}}</td>
