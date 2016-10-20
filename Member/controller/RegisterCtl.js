@@ -383,7 +383,6 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
     }
 
     function QueryCityList(provinceId, ptype) {
-        console.log(provinceId, ptype);
         if (ptype == 0) {
             $scope.cityHlist = new Array();
         }
