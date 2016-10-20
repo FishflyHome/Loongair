@@ -203,12 +203,12 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                     userInfo.EMail = uInfo.EMail;//电邮
                     userInfo.Integral = uInfo.Integral;
                     userInfo.Level = uInfo.Level;
-                    userInfo.Fax = uInfo.Fax;
-                    userInfo.PPMeals = uInfo.PPMeals;
-                    userInfo.PPSeats = uInfo.PPSeats;
-                    userInfo.PPDiscount = uInfo.PPDiscount;
-                    userInfo.PPChannel = uInfo.PPChannel;
-                    userInfo.PPPaymentMethod = uInfo.PPPaymentMethod;
+                    userInfo.Fax = uInfo.FPD_Fax;
+                    userInfo.PPMeals = uInfo.FPD_PPMeals;
+                    userInfo.PPSeats = uInfo.FPD_PPSeats;
+                    userInfo.PPDiscount = uInfo.FPD_PPDiscount;
+                    userInfo.PPChannel = uInfo.FPD_PPChannel;
+                    userInfo.PPPaymentMethod = uInfo.FPD_PPPaymentMethod;
                     userInfo.ContactHope = uInfo.ContactHope;//希望联系方式
                     userInfo.ContactHopeCH = laGlobalLocalService.getEnumTextByKeyT(userInfo.ContactHope, laEntityEnumcontactHope);//uInfo.ContactHopeCH;//希望联系方式名称
                     userInfo.LanguageHope = uInfo.LanguageHope;//希望联系的语言 中文=1,English=2
