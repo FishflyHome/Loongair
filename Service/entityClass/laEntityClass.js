@@ -110,6 +110,12 @@ var laEntityEnumpayPlatType = [{v: 1, t: '财付通'}, {v: 2, t: '汇付'}, {v: 
     {v: 6, t: '银联'}, {v: 7, t: '易宝支付'}, {v: 8, t: '微信APP'}, {v: 9, t: '淘宝去啊'}, {v: 10000, t: '其他'}];
 
 /**
+ * 常旅客信息默认的省份城市
+ * @type {*[]}
+ */
+var laEntityEnumDefMemInfoProandCity = {"defProvince": {"v": "11", "t": "浙江省"}, "defCity": {"v": "87", "t": "杭州市"}};
+
+/**
  * 网站地图等公用菜单定义
 
 var laMapMenu_Transport = [{i: 0, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "passengerinfo", s: true},

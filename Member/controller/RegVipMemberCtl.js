@@ -24,6 +24,7 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
     $scope.jobOptions = laEntityEnumjob;
     $scope.positionOptions = laEntityEnumjobPosition;
     $scope.languageOptions = laEntityEnumlanguageHope;
+    $scope.defProvnceandCity = laEntityEnumDefMemInfoProandCity;
 
     $scope.checkmealTypelist = laEntityEnummealType;
     $scope.checkseatTypelist = laEntityEnumseatType;
@@ -377,7 +378,7 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.Province.length; i++) {
-                    var p = {"v": rs.Province[i].Tid, "t": rs.Province[i].ProvinceName};
+                    var p = {"v": rs.Province[i].Tid.toString(), "t": rs.Province[i].ProvinceName};
                     $scope.countrylist.push(p);
                 }
             }
@@ -396,7 +397,7 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
             var rs = backData;
             if (rs.Code == laGlobalProperty.laServiceCode_Success) {
                 for (var i = 0; i < rs.City.length; i++) {
-                    var p = {"v": rs.City[i].Tid, "t": rs.City[i].CityName};
+                    var p = {"v": rs.City[i].Tid.toString(), "t": rs.City[i].CityName};
                     if (ptype == 0) {
                         $scope.cityHlist.push(p);
                     }
@@ -437,13 +438,13 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
                     $scope.userInfo.Sex = 1;
                 }
                 if ($scope.userInfo.HomeAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.HomeAddressProvince)) {
-                    $scope.userInfo.HomeAddressProvince = 11;
-                    $scope.userInfo.HomeAddressCity = 87;
+                    $scope.userInfo.HomeAddressProvince = $scope.defProvnceandCity.defProvince.v;
+                    $scope.userInfo.HomeAddressCity = $scope.defProvnceandCity.defCity.v;
                     QueryCityList($scope.userInfo.HomeAddressProvince, 0);
                 }
                 if ($scope.userInfo.CompanyAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.CompanyAddressProvince)) {
-                    $scope.userInfo.CompanyAddressProvince = 11;
-                    $scope.userInfo.CompanyAddressCity = 87;
+                    $scope.userInfo.CompanyAddressProvince = $scope.defProvnceandCity.defProvince.v;
+                    $scope.userInfo.CompanyAddressCity = $scope.defProvnceandCity.defCity.v;
                     QueryCityList($scope.userInfo.CompanyAddressProvince, 1);
                 }
                 /*
