@@ -446,7 +446,18 @@ laAir.controller('laAir_MemberMyVipInfoPageCtl', ['$interval', '$document', '$wi
                     }
                 }
 
+                if ($scope.UserInfo.HomeAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.UserInfo.HomeAddressProvince)) {
+                    $scope.UserInfo.HomeAddressProvince = 11;
+                    $scope.UserInfo.HomeAddressCity = 87;
+                }
+                if ($scope.UserInfo.CompanyAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.UserInfo.CompanyAddressProvince)) {
+                    $scope.UserInfo.CompanyAddressProvince = 11;
+                    $scope.UserInfo.CompanyAddressCity = 87;
+                }
+
                 QueryProvinceList();
+
+
 
                 if ($scope.UserInfo.HomeAddressCountry == 1) { //如果是中国
                     QueryCityList($scope.UserInfo.HomeAddressProvince, 0);

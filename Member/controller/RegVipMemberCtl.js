@@ -436,6 +436,16 @@ laAir.controller('laAir_MemberRegVipMemberPageCtl', ['$document', '$interval', '
                 if ($scope.userInfo.Sex == undefined || $scope.userInfo.Sex == 0) {
                     $scope.userInfo.Sex = 1;
                 }
+                if ($scope.userInfo.HomeAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.HomeAddressProvince)) {
+                    $scope.userInfo.HomeAddressProvince = 11;
+                    $scope.userInfo.HomeAddressCity = 87;
+                    QueryCityList($scope.userInfo.HomeAddressProvince, 0);
+                }
+                if ($scope.userInfo.CompanyAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.CompanyAddressProvince)) {
+                    $scope.userInfo.CompanyAddressProvince = 11;
+                    $scope.userInfo.CompanyAddressCity = 87;
+                    QueryCityList($scope.userInfo.CompanyAddressProvince, 1);
+                }
                 /*
                 if ($scope.userInfo.Nationaity == undefined || $scope.userInfo.Nationaity == 0) {
                     $scope.userInfo.Nationaity = 1;

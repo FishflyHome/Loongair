@@ -383,6 +383,7 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
     }
 
     function QueryCityList(provinceId, ptype) {
+        console.log(provinceId, ptype);
         if (ptype == 0) {
             $scope.cityHlist = new Array();
         }
@@ -460,6 +461,17 @@ laAir.controller('laAir_MemberRegisterPageCtl', ['$document', '$interval', '$win
                 }
                 if ($scope.userInfo.ContactHope == undefined || $scope.userInfo.ContactHope == 0) {
                     $scope.userInfo.ContactHope = 2;
+                }
+
+                if ($scope.userInfo.HomeAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.HomeAddressProvince)) {
+                    $scope.userInfo.HomeAddressProvince = 11;
+                    $scope.userInfo.HomeAddressCity = 87;
+                    QueryCityList($scope.userInfo.HomeAddressProvince, 0);
+                }
+                if ($scope.userInfo.CompanyAddressCountry == 1 && laGlobalLocalService.CheckStringIsEmpty($scope.userInfo.CompanyAddressProvince)) {
+                    $scope.userInfo.CompanyAddressProvince = 11;
+                    $scope.userInfo.CompanyAddressCity = 87;
+                    QueryCityList($scope.userInfo.CompanyAddressProvince, 1);
                 }
             }
         })
