@@ -25,8 +25,8 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
     $scope.NewsList;
     //查询新闻
     laUserService.QueryNewList(function (dataBack, status) {
-        $scope.NewsList = dataBack;
-    });
+        $scope.NewsList = dataBack.newsList;
+    }, {"PageIndex": 1, "PageSize": 5, "StartTime": "2016-01-01", "EndTime": "2100-12-31"});
 
     //大图列表
     $scope.IndexImageList;

@@ -1613,7 +1613,16 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         };
 
         if (queryNews == null || queryNews == undefined) {
-            callBack(newsList.list, true);
+            var allLocalInfo = {
+                "newsList": newsList.list,
+                "PageInfo": {
+                    "PageIndex": 1,
+                    "TotalPage": 1,
+                    "PageSize": newsList.list.length,
+                    "DataCount": newsList.list.length
+                }
+            };
+            callBack(allLocalInfo, true);
         } else {
             var requestParam = {};
             requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryNewsList;
@@ -1631,11 +1640,11 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
             var postData = JSON.stringify(requestParam);
 
             laGlobalHTTPService.requestByPostUrl(postData, function (data, status) {
-                    var list = newLists.NLs;
+                    var list = data.newLists.NLs;
                     var outList = new Array();
                     var n = list.length;
                     for (var i = 0; i < n; i++) {
-                        var sim = list[n];
+                        var sim = list[i];
                         var item = {
                             "n": sim.NewTid,
                             "showindex": (i + 1 ),
@@ -1649,10 +1658,10 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                     var allInfo = {
                         "newsList": outList,
                         "PageInfo": {
-                            "PageIndex": newLists.NowPageIndex,
-                            "TotalPage": newLists.TotalPage,
-                            "PageSize": newLists.OnePageCount,
-                            "DataCount": newLists.DataCount
+                            "PageIndex": data.newLists.NowPageIndex,
+                            "TotalPage": data.newLists.TotalPage,
+                            "PageSize": data.newLists.OnePageCount,
+                            "DataCount": data.newLists.DataCount
                         }
                     };
                     callBack(allInfo, status);

@@ -2,7 +2,7 @@
  * Created by Jerry on 16/2/24.
  */
 
-laAir.controller('laAir_News_NewsPageCtl', ['$window', '$document', '$scope', 'laUserService', function ($window, $document, $scope, laUserService) {
+laAir.controller('laAir_News_NewsPageCtl', ['$sce', '$window', '$document', '$scope', 'laUserService', function ($sce, $window, $document, $scope, laUserService) {
 
     $scope.title = "新闻";
     $document[0].title = $scope.title;
@@ -13,6 +13,9 @@ laAir.controller('laAir_News_NewsPageCtl', ['$window', '$document', '$scope', 'l
     $scope.isHomeNav = true;
 
     $scope.NewsId = 0;
+    $scope.NewsDetail;
+    $scope.NewsContent;
+    $scope.queryFromLocal = false;
 
     var curHref = $window.location.href.toLowerCase().split('?');
     if (curHref.length >= 2) {
@@ -24,14 +27,22 @@ laAir.controller('laAir_News_NewsPageCtl', ['$window', '$document', '$scope', 'l
                     $scope.NewsId = param[1];
 
                     laUserService.QueryNewList(function (dataBack, status) {
-                        var NewsList = dataBack;
+                        var NewsList = dataBack.newsList;
                         var n = NewsList.length;
                         for (var i = 0; i < n; i++) {
                             var nw = NewsList[i];
                             if (nw.n == $scope.NewsId) {
                                 $document[0].title = nw.t;
+                                $scope.queryFromLocal = true;
                                 break;
                             }
+                        }
+                        if (!$scope.queryFromLocal) {
+                            laUserService.QueryNewsDetail($scope.NewsId, function (dataBack, status) {
+                                $scope.NewsDetail = dataBack.Result;
+                                $document[0].title = $scope.NewsDetail.NewTitle;
+                                $scope.NewsContent = $sce.trustAsHtml(decodeURI($scope.NewsDetail.NewInfoDetail));
+                            })
                         }
                     });
                     break;
