@@ -34,6 +34,7 @@ laAir.controller('laAir_News_NewsPageCtl', ['$sce', '$window', '$document', '$sc
                             if (nw.n == $scope.NewsId) {
                                 $document[0].title = nw.t;
                                 $scope.queryFromLocal = true;
+                                $("#divnewslocal").css("display", "block");
                                 break;
                             }
                         }
@@ -42,6 +43,7 @@ laAir.controller('laAir_News_NewsPageCtl', ['$sce', '$window', '$document', '$sc
                                 $scope.NewsDetail = dataBack.Result;
                                 $document[0].title = $scope.NewsDetail.NewTitle;
                                 $scope.NewsContent = $sce.trustAsHtml(decodeURI($scope.NewsDetail.NewInfoDetail));
+                                $("#divnewsdy").css("display", "block");
                             })
                         }
                     });
