@@ -692,7 +692,7 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
 laGlobal.factory('laGlobalHTTPService', ['$http', 'laGlobalLocalService', function ($http, laGlobalLocalService) {
     var laGlobalHTTPService = {};
 
-    var isDebug = true;
+    var isDebug = false;
     var _timeout = 15000;//设置15秒超时
 
     /**
