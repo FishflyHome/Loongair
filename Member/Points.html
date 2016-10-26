@@ -179,8 +179,8 @@
                                 <th>起始地</th>
                                 <th>到达地</th>
                                 <th>累计积分</th>
-                                <!--<th>奖励积分</th>
-                                <th>升级积分</th>-->
+                                <th>升级航段次数</th>
+                                <!--<th>升级积分</th>-->
                                 <th>有效期</th>
                                 <th>状态</th>
                                 <th>详细信息</th>
@@ -194,8 +194,8 @@
                                 <td>{{P.From}}</td>
                                 <td>{{P.To}}</td>
                                 <td>{{P.IntegralAccu}}</td>
-                                <!--<td>{{P.BonusIntegral}}</td>
-                                <td>{{P.IntegralForLevel}}</td>-->
+                                <td>{{P.FlightIntegral}}</td>
+                                <!--<td>{{P.IntegralForLevel}}</td>-->
                                 <td>{{P.EffectiveDate | date:'yyyy-MM-dd'}}</td>
                                 <td>{{getEnumTextPointEnabled(P.Reviewed)}}</td>
                                 <td><a href="javascript:;" ng-click="showDetail(P, $index)" style="color:dodgerblue;font-size: 12px;">详细显示</a></td>
@@ -456,8 +456,8 @@
                             <th>起始地</th>
                             <th>到达地</th>
                             <th>累计积分</th>
-                            <!--<th>奖励积分</th>
-                            <th>升级积分</th>-->
+                            <th>升级航段次数</th>
+                            <!--<th>升级积分</th>-->
                             <th>有效期</th>
                             <th>状态</th>
                         </tr>
@@ -470,8 +470,8 @@
                             <td>{{curP.From}}</td>
                             <td>{{curP.To}}</td>
                             <td>{{curP.IntegralAccu}}</td>
-                            <!--<td>{{curP.BonusIntegral}}</td>
-                            <td>{{curP.IntegralForLevel}}</td>-->
+                            <td>{{curP.FlightIntegral}}</td>
+                            <!--<td>{{curP.IntegralForLevel}}</td>-->
                             <td>{{curP.EffectiveDate | date:'yyyy-MM-dd'}}</td>
                             <td>{{getEnumTextPointEnabled(curP.Reviewed)}}</td>
                         </tr>
