@@ -703,9 +703,6 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 {"n": 1, "showindex": 10000, "v": true, "t": "长龙航空“为爱飞行，幸福家倍”公益行动助环卫工人阖家团圆", "d": "2016-2-5", "c": ""}]
         };
 
-        //临时启用本地新闻
-        queryNews = null;
-
         if (queryNews == null || queryNews == undefined) {
             var allLocalInfo = {
                 "newsList": newsList.list,
