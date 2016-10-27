@@ -653,7 +653,9 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
     laUserService.QueryNewList = function (callBack, queryNews) {
 
         var newsList = {
-            "list": [{"n": 48, "showindex": 953, "v":true, "t": "长龙航空圆满完成全国首架B737-300货机 WQAR改装", "d": "2016-10-17", "c": ""},
+            "list": [{"n": 50, "showindex": 951, "v":true, "t": "用爱心点燃希望 让孩童沐浴阳光", "d": "2016-10-27", "c": ""},
+                {"n": 49, "showindex": 952, "v":true, "t": "冬春换季 长龙航空将新开10条航线", "d": "2016-10-27", "c": ""},
+                {"n": 48, "showindex": 953, "v":true, "t": "长龙航空圆满完成全国首架B737-300货机 WQAR改装", "d": "2016-10-17", "c": ""},
                 {"n": 47, "showindex": 954, "v":true, "t": "长龙航空打造“国庆”主题航班为祖国庆生", "d": "2016-10-8", "c": ""},
                 {"n": 46, "showindex": 955, "v":true, "t": "长龙航空10月1日首开昆明=榆林直飞航线", "d": "2016-10-1", "c": ""},
                 {"n": 45, "showindex": 956, "v":true, "t": "浙江长龙航空曲臂式高空作业车项目招标公告", "d": "2016-9-29", "c": ""},
