@@ -25,7 +25,6 @@ laAir.controller('laAir_News_NewsPageCtl', ['$sce', '$window', '$document', '$sc
             if (param.length >= 2) {
                 if (param[0] == 'id') {
                     $scope.NewsId = param[1];
-
                     laUserService.QueryNewList(function (dataBack, status) {
                         var NewsList = dataBack.newsList;
                         var n = NewsList.length;
