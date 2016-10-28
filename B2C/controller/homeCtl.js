@@ -80,7 +80,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
     }
 
     $scope.btnCloseTipClick = function () {
-        laGlobalLocalService.writeCookie(key_cookie_indexTip, "1", 0);
+        laGlobalLocalService.writeCookie(key_cookie_indexTip, "all", 0);
         $('.modal').modal('hide');
     };
 
