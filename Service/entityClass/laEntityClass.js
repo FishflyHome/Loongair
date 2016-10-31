@@ -137,7 +137,8 @@ var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?
     {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "5", s: true},
     {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "7", s: true},
     {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "6", s: true},
-    {i: 5, t: "运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true}];
+    {i: 5, t: "国内运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true},
+    {i: 6, t: "国际运输总条件", u: "/Travel/Transport/RuleIntel.html", c: "ruleintel", s: true}];
 
 var laMapMenu_PassengerSvr = [{i: 0, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true},
     {i: 1, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "Passenger", s: true},
