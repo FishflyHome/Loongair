@@ -43,7 +43,7 @@ var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?
     {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "saleticketandairport", s: true},
     {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "checkinstation", s: true},
     {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "eticketpost", s: true},
-	{i: 5, t: "运输条款", u: "/Others/MoreInfo/Transport.html", c: "Transport", s: true}];
+	{i: 5, t: "运输条款", u: "/Infomation/index.html?index=12", c: "Transport", s: true}];
 
 var laMapMenu_PassengerSvr = [{i: 0, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true},
     {i: 1, t: "旅客须知", u: "/Infomation/Travelnotes/Passenger.html", c: "Passenger", s: true},
