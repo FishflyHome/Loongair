@@ -16,6 +16,8 @@ laAir.controller('laAir_Infomation_IndexPageCtl', ['$window', '$document', '$sco
      */
     $scope.isTravelNav = true;
 
+	$scope.menuListRule = laMapMenu_Rule;
+	$scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_PassengerSvr;
     $scope.menuListTrans = laMapMenu_Transport;
 
