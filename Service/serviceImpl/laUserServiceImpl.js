@@ -584,7 +584,9 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 Vcity.allCityNamelist = '';
                 Vcity.allCityCodelist = '';
                 var airlist = new Array();
+                var hotairlist = new Array();
                 var AirPostdata = rs.Result.AllAirports;
+                var AirHotPostdata = rs.Result.HotAirports;
                 var nlength = AirPostdata.length;
                 for (var i = 0; i < nlength; i++) {
                     airlist[i] = AirPostdata[i].CityName + '|' + AirPostdata[i].PingYin + '|' +
@@ -595,6 +597,13 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                 }
 
                 Vcity.allCity = airlist;
+
+                nlength = AirHotPostdata.length;
+                for (var i = 0; i < nlength; i++) {
+                    hotairlist[i] = AirHotPostdata[i].CityName + '|' + AirHotPostdata[i].PingYin + '|' +
+                        AirHotPostdata[i].PingYinFirst + '|' + AirHotPostdata[i].AirportCode;
+                }
+                Vcity.allHostCity = hotairlist;
 
                 var citys = Vcity.allCity, match, letter,
                     regEx = Vcity.regEx,
@@ -615,10 +624,14 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
                             Vcity.oCity.QRSTUVWXYZ[letter].push(citys[i]);
                         }
                         //热门城市 前16条
-                        if (i < 16) {
+                        /*if (i < 16) {
                             if (!Vcity.oCity.hot['hot']) Vcity.oCity.hot['hot'] = [];
                             Vcity.oCity.hot['hot'].push(citys[i]);
-                        }
+                        }*/
+                    }
+                    for (var i=0; i< Vcity.allHostCity.length;i++){
+                        if (!Vcity.oCity.hot['hot']) Vcity.oCity.hot['hot'] = [];
+                        Vcity.oCity.hot['hot'].push(Vcity.allHostCity[i]);
                     }
                 }
 
