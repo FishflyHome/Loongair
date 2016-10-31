@@ -70,3 +70,21 @@ laAir.controller('laAir_Transport_RuleIntelCtl', ['$document', '$scope', functio
 
 }]);
 
+laAir.controller('laAir_Transport_RuleIntelEnCtl', ['$document', '$scope', function ($document, $scope) {
+
+    $scope.title = "国际运输总条件";
+    $document[0].title = $scope.title;
+    /**
+     * 设置导航栏ClassName
+     * @type {boolean}
+     */
+    $scope.isTravelNav = true;
+
+    $scope.menuList = laMapMenu_Transport;
+    $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
+
+    $scope.is_Transport_ClassFlag = "ruleintelen";
+
+}]);
+
+

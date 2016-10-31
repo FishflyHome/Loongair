@@ -1,0 +1,1804 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="laAir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="/Library/others/tingyun-rum.js"></script>
+    <title></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href="http://www.loongair.cn/"/>
+
+    <link rel='stylesheet' href='/Resource/style/style.css' type='text/css' media='all'>
+    <link href="/Resource/images/cl.ico" rel="icon" type="image/x-icon"/>
+
+    <![if !IE]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]>
+
+    <!--[if gte IE 9]>
+    <script src="/Library/angular/angular1.4.8.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.4.8.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script src="/Library/angular/angular1.2.28.min.js"></script>
+    <script src="/Library/angular/angular-cookies1.2.28.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="/Library/others/json2.js"></script>
+    <![endif]-->
+
+    <script src="/Service/entityClass/laEntityClass.js"></script>
+    <script src="/Service/serviceImpl/laGlobalServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laOrderServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laUserServiceImpl.js"></script>
+    <script src="/Service/serviceImpl/laAir.js"></script>
+
+    <script type="text/javascript" src="/Library/others/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/Library/others/bootbox.min.js"></script>
+    <script type="text/javascript" src="/B2C/js/application.js"></script>
+
+    <script src="controller/TransportCtl.js"></script>
+</head>
+<body ng-controller="laAir_Transport_RuleIntelEnCtl">
+
+<div ng-include="'/Resource/commonHtml/header.html'"></div>
+
+<div class="wrapper">
+
+    <div class="container personal-wrapper">
+
+        <div ng-include="'../LeftMenu.html'"></div>
+
+        <div class="content">
+            <div class="panel-sm">
+                <div class="article">
+                    <h2>General Conditions of International Carriage for Passenger and Baggage</h2>
+
+                    <div class="art-content">
+                        <ul class="rulelist">
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 0    General Rules</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>0.0.1
+                                    <p>Contents
+                                    <p>In order to insure efficient running of ground handling in
+                                    stations for the international passengers and baggage,
+                                    General Conditions of Carriage of Passenger & Baggage
+                                    (hereinafter referred to as the Conditions) is made by
+                                    Zhejiang Loong Airlines as part of the passenger carriage
+                                    contract. The contents of the Conditions include:
+                                    <p>0.0.1.1    	Definitions
+                                    <p>0.0.1.2    	Applicability
+                                    <p>0.0.1.3    	Tickets
+                                    <p>0.0.1.4    	Fares, Taxes, Fees and Charges
+                                    <p>0.0.1.5    	Reservations
+                                    <p>0.0.1.6    	Ticketing
+                                    <p>0.0.1.7    	Check-in and Boarding
+                                    <p>0.0.1.8    	Baggage
+                                    <p>0.0.1.9    	Schedules, Cancellations, Alterations of Flights
+                                    <p>0.0.1.10    Changes to Passenger tickets
+                                    <p>0.0.1.11    Refunds
+                                    <p>0.0.1.12    Conduct Aboard Aircraft
+                                    <p>0.0.1.13    Refusal and Limitation of Carriage
+                                    <p>0.0.1.14    Arrangements for Additional Services
+                                    <p>0.0.1.15    Administrative Formalities
+                                    <p>0.0.1.16    Passenger Services
+                                    <p>0.0.1.17    Liability for Damage
+                                    <p>0.0.1.18    Effectiveness and Modification
+                                    <p>0.0.2       Basis of Formulation
+                                    <p>0.0.2.1      These Conditions are formulated on the basis of Civil
+                                    Aviation Law of the People's Republic of China, the Rules
+                                    of China on the International Civil Air Transport of
+                                    Passengers and Luggage, Large-scale Public Air Transport
+                                    Carrier	Certification	Rules	of	Operation	(the
+                                    CCAR-121-R2), Operation of Civil Aircraft Airworthiness
+                                    Regulations (the CCAR-121AA), etc.
+                                    <p>0.0.3      	Implementation
+                                    <p>0.0.3.1    	These Conditions are formulated as the principle for the
+                                    performance in station by staff of CDC as follows:
+                                    domestic ticket sales, ground handling and ground
+                                    handling agents, etc. Any department or staff in relation
+                                    with domestic passenger and baggage delivery, including
+                                    sales branch, department, office and ground handling
+                                    agents shall fully abide these Conditions.
+                                    <p>0.0.3.2    	The issuance and implementation of the Conditions help to
+                                    standardize the international ticket sales, check-in and
+                                    baggage delivery, which leads to safety priority, flight
+                                    normality and excellent service quality.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 1  	Definitions</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>1.1        	The following terms used in the General Conditions of
+                                    International Carriage for Passenger and Baggage
+                                    (hereinafter referred to as “the Conditions”) are defined as
+                                    follows unless otherwise specified:
+                                    <p>1.1.1      	CDC means Zhejiang Loong Airlines Company Limited.
+                                    <p>1.1.2       Convention means whichever of the following instruments
+                                    that is applicable:
+                                    The Convention for the Unification of Certain Rules
+                                    Relating to International Carriage by Air, signed at
+                                    Warsaw, 12 October 1929 (hereinafter referred to as the
+                                    Warsaw Convention);
+                                    The Warsaw Convention as amended at Hague on 28
+                                    September 1955 (hereinafter referred to as the Hague
+                                    Protocol);
+                                    The Convention for the Unification of Certain Rules for
+                                    International Carriage by Air, done at Montreal on 28 May
+                                    1999 (hereinafter referred to as the Montreal Convention).
+                                    <p>1.1.3      	CDC’s regulations means rules, other than the Conditions,
+                                    published by CDC and in effect on date of publication,
+                                    governing carriage of passengers and/or baggage and shall
+                                    include any applicable tariffs in force.
+                                    <p>1.1.4       International carriage means air carriage in accordance
+                                    with air carriage contract between CDC and the passenger,
+                                    whether there is a break or transfer in the transportation or
+                                    not, of which the origin, appointed stopover or destination
+                                    is not located in the People’s Republic of China.
+                                    <p>1.1.5      	Carrier means the public air carriage company which
+                                    issues air tickets, carries or undertakes to carry the
+                                    passengers and baggage listed in air tickets.
+                                    Ticketing carrier means the carrier whose numeric code
+                                    is indicated in coupons of electronic ticket sales. Ticketing
+                                    carrier shall be the controller and authorizer of electronic
+                                    ticket sales.
+                                    Marketing carrier means the carrier whose airline
+                                    designator code is recorded in coupons as the carrier that
+                                    operates.
+                                    Operating Carrier means the carrier that performs the
+                                    actual air carriage and additional services. When there are
+                                    certain bilateral agreements, such as code sharing
+                                    agreement, operating carrier and marketing carrier may not
+                                    be the same.
+                                    <p>1.1.6  	CDC sales agent or authorized agent means a
+                                    passenger sales agent who has been authorized by CDC to
+                                    represent CDC in the sales of aviation passenger and cargo
+                                    transportation products and its relevant services.
+                                    <p>1.1.7      	Passenger means any person, except members of the crew,
+                                    carried or to be carried in an aircraft with the consent of
+                                    CDC.
+                                    <p>1.1.8      	Child means any person 2 to 11 years old on the date of
+                                    commencement of travel.
+                                    <p>1.1.9      	Unaccompanied child means any person 5 to 11 years old
+                                    on the date of commencement of travel who travels
+                                    without the company of parents or any other passenger
+                                    over 18 years old.
+                                    <p>1.1.10      Infant means any person who is under the age of 2 on the
+                                    date of commencement of travel.
+                                    <p>1.1.11      Reservation means the reservation of seat and service class,
+                                    or the weight and size of baggage appointed by passenger.
+                                    <p>1.1.12    	 Flight means the flying of aircraft according to scheduled
+                                    route, date and time.
+                                    <p>1.1.13 Travel Itinerary means valid certificate that CDC provides for passenger using electronic ticket which includes the general description and acknowledgement of the general conditions.
+                                    <p>1.1.14
+                                    Conjunction ticket means a ticket issued to a passenger in
+                                    conjunction with another one or more ticket which together constitute a
+                                    single contract of carriage.
+                                    <p>1.1.15       Fixed ticket means a ticket whose flight number and date of
+                                    flight are fixed and the seat is reserved.
+                                    <p>1.1.16      Open ticket means a ticket whose flight number and date of
+                                    flight are not fixed and the seat is not reserved.
+                                    <p>1.1.17      Flight coupon means that portion of the ticket that bears
+                                    the notation "good for passage", or in the case of an
+                                    electronic ticket, the electronic coupon, and indicates the
+                                    particular places between which you are entitled to be
+                                    carried.
+                                    <p>1.1.18
+                                    Passenger coupon means the portion of ticket issued by or
+                                    on behalf of the carrier and which is so marked and ultimately
+                                    to be retained by passenger .
+                                    <p>1.1.19      Itinerary for air carriage electronic ticket (hereinafter
+                                    referred to as Itinerary) means the payment proof for
+                                    passengers provided by public air carriage company or its
+                                    sales agency during ticket purchasing. One itinerary is
+                                    provided for each electronic ticket, and can be printed at
+                                    the latest one month after the flight departure. Passenger shall
+                                    preserve it well in case of refunds.
+                                    <p>1.1.20 Day means calendar days, including all seven days of the
+                                    week. Provided that it is for the purpose of notification, the
+                                    day upon which notice is dispatched shall not be counted;
+                                    and provided further that it is for the purposes of determining
+                                    duration of validity, the day upon which the ticket is
+                                    issued, or the day upon which flight commenced, shall not
+                                    be counted.
+                                    <p>1.1.21 Tariffs means the fares, charges and relevant transport rules
+                                    published by the carrier. Tariffs must be
+                                    approved by relevant authorities when necessary.
+                                    <p>1.1.22
+                                    Normal fare means the highest fare established for a first /
+                                    business / premium economy class / economy class of
+                                    valid adult fare. Children’s fare and infants’ fare that are
+                                    established as a percentage of a normal fare are also
+                                    considered to be normal fares.
+                                    <p>1.1.23  	Special fare means any fare other than a normal fare.
+                                    <p>1.1.24 Agreed transition point means the point of stay, other
+                                    than the origin and destination, stipulated in the flight
+                                    schedule of ticket of the carrier.
+                                    <p>1.1.25  	 Stopover means a scheduled stop at a certain point between
+                                    origin and destination arranged by passenger and with the
+                                    consent of the carrier.
+                                    <p>1.1.26 Overbooking means the seats that have been sold exceed
+                                    the biggest allowance of the flight.
+                                    <p>1.1.27      Spillage means the spillage of passengers on a flight
+                                    because of the aircraft type change or flight mergence
+                                    caused by machinery or aircraft scheduling and etc.
+                                    <p>1.1.28      Code-sharing means generally airline company use its own
+                                    code and flight number on another flight of operating carrier,
+                                    or permits to use other carrier’s code and flight number on its
+                                    own flight under agreement with the carrier. In such event,
+                                    CDC shall inform passenger of operating carrier.
+                                    <p>1.1.29      Deadline time for check-in means the latest time stipulated
+                                    for passenger by operating carrier to finish the check-in
+                                    formalities.
+                                    <p>1.1.30      Departure time means the time of closing cabin door after
+                                    the boarding of passengers.
+                                    <p>1.1.31     No-show means passenger’s failure to board the aircraft
+                                    because they fail to finish check-in formalities before
+                                    stipulated check-in deadline or because their travel
+                                    documents don’t meet the requirements.
+                                    <p>1.1.32     Mis-catch means passenger’s failure to board the aircraft
+                                    after finishing check-in formalities at the origin airport or
+                                    transit airport.
+                                    <p>1.1.33     Wrong Boarding means passenger boards a flight
+                                    different from the one listed in the ticket.
+                                    <p>1.1.34     Baggage means such articles and other personal
+                                    property of the Passenger as are necessary or appropriate
+                                    for wear, use, comfort or convenience during
+                                    the trip. Unless otherwise specified, it includes both
+                                    checked and unchecked baggages of the Passenger.
+                                    <p>1.1.35      Checked baggage means baggage of which carrier takes sole
+                                    custody and for which carrier has issued a baggage tag.
+                                    <p>1.1.36      Unchecked Baggage means any baggage of the Passenger
+                                    other than checked baggage.
+                                    <p>1.1.37      Self-care baggage means any baggage which, with the
+                                    consent of the carrier, is weighed or calculated its pieces
+                                    by the carrier and taken care of by the passenger
+                                    himself during the journey including stay in transit
+                                    points.
+                                    <p>1.1.38      Free hand-carry item means any small item which, with
+                                    the consent of the carrier, is taken by passenger on board
+                                    or during the stay at transit points, within the sorts and
+                                    quantity limitation of the carrier.
+                                    <p>1.1.39      Baggage check means those portions of the ticket
+                                    which relate to the carriage of the passenger’s checked
+                                    baggage.
+                                    <p>1.1.40    	Baggage tag means a document issued by the carrier solely for
+                                    identification of checked baggage.
+                                    <p>1.1.41    	Damage includes death, injury, delay, loss, partial loss or
+                                    other damage of whatsoever nature arising out of or in
+                                    connection with the carriage or other services incidental
+                                    thereto performed by the carrier.
+                                    <p>1.1.42      Force majeure means an unusual and unforeseeable
+                                    circumstance beyond control, the consequences of which
+                                    could not have been avoided even if all due care had been
+                                    exercised.
+                                    <p>1.1.43    	Change fee means the charge for passenger’s voluntary
+                                    request of changing their original flight reservation,
+                                    including flights, date, cabin and validity, etc.
+                                    <p>1.1.44    	Endorsement means change of marketing carrier.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 2    Applicability</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>2.1	        General Rules
+                                    <p>2.1.1       Except as provided in 2. 2, 2. 4 and 2.5 of this chapter, the general
+                                    conditions apply to all international carriage by air of passengers
+                                    and baggage, performed by CDC for reward. Routes to Hong Kong, Macao and Taiwan shall abide by the General Conditions.
+                                    <p>2.1.2    	Code-sharing: according to code-sharing arrangement between CDC
+                                    and other carriers, the General Conditions only apply to code-sharing
+                                    flight with CDC as operating carrier.As to code-sharing flight where CDC is not operating carrier, CDC is
+                                    obliged to notice passenger of operating carrier and offers assistance to contact operating carrier when necessary. The rights of passenger
+                                    shall refer to relevant terms of operating carrier.
+                                    <p>2.2          Chartered Carrier Carriage
+                                    If carriage is performed pursuant to a charter agreement, these Conditions of Carriage apply only to the extent they are incorporated by reference or otherwise in the charter agreement or the ticket terms therein.
+                                    <p>2.3          Code-sharing
+                                    if CDC and another carrier share code on some flights, it means even if passenger has bought a ticket from CDC with its name or code thereon, he may still take a flight of the other carrier. In such event, CDC should inform the passenger of operating carrier when he buys ticket or performs check-in formalities.
+                                    <p>2.4           Priority of law
+                                    The Conditions apply to international transport provided by CDC.
+                                    If the Conditions and the freight rates of CDC have any inconsistency,
+                                    The freight rates or the applicable law shall prevail.
+                                    <p>2.5         The Conditions applying to other provisions of CDC preferentially
+                                    The Conditions shall apply to other CDC’s regulations in top priority.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 3	      Tickets</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>3.1        	General Rules
+                                    <p>3.1.1      	The ticket constitutes prima facie evidence of the contract
+                                    of carriage between the carrier and the passenger named on
+                                    the ticket. CDC will provide carriage only to the passenger
+                                    holding such ticket, or holding, as proof of payment or part
+                                    payment, any other carrier document issued by CDC or its
+                                    authorized agent. CDC ticket is and remains at all times
+                                    the property of CDC. The conditions of contract contained
+                                    in the ticket are a summary of some of the provisions of
+                                    these conditions of CDC.
+                                    <p>3.1.2      	A ticket is not transferable. If a ticket is presented by
+                                    someone other than the person entitled to be carried thereunder
+                                    or to a refund in connection therewith, CDC shall
+                                    not be liable to the person so entitled if in good faith it
+                                    provides carriage or makes a refund to the person
+                                    presenting the ticket.
+                                    <p>3.1.3
+                                    Some tickets are sold at Special fares which may be
+                                    partially or completely non-refundable. The passenger should choose
+                                    the fare that best suits to his needs.
+                                    <p>3.1.4      	Requirements for Ticket Using
+                                    <p>3.1.4.1    	In the event of using a paper ticket, a person shall not be
+                                    entitled to be carried on a flight unless that person presents
+                                    a ticket valid and duly issued in accordance with CDC’s
+                                    Regulations and containing the flight coupon for the flight
+                                    and all other unused flight coupons and the passenger
+                                    coupon. A passenger shall furthermore not be entitled to be
+                                    carried if the ticket presented is mutilated or if it has been
+                                    altered otherwise than by CDC or its authorized agents.
+                                    <p>3.1.4.2    	Passenger’s name on the ticket must be the same with the
+                                    identity information provided by the passenger; otherwise
+                                    CDC has the right to refuse carrying the passenger.
+                                    <p>3.1.4.3    	For electronic tickets, if the coupon of the sector which
+                                    passenger requests to check in is not unused and valid,
+                                    CDC has the right to refuse carrying the passenger.
+                                    <p>3.1.4.4    	CDC will honor flight coupons only in sequence from the
+                                    place of commencement of travel as shown on the ticket.
+                                    <p>3.1.4.5    	Each flight coupon will be accepted for carriage in the
+                                    class of service specified therein on the date and flight for
+                                    which accommodation has been reserved. When flight
+                                    coupons are issued without a reservation being specified
+                                    thereon, space will be reserved on application subject to
+                                    the conditions of the relevant fare and the availability of
+                                    space on the flight applied for.
+                                    <p>3.2        	Period of Validity
+                                    <p>3.2.1      	General Rules
+                                    <p>3.2.1.1    	A ticket is valid for carriage for one year from the date of
+                                    commencement of travel, or if no portion of the ticket is
+                                    used or the ticket is an open ticket, from the date of
+                                    issuance thereof.
+                                    <p>3.2.1.2    	The validity of a ticket is counted from the midnight on
+                                    the date of commencement, or if no portion of the ticket is
+                                    used, from the midnight on the date of issuance, till the
+                                    midnight on the date of expiration.
+                                    <p>3.2.1.3    	Passenger must finish all the sectors
+                                    listed in the ticket within the period of validity. If the
+                                    special fare ticket has special stipulation on travel dates,
+                                    passenger must finish all the sectors listed within the
+                                    period of validity stipulated.
+                                    <p>3.2.1.4    	Period of validity of tickets with more than one flight leg
+                                    shall be calculated from the date of commencement of the
+                                    first travel under the ticket.
+                                    <p>3.3        	Extension of Validity
+                                    <p>3.3.1      	General Rules
+                                    <p>3.3.1.1    	If a passenger is prevented from traveling within the
+                                    period of validity of the ticket due to one of the
+                                    following reasons of CDC, the validity of such passenger’
+                                    ticket will be extended until CDC’s first flight on which
+                                    space is available in the class of service for which the fare
+                                    has been paid.<br>
+                                    1、    	CDC cancels the flight on which the passenger holds a
+                                    reservation;<br>
+                                    2、     CDC omits a scheduled stop, being the passenger’s place of
+                                    departure, place of destination or a stopover;<br>
+                                    3、  	  CDC fails to operate a flight reasonably according to
+                                    schedule;<br>
+                                    4、    	CDC causes the passenger to miss a connection of booked
+                                    flight;<br>
+                                    5、    	CDC changes the class of service;<br>
+                                    6、    	CDC is unable to provide previous confirmed space.<br>
+                                    <p>3.3.1.2       When a passenger after having commenced his
+                                    journey is prevented from traveling within the period of
+                                    validity of the ticket by reason of illness, he or she should present to CDC the medical certificate provided by CDC recognized medical institutions within the scheduled take-off time. CDC will decide
+                                    whether to extend the period of validity of such passenger’s and his companion’s tickets in accordance with CDC’s regulations
+                                    applicable to the fare paid and the medical certificate.
+                                    <p>3.3.1.3 In the event of death of a passenger enroute, the tickets of
+                                    his immediate family accompanying members may
+                                    be modified by extending the validity, or refunded in
+                                    accordance with involuntary refunds regulations. Any
+                                    such modification and refund shall be made upon receipt
+                                    of a proper death certificate and any such extension of
+                                    validity shall not be for a period longer than 45 days from
+                                    the date of death shown on the death certificate.
+                                    <p>3.4 Loss of Paper Ticket
+                                    <p>3.4.1 General Rules
+                                    Passenger shall be liable for the loss of unused tickets,
+                                    flight coupons, miscellaneous charges orders or exchange
+                                    coupons of MCO, or any other documents for
+                                    transportation. CDC will not be responsible for any effect
+                                    on such passenger’s itinerary. CDC will decide whether or
+                                    not to refund, replace such documents in accordance with
+                                    its concerned regulations and certain condition. Passenger
+                                    has no right to claim that CDC must refund or replace
+                                    such tickets or documents.
+                                    <p>3.4.2         Report of Loss of Ticket
+                                    <p>3.4.2.1 In case of loss or mutilation of a ticket, or part thereof, or
+                                    non-presentation of a ticket containing the passenger
+                                    coupon and all unused flight coupons, the passenger must
+                                    report in writing to CDC or its authorized agents. Such
+                                    passenger shall complete the form of “Application and
+                                    Indemnity Agreement for Lost Ticket”. Formalities of
+                                    reporting the loss of group tickets must be done before the
+                                    deadline time of check-in. Report of loss cannot be done
+                                    on tickets of charter flights.
+                                    <p>3.4.2.2 When reporting for loss of a ticket, the passenger must
+                                    advise the date and place of issuance and the agent
+                                    coupon or its copy of the original ticket and present proof
+                                    of loss satisfactory to CDC. If the reporter is not the
+                                    passenger, valid identity documents of the reporter and
+                                    the passenger must be produced.
+                                    <p>3.4.2.3      If someone other than the person entitled to be carried or
+                                    to be refunded has traveled with or refunded the ticket,
+                                    CDC shall not be liable to the person so entitled.
+                                    <p>3.4.3        Re-issuance of Lost Ticket
+                                    <p>3.4.3.1      On principle, a fixed ticket, once lost, cannot be allowed
+                                    to be reissued. But on special occasions, after it’s
+                                    approved by CDC’s direct sales department which deals
+                                    with the loss report, and after the passenger provides
+                                    proofs in accordance with Provision 3.4.2.2 of the
+                                    Conditions confirmed by CDC, it is allowed to reissue a
+                                    ticket on original flights if the following requirements are
+                                    met:<br>
+                                    1、        	Passenger fills Application of Loss Report for tickets of
+                                    Zhejiang Loong Airlines Company Limited.<br>
+                                    2、           Passenger declares to agree to compensate for any damage
+                                    caused thereby to CDC, including the damage caused by
+                                    others’ using or refunding the lost ticket, and the
+                                    necessary lawsuit fees.<br>
+                                    <p>3.4.3.2       An open ticket or MCO, once lost, can only applied for
+                                    refund and cannot be applied for re-issuance.
+                                    <p>3.4.3.3       CDC has the right to refuse to reissue lost tickets which
+                                    have not been confirmed. In that case if passenger
+                                    requests to continue to travel, passenger should purchase
+                                    a new ticket at fares applicable then.
+                                    <p>3.4.4
+                                    Deadline for Refunding Lost Tickets
+                                    The deadline for refunding tickets purely operated by
+                                    CDC is 60 days after 13 months from the date of
+                                    commencement of travel, or the date of issuance if no
+                                    portion has been used; if any sector is operated by
+                                    a carrier other than CDC, the deadline for refunding is 60
+                                    days after 18 months from the date of commencement of
+                                    travel, or the date of issuance if no portion has been used;
+                                    Within this period, if someone other than the person
+                                    entitled to be carried or to be refunded has traveled with
+                                    or refunded the ticket, CDC shall not be liable to refund
+                                    to the person so entitled.
+                                    <p>3.5 Loss of Itinerary<br>If printed itinerary of e-ticket is lost due to reasons of
+                                    passengers, according to Temporary Regulations on
+                                    Itineraries of E-tickets of Air Carriage, it cannot be
+                                    re-printed.
+                                    <p>3.6 Sequence and Usage of Coupons
+                                    <p>3.6.1 Ticket purchased by passenger is only applicable for the
+                                    transportation from the origin to destination via any
+                                    agreed transition point as listed on the ticket. The fare
+                                    paid by passenger is based on CDC’s tariff rules and the
+                                    transportation listed on the ticket. Fare is the basic
+                                    content of the transportation contract between CDC and
+                                    passenger.
+                                    <p>3.6.2 Coupons of ticket must be used in the sequence listed on
+                                    the ticket. Coupons that have been used not in sequence
+                                    shall be refunded according to the refund restrictions of
+                                    correspondent class within the period of validity.
+                                    <p>3.6.3        If passenger wishes to change any aspect of
+                                    transportation, he must contact CDC in advance. The fare
+                                    for passenger’s new transportation will be re-calculated
+                                    and passenger will be given the option of accepting the
+                                    new price or maintaining his original transportation as
+                                    ticketed. If passenger is required to change any aspect of
+                                    transportation due to Force Majeure, passenger must
+                                    contact CDC as soon as practicable and CDC will use
+                                    reasonable efforts to transport passenger to the next
+                                    stopover or final destination, without recalculation of the
+                                    fare.
+                                    <p>3.6.4 If passenger changes his transportation without CDC’s
+                                    agreement, CDC will assess the correct price for
+                                    passenger’s actual travel. Passenger will have to pay any
+                                    difference between the price paid and the total price
+                                    applicable for the revised transportation.
+                                    <p>3.6.5 Some changes on the content of transportation such as
+                                    changing the place of departure or reversing the direction
+                                    of travel, can result in an increase of price. Many fares
+                                    are valid only on the dates and for the flights shown on
+                                    the ticket and may not be changed at all, or only upon
+                                    payment of an additional fee.
+                                    <p>3.6.6 Each flight coupon contained in a ticket will be accepted
+                                    for transportation in the class of service on the date and
+                                    flight for which space has been reserved, as shown in the
+                                    flight coupon. When a ticket is originally issued without
+                                    a reservation being specified, space may be later reserved
+                                    subject to CDC’s tariff and the availability of space on the
+                                    flight requested.
+                                    <p>3.6.7
+                                    If passenger does not show up for any flight, for which he
+                                    is holding a reservation, without advising CDC in
+                                    advance, CDC may cancel passenger’s return or onward
+                                    reservations as shown in the ticket.
+                                    <p>3.7 On a ticket, CDC’s name is abbreviated as GJ, the airline
+                                    designator code of Zhejiang Loong Airlines.
+                                    <p>3.8          Over-booking
+                                    According to the common practice of international civil
+                                    aviation industry, CDC may make suitable over-booking
+                                    on some flights. Under particular circumstances, it may
+                                    result in some passengers’ failure to travel on flights as
+                                    arranged. When there is not enough space, CDC will seek
+                                    for passengers voluntary to disembark and will help them
+                                    check in on priority. For passengers who cannot travel
+                                    due to over-booking, CDC will do its best to arrange them
+                                    on the soonest available flight, and will give a certain
+                                    amount of compensation.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 4 Fares, Taxes, Fees and Charges</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>4.1          Application of Fares
+                                    <p>4.1.1        Fares apply only for carriage from the airport at the point
+                                    of origin to the airport at the point of destination. Fares
+                                    do not include fees for ground transport service and
+                                    additional services between airports and between airport
+                                    and downtown.
+                                    <p>4.1.2        The applicable fare is the fare for the flights in effect on
+                                    the date of commencement of the carriage covered by the
+                                    first coupon of the ticket. Once the ticket is issued and
+                                    the payment is made, the fare will not change despite any
+                                    readjustment.
+                                    <p>4.1.3        A special fare ticket is subject to the conditions specified
+                                    thereof.
+                                    <p>4.2          Routing
+                                    Fares apply only to routings published in connection
+                                    therewith. If there is more than one routing at the same
+                                    fare, the passenger may specify the routing prior to issue
+                                    of the ticket. If no routing is specified, CDC or its authorized agents may
+                                    determine the routing.
+                                    <p>4.3          ticket price with respect to disabled revolutionary veterans, and policemen; children and infants
+                                    (i) Disabled revolutionary veterans and policemen may enjoy a 50% discount of ticket price by presenting Certificate of Disabled Revolutionary Veterans of PRC and Certificate of Pension of disabled policemen of PRC issued by Bureau of Civil Affair.
+                                    (ii) Children enjoy a 50% of ticket price and are provided with seats.
+                                    (iii) Infants enjoy a 90% of ticket price without a seat; if necessary,
+                                    they should be charged children tickets. When an adult passenger carries more than one infant, the outnumbered ones should buy
+                                    children tickets.
+                                    <p>4.4          Taxes, fees and Charges
+                                    Any tax, fee or charge imposed by government or other
+                                    authority, or by the operator of an airport, in respect of a
+                                    passenger or the use by a passenger of any services or
+                                    facilities will be in addition to the published fares and
+                                    charges and shall be paid by the passenger and collected by airlines at the time of ticket issuance.
+                                    On purchasing a ticket, passenger will be advised of taxes,
+                                    fees and charges not included in the fare, most of which
+                                    will normally be shown separately on the ticket. The
+                                    taxes, fees and charges imposed on air travel are
+                                    constantly changing and can be imposed after the date of
+                                    ticket issuance. If there is an increase in the applicable
+                                    tax, fee or charge shown on the ticket, passenger will be
+                                    obliged to pay it. Likewise, if a new tax, fee or charge is
+                                    imposed after ticket issuance, passenger will be obliged
+                                    to pay it. In the event any taxes, fees or charges which
+                                    passenger has paid to CDC at the time of ticket issuance
+                                    are eliminated or reduced, such that they no longer apply,
+                                    or a lesser amount is due, passenger may be entitled to a
+                                    refund of any such taxes, fees or charges as have been
+                                    eliminated or reduced.
+                                    <p>4.5          Fuel surcharge and air insurance surcharge are published
+                                    and charged by the carrier according to relevant
+                                    regulations of the State. Infants are exempt from fuel
+                                    surcharge; children are charged the same amount of fuel
+                                    surcharge as adults.
+                                    <p>4.6          Payment
+                                    Fares and charges are payable in any currency acceptable
+                                    to CDC. Unless otherwise agreed by CDC and passenger,
+                                    fares and charges are all paid in cash.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 5    Reservations</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>5.1        	Reservation Requirements
+                                    <p>5.1.1      	Reservations are not confirmed until recorded as accepted
+                                    by CDC or its authorized agents. Reservations shall be
+                                    tentative unless and until CDC has issued a validated ticket
+                                    for the carriage for such space is reserved, and the
+                                    passenger makes payment by the time fixed by CDC.
+                                    <p>5.1.2      	According to CDC’s regulations, certain fares may have
+                                    conditions that will limit or exclude the passenger’s right
+                                    to change or cancel reservations.
+                                    <p>5.1.3      	CDC keeps the right to suspend reservations for a
+                                    certain flight when it is necessary.
+                                    <p>5.1.4      	Infants and children must be booked in the same
+                                    compartment as that of the accompanying adult.
+                                    <p>5.1.5      	Application for change or cancellation of reservation must
+                                    be raised within the valid period stipulated by CDC. When
+                                    fares have correspondent restrictions, passenger’s change
+                                    or cancellation of reservation shall be subject to such
+                                    restrictions.
+                                    <p>5.1.6 CDC keeps the right to cancel the space reserved for the
+                                    passenger who failed to use the reserved accommodation
+                                    with no previous notice to any relevant department of
+                                    CDC.
+                                    <p>5.2        	Special Passengers’ Reservation
+                                    A special passenger is someone, during the flight, to be
+                                    accorded courteous reception; or needing special care on
+                                    account of his physical or mental conditions; or
+                                    acceptable for carriage in certain conditions. The
+                                    reservation may be accepted after all the carriers
+                                    concerned consent to the carriage of such special
+                                    passengers.
+                                    <p>5.3        	Ticketing Time Limits
+                                    If a passenger has not paid for the ticket prior to the
+                                    specified ticketing time limit, CDC may cancel the
+                                    reservation.
+                                    <p>5.4        	Personal Data
+                                    <p>5.4.1      	The passenger recognizes that personal data has been
+                                    given to CDC for the purpose of making a reservation for
+                                    carriage, obtaining ancillary services, facilitating
+                                    immigration and entry requirements and making available
+                                    such data to government agencies. For these purposes the
+                                    passenger authorizes CDC to retain such data and to
+                                    transmit it to its own offices, other related carriers or the providers
+                                    of such services.
+                                    <p>5.4.2      	Passenger shall be liable for the authenticity of such data.
+                                    CDC will not be responsible for verification.
+                                    <p>5.4.3      	If passenger refuses to provide such data, CDC may refuse
+                                    for carriage.
+                                    <p>5.5        	Arrangement of Seats
+                                    <p>5.5.1      	CDC will endeavor to honor advance seating requests.
+                                    However, CDC cannot guarantee any particular seat; it’s only responsible to provide seats according to physical class rank shown on passengers’ tickets CDC
+                                    reserves the right to assign or reassign seats at any time,
+                                    even after boarding of the aircraft. This may be necessary
+                                    for operational, safety or security reasons.
+                                    <p>5.5.2      	Seats near the aircraft’s emergency exits shall be specifically arranged by CDC.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 6     Ticketing</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>6.1        	General Rules
+                                    <p>6.1.1      	Passenger can purchase tickets at the sales office of CDC or CDC’s authorized agencies, or at CDC’s website
+                                    （http://www.loongair.cn）. Passenger can inquire or purchase ticket at CDC’s hotlines:
+                                    CDC’s hotlines: 0571-89999999(within Mainland China),
+                                    86571-89999999(outside Mainland China);
+                                    <p>6.1.2      	Passenger should present or provide valid identity document
+                                    information and contact information of his own and fill in Passenger
+                                    Reservation List if necessary.
+                                    <p>6.1.3      When ticketing, CDC has the right to request passenger
+                                    produce his valid passport or other traveling
+                                    documents, but will not bear responsibility for the
+                                    authenticity and the validity of such documents.
+                                    <p>6.1.4        When purchasing a ticket for child or infant, a valid birth
+                                    certificate must be presented.
+                                    <p>6.1.5        When purchasing a ticket for a passenger seriously sick or
+                                    over 32 weeks pregnant, passenger shall provide a valid
+                                    medical certificate issued by a medical department at or
+                                    above county level for such carriage that is accepted by
+                                    CDC.
+                                    <p>6.1.6        Each passenger shall respectively hold his own ticket.
+                                    <p>6.1.7        Passengers less than 5 years old must be accompanied by a
+                                    passenger over 18 years old and with full capacity for civil
+                                    conduct.
+                                    <p>6.2          CDC or CDC’s authorized agencies shall sell one-way,
+                                    consecutive, or round-trip tickets according to the request
+                                    of passengers.
+                                    <p>6.3          In the event that a passenger buys a code-sharing flight ticket, CDC has the obligation to notice the passenger that the flight is code-sharing and that who is operating carrier.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 7     Check-In and Boarding</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>7.1        	General Rules
+                                    <p>7.1.1
+                                    The passenger shall arrive at the designated check-in
+                                    location sufficiently in advance of flight departure to
+                                    permit completion of any Government formalities and
+                                    departure procedures and in any event not later than the
+                                    time that may be indicated by CDC.
+                                    <p>7.1.2        If the passenger fails to arrive in time at the designated
+                                    check-in location or boarding gate or appears improperly
+                                    documented or fails to provide an acceptable ticket and not
+                                    ready to travel,	CDC may cancel the space reserved for
+                                    the passenger and will not delay the flight. CDC is not
+                                    liable to the passenger for loss or expense due to the
+                                    passenger’s failure to comply with the provisions of this
+                                    Article. If the passenger wishes a refund, the amount of
+                                    such refund shall be processed in accordance with the
+                                    voluntary refund regulations.
+                                    <p>7.1.3 Check-in deadlines are different at every airport; CDC or
+                                    CDC’s authorized agencies should inform the passenger of
+                                    the check-in deadlines. Passengers should reserve enough
+                                    time for check-in formalities. If passenger fails to check in
+                                    before check-in deadlines, CDC has the right to cancel
+                                    passenger’s reservation.
+                                    <p>7.1.4 CDC and CDC’s ground handling agencies should open
+                                    check-in counters on time, accept valid tickets produced by
+                                    passengers, and process check-in formalities quickly and
+                                    correctly.
+                                    <p>7.1.5 Before boarding, passengers and their baggage and
+                                    hand-carry items must go through security check.
+                                    <p>7.2 Mis-catch
+                                    <p>7.2.1 If mis-catch happens due to reasons of passengers, ticket
+                                    shall be dealt according to the rules of voluntary refund.
+                                    <p>7.2.2 If mis-catch happens due to reasons of CDC, CDC shall
+                                    arrange passenger to travel on the soonest flight; if
+                                    passenger requests for refund, it shall be dealt according to
+                                    rules of involuntary refund.
+                                    <p>7.3 Wrong Boarding
+                                    <p>7.3.1 If passenger boards a wrong flight and the passenger
+                                    requests to stop traveling at the destination of the flight
+                                    boarded, no extra fee shall be charged and no fee shall be
+                                    refunded.
+                                    <p>7.3.2      	If wrong boarding happens due to reasons of CDC, CDC
+                                    shall arrange passenger to travel on the soonest flight to
+                                    the destination listed on passenger’s ticket; no extra fee
+                                    shall be charged and no fee shall be refunded. If passenger
+                                    requests for refund, it shall be dealt according to rules of
+                                    involuntary refund.
+                                    <p>7.3.3        Flight Information Display
+                                    Flight information display board (screen), check-in
+                                    counter, boarding gate and baggage claim should
+                                    display flight numbers of code-sharing carriers with
+                                    The flight number of actual carrier front (or up) and sales carrier behind
+                                    (or down).
+                                    <p>7.3.4         On-board/Boarding Broadcast
+                                    On-board broadcast and boarding broadcast should include both flight
+                                    numbers of code-sharing carriers with the number of actual carrier front
+                                    and sales carrier behind.
+                                    <p>7.3.5         Check-in<br>
+                                    (1) Inform passengers of processing check-in formalities pursuant to
+                                    the regulations and deadline of check-in stipulated by actual carrier.<br>
+                                    (2) The boarding pass of actual carrier should only include
+                                    the flight number of actual carrier, while the boarding pass of sales carrier should include the flight numbers of both actual carrier
+                                    and sales carrier; all boarding passes should only include flight number
+                                    of actual carrier.<br>
+                                    (3) The acceptance of passengers should be in order as follows:<br>
+                                    (i) passengers holding OK tickets with record in reservation system;<br>
+                                    (ii) passengers holding OK tickets without record in reservation system;<br>
+                                    (iii) passengers with open tickets.<br>
+                                    (4) Actual carrier should be responsible for checking passengers’
+                                    travel documents; all cost and penalties incurred as a result of being
+                                    refused to enter a country or have a stopover due to the documents’
+                                    failure to meet related requirements should be borne by actual carrier.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 8     Baggage</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>8.1        	General Rules<br>
+                                        Baggage carried by CDC, is divided into checked baggage
+                                    and un-checked baggage (self-care baggage and free
+                                    hand-carry items).
+                                    <p>8.1.1      	Items Unacceptable as Baggage
+                                    Passenger shall not include in his baggage (both
+                                    checked baggage and unchecked baggage) or carry on to
+                                    the cabin:
+                                    <p>8.1.1.1     Items that do not constitute baggage as defined in
+                                    Provision 1.1.34 of the Conditions.
+                                    <p>8.1.1.2     Other than those permitted by Dangerous Goods
+                                    Transportation Regulations of China Civil Aviation and
+                                    CDC regulations, dangerous goods including the following
+                                    items are not permitted to be carried and checked or
+                                    un-checked baggage:<br>
+                                    1)          Explosives;<br>
+                                    2)          Gas, including flammable gas, inflammable and nontoxic
+                                    gas, and toxic gas;<br>
+                                    3)          Flammable liquid;<br>
+                                    4)          Flammable solid, spontaneous combustible substance;
+                                    substance that would release flammable gas in contact
+                                    with water;<br>
+                                    5)          Oxidizer and organic peroxide;<br>
+                                    6)          Toxic substance and infectious substance;<br>
+                                    7)          Radioactive substance;<br>
+                                    8)          Corrosive substance;<br>
+                                    9)          Miscellaneous dangerous goods such as magnetic substance.<br>
+                                    <p>8.1.1.3    	Items the carriage of which is prohibited by the applicable
+                                    laws, regulations or orders of any country to be flown
+                                    from, to or over.
+                                    <p>8.1.1.4    	Articles that in the opinion of CDC are unsuitable for
+                                    carriage by reason of their weight, shape, size or character.
+                                    <p>8.1.1.5    	Live animals, except as pets and guide dogs provided for
+                                    in Provision 8.7.
+                                    <p>8.1.1.6    	Firearms and ammunition other than for hunting and
+                                    sporting purposes are prohibited from carriage as baggage.
+                                    <p>8.1.2      	Items unacceptable as checked baggage
+                                    Passenger shall not include in checked baggage the
+                                    following items. If such items included in checked
+                                    baggage is lost or damaged, CDC is liable for it only as
+                                    common checked baggage.<br>
+                                    1)Fragile items;<br>
+                                    2)Perishable items;<br>
+                                    3)Money or valuable securities;<br>
+                                    4)Jewelry;<br>
+                                    5)Precious metal and articles thereof;<br>
+                                    6)Antiques and valuable paintings;<br>
+                                    7)Computer and personal digital device;<br>
+                                    8)Samples and valuables;<br>
+                                    9)Spare lithium battery;<br>
+                                    10)Important files and documents;<br>
+                                    11)Traveling documents, medical certificates, X-ray films;<br>
+                                    12)Prescribed drug that needs to be taken regularly.<br>
+                                    <p>8.1.3      	Limitation on carriage
+                                    The carriage of following articles is limited. They may be
+                                    accepted as
+                                    checked baggage only in accordance with the CDC’s regulations and agreed by CDC.
+                                    <p>8.1.3.1    	Precision instrument and electric appliances shall be
+                                    carried as checked cargo. If carried as checked cargo, it must be well packed, the weight of which shall not be included in that of free baggage.
+                                    <p>8.1.3.2    	Sporting equipment, including firearms and ammunition
+                                    for hunting and sporting purposes.
+                                    <p>8.1.3.3    	Dry ice, alcoholic beverage, medicinal or toilet articles and
+                                    personal smoking materials intended for use by an
+                                    individual shall not exceed the set quota.
+                                    <p>8.1.3.4    	Diplomatic envelopes, confidential files;
+                                    <p>8.1.3.5    	Weapons beyond controlled knives, such as kitchen knife, table knife, fruit knife, craft knife, scissors, steel(iron) file, an ax, hammer and so on shall be carried as checked baggage.
+                                    <p>8.1.3.6    	Pet or guide-dog which is specified in Provision 8.7.
+                                    <p>8.1.3.7    	The wheelchair and/or other assistant devices for
+                                    incapacitated or the aged passengers.
+                                    <p>8.1.3.8    	Liquid hand-carried by passenger.
+                                    <p>8.1.3.9    	Items not suitable to be carried in cargo cabin such as
+                                    delicate musical instrument and not meeting the
+                                    requirements of weight and size by Provision 8.4, shall be
+                                    carried in passenger cabin as seat-taking baggage. Extra
+                                    fees shall be charged for such items, and such items shall
+                                    be taken care of by the passenger.
+                                    <p>8.1.4      	Right to refuse carriage
+                                    In the exercise of CDC’s discretion, CDC may refuse to
+                                    carry passenger or his baggage after informing the
+                                    passenger. In this circumstance passenger will be entitled
+                                    to a refund. CDC may also refuse to carry passenger or his
+                                    baggage for any of the following reasons:
+                                    <p>8.1.4.1    	CDC may refuse carriage as baggage of such
+                                    items described in 8.1.1 and 8.1.2 as are prohibited
+                                    from carriage as baggage and may refuse further
+                                    carriage of any such articles on discovery thereof.
+                                    <p>8.1.4.2    	Unless advance arrangements for its carriage have been
+                                    made with CDC, CDC may carry on later flight baggage
+                                    that is in excess of the applicable free allowance.
+                                    <p>8.1.4.3    	CDC may refuse to accept baggage as checked baggage
+                                    unless it is properly packed in suitcases or other suitable
+                                    containers to ensure safe carriage with ordinary care in
+                                    handling.
+                                    <p>8.1.4.4 Such action is necessary to prevent a violation of any
+                                    applicable laws, regulations, or orders of any State to
+                                    be flown from, to or over.
+                                    <p>8.1.4.5
+                                    The carriage of passenger or his baggage may endanger or
+                                    affect the safety, health, convenience, comfort of other
+                                    passengers or crew members.
+                                    <p>8.2        	Checked Baggage
+                                    <p>8.2.1      	Checked baggage must meet the following requirements:
+                                    <p>8.2.1.1    	Passenger must check baggage with a valid ticket. CDC
+                                    should correctly enter the pieces and/or weight of checked
+                                    baggage into departure system. Each passenger’s baggage
+                                    must be recorded on his own record. If passenger holds a
+                                    paper ticket, baggage content should be written on the
+                                    correspondent spot of ticket.
+                                    <p>8.2.1.2    	CDC generally accepts baggage during check-in on the
+                                    date of flight departure. If passenger requests CDC to
+                                    accept checked baggage in advance, he could make an
+                                    appointment in advance.
+                                    <p>8.2.1.3    	CDC shall attach a baggage tag to each piece of
+                                    passenger’s checked baggage, and give a baggage
+                                    identification tag to passenger. Self-care baggage after
+                                    weighed together with checked baggage and entered into
+                                    ticket respectively and attached a self-care baggage tag, is
+                                    taken care of by passenger in the passenger cabin.
+                                    <p>8.2.1.4    	The weight and size of checked baggage shall not exceed
+                                    CDC’s restrictions; those exceeding such restrictions shall
+                                    be carried as cargo.
+                                    <p>8.2.1.5    	Passenger should attach name or other personal mark to
+                                    the checked baggage before checking it in.
+                                    <p>8.2.1.6    	Checked baggage must be well packed, locked and bound,
+                                    and must be able to endure a certain amount of pressure, and
+                                    can be safely loaded, unloaded and carried under normal
+                                    operation conditions, and should meet the following
+                                    requirements:<br>
+                                    1)Suitcase and handbags and so on must be locked;<br>
+                                    2)It’s not allowed to bound more than two pieces of baggage
+                                    into one piece;<br>
+                                    3)It’s not allowed to attach other items to baggage;<br>
+                                    4)Bamboo baskets, net bags, grass strings, grass bags and so
+                                    on are not allowed to be used as packing materials;<br>
+                                    5)Passenger’s name, detailed address and telephone number
+                                    should be written on baggage.<br>
+                                    <p>8.2.1.7    	Checked baggage will, whenever possible, be carried on
+                                    the same aircraft as you are, unless we decide for safety,
+                                    security or operational reasons to carry it on alternative
+                                    flight. If passenger’s checked baggage is carried on a
+                                    subsequent flight CDC will deliver it to passenger, unless
+                                    applicable law requires passenger to be present for
+                                    customs clearance.
+                                    <p>8.3        	Free baggage allowance
+                                    <p>8.3.1      	The free baggage allowance for baggage (include checked
+                                    and unchecked) is determined by the class paid (and not by
+                                    the class actually traveled).
+                                    <p>8.3.1.1    Weight concept
+                                    1、     To adults and the children who pay applicable children fare,
+                                    the free allowance for who are entitled to travel in First
+                                    class is 40kg; travel in Business class is 30kg; and travel in
+                                    Premium Economy and Economy class is 20kg.<br>
+                                    2、    	Infants not entitled to a seat shall only have10kg free baggage allowance with one
+                                    checked or carry on fully collapsible stroller/pushchair or
+                                    infants carrying basket.<br>
+                                    3、Each passenger shall carry no more than one hand-carry
+                                    baggage which must not exceed 10kg in weight and the
+                                    three dimensions shall not exceed 20cm,40cm and 55cm.
+                                    Such baggage can be placed in the baggage cabin.<br>
+                                    <p>8.3.1.2    	Piece concept<br>
+                                    The piece concept which applies to carriage to/from the
+                                    United States or Canada are specified as following:<br>
+                                    1、     The free allowance for adults or children who are entitled to
+                                    travel in first and business class is two pieces, for which
+                                    the sum of the three dimensions must not exceed 158cm
+                                    (62 inches) for each piece, and the weight of each piece
+                                    must not exceed 32 kg (70 pounds). The free allowance for
+                                    passengers who are entitled to travel in premium economy
+                                    or economy class is two pieces, for which the sum of the
+                                    three dimensions must not exceed 158cm (62 inches) for
+                                    each piece, and the weight of each piece must not exceed
+                                    23 kg (50 pounds).<br>
+                                    2、     The free baggage allowance for infants not entitled to a seat
+                                    is one checked bag (piece), the sum of the three
+                                    dimensions not to exceed 115cm, plus one checked or
+                                    carry on fully collapsible stroller/push-chair or infants
+                                    carrying basket or infants car seat.<br>
+                                    The piece concept which applies to carriage to/from the
+                                    Europe (excluding CDC-operated flights to/from Russia
+                                    and Middle Asia) are specified as following:<br>
+                                    1、     The free allowance for adults or children who are entitled to
+                                    travel in business class is three pieces; for those in
+                                    premium economy class, two pieces; for those in economy
+                                    class, one piece. The sum of the three dimensions of each
+                                    piece must not exceed 158cm (62 inches) for each piece,
+                                    and the weight of each piece must not exceed 23 kg (50
+                                    pounds).<br>
+                                    2、     The free baggage allowance for infants not entitled to a seat
+                                    is one checked bag (piece), the sum of the three
+                                    dimensions not to exceed 115cm, plus one checked or
+                                    carry on fully collapsible stroller/push-chair or infants
+                                    carrying basket or infants car seat.<br>
+                                    <p>8.3.1.3 Free baggage allowance for passengers who purchase the
+                                    mixed travel class will be the applicable to respective
+                                    class.
+                                    <p>8.3.1.4
+                                    When two or more passengers, traveling as one party to a
+                                    common destination or point of stopover by the same
+                                    flight, present themselves and their baggage for travel at
+                                    the same time and place, they will be permitted a total free
+                                    baggage allowance equal to the combination of their
+                                    individual free baggage allowance.
+                                    <p>8.3.1.5
+                                    Free allowance for passengers who travel domestic flight
+                                    which is a part of the international flight will be the
+                                    applicable to the according international flight.
+                                    <p>8.3.1.6    	Free allowance for passengers who voluntarily change the
+                                    travel class will be the applicable to new class. Free
+                                    allowance for passengers who involuntarily change the
+                                    travel class will be applicable to original class.
+                                    <p>8.3.1.7     A single piece of baggage on international trip must not exceed 32kg.
+                                    <p>8.4        	Free Hand-carry baggage
+                                    <p>8.4.1      	Weight and size
+                                    Each passenger who is entitled to travel in first class can
+                                    bring two pieces of hand-carry baggage, each of which
+                                    must not exceed 5kg in weight. Each passenger who is
+                                    entitled to travel in business or economy class can bring
+                                    one piece of hand-carry baggage, each of which must not
+                                    exceed 5kg in weight. The sum of the three dimensions of
+                                    each piece must not exceed 115cm. Such baggage can be
+                                    placed in the baggage cabin or under the seat in the
+                                    passenger cabin.
+                                    <p>8.4.2      	Bulky baggage
+                                    Objects not suitable for transport in the cargo compartment
+                                    (such as delicate musical instrument and the like) and not meeting the Provision 8.4.1 herein will only
+                                    be accepted for transportation in the passenger cabin as
+                                    seat-taking baggage and be taken care of by passenger, if
+                                    due notice has been given in advance and permission
+                                    granted by CDC. The transport of such objects may be
+                                    charged separately.
+                                    <p>8.4.3
+                                    Checked baggage and self-care baggage of un-checked
+                                    baggage shall be weighed or piece-calculated together at
+                                    the time of check-in. Checked baggage is under custody of
+                                    CDC during the journey, while the self-care baggage shall
+                                    be taken care of by passenger in the journey including stay
+                                    in transit points.
+                                    <p>8.5        	Excess baggage
+                                    <p>8.5.1       The excess baggage means total weight or/and pieces of
+                                    (checked and unchecked) baggage excess the free
+                                    allowance.
+                                    <p>8.5.2      	Baggage carried in excess of the free baggage allowance
+                                    will be paid by passengers, and will be carried
+                                    after CDC or CDC’s authorized agencies issue an excess
+                                    baggage ticket. The rate of excess baggage and the calculation of it shall be made per CDC’s regulations.
+                                    <p>8.6        	Declaration and charge
+                                    <p>8.6.1      	General Rules
+                                    <p>8.6.1.1    	A passenger may declare a value for checked baggage in
+                                    excess of USD30 or its equivalent per kilogram, and shall
+                                    pay an applicable charge.
+                                    <p>8.6.1.2    	No declaration value for pet will be accepted.
+                                    <p>8.6.1.3    	CDC will charge a fee of 5‰ of extra declared value
+                                    exceeding the limitation of 8.6.1.1.
+                                    <p>8.6.2      	CDC will refuse to accept an excess value declaration on
+                                    checked baggage when a portion of the carriage is to be
+                                    provided by another carrier who does not offer the facility.
+                                    <p>8.6.3      	The declaration for checked baggage must not exceed the
+                                    real value of the baggage. The maximum declared value of
+                                    each passenger is USD5,000 or its equivalent value in
+                                    other currencies. If CDC disagrees with a value declaration
+                                    and the passenger refuses to be checked, CDC has the right
+                                    to refuse carriage.
+                                    <p>8.7        	Pets and Guide Dogs
+                                    <p>8.7.1      	Pets mean such little animals as domestic dogs, cats, birds
+                                    and other household pets. If the animal is too small in size
+                                    (such as murines or spectacular fish), or too large in size
+                                    (the size of whose cage exceeds the maximum size
+                                    restriction), and may therefore cause hazard to the safety
+                                    of carriage, it will not be accepted for transportation. Any
+                                    wild and aggressive animal such as snakes will not be
+                                    accepted for transportation. The carrier has the right to
+                                    determine whether an animal can be carried and the way of
+                                    transportation, and has the right to restrict the number of
+                                    pets on a plane.
+                                    <p>8.7.2      	Pet may be accepted for carriage subject to CDC’s
+                                    Regulations only when:
+                                    <p>8.7.2.1    	Properly crated and accompanied by valid vaccination
+                                    certificates, entry permits and other documents required by
+                                    The People’s Republic of China and countries of entry or
+                                    transit.
+                                    <p>8.7.2.2    finish the related formalities with the prior consent of CDC and other successive carriers and in accordance with relative regulations of CDC and such carriers.
+                                    concerned.
+                                    <p>8.7.3      	Guide dog means a dog trained to lead the blind or assist
+                                    the deaf (Such passenger shall provide an evidenced by a
+                                    medical certificate.) when if accompanies passenger with
+                                    impaired vision or hearing dependent upon such dog.
+                                    <p>8.7.4      	The carriage of guide dogs shall be dealt in accordance
+                                    with Provision 8.7.2. Guide dogs, if they meet the
+                                    requirements of the CDC, may accompany in passenger
+                                    cabin the disabled eligible to travel. The disabled eligible
+                                    to travel shall provide the identity and quarantine proofs
+                                    for guide dogs. Guide dogs, together with its cage and
+                                    food can be carried for free, without taking up the free
+                                    baggage allowance.
+                                    <p>8.7.5      	Acceptance for carriage of animals (include guide dogs) is
+                                    subject to the conditions that the passenger assumes full
+                                    responsibility for such animal unless due to CDC’s faults.
+                                    CDC shall not be liable for injury to or loss, delay, sickness
+                                    or death of such animal in the event that it is refused entry
+                                    into or passage through any country, state or territory
+                                    <p>8.7.6      	The passenger is fully liable for all damages or injuries
+                                    which a pet might cause to other passengers or crew
+                                    members.
+                                    <p>8.7.7      	CDC will have no liability in respect of any such animal
+                                    not having all the necessary exit, entry, health and other
+                                    documents with respect to the animal's entry into or
+                                    passage through any country, state or territory.
+                                    <p>8.7.8
+                                    CDC may refuse to accept the carriage of pet and guide
+                                    dog on non-stop long-haul flight or some specific type of
+                                    aircraft due to the unsuitability .
+                                    <p>8.8        	Delivery of checked baggage
+                                    <p>8.8.1      	Passenger shall collect his baggage as soon as it is
+                                    available for collection at places of destination or stopover.
+                                    At the time of collection, passenger shall show his
+                                    identification tag, or baggage check if CDC requires.
+                                    <p>8.8.2      	With CDC’s consent, passenger can collect his baggage at
+                                    stopover under the agreement of CDC, the unused payment
+                                    of the excess baggage will not be refunded.
+                                    <p>8.8.3      	If the passenger does not collect his baggage in time, CDC
+                                    will charge the passenger baggage keeping fee. CDC has
+                                    the right to deal with the perishable items in passenger’s
+                                    baggage 24 hours after the arrival of the baggage.
+                                    <p>8.8.4      	CDC is under no obligation to ascertain that the bearer of
+                                    the baggage identification tag is entitled to delivery of the
+                                    baggage and CDC is not liable for any loss, damage, or
+                                    expense arising out of or in connection with such delivery.
+                                    <p>8.8.5      	If a person claiming the baggage is unable to identify the
+                                    baggage by the baggage identification tag, CDC will
+                                    deliver the baggage to such person only on condition that
+                                    he establishes to CDC’s satisfaction his right
+                                    thereto. And if required by CDC, such person shall furnish
+                                    adequate security to indemnify CDC for any loss, damage
+                                    or expense which may be incurred by CDC as a result of
+                                    such delivery.
+                                    <p>8.8.6      	Acceptance of baggage by the bearer of the baggage check,
+                                    without complaint at the time of delivery, is prima facie
+                                    evidence that the baggage has been delivered in good
+                                    condition and in accordance with the contract of carriage.
+                                    <p>8.9        	Un-delivered Baggage
+                                    If baggage is not collected after 90 days from the next day
+                                    of baggage’s arrival, CDC has the right to process it
+                                    according to the regulations on un-delivered baggage.
+                                    <p>8.10        Processing of Abnormal Carriage of Baggage
+                                    <p>8.10.1      In the event of delay, loss or damage in the carriage of
+                                    baggage, CDC and CDC’s authorized ground handling
+                                    agency, together with passenger, should fill up a Record
+                                    Form of Accidents of Baggage Carriage, check out the
+                                    situation and reasons, and report the results of
+                                    investigation to passenger and departments concerned. If
+                                    compensation for baggage happens, it can be processed at
+                                    the journey’s origin, stopover or destination.
+                                    <p>8.10.2      If the checked baggage fails to arrive in the same flight
+                                    with the passenger due to CDC’s reasons and thereby cause
+                                    inconvenience for passenger’s life, CDC should give
+                                    appropriate compensation for passenger’s temporary life
+                                    use.
+                                    <p>8.11        Compensation for baggage
+                                    <p>8.11.1      Compensation Limit
+                                    <p>8.11.1.1    According to Montreal Convention, in the event of
+                                    baggage perishment, loss, damage or delay that happens
+                                    during international baggage carriage, the compensation
+                                    limit for each passenger is 1131 special withdrawal rights.
+                                    This Convention has been in effect in the People’s
+                                    Republic of China since July 31, 2005; and its modified
+                                    liability limit has been in effect to all participating
+                                    countries since December 30, 2009.
+                                    <p>8.11.1.2    If the weight of the baggage is not recorded on the
+                                    baggage check, it is presumed that the total weight of the
+                                    checked baggage does not exceed the applicable free
+                                    baggage allowance for the class of service concerned, as
+                                    provided in CDC’s Regulations.
+                                    <p>8.11.1.3  The checked baggage having declared value per above will be
+                                    compensated according to such value. But if the declared value is
+                                    higher than the real value of such baggage, compensation
+                                    will not exceed the real value.
+                                    <p>8.11.2      Time limitation on claims and actions
+                                    <p>8.11.2.1    Notice of claims<br>
+                                    1、    	No action shall lie in the case of damage to checked
+                                    baggage unless the person entitled to delivery complains to
+                                    CDC forthwith after the discovery of the damage, and, at
+                                    the latest, within seven working days from the date of
+                                    receipt; and in the case of delay, unless the complaint is
+                                    made at the latest within twenty-one working days from
+                                    the date on which the baggage has been placed at his
+                                    disposal.<br>
+                                    2、    	Any claims should be raised in written form within time
+                                    limit, or no compensation should be raised towards CDC.
+                                    8.11.2.2    Any right to damages shall be extinguished if an action is
+                                    not brought within two years reckoned from the date of
+                                    arrival at the destination or from the date on which the
+                                    aircraft ought to have arrived, or from the date on which
+                                    the carriage stopped.<br>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 9       Schedules, Changes and Cancellations of Flights</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>9.1        	Schedules
+                                    <p>9.1.1       CDC undertakes to use its best efforts to carry the
+                                    passenger and his baggage with reasonable dispatch
+                                    and to adhere to published schedules in effect on the date
+                                    of travel
+                                    <p>9.1.2      	Except in the case of its acts or omissions done recklessly
+                                    with intent to cause damage and with knowledge that
+                                    damage would probably result, CDC shall not be liable for
+                                    errors or omissions in timetables or other published
+                                    schedules. Additionally CDC shall not be liable for
+                                    representations made by employees, agents or
+                                    representatives of CDC as to the dates or times of
+                                    departure or arrival or as to the operation of any flight.
+                                    <p>9.1.3      	The flight times and aircraft types shown in timetables
+                                    may change between the date of publication and the date
+                                    passenger actually travel. CDC does not guarantee them to
+                                    passenger and they do not form part of contract with CDC.
+                                    <p>9.1.4      	Before CDC accepts passenger’s reservation for a flight,
+                                    CDC will notify the passenger of the scheduled flight time
+                                    in effect as of that time, and it will be shown on Ticket. It
+                                    is possible that CDC may need to change the scheduled flight
+                                    time subsequent to the issuance of the Ticket.
+                                    If passenger provides CDC with effective contact information, CDC
+                                    will endeavor to notify the passenger of any such changes.
+                                    If, after ticket purchase CDC makes a significant change to
+                                    the schedule flight time, which is not acceptable to the
+                                    passenger, and CDC is unable to book the passenger on an
+                                    alternate flight which is acceptable to passenger, passenger
+                                    will be entitled to a refund in accordance with
+                                    the regulation of involuntary refund.
+                                    <p>9.2        	Cancellation, Changes of Flights
+                                    For the following reasons, schedules are subject to cancel, terminate, change, or delay without notice:
+                                    <p>9.2.1      	Any government legal provision, regulation, order,
+                                    demand or requirement; or
+                                    <p>9.2.2       For security of flight; or
+                                    <p>9.2.3      	Due to circumstances beyond its control or unable
+                                    foreseen.
+                                    <p>9.3        	CDC cancels or delays flights due to any of the reasons
+                                    provided in Provision 9.2, and therefore fails to provide
+                                    reserved seat (including the reserved class), or fails to stop
+                                    at passenger’s stopover or destination, or causes a
+                                    mis-connection with the reserved consecutive flight, CDC
+                                    should appropriately consider passengers’ reasonable
+                                    needs and take one or more of the following measures:
+                                    <p>9.3.1      	Arrange available seat on subsequent CDC flights for
+                                    passenger;
+                                    <p>9.3.2      	Make endorsement after getting consent from passenger
+                                    and carrier concerned;
+                                    <p>9.3.3      	Refund according to rules of involuntary refund.
+                                    <p>9.4         Remedies provided in Provision 9.3 are all the options for
+                                    passengers. Unless otherwise provided in the Convention,
+                                    CDC will have no other liability.
+                                    <p>9.5         CDC will take all measures that could reasonably be
+                                    required to avoid delay in carrying passenger and his
+                                    baggage. CDC shall not be liable if it proves that CDC has
+                                    taken all measures that could reasonably be required to
+                                    avoid the damage or that it was impossible for CDC to take
+                                    such measures.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 10     Changes to Passenger tickets</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>10.1        Involuntary Change
+                                    <p>10.1.1      If such unpredictable non-CDC reasons as weather, air
+                                    traffic control cause CDC flights’ cancellation,
+                                    advancement, delay, change, mis-connection, or failure to
+                                    provide reserved seats, CDC should consider passengers’
+                                    reasonable requests and take one of the following
+                                    measures:
+                                    <p>10.1.1.1    Arrange on priority available seats on CDC flights for
+                                    passengers;
+                                    <p>10.1.1.2    Make endorsement after agreed by passengers and carriers
+                                    concerned.
+                                    <p>10.1.2      If such CDC reasons as aircraft maintenance, flight
+                                    readjustment cause CDC flights’ cancellation,
+                                    advancement, delay, change, mis-connection, or failure to
+                                    provide reserved seats, CDC should consider passengers’
+                                    reasonable requests and take one of the following
+                                    measures:
+                                    <p>10.1.2.1    Arrange on priority available seats on CDC flights for
+                                    passengers;
+                                    <p>10.1.2.2    Make endorsement after agreed by passengers and carriers
+                                    concerned;
+                                    <p>10.1.2.3    Change the route listed on original ticket, and arrange
+                                    passengers to arrive at destination or stopover point via
+                                    CDC or other carriers’ flights, or via other means of
+                                    transportation mutually agreed. Overpaid amount of ticket
+                                    fare, excessive baggage fee and other service charges will
+                                    be returned, while deficiency of such fares and charges
+                                    will be ignored.
+                                    <p>10.2
+                                    Voluntary change of class(include compartment change
+                                    and class change in the same compartment)
+                                    If passengers require changing classes after their purchase,
+                                    CDC and its agents shall handle it positively on the
+                                    condition that there are seats available and time permitted.
+                                    The difference shall be paid by passenger if the class
+                                    change cause to a higher fare, and the ticket shall be
+                                    voluntarily refunded if the class change cause to a lower
+                                    fare.
+                                    <p>10.3
+                                    Voluntary Change of Flight, Date
+                                    Passengers’ request of changing flight or date after their
+                                    purchase shall be handled in accordance with the effective
+                                    rules for published or special fares.
+                                    <p>10.4  	     Endorsement
+                                    <p>10.4.1	     In the event of involuntary change of carrier for passenger,
+                                    endorsement formalities shall be done with the prior consent of
+                                    passenger and carrier concerned.
+                                    <p>10.4.2	     In the event of voluntary change of carrier requested by
+                                    passenger, CDC can make endorsement when all the
+                                    following requirements are met:
+                                    <p>10.4.2.1    Passenger’s applicable fare does not have endorsement
+                                    restrictions.
+                                    <p>10.4.2.2    The carrier to be changed into must have has signed an
+                                    interline agreement, and can issue or receive tickets
+                                    mutually with CDC.
+                                    <p>10.4.3	     When passenger does not meet all the above requirements
+                                    and demands change of carrier, it shall be processed
+                                    according to rules of voluntary refund.
+                                    <p>10.4.4	     Unless specially authorized by CDC, CDC’s sales agencies
+                                    are not allowed to do endorsement formalities for
+                                    passenger.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 11 Refunds</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>11.1        General Rules
+                                    <p>11.1.1      On failure by CDC to provide carriage in accordance with
+                                    the contract of carriage, or where a passenger requests a
+                                    voluntary change of his arrangements, refund for an
+                                    unused ticket or portion thereof shall be made by CDC
+                                    according to CDC’s Regulations.
+                                    <p>11.1.2      Except in the case of lost tickets, refunds will only be
+                                    made on surrender to CDC of the passenger coupon or
+                                    passenger receipt and surrender of all unused flight
+                                    coupons, and the conjunction tickets if any. For electronic
+                                    tickets, refund must be applied not later than 13 months
+                                    after the date of commencement of travel or the date of
+                                    issuance (for all first flight coupon unused ticket).
+                                    Application for refund will only be accepted when the
+                                    coupon’s status is OPEN FOR USE, and with payment
+                                    proof provided by passenger.
+                                    <p>11.2        Person receiving refunded fares
+                                    <p>11.2.1      CDC shall be entitled to make refund to the person
+                                    named in the ticket.
+                                    <p>11.2.2      If a ticket has been paid for by a person other than the
+                                    passenger named in the ticket, and CDC has indicated on
+                                    the ticket that there is a restriction on refund, the refund
+                                    will be made only to the person paying for the ticket or to
+                                    that person’s order.
+                                    <p>11.2.3      Passenger or sponsor who requests the refund shall present
+                                    his valid identity certificate. If the person requesting
+                                    refund is not the passenger or the sponsor, he must
+                                    present the identity certificate of himself and the
+                                    authorization from the passenger or sponsor in addition.
+                                    <p>11.2.4      A refund made pertain to 11.1 to anyone whom refund
+                                    may be made in terms of 11.2.1, 11.2.2 or 11.2.3 shall be
+                                    deemed a proper refund and shall discharge CDC from
+                                    liability and any further claim for refund.
+                                    <p>11.2.5      When refunding an electronic ticket, passenger is required
+                                    to provide printed itinerary.
+                                    <p>11.3        Time limit for refund
+                                    Refund must be applied not later than 13 months after the
+                                    date of commencement of travel or the date of issuance
+                                    (for all first flight coupon unused ticket). Application for
+                                    refund will not be accepted after the time limit.
+                                    <p>11.4
+                                    Place of refund
+                                    <p>11.4.1      On principle, refund of tickets and MCO shall be
+                                    processed in the original place of payment; exchanged
+                                    tickets can also be refunded in the place of exchange. In
+                                    the event of involuntary refund, refund can be processed
+                                    in CDC’s sales office in the place of original purchase,
+                                    commencement of journey, stopover, or breakpoint of
+                                    travel, or in CDC’s authorized sales agencies in the place
+                                    where the cause of involuntary refund happens.
+                                    <p>11.4.2      When passenger applies for refund in a place other than
+                                    the original place of issuance, the CDC’s sales office
+                                    which is to process refund shall obtain authorization from
+                                    the original place of issuance, and refund in the local
+                                    currency at that day’s BBR according to the refunded
+                                    amount provided by original place of issuance.
+                                    <p>11.4.3      When passenger holding an open ticket applies for refund,
+                                    refund must be processed in the original place of issuance.
+                                    <p>11.5        Currency
+                                    All refunds will be subject to government laws, rules and
+                                    regulations or orders of the country in which the ticket was
+                                    originally purchased and of the country in which the
+                                    refund is being made. Refunds will normally be made in
+                                    the currency in which the ticket was paid for, or in another
+                                    currency in accordance with CDC’s regulations.
+                                    <p>11.6        Involuntary refunds
+                                    Involuntary refund means any refund applied for by
+                                    passenger entitled to travel on CDC’s flights who cannot
+                                    be carried according to carriage contract due to such
+                                    uncontrollable or unpredictable reasons as weather, air
+                                    traffic control, aircraft maintenance, flight readjustment.
+                                    Involuntary refund can be processed at CDC’s sales offices
+                                    in the place of original purchase, commencement of
+                                    journey, stopover, breakpoint of travel, or at CDC’s
+                                    authorized agencies in the place where the cause of
+                                    involuntary refund happens.
+                                    <p>11.6.1      Involuntary refund abides by the following rules:
+                                    <p>11.6.1.1    If no portion of the ticket has been used, an amount
+                                    equal to the fare paid including taxes and charges shall be
+                                    refunded, without charging refund fee;
+                                    <p>11.6.1.2    If a portion of the ticket has been used, subtract the
+                                    amount of individual or group fare on the used sectors and
+                                    subtract the amount of used taxes and charges, and refund
+                                    the remaining amount. The refunded amount shall not be
+                                    higher than the amount paid. No refund fee shall be
+                                    charged.
+                                    <p>11.6.1.3    If the flight lands at an airport other than the appointed
+                                    stopover and flight of the same day is cancelled, and if the
+                                    passenger demands for refund, fare from the landed airport
+                                    to the destination at the same discount rate or sub-class
+                                    with the original paid fare shall be refunded, but the
+                                    refunded amount shall not be higher than the paid amount;
+                                    no refund fee shall be charged. Applicable carrier fare
+                                    from landed airport to destination shall be chosen on
+                                    priority. If there are no published fares from landed airport
+                                    to destination, fare of other means of transportation from
+                                    landed airport to destination shall be refunded. Where
+                                    there are more than one applicable fares of a same means
+                                    of transportation, the medium one shall be chosen.
+                                    <p>11.6.1.4
+                                    Change fee shall be paid by passenger who requires flight
+                                    change of his own will. When the changed flight is not
+                                    performed as scheduled, the ticket can be refunded free of
+                                    charge while the previously paid change fee shall not be
+                                    refunded.
+                                    <p>11.7        Voluntary refund
+                                    Refund beyond the limitations in 11.6 belongs to
+                                    voluntary refund.
+                                    <p>11.7.1      Voluntary refund abides by the following rules:
+                                    <p>11.7.1.1    If no portion of the ticket has been used, an amount equal
+                                    to the fare paid, less any applicable service charges or
+                                    cancellation fees;
+                                    <p>11.7.1.2    If a portion of the ticket has been used, the refund will be
+                                    an amount equal to the difference between the fare paid
+                                    and the applicable fare for travel between the points for
+                                    which the ticket has been used, and subtract refund fees
+                                    and no-show fees if any.
+                                    <p>11.7.1.3    Special regulations will be applied to the ticket with a
+                                    special fare paid.
+                                    <p>11.8
+                                    Refund to Credit Card or Debit Card Accounts
+                                    Refund for Tickets paid with credit cards or debit cards
+                                    can only be credited to the card account originally used for
+                                    the Ticket purchase. The refundable amount to be paid by
+                                    CDC will be in accordance with the rules within this article
+                                    only, on the basis of the amount originally paid by
+                                    passenger and the currency entered in the ticket. If there’s
+                                    any difference of amount caused by currency exchange,
+                                    passenger is not entitled to claim damages to CDC.
+                                    <p>11.9        When refunding a ticket combining different fares, refund
+                                    shall be processed according to the most restricted rules of
+                                    applied fares.
+                                    <p>11.10      	Refusal of refund
+                                    Except for involuntary refund, departments concerned
+                                    shall refuse to refund in any one or more of the following
+                                    situations:
+                                    <p>11.10.1    	Refund is applied for after the time limit of refund;
+                                    <p>11.10.2    	Passenger fails to present valid certificates or tickets or
+                                    proofs on applying for refund;
+                                    <p>11.10.3    	When the applicable fare of used sectors is equal to or
+                                    higher than that of the whole journey, the unused sectors
+                                    cannot be refunded;
+                                    <p>11.10.4    	Ticket is annotated non-refundable.
+                                    <p>11.11      	On refunding, passenger’s paid but unused taxes and
+                                    charges shall be refunded together. Taxes and charges of
+                                    ticket which is non-refundable or has no applicable
+                                    remaining amount for refund can also be refunded alone
+                                    without extra charge, but must be refunded before the
+                                    time limit of refund.
+                                    <p>11.12      	Refund due to passenger’s illness shall be processed as
+                                    voluntary refund.
+                                    <p>11.13      	Unless otherwise specified, children shall be charged the
+                                    same refund fee as adults, and infants are exempt from
+                                    refund fee.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 12   Conduct Aboard Aircraft</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>12.1        If passenger conducts himself aboard the aircraft
+                                    so as to endanger the aircraft or any person or property on
+                                    board, or obstructs the crew in the performance of their
+                                    duties, or fails to comply with any instruction of the crew,
+                                    or behaves in a manner to which other passengers may
+                                    reasonably object, CDC may take such measures as it
+                                    deems necessary to prevent continuation of such conduct,
+                                    including restraint of the passenger. Passenger may be
+                                    disembarked and refused onward carriage at any point and
+                                    passenger may be prosecuted for offences committed on
+                                    board the aircraft.
+                                    <p>12.2        Passenger may not operate aboard the aircraft portable
+                                    radios, electronic games, laptop computer, digital camera
+                                    or transmitting devices including radio controlled toys and
+                                    walkie-talkies. The passenger shall not operate any other
+                                    electronic devices on board without CDC’s permission,
+                                    except that portable recorders, hearing aids and heart
+                                    pacemakers may be used.
+                                    <p>12.3        Non-Smoking Flights
+                                    All CDC flights are non-smoking flights. Smoking is
+                                    prohibited in all areas of the aircraft.
+                                    <p>12.4        Restriction on Alcoholic Drinks
+                                    While aboard aircraft, passenger is not allowed to drink
+                                    any alcoholic drinks other than those provided by CDC.
+                                    <p>12.5        Seat Belts Compulsory
+                                    While in seat on board the aircraft, passenger has the
+                                    obligation to fasten his seat belt during the entire
+                                    flight.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 13     Refusal and Limitation of Carriage</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>13.1        CDC may refuse carriage of any passenger or passenger’s
+                                    baggage for reasons of safety or if, in the exercise of its
+                                    reasonable discretion, CDC determines that:
+                                    <p>13.1.1      The carriage is prohibited by any applicable laws,
+                                    regulations, or orders of the State; or,
+                                    <p>13.1.2      Passenger does not abide by the laws, regulations, or
+                                    orders of the State, or does not abide by CDC’s regulations;
+                                    or,
+                                    <p>13.1.3      Passenger refuses to submit to security
+                                    check conducted by government, airport or carrier; or,
+                                    <p>13.1.4      Passenger fails to be properly documented according to
+                                    concerned laws , regulations, orders, requests, or
+                                    requirements of travel conditions; or,
+                                    <p>13.1.5      Passenger refuses to comply by the instructions on
+                                    limitation of exit seats made by cabin crew of staff of
+                                    authorized company and formulated by operating company;
+                                    or,
+                                    <p>13.1.6      Passenger does not comply by instructions of cabin crew;
+                                    or,
+                                    <p>13.1.7    	Exit seat is the only seat suitable for passenger due to
+                                    passenger’s physical disability; or
+                                    <p>13.1.8    	Such action is necessary due to reasons of weather or other
+                                    reasons uncontrollable for CDC; or,
+                                    <p>13.1.9    	The applicable fare or any charges or taxes payable
+                                    have not been paid, or the passenger’s credit payment has
+                                    not been honored; or,
+                                    <p>13.1.10    	The ticket presented by the passenger has been acquired
+                                    unlawfully or has been purchased from an entity other than
+                                    the issuing carrier or its authorized agent, or has been
+                                    reported as being lost or stolen, or is counterfeited or any
+                                    flight coupon has been changed by anyone other than GJ
+                                    or its authorized agent, or the coupon is altered; or,
+                                    <p>13.1.11    	The person presenting the ticket cannot prove that he
+                                    is the person named in the ticket; or,
+                                    <p>13.1.12    	Passenger is over 9 months (36 weeks) pregnant; or,
+                                    <p>13.1.13    	Passenger is less than 14 days old; or,
+                                    <p>13.1.14    	The conduct, age, or mental or physical state of the
+                                    passenger is such as to unsuitable for air travel, or cause
+                                    discomfort or make himself objectionable to
+                                    other passengers or involve any hazard or risk to himself
+                                    or to other persons or to property; or,
+                                    <p>13.1.15    	Passenger has been diagnosed with serious infectious
+                                    disease, and fails to present any medical proof that
+                                    necessary measure have been taken to prevent infecting
+                                    others; or,
+                                    <p>13.1.16    	CDC determines that passenger may be unable to
+                                    comprehend or operate safety instructions under their
+                                    physical or mental conditions without assistance from
+                                    flight attendants; or,
+                                    <p>13.1.17    	Passenger’s conduct may endanger himself, cabin crew
+                                    or other passengers due to mental disability; or
+                                    <p>13.1.18    	Passenger has traces of being drunk or having drug abuse;
+                                    or,
+                                    <p>13.1.19    	Passenger is or appears to be intoxicated; or,
+                                    <p>13.1.20      Passenger requires intravenous injection; or,
+                                    <p>13.1.21    	Passenger has ill odor due to reasons other than disability
+                                    or illness; or,
+                                    <p>13.1.22    	Passenger’s dressing may cause discomfort to other
+                                    passengers; or,
+                                    <p>13.1.23      Stretcher passenger does not meet the safety requirements
+                                    of passenger carriage; or,
+                                    <p>13.1.24    	Passenger may seek immigration in transit country, or may
+                                    destroy their certificates or documents during flight, or
+                                    passenger fails to submit their travel documents or their
+                                    copies to cabin crew according to requirements of carrier
+                                    concerned; or,
+                                    <p>13.1.25    	Passenger’s conduct, on purpose or not, may endanger the
+                                    safety of aircraft or passengers on board.
+                                    <p>13.2        Arrangement for passengers whose carriage has been refused
+                                    during CDC’s running and operation, when refusal of
+                                    passenger carriage happens, departments of carriage
+                                    service shall treat the passengers whose carriage has been
+                                    refused consequentially according to CDC’s Passenger
+                                    Sales Manual and Ground Service and Handling Manual.
+                                    <p>13.3        Limitation on Carriage
+                                    Unless otherwise stipulated by government documents or
+                                    documents or sports meeting for the disabled,
+                                    unaccompanied children between 5 to 12 years old, ill or
+                                    disabled passengers, pregnant women, blind or deaf
+                                    passengers, or crime suspects can only be carried when
+                                    CDC’s concerned regulations are met, and when it has
+                                    been agreed by CDC and CDC has made arrangements
+                                    when necessary.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 14   Arrangements for Additional Services</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>14.1      	If CDC makes arrangements for passenger with any third
+                                    party to provide any services other than carriage by air, or if
+                                    CDC issues a ticket or voucher relating to transportation or
+                                    services (other than carriage by air) provided by a third
+                                    party, such as ground transportation, hotel reservations or
+                                    car rental, CDC does so only as passenger’s agent and CDC
+                                    takes no responsibility for the availability or the quality of
+                                    such services. The terms and conditions of the third party
+                                    service provider will apply.
+                                    <p>14.2
+                                    If CDC provides ground transportation for passenger, these
+                                    Conditions of Carriage shall not apply to such ground
+                                    transportation.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 15 Administrative Formalities</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>15.1        The passenger shall be solely responsible for complying
+                                    with all laws, regulations, orders, demands and travel
+                                    requirements of countries to be flown from, into or over,
+                                    and with CDC’s Regulations and instructions. CDC shall
+                                    not be liable for any aid or information given by any agent
+                                    or employee of CDC to any passenger in connection with
+                                    obtaining necessary documents or visas or complying with
+                                    such laws, regulations, orders, demands, and requirements;
+                                    or for the consequences to any passenger resulting from
+                                    his failure to obtain such documents or visas or to
+                                    comply with such laws, regulations, orders, demands,
+                                    requirements, rules or instructions.
+                                    <p>15.2        The passenger shall present all exits, entry, health and
+                                    other documents required by laws, regulations, orders,
+                                    demands or requirements of the countries concerned, and
+                                    permit CDC to take and retain copies thereof. CDC
+                                    reserves the right to refuse carriage of any passenger who
+                                    has not complied with applicable laws, regulations, orders,
+                                    demands or requirements or whose documents do not
+                                    appear to be in order, or who does not permit CDC to take
+                                    and retain copies thereof.
+                                    <p>15.3        The passenger agrees to pay the applicable fare whenever
+                                    CDC, on Government order, is required to return a
+                                    passenger to his point of origin or elsewhere, owing
+                                    to the passenger’s inadmissibility into a country, whether
+                                    of transit or of destination. CDC may apply to the payment
+                                    of such fare any funds paid to CDC for unused carriage, or
+                                    any funds of the passenger in the possession of CDC.
+                                    The fare collected for carriage to the point of refusal of
+                                    entry or deportation will not be refunded by CDC.
+                                    <p>15.4        If CDC is required to pay or deposit any fine or penalty or
+                                    to incur any expenditure by reason of the passenger’s
+                                    failure to comply with laws, regulations, orders, demands
+                                    and travel requirements of the countries concerned or to
+                                    produce the required documents, the passenger shall on
+                                    demand reimburse to CDC any amount so paid or
+                                    deposited and any expenditure so incurred. CDC may use
+                                    towards such expenditure any funds paid to CDC for
+                                    unused carriage, or any funds of the passenger in the
+                                    possession of CDC.
+                                    <p>15.5        If required, the passenger shall attend inspection of his
+                                    baggage, checked or unchecked, by customs or other
+                                    government officials. CDC is not liable to passenger for
+                                    any loss or damage suffered by the passenger through
+                                    failure to comply with this requirement.
+                                    <p>15.6        The passenger shall submit to any security checks by
+                                    government or airport officials or by CDC.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 16 Passenger Services</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>16.1        Unless otherwise specified, in-flight meals shall be
+                                    provided by CDC free of charge. However, CDC may
+                                    charge extra fees to services beyond the stipulated
+                                    varieties and quantity accordingly.
+                                    <p>16.2        Except as otherwise specified, CDC does not provide
+                                    ground transfer service within airport areas or between
+                                    airports or between airports and town terminals. CDC is
+                                    not liable for the acts of the provider of such ground
+                                    transfer services.  CDC will not be liable for the acts or
+                                    omissions of anything done by an agent or representative
+                                    of CDC in assisting the passenger to make arrangements
+                                    for such transfer service.
+                                    <p>16.3         Passenger shall pay for expenses of hotel
+                                    accommodation at the connection point.
+                                    <p>16.4      	If illness happens to passenger during air carriage, CDC
+                                    shall take active measures and do its best to save the
+                                    passenger.
+                                    <p>16.5      	Services for abnormal flights
+                                    <p>16.5.1      If flights are delayed or cancelled, relevant certifications can be provided by CDC
+                                    <p>16.5.2    	If flights are delayed or cancelled at origin due to such
+                                    reasons as aircraft maintenance, flight readjustment, or
+                                    flight crew, CDC shall provide accommodations to
+                                    passengers according to regulations concerned.
+                                    <p>16.5.3    	If flights are delayed or cancelled at origin due to
+                                    non-CDC reasons including but not limited to weather,
+                                    accidents, air traffic control, airport, or passengers, CDC
+                                    shall assist passengers arrange accommodations on
+                                    passengers’ own expenses.
+                                    <p>16.5.4      If international flights are delayed due to the carrier reasons such as aircraft maintenance, flight readjustment, transportation service or flight crew, the compensations will be made as follows: if the delay lasts for 4-8 hours, each passenger of economy class (including economy extra) shall be paid no more than 100 CNY as compensation; if the delay lasts for over 8hours, the compensation shall be 200 CNY at most.
+                                    <p>16.5.5    	  If flights are delayed or cancelled at transit point due to any
+                                    reason, CDC shall provide accommodations to transit
+                                    passengers.
+                                    <p>16.5.6    	When flights are delayed or cancelled, CDC and CDC’s
+                                    ground service agencies shall explain and inform
+                                    passenger promptly about the latest information of flights’
+                                    delay or cancellation.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Article 17 Liability for Damage</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>17.1        Carriage conducted by CDC is subject to this General Conditions, while carriage conducted by other carriers is subject to their respective conditions.
+                                    <p>17.2        CDC shall be only reliable to the losses incurred on flights conducted by CDC. CDC shall be the agent of other carriers when it issues tickets or checks baggage for these carriers and has the obligation to inform passenger of operating carrier(including code-sharing flight). In the event of any change, delay, cancellation or oversale of flight, damages or loss to baggage or personal injury, operating carrier should bear responding damages and CDC should assist passenger to contact operating carrier.
+                                    <p>17.3        CDC shall not be responsible to losses incurred due to CDC’s applicable law, governmental rules or regulations or passenger’s failure to obey them,
+                                    <p>17.4        Unless otherwise stipulated herein, CDC’s indemnity to passenger should be limited to certified losses and expenses pursuant to conventions.
+                                    <p>17.5         If passenger’s fault causes or contributes to losses, CDC shall be exempted from or mitigated responsibility according to applicable law.
+                                    <p>17.6        CDC’s carriage contract, including the General Conditions, exemptions or limitations therein, shall apply to CDC’s authorized agent and employees. In any circumstance, the aggregate amount recoverable from CDC’s authorized agents and employees shall not exceed our liability limit, if any.
+                                    <p>17.7        Except as specified expressly, the General Conditions shall not make us waive any exemption applicable toconventions or law, or any regulation of limiting CDC’s responsibility.
+                                    <p>17.8        CDC shall not be reliable to any disease, injury or disability caused or aggravated by passenger’s health condition, including death.
+                                    <p>17.9         CDC shall not be reliable to any damage caused by passenger’s baggage or items therein. In the case that passenger’s baggage or items therein bring any damage to any other person or personal property and CDC’s property, including other baggage or items therein, passenger shall be reliable.
+                                    <p>17.10       CDC shall not bear any liability to any item in checked baggage, however damaged it is.
+                                    <p>17.11        International carriage within the scope of conventions shall apply to the principle of liability of conventions; as to international carriage not included in conventions, CDC will honor its responsibility to compensate any damage of passenger and his baggage caused by carriage as per the Montreal Convention.
+                                    <p>17.12        Liability to Compensation
+                                    <p>17.12.1      Application of Compensation Limit
+                                    <p>17.12.1.1     If compensation limit is part of “international carriage” stipulated by the 1999 Montreal Convention, such Convention shall prevail.
+                                    <p>17.12.1.2     If compensation limit is part of “international carriage” stipulated by the 1929 Warsaw Convention and the 1955 Hague Protocol, yet not part of the 1999 Montreal Convention, the Warsaw Convention and the 1955 Hague Protocol shall prevail.
+                                    <p>17.12.1.3     If compensation limit is not part of applicable “international carriage” of conventions, bilateral convention or other related domestic law, governmental regulations or order such as Civil Aviation Law of People’s Republic of China shall prevail.
+                                    <p>17.12.2      Regulations related to Compensation Limit in Conventions
+                                    <p>17.12.2.1     the Warsaw Convention and the Hague Protocol<br>
+                                    (1) The compensation limit of CDC to passenger’s injury and death shall not exceed 250,000 French franc or in other equivalent currency.<br>
+                                    (2) T(2)The compensation of CDC to checked baggage shall not exceed 250 French franc or in other equivalent currency; while to unchecked baggage and hand-carry items, shall not exceed 5,000 French franc per passenger or in other equivalent currency. If there’s no weight record on baggage tag, the total weight of checked baggage shall be considered not to exceed free weight limit as per his seat rank and the compensation to it shall be limited to declared value.<br>
+                                    <p>17.12.2.2     the 1999 Warsaw Convention<br>
+                                    (1) CDC’s liability to compensate passenger with special drawing right of no more than 100,000 for his injury or death shall apply to clause 21.1 and 20 of the Convention.<br>
+                                    (2) CDC’s liability to compensate passenger with special drawing right of more than 100,000 for his injury or death shall apply to clause 21.2 and 20 of the Convention.<br>
+                                    (3) CDC’s liability to compensate damage of baggage (including checked baggage, unchecked baggage and hand-carry items) shall not exceed each passenger’s special drawing right of 1131 or in other equivalent currency. As to checked baggage of declared value processed according to clause 8.6 of the Conditions, damage limit of it shall be limited to its declared value.<br>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Chapter 18    Miscellaneous Provisions</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>18.1        Passengers should also abide by other CDC’s applicable rules and regulations, which are subject to change, including those related to children unaccompanied by adults, pregnant woman, sick passengers, electronic devices and no drinking alcohol on aircraft. Passengers can contact CDC for any information of the regulations above.
+                                    <p>18.2        Transports between Mainland China and Hong Kong or Macao shall be conducted pursuant to the General Conditions.
+                                    <p>18.3         Clause headings are inserted for convenience of reference only and shall be ignored in the interpretation of the General Conditions.
+                                    <p>18.4         The Conditions shall be prepared in English and Chinese, each version being equally authentic.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ruletype">
+                                    <p>Chapter 19    Effectiveness and Modification</p><i class="down right"></i>
+                                </div>
+                                <div class="rulecon" style="display: none; background: white;">
+                                    <p>19.1        The Conditions shall be effective and enforceable since the date of issuance.
+                                    <p>19.2        CDC shall be entitled to modify any clause in the Conditions according to procedure stipulated by CAAC without prior notice. The modification, however, shall not apply to any transport that has already come into effect before the modification.
+                                    <p>19.3         Any agent, employee or representative of CDC has no right to alter, modify or waive any clause in the Conditions.
+                                    <p>19.4         CDC has the exclusive right to interpret the Conditions.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="divide"></div>
+    </div>
+
+</div>
+
+<div ng-include="'/Resource/commonHtml/footer.html'"></div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.art-content li .ruletype').click(function () {
+            var hideQue = $(this).siblings('.rulecon');
+            if (hideQue.css('display') == 'none') {
+                hideQue.slideDown(300);
+                //$(this).find('i').removeClass('down').addClass('up');
+            }
+            else {
+                hideQue.slideUp(300);
+                //$(this).find('i').removeClass('up').addClass('down');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
