@@ -38,7 +38,7 @@ laAir.controller('laAir_Transport_OverbookingCtl', ['$document', '$scope', funct
 
 laAir.controller('laAir_Transport_RuleCtl', ['$document', '$scope', function ($document, $scope) {
 
-    $scope.title = "运输总条件";
+    $scope.title = "国内运输总条件";
     $document[0].title = $scope.title;
     /**
      * 设置导航栏ClassName
@@ -52,3 +52,21 @@ laAir.controller('laAir_Transport_RuleCtl', ['$document', '$scope', function ($d
     $scope.is_Transport_ClassFlag = "rule";
 
 }]);
+
+laAir.controller('laAir_Transport_RuleIntelCtl', ['$document', '$scope', function ($document, $scope) {
+
+    $scope.title = "国际运输总条件";
+    $document[0].title = $scope.title;
+    /**
+     * 设置导航栏ClassName
+     * @type {boolean}
+     */
+    $scope.isTravelNav = true;
+
+    $scope.menuList = laMapMenu_Transport;
+    $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
+
+    $scope.is_Transport_ClassFlag = "ruleintel";
+
+}]);
+
