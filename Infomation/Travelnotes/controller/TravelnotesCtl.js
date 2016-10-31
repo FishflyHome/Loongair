@@ -12,6 +12,12 @@ laAir.controller('laAir_Info_Travelnotes_TravelnotesPageCtl', ['$document', '$sc
      */
     $scope.isInfoSvrNav = true;
 
+	$scope.menuListRule = laMapMenu_Rule;
+	$scope.menuListDCP = laMapMenu_DCP;
+    $scope.menuList = laMapMenu_Transport;
+    $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
+	
+	$scope.is_Transport_ClassFlag = "Travelnotes";
 }]);
 
 laAir.controller('laAir_Info_Travelnotes_SpecialPsgPageCtl', ['$document', '$scope', function ($document, $scope) {
@@ -24,6 +30,8 @@ laAir.controller('laAir_Info_Travelnotes_SpecialPsgPageCtl', ['$document', '$sco
      */
     $scope.isInfoSvrNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+	$scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
@@ -41,9 +49,10 @@ laAir.controller('laAir_Info_Travelnotes_PassengerPageCtl', ['$document', '$scop
      */
     $scope.isInfoSvrNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+	$scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
-
     $scope.is_Transport_ClassFlag = "Passenger";
 
 }]);
