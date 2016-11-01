@@ -11,6 +11,10 @@
     </ul>
     -->
     <ul>
+        <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">运输总条件</span></a></li>
+        <li ng-repeat="menu in menuListRule | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
+        <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">机上延误应急预案</span></a></li>
+        <li ng-repeat="menu in menuListDCP | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
         <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">出行准备</span></a></li>
         <li ng-repeat="menu in menuList | orderBy:'i'" ng-class="{true:'active',false:''}[is_Transport_ClassFlag==menu.c]" ng-if="menu.s"><a href="{{menu.u}}" style="font-size: 12px;">&nbsp;&nbsp;{{menu.t}}</a></li>
         <li ng-class="{true:'active',false:''}[is_TransportNav]"><a href="#"><span style="font-size: 14px;">旅客服务</span></a></li>

@@ -132,15 +132,18 @@ var laMapMenu_PassengerSvr = [{i: 0, t: "旅客购票及旅行须知", f: 1, s: 
     {i: 7, t: "航线", f: 8, s: true},
     {i: 8, t: "医生诊断说明书", f: 9, s: true}];
 */
-var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?index=4", c: "4", s: true},
+var laMapMenu_Rule=[{i: 0, t: "国内运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true},
+    {i: 1, t: "国际运输总条件", u: "/Travel/Transport/RuleIntel.html", c: "ruleintel", s: true},
+    {i: 2, t: "国际运输总条件(英)", u: "/Travel/Transport/RuleIntelEn.html", c: "ruleintelen", s: true}];
+
+var laMapMenu_DCP=[{i: 0, t: "机上延误应急预案", u: "/Infomation/index.html?index=11", c: "11", s: true}];
+
+var laMapMenu_Transport = [{i: 0, t: "行李须知", u: "/Infomation/index.html?index=4", c: "package", s: true},
     {i: 1, t: "特殊旅客运输须知", u: "/Infomation/Travelnotes/SpecialPassenger.html", c: "SpecialPassenger", s: true},
-    {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "5", s: true},
-    {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "7", s: true},
-    {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "6", s: true},
-    {i: 5, t: "国内运输总条件", u: "/Travel/Transport/Rule.html", c: "rule", s: true},
-    {i: 6, t: "国际运输总条件", u: "/Travel/Transport/RuleIntel.html", c: "ruleintel", s: true},
-    {i: 7, t: "国际运输总条件(英)", u: "/Travel/Transport/RuleIntelEn.html", c: "ruleintelen", s: true},
-    {i: 8, t: "机上延误应急预案", u: "/Infomation/index.html?index=11", c: "11", s: true}];
+    {i: 2, t: "售票及机场信息", u: "/Infomation/index.html?index=5", c: "saleticketandairport", s: true},
+    {i: 3, t: "值机柜台", u: "/Infomation/index.html?index=7", c: "checkinstation", s: true},
+    {i: 4, t: "电子客票行程单邮寄说明", u: "/Infomation/index.html?index=6", c: "eticketpost", s: true},
+    {i: 5, t: "运输条款", u: "/Infomation/index.html?index=12", c: "Transport", s: true}];
 
 var laMapMenu_PassengerSvr = [{i: 0, t: "超售公示说明", u: "/Travel/Transport/Overbooking.html", c: "overbooking", s: true},
     {i: 1, t: "旅客须知", u: "/Travel/Transport/PassengerInfo.html", c: "Passenger", s: true},

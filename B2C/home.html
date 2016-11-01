@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="laAir">
 <head>
     <meta charset="utf-8">
@@ -246,8 +246,17 @@
     </div>
     <div class="banner-box">
         <div class="home-box"><!--  home-box-sm-->
-            <div class="home-box-tips">
-                <p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示</a></p>
+            <div class="home-box-tips"  id="home-box-tips">
+                <!--<p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示</a></p>
+                <p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示11</a></p>-->
+                <ul>
+                    <li>
+                        <i class="icon-warning2" style="margin-left:25px"></i><a href="/Others/MoreInfo/Tip.html" target="_blank" style="font-size:12px">关于防范短信诈骗的温馨提示</a>
+                    </li>
+                    <li>
+                        <i class="icon-warning2" style="margin-left:25px"></i><a href="/Others/MoreInfo/FlightNotice.html" target="_blank" style="font-size:12px">关于GJ8888航班时刻调整的通知</a>
+                    </li>
+                </ul>
             </div>
             <ul class="tab-city" style="height:356px;">
                 <li class="active"><a href="javascript:;" data-href="ticket"><i class="br_jpyd">&nbsp;</i>机票预订</a></li>
@@ -583,15 +592,14 @@
             <dt><a target="_blank" href="/Others/MoreInfo/Partner.html">合作伙伴</a></dt>
             <dt><a target="_blank" href="/Others/MoreInfo/LegalStatement.html">法律声明</a></dt>
             <dt><a target="_blank" href="/Others/MoreInfo/Privacy.html">隐私保护条款</a></dt>
-            <dt><a target="_blank" href="/Others/MoreInfo/Transport.html">运输条款</a></dt>
-
+            <dt><a target="_blank" href="/Travel/Transport/Rule.html">运输总条件</a></dt>
         </dl>
         <dl>
             <dd>联系我们</dd>
             <dt>地址：浙江省杭州市萧山国际机场5号路长龙航空办公大楼</dt>
-            <dt>电话：0571-89999999</dt>
+            <dt>客服热线：0571-89999999</dt>
             <dt>邮箱：FFP@loongair.cn</dt>
-            <dt><a href="mailto:service@loongair.cn?subject=投诉与建议">投诉建议:Service@LoongAir.cn</a></dt>
+            <dt><a href="mailto:service@loongair.cn?subject=投诉与建议">旅客投诉与建议:Service@loongair.cn</a></dt>
         </dl>
         <div class="clearfix"></div>
     </div>
@@ -625,6 +633,29 @@
         new Vcity.CitySelector({input: 'startcity2'});
 
         var today = new Date();
+
+        //公告滚动提示
+        var $this = $("#home-box-tips");
+        var scrollTimer;
+        $this.hover(function () {
+            clearInterval(scrollTimer);
+        }, function () {
+            scrollTimer = setInterval(function () {
+                scrollNews($this);
+            }, 2000);
+        }).trigger("mouseleave");
+
+        function scrollNews(obj) {
+            var $self = obj.find("ul");
+            var lineHeight = $self.find("li:first").height();
+            $self.animate({
+                "marginTop": -lineHeight + "px"
+            }, 600, function () {
+                $self.css({
+                    marginTop: 0
+                }).find("li:first").appendTo($self);
+            })
+        }
 
         $("#startTime").focus(function (e) {
             calendar.show({

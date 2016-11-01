@@ -16,8 +16,10 @@ laAir.controller('laAir_Infomation_IndexPageCtl', ['$window', '$document', '$sco
      */
     $scope.isTravelNav = true;
 
-    $scope.menuList = laMapMenu_PassengerSvr;
-    $scope.menuListTrans = laMapMenu_Transport;
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
+    $scope.menuList = laMapMenu_Transport;
+    $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
     var curHref = $window.location.href.split('?');
     if (curHref.length >= 2) {

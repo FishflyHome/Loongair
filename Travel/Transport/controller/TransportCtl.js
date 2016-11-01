@@ -12,6 +12,8 @@ laAir.controller('laAir_Transport_PassengerInfoCtl', ['$document', '$scope', fun
      */
     $scope.isTravelNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
@@ -29,6 +31,8 @@ laAir.controller('laAir_Transport_OverbookingCtl', ['$document', '$scope', funct
      */
     $scope.isTravelNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
@@ -46,6 +50,8 @@ laAir.controller('laAir_Transport_RuleCtl', ['$document', '$scope', function ($d
      */
     $scope.isTravelNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
@@ -63,6 +69,8 @@ laAir.controller('laAir_Transport_RuleIntelCtl', ['$document', '$scope', functio
      */
     $scope.isTravelNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
@@ -80,6 +88,8 @@ laAir.controller('laAir_Transport_RuleIntelEnCtl', ['$document', '$scope', funct
      */
     $scope.isTravelNav = true;
 
+    $scope.menuListRule = laMapMenu_Rule;
+    $scope.menuListDCP = laMapMenu_DCP;
     $scope.menuList = laMapMenu_Transport;
     $scope.menuListPsgSvr = laMapMenu_PassengerSvr;
 
