@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="laAir">
 <head>
     <meta charset="utf-8">
@@ -231,8 +231,17 @@
     </div>
     <div class="banner-box">
         <div class="home-box"><!--  home-box-sm-->
-            <div class="home-box-tips">
-                <p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示</a></p>
+            <div class="home-box-tips"  id="home-box-tips">
+                <!--<p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示</a></p>
+                <p><i class="icon-warning2"></i><a href="/Others/MoreInfo/Tip.html" target="_blank">关于防范短信诈骗的温馨提示11</a></p>-->
+                <ul>
+                    <li>
+                        <i class="icon-warning2" style="margin-left:25px"></i><a href="/Others/MoreInfo/Tip.html" target="_blank" style="font-size:12px">关于防范短信诈骗的温馨提示</a>
+                    </li>
+                    <li>
+                        <i class="icon-warning2" style="margin-left:25px"></i><a href="/Others/MoreInfo/FlightNotice.html" target="_blank" style="font-size:12px">关于GJ8888航班时刻调整的通知</a>
+                    </li>
+                </ul> 
             </div>
             <ul class="tab-city" style="height:356px;">
                 <li class="active"><a href="javascript:;" data-href="ticket"><i class="br_jpyd">&nbsp;</i>机票预订</a></li>
@@ -609,6 +618,29 @@
         new Vcity.CitySelector({input: 'startcity2'});
 
         var today = new Date();
+
+        //公告滚动提示
+        var $this = $("#home-box-tips");
+        var scrollTimer;
+        $this.hover(function () {
+            clearInterval(scrollTimer);
+        }, function () {
+            scrollTimer = setInterval(function () {
+                scrollNews($this);
+            }, 2000);
+        }).trigger("mouseleave");
+
+        function scrollNews(obj) {
+            var $self = obj.find("ul");
+            var lineHeight = $self.find("li:first").height();
+            $self.animate({
+                "marginTop": -lineHeight + "px"
+            }, 600, function () {
+                $self.css({
+                    marginTop: 0
+                }).find("li:first").appendTo($self);
+            })
+        }
 
         $("#startTime").focus(function (e) {
             calendar.show({
