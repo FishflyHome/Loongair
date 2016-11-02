@@ -481,6 +481,20 @@ laGlobal.factory('laGlobalLocalService', ['$window', '$cookies', '$cookieStore',
     };
 
     /**
+     * 校验密码6-20位数字和字符
+     * @param v
+     * @returns {boolean}
+     * @constructor
+     */
+    laGlobalLocalService.CheckPassWord = function (v) {
+        var patrn = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;  //6-20位数字和字符
+        if (!patrn.exec(v)) {
+            return false;
+        }
+        return true;
+    };
+
+    /**
      * 校验字符串是否为空
      * @param v
      * @returns {boolean}
