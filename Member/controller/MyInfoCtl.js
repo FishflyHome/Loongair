@@ -74,6 +74,7 @@ laAir.controller('laAir_MemberMyInfoPageCtl', ['$interval', '$document', '$windo
             }
         }
 
+        $scope.UserInfo.Brithday = $("#brithday").val();
         var u = {
             "Foid": $scope.UserInfo.Foid,
             "FoidType": $scope.UserInfo.FoidType,
