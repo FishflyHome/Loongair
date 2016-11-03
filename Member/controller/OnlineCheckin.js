@@ -69,7 +69,6 @@ laAir.controller('laAir_MemberOnlineCheckinCtl', ['$filter', '$document', '$inte
                     if (backData.Code == laGlobalProperty.laServiceCode_Success) {
                         bootbox.alert("值机成功", function () {
                             var queryCheckin = {
-                                "FoidType": $scope.CheckinInfo.FoidType,
                                 "Foid": $scope.CheckinInfo.Foid,
                                 "PassengerName": $scope.CheckinInfo.PassengerName
                             };

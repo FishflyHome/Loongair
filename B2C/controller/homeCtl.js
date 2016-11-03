@@ -17,7 +17,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
 
     $scope.AirplaneMenuList = laMapMenu_Airplane;
     $scope.CheckinTypeOptions = laEntityEnumfoIdTypeForCheckinOptions;
-    $scope.QueryCheckinInfo = {"FoidType": 100, "Foid": "", "PassengerName": ""};
+    $scope.QueryCheckinInfo = {"Foid": "", "PassengerName": ""};
     //航班动态查询类型
     $scope.flidymFlag = 1;
 
@@ -168,7 +168,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
 
     $scope.btnOnlineCheckInClick = function () {
         if (laGlobalLocalService.CheckStringIsEmpty($scope.QueryCheckinInfo.Foid)) {
-            bootbox.alert('请输入查询号码');
+            bootbox.alert('请输入身份证号/护照号/票号');
             return;
         }
         if (laGlobalLocalService.CheckStringIsEmpty($scope.QueryCheckinInfo.PassengerName)) {
@@ -176,7 +176,7 @@ laAir.controller('laAir_HomePageCtl', ['$filter', '$document', '$scope', '$windo
             return;
         }
 
-        laUserService.QueryPassengerTravel($scope.QueryCheckinInfo.FoidType, $scope.QueryCheckinInfo.Foid, $scope.QueryCheckinInfo.PassengerName,
+        laUserService.QueryPassengerTravel($scope.QueryCheckinInfo.Foid, $scope.QueryCheckinInfo.PassengerName,
             function (backData, status) {
                 if (backData.Code != laGlobalProperty.laServiceCode_Success) {
                     bootbox.alert(backData.Message);

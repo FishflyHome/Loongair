@@ -38,7 +38,7 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
     }
 
     if ($scope.CheckinInfo != null && $scope.CheckinInfo != undefined) {
-        laUserService.QueryPassengerTravel($scope.CheckinInfo.FoidType, $scope.CheckinInfo.Foid, $scope.CheckinInfo.PassengerName,
+        laUserService.QueryPassengerTravel($scope.CheckinInfo.Foid, $scope.CheckinInfo.PassengerName,
             function (backData, status) {
                 $scope.rs = backData;
                 if ($scope.rs.Code == laGlobalProperty.laServiceCode_Success) {
@@ -79,7 +79,6 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
             "CheckInStatus": chk.CheckInStatus,
             "TKTNumber": tkt,
             "PassengerName": $scope.CheckinInfo.PassengerName,
-            "FoidType": $scope.CheckinInfo.FoidType,
             "Foid": $scope.CheckinInfo.Foid
         };
         $window.location.href = 'OnlineCheckin.html?param=' + new Base64().encode(JSON.stringify(checkInfo));
@@ -93,14 +92,12 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
                     "FlightNumber": chk.FlightNumber,
                     "FromCity": chk.FromCity,
                     "ToCity": chk.ToCity,
-                    "Foid": $scope.CheckinInfo.Foid,
-                    "FoidType": $scope.CheckinInfo.FoidType
+                    "Foid": $scope.CheckinInfo.Foid
                 };
                 laUserService.OnlineCheckinCancel(chkinfo, function (backData, status) {
                     if (backData.Code == laGlobalProperty.laServiceCode_Success) {
                         bootbox.alert("取消值机成功", function () {
                             var queryCheckin = {
-                                "FoidType": $scope.CheckinInfo.FoidType,
                                 "Foid": $scope.CheckinInfo.Foid,
                                 "PassengerName": $scope.CheckinInfo.PassengerName
                             };

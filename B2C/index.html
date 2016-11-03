@@ -306,12 +306,12 @@
                         </div>
                         <input type="hidden" id="Key" name="Key"/>
 
-                        <p><span>查询类型</span>
+                        <!--<p><span>查询类型</span>
                             <select id="CType" name="CType" ng-model="QueryCheckinInfo.FoidType" ng-options="t.v as t.t for t in CheckinTypeOptions">
                             </select>
-                        </p>
-                        <p><span>查询号码</span><input type="text" name="CNumber" id="CNumber" ng-model="QueryCheckinInfo.Foid" placeholder="请输入正确的查询号码"
-                                                   title="请输入正确的查询号码"/></p>
+                        </p>-->
+                        <p><span>查询号码</span><input type="text" name="CNumber" id="CNumber" ng-model="QueryCheckinInfo.Foid" placeholder="请输入身份证号/护照号/票号"
+                                                   title="请输入身份证号/护照号/票号"/></p>
 
                         <p><span>乘客姓名</span><input type="text" name="PName" id="PName" ng-model="QueryCheckinInfo.PassengerName" placeholder="订票时使用的乘客姓名"
                                                    title="订票时使用的乘客姓名"/></p>

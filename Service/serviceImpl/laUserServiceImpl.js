@@ -1759,20 +1759,19 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
 
     /**
      * 查询旅客行程
-     * @param foidType
      * @param foid
      * @param passangerName
      * @param callBack
      * @constructor
      */
-    laUserService.QueryPassengerTravel = function (foidType, foid, passangerName, callBack) {
+    laUserService.QueryPassengerTravel = function (foid, passangerName, callBack) {
         var requestParam = {};
         requestParam.ActionType = laGlobalProperty.laServiceUrl_ActionType_QueryPassengerTravel;
         requestParam.SessionId = laGlobalLocalService.getCurrentUserSessionId();
 
         var requestBody = {};
         requestBody.SaleChannel = laGlobalProperty.laServiceCode_SaleChannel;
-        requestBody.FoidType = foidType;
+        //requestBody.FoidType = foidType;
         requestBody.Foid = foid;
         requestBody.PassangerName = passangerName;
 
@@ -1868,7 +1867,7 @@ laUser.factory('laUserService', ['$http', 'laGlobalHTTPService', 'laGlobalLocalS
         requestBody.FlightDate = checkInInfo.FlightDate;
         requestBody.FlightNumber = checkInInfo.FlightNumber;
         requestBody.Foid = checkInInfo.Foid;
-        requestBody.FoidType = checkInInfo.FoidType;
+        //requestBody.FoidType = checkInInfo.FoidType;
         requestBody.FromCity = checkInInfo.FromCity;
         requestBody.ToCity = checkInInfo.ToCity;
 
