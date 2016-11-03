@@ -48,6 +48,59 @@
     <script type="text/javascript" src="/B2C/js/application.js"></script>
 
     <script src="controller/NewsCtl.js"></script>
+
+    <style>
+        p {
+            text-align: left;
+        }
+
+        table.sortEnabled tr.firstRow th {
+            background-position: right; padding-right: 20px; background-repeat: no-repeat;
+        }
+        table.sortEnabled tr.firstRow td {
+            background-position: right; padding-right: 20px; background-repeat: no-repeat;
+        }
+        .selectTdClass {
+            background-color: rgb(237, 245, 250) !important;
+        }
+        table.noBorderTable td {
+            border: 1px dashed rgb(221, 221, 221) !important; border-image: none !important;
+        }
+        table.noBorderTable th {
+            border: 1px dashed rgb(221, 221, 221) !important; border-image: none !important;
+        }
+        table.noBorderTable caption {
+            border: 1px dashed rgb(221, 221, 221) !important; border-image: none !important;
+        }
+        table {
+            margin-bottom: 10px; display: table; border-collapse: collapse;
+        }
+        td {
+            padding: 5px 10px; border: 1px solid rgb(221, 221, 221); border-image: none;
+        }
+        th {
+            padding: 5px 10px; border: 1px solid rgb(221, 221, 221); border-image: none;
+        }
+        caption {
+            border-width: 1px 1px 0px; border-style: dashed dashed none; border-color: rgb(221, 221, 221) rgb(221, 221, 221) currentColor; padding: 3px; border-image: none; text-align: center;
+        }
+        th {
+            border-top-color: rgb(187, 187, 187); border-top-width: 1px; border-top-style: solid; background-color: rgb(247, 247, 247);
+        }
+        table tr.firstRow th {
+            border-top-width: 2px;
+        }
+        .ue-table-interlace-color-single {
+            background-color: rgb(252, 252, 252);
+        }
+        .ue-table-interlace-color-double {
+            background-color: rgb(247, 250, 255);
+        }
+        td p {
+            margin: 0px; padding: 0px;
+        }
+    </style>
+
 </head>
 <body ng-controller="laAir_News_NewsPageCtl">
 
