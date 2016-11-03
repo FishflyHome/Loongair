@@ -92,7 +92,7 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
                     "FlightNumber": chk.FlightNumber,
                     "FromCity": chk.FromCity,
                     "ToCity": chk.ToCity,
-                    "Foid": $scope.CheckinInfo.Foid
+                    "Foid": chk.TKTNumber
                 };
                 laUserService.OnlineCheckinCancel(chkinfo, function (backData, status) {
                     if (backData.Code == laGlobalProperty.laServiceCode_Success) {
