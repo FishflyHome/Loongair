@@ -84,7 +84,7 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
         $window.location.href = 'OnlineCheckin.html?param=' + new Base64().encode(JSON.stringify(checkInfo));
     };
 
-    $scope.btnCancelCheckinOnline = function (chk) {
+    $scope.btnCancelCheckinOnline = function (chk, tns) {
         bootbox.confirm("是否确定要取消值机?", function (result) {
             if (result) {
                 var chkinfo = {
@@ -92,7 +92,7 @@ laAir.controller('laAir_MemberCheckinListCtl', ['$document', '$interval', '$wind
                     "FlightNumber": chk.FlightNumber,
                     "FromCity": chk.FromCity,
                     "ToCity": chk.ToCity,
-                    "Foid": chk.TKTNumber
+                    "Foid": tns.TKTNumber
                 };
                 laUserService.OnlineCheckinCancel(chkinfo, function (backData, status) {
                     if (backData.Code == laGlobalProperty.laServiceCode_Success) {
